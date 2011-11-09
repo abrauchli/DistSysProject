@@ -1,0 +1,2859 @@
+00001|ETH-Rat, Präsidium und Mitglieder||ETH-Rat|T0001
+00002|ETH Zürich, direkt|ETH Zürich Gesamt|ETH Zürich Gesamt|T0002
+00003|Schulleitung und Dienste|||
+00004|Fachorgan Bauten und Informatik" ETH-Rat|Fachorgan Bauten und Informatik, ETH-Rat|Bauten/Informatik ETH-Rat|
+00005|Stab ETH-Rat|||
+00006|Internes Audit ETH-Rat|||
+00007|Departemente, direkt|||
+00008|Lehre allgmein, direkt|Lehre, allgemein, direkt|Lehre, allgemein, direkt|
+00009|ETH-nahe Einheiten, direkt|||T0009
+00010|Schulleitung, direkt|||
+00011|Generalsekretariat/Rechtsdienst||Generalsekretariat/Recht.|T0020
+00012|Lehre und Forschung, direkt||Lehre und Forschung|
+00015|Hochschulkommunikation|||T0020
+00017|Sicherheit, Gesundheit und Umwelt||Sicherheit, Gesund.,Umwelt|T0054
+00020|Bereich Präsident der ETH Zürich||Bereich Präsident|
+00021|Präsidialstab|||T0021
+00022|Bereich VP f.Forschung & Wirtschaftsbez.||VP Forschung/Wirtschaftsb.|T0022
+00023|Stab Wissenschaftskoordination||Stab Wissenschaftskoord.|T0022
+00025|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|T0025
+00026|Stab Ressourcen|Stab Resoourcen||T0025
+00028|Mobilitätsstelle|||T0034
+00029|Stelle f.intern.institut.Angelegenheiten||Intern.institut. Angeleg.|T0021
+00030|Bereich Rektor der ETH Zürich||Bereich Rektor|
+00032|Doktoratsadministration|||T0034
+00033|Didaktikzentrum|||T0065
+00034|Rektorat|||
+00035|Studienadministration|||T0034
+00036|Studentendienste|||T0034
+00037|Zentrum für Weiterbildung|||T0034
+00038|Prozessplanung und Projekte||Prozessplanung & Projekte|T0034
+00039|Akademische Angelegenheiten||Akadem. Angelegenheiten|
+00044|Stab Rektor|||
+00045|Personal|||T0025
+00046|Abteilung Rechnungswesen|||T0049
+00047|ETH Alumni|||T8090
+00048|Abteilung Controlling|||T0049
+00049|Finanzen und Controlling|||T0040
+00050|Abteilung Betrieb|||T0054
+00053|Dienste, direkt|||T0053
+00054|Immobilien|||T0025
+00056|Stab Portfoliomanagement|||T0054
+00057|Abteilung Bauten|||T0054
+00060|ETH-Bibliothek|||T0025
+00061|Sprachenzentrum der Universität u. ETHZ||Sprachenzentrum UNIZ/ETHZ|
+00062|Prorektor Lehre|||T0030
+00063|Prorektor Doktorat|||
+00065|Lehr-Zentrum|||T0030
+00070|Informatikdienste|||T0025
+00072|ID-Arbeitsplatzinformatik|||T0070
+00073|ID-Komunikation|ID-Kommunikation|ID-Kommunikation|T0073
+00074|ID-Service Delivery|||T0074
+00075|ID-Systemdienste|||T0075
+00076|ID-Betriebsinformatik|||T0076
+00077|ID-Basisdienste|||T0077
+00078|ICT-Kommission|||T0025
+00080|Centro Svizzero di Calcolo Scientifico||CSCS|T0025
+00081|CSCS facility management|||T0080
+01051|Diplomstudiengang Architektur||DS Architektur|D-ARCH
+01059|Lehre ARCH|||D-ARCH
+01065|MAS Architektur||MAS ETH ARCH|T1057
+01101|DS Bauingenieurwissenschaften||DS Bauingenieurwissensch.|T1104
+01102|DS Umweltingenieurwissenschaften|||
+01103|DS Geomatik|||T1106
+01109|Lehre BAUG|||D-BAUG
+01115|MAS Raumplanung||MAS ETH RP|T1106
+01117|WBZ Raumentwicklung|||T1106
+01118|WBZ Räumliche Informationssysteme||WBZ Räuml.Informationsys.|T1106
+01151|DS Maschinenbau und Verfahrenstechnik||DS Maschinenb.Verfahrenst.|
+01159|Lehre MAVT|||D-MAVT
+01165|WBZ Risiko und Sicherheit|||T1157
+01209|Lehre ITET|||D-ITET
+01215|Nachdiplomstudium Informationstechnik||NDS Informationstechnik|T1207
+01251|Diplomstudiengang Informatik||DS Informatik|D-INFK
+01259|Lehre INFK|||D-INFK
+01265|WBZ Informatik|||T1257
+01301|Diplomstudiengang Materialwissenschaft||DS Materialwissenschaft|D-MATL
+01309|Lehre Materialwissenschaft||Lehre MATL|D-MATL
+01351|DS Betriebs- u. Produktionswissenschaft.||DS Betriebs-Produktionswi.|D-BEPR
+01359|Lehre MTEC|||D-MTEC
+01365|MAS Management, Technology and Economics||MAS MTEC|T1357
+01366|MAS Intellectual Property (MAS ETH IP)||MAS ETH IP|T1857
+01367|MAS Arbeit + Gesundheit|||T1357
+01401|Diplomstudiengang Mathematik||DS Mathematik|T1430
+01402|Diplomstudiengang Physik|||D-PHYS
+01403|DS Rechnergestützte Wissenschaften||DS Rechnerge. Wissensch.|D-MATH
+01434|Lehre MATH/PHYS/RW|||D-MATH
+01440|WBZ Angewandte Statistik|||T1430
+01465|MAS Medizinphysik||MAS ETH MP|T1457
+01509|Lehre CHAB|||D-CHAB
+01551|Diplomstudiengang Biologie||DS Biologie|T1555
+01559|Lehre BIOL|||D-BIOL
+01601|Diplomstudiengang Pharmazie||DS Pharmazie|T1604
+01602|DS Bewegungs- und Sportwissenschaften||DS Bewegungs-u. Sportwiss.|T1556
+01603|Diplomstudiengang Turn- und Sportlehrer||DS Turn- und Sportlehrer|T1556
+01621|Komplementärstudium Turn- u. Sportlehrer||KS Turn- und Sportlehrer|T1556
+01651|Diplomstudiengang Erdwissenschaften||DS Erdwissenschaften|D-ERDW
+01659|Lehre ERDW|||D-ERDW
+01665|WBZ Angewandte Erdwissenschaften||WBZ Angew.Erdwissenschaft.|T1657
+01701|DS Umweltnaturwissenschaften||DS Umweltnaturwissensch.|D-UMNW
+01709|Lehre Umweltwissenschaften||Lehre UWIS|T1709
+01759|Lehre AGRL|||D-AGRL
+01806|Diplomstudiengang Forstwissenschaften||DS Forstwissenschaften|D-UWIS
+01851|Lehrveranst.Geistes,Sozial-u.Staatswiss.||Lehrveranst.Geistes,Sozial|D-GESS
+01852|Studiengang Berufsoffizier|||D-GESS
+01853|Militärakademie an der ETH Zürich||Militärakademie an d. ETHZ|T8090
+01859|Lehre GESS|||D-GESS
+01865|MAS Entwicklung u.Zusammenarbeit (NADEL)||MAS ETH EZA|T1857
+01866|WBZ Entwicklung u. Zusammenarbeit(NADEL)||WBZ Entwicklung|T1857
+02000|Departement Mathematik||D-MATH|T2000
+02001|Mathematik-Bibliothek|||D-MATH
+02002|IT Support Gruppe Mathematik||IT Support Gr. Mathematik|D-MATH
+02010|Departement Physik||D-PHYS|T2010
+02020|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|T2020
+02021|Informationsz. Chemie Biologie Pharmazie||Chemie Biologie Pharmazie|D-CHAB
+02022|Materialverwaltung D-CHAB|||D-CHAB
+02030|Departement Biologie||D-BIOL|T2030
+02045|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|T2045
+02051|Max Frisch-Archiv|||T8587
+02052|Center f.Comparative and Intern. Studies||CIS|D-GESS
+02100|Departement Architektur||D-ARCH|T2100
+02110|Departement f. Bau,Umwelt u.Geomatik|löschen||
+02111|Werkstätten D-BAUG|||D-BAUG
+02115|Departement Bau, Umwelt und Geomatik||D-BAUG|T2115
+02120|D-Management, Technologie und Ökonomie||D-MTEC|T2120
+02130|D-Maschinenbau und Verfahrenstechnik||D-MAVT|T2130
+02131|D-MAVT Profi (Zentralwerkstatt)||D-MAVT Profi|D-MAVT
+02140|D-Informationstechnologie/Elektrotechnik|D-Informationstechnolgoie/Elektrotechnik|D-ITET|T2140
+02141|Bibliothek D-ITET|||D-ITET
+02142|Werkstatt D-ITET|||D-ITET
+02143|IT Support Gruppe D-ITET (ISG.EE)||IT Support Gruppe D-ITET|D-ITET
+02144|Mikroelektronik Designzentrum||Mikroelektr. Designzentrum|D-ITET
+02150|Departement Informatik||D-INFK|T2150
+02151|Informatik-Bibliothek|||D-INFK
+02160|Departement Materialwissenschaft||D-MATL|T2160
+02161|Werkstatt D-MATL|||D-MATL
+02202|Zentrum für Neurowissenschaften||Neurowissenschaften|T2030
+02203|Network for Educational Technology||Educational NET|T0065
+02204|Finanzkompetenzzentrum RiskLab||RiskLab|T2000
+02205|FIRST Center for Micro- and Nanoscience||FIRST|T0022
+02207|Functional Genomics Center Zurich||Functional Genomics Center|T0022
+02210|NFS CO-ME|||T0022
+02211|Projekte der Schulleitung|||T0020
+02212|Society in Science|||T0020
+02213|Cortona-Woche|||T0030
+02222|Zurich-Basel Plant Science Center||ZH-BS Plant Science Center|T2300
+02224|Zurich Network for Natural Hazards||HazNETH|T2330
+02225|CCFZ Center of Competence Finance Zürich||CCFZ|T2120
+02226|NSL - Netzwerk Stadt und Landschaft||NSL - Stadt und Landschaft|T2100
+02242|Projektl.Strateg.Erfolgspositionen SEP||Projektleitung SEP|
+02300|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|T2300
+02301|Forschungsstationen D-AGRL|||D-AGRL
+02322|Lehr- und Forschungswald|||T0053
+02330|Departement Erdwissenschaften||D-ERDW|T2330
+02350|Departement Umweltwissenschaften||D-UWIS|T2350
+02498|Zogg H., Dünnschichtphysik|||T3258
+02500|Forschungsinstitut für Mathematik||Mathematik Forschung|D-MATH
+02501|Seminar für Angewandte Mathematik||Angewandte Mathematik|D-MATH
+02502|Institut für Operations Research||Operations Research|D-MATH
+02504|Institut für Astronomie||Astronomie|D-PHYS
+02505|Laboratorium für Festkörperphysik||Festkörperphysik|D-PHYS
+02506|Institut für Geophysik||Geophysik|D-ERDW
+02509|Labor für Neutronenstreuung||Neutronenstreuung|D-PHYS
+02510|Institut für Quantenelektronik||Quantenelektronik|D-PHYS
+02511|Institut für Theoretische Physik||Theoretische Physik|D-PHYS
+02513|Laboratorium für Anorganische Chemie||Anorganische Chemie|D-CHAB
+02514|Laboratorium für Organische Chemie||Organische Chemie|D-CHAB
+02515|Laboratorium für Physikalische Chemie||Physikalische Chemie|D-CHAB
+02516|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|D-CHAB
+02517|Institut für Biochemie||Biochemie|D-BIOL
+02518|Institut für Biomechanik||Biomechanik|D-MAVT
+02520|Institut für Mikrobiologie||Mikrobiologie|D-BIOL
+02521|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|D-BIOL
+02523|Institut für Zellbiologie||Zellbiologie|D-BIOL
+02525|Konjunkturforschungsstelle (KOF)||Konjunkturforschung (KOF)|T2120
+02526|Institut für Geschichte||Geschichte|D-GESS
+02527|Institut für Verhaltenswissenschaften||Verhaltenswissenschaften|D-GESS
+02528|Graphische Sammlung|||T8587
+02529|Thomas-Mann-Archiv|||D-GESS
+02530|Gruppe Weltraumbiologie|||D-ERDW
+02532|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|D-PHYS
+02533|Institut für Neuroinformatik||Neuroinformatik|D-PHYS
+02534|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|D-CHAB
+02535|Inst.f.Bewegungswissenschaften und Sport||IBWS|D-BIOL
+02537|Seminar für Statistik (SfS)||Seminar für Statistik(SfS)|D-MATH
+02600|Inst. f. Denkmalpflege u. Bauforschung||Denkmalpflege/Bauforschung|D-ARCH
+02601|Institut für Geschichte+Theorie d. Arch.||GTA|D-ARCH
+02602|Institut f.Technologie in d. Architektur||Technologie in Architektur|D-ARCH
+02604|Inst. für Bau- & Infrastrukturmanagement||Bau-/Infrastrukturmanagem.|T2604
+02605|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|D-BAUG
+02606|Institut für Baustoffe (IfB)||Baustoffe|D-BAUG
+02607|Institut für Geotechnik||Geotechnik|D-BAUG
+02608|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|T2115
+02610|Inst.f. Verkehrsplanung&Transportsysteme||Verkehrsplanung (IVT)|T2100
+02611|VA für Wasserbau/Hydrologie/Glaziologie||VAW Wasserbau|D-BAUG
+02618|Institut für Mechanische Systeme||Mechanische Systeme|D-MAVT
+02619|Inst. Dynam. Syst. & Regelungst.||Dynam. Systeme/Reg.tech.|T2130
+02620|Inst.für Robotik u. Intelligente Systeme||Robotik/Intellig. Systeme|D-MAVT
+02621|Institut für Automatisierte Produktion||Automatisierte Produktion|D-MAVT
+02622|Institut für Virtuelle Produktion||Virtuelle Produktion|D-MAVT
+02623|Inst. f. Werkzeugmaschinen u. Fertigung||IWF Werkzeugmaschinen|D-MAVT
+02625|Arbeitsgruppe Microsystems|||D-MAVT
+02626|Stift.z.Förderung in Unternehmenswissen.||Stiftung Unternehmenswiss.|
+02627|Institut für Energietechnik||Energietechnik|D-MAVT
+02628|Institut für Fluiddynamik||Fluiddynamik|D-MAVT
+02629|Institut für Verfahrenstechnik||Verfahrenstechnik|D-MAVT
+02631|Institut für Biomedizinische Technik||Biomedizinische Technik|D-ITET
+02632|Inst. für Elektrische Energieübertragung||Energieübertragung|D-ITET
+02634|Institut für Elektronik||Elektronik|D-ITET
+02635|Inst.f.Feldtheorie & Höchstfrequenztech.||Feldtheorie/Höchstfrequenz|D-ITET
+02636|Institut für Integrierte Systeme||Integrierte Systeme|D-ITET
+02637|Institut für Kommunikationstechnik||Kommunikationstechnik|D-ITET
+02639|Inst. f. Signal- u. Informationsverarb.||Signalverarbeitung|D-ITET
+02640|Inst.f.Techn.Informatik u.Kommunik.Netze||Techn. Informatik (TIK)|D-ITET
+02641|Institut für Computersysteme||Computersysteme|D-INFK
+02642|Institut für Informationssysteme||Informationssysteme|D-INFK
+02643|Institut für Theoretische Informatik||Theoretische Informatik|D-INFK
+02644|Institut für Computational Science||Computational Science|D-INFK
+02645|Institut für Metallforschung||Metallforschung|D-MATL
+02646|Institut für Polymere||Polymere|D-MATL
+02647|Institut f. Geodäsie u. Photogrammetrie||Geodäsie Photogrammetrie|D-BAUG
+02648|Institut f. Kartografie u.Geoinformation||Kartografie/Geoinformation|D-BAUG
+02649|Schweiz. Geodätische Kommission||Geodätische Kommission|
+02650|Institut für Automatik||Automatik|D-ITET
+02651|Centre f. Energy Policy&Economics (CEPE)||CEPE|T2120
+02652|Institut für Bildverarbeitung||Bildverarbeitung|D-ITET
+02653|Studio Basel/Institut Stadt d. Gegenwart||Studio BS/Stadt Gegenwart|D-ARCH
+02654|Institut für Städtebau||Städtebau|D-ARCH
+02655|Netzwerk Stadt und Landschaft D-ARCH||Netzwerk Stadt/Landschaft|D-ARCH
+02656|Inst. f. Raum- u. Landschaftsentwicklung||Raum- u. Landschaftsentw.|D-BAUG
+02658|Institut für Pervasive Computing||Pervasive Computing|D-INFK
+02701|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|T2701
+02702|Institut für Nutztierwissenschaften||Nutztierwissenschaften|D-AGRL
+02703|Institut für Agrarwissenschaften||Agrarwissenschaften|T2703
+02704|Geologisches Institut||Geologie|D-ERDW
+02705|Inst. Isotopengeologie/Mineral.Rohstoffe||Isotopengeologie|D-ERDW
+02706|Institut f. Mineralogie und Petrographie||Mineralogie/Petrographie|D-ERDW
+02707|Geschäftsstelle Geotechnische Kommission||Geotechnische Kommission|T2330
+02710|Geobotanisches Institut||Geobotanik|D-UWIS
+02715|Laboratorium für Kristallographie||Kristallographie|D-MATL
+02717|Institut für Atmosphäre und Klima||Atmosphäre und Klima|D-UWIS
+02718|GeoForumCH|||D-ERDW
+02801|Geschäftsstelle der Stiftung SWITCH||Geschäftsstelle SWITCH|T0070
+02802|Centro Stefano Franscini||Centro St. Franscini|
+02803|Collegium Helveticum|||02499
+02807|ETH tools|||T0065
+02809|Geschäftsstelle Stiftung Student. Wohnen||Studentisches Wohnen|T0030
+02810|Infrastruktur D-MTEC|||T2120
+02816|Editor Journal Organic Letters der ACS||Ed. J. Organic Letters|D-CHEM
+02817|Elektronenmikroskopie-Zentrum ETH Zürich||EMEZ|T0022
+02818|Schweiz. Erdbebendienst (SED)||Schweiz. Erdbebendienst|T0022
+03212|Professur für Mathematik||Professur D-MATH (03212)|D-MATH
+03239|Professur für Mathematik||Professur D-MATH (03239)|D-MATH
+03252|Pflanzenwissenschaften, Amrhein|Professur für Pflanzenwissenschaften|Professur D-BIOL (03252)|T2595
+03256|Professur für Mathematik||Professur D-MATH (03256)|D-MATH
+03260|Professur für Mathematik||Professur D-MATH (03260)|D-MATH
+03267|Imboden, Dieter|Umweltphysik|Professur D-UWIS (03267)|D-UWIS
+03270|Professur f. Nichtmetallische Werkstoffe||Professur D-MATL (03270)|D-MATL
+03271|Professur für Mathematik||Professur D-MATH (03271)|D-MATH
+03276|Professur für Informationsarchitektur||Professur D-ARCH (03276)|D-ARCH
+03288|Professur für Mathematik||Professur D-MATH (03288)|D-MATH
+03291|Professur für Architektur & Konstruktion||Professur D-ARCH (03291)|D-ARCH
+03293|Pflanzenwissenschaften, Apel|Professur für Pflanzenwissenschaften|Professur D-BIOL (03293)|T2595
+03320|Professur für Mathematik||Professur D-MATH (03320)|D-MATH
+03325|Folkers, Gerd|||
+03326|Professur für Betriebswissenschaften||Professur D-MTEC (03326)|D-MTEC
+03331|Heinimann, Hans-Rudolf|||D-UWIS
+03347|Boutellier, Urs|Sportphysiologie|Professur D-BIOL (03347)|D-BIOL
+03350|Professur Probleme d. Entwicklungsländer||Professur D-GESS (03350)|D-GESS
+03389|Professur für Oberflächentechnik||Professur D-MATL (03389)|D-MATL
+03390|Professur für Rechtswissenschaft||Professur D-GESS (03390)|D-GESS
+03395|Professur für Architektur und Entwurf||Professur D-ARCH (03395)|D-ARCH
+03400|Scholz, Roland W.|||D-UMNW
+03403|Professur für Architektur und Entwurf||Professur D-ARCH (03403)|D-ARCH
+03418|Professur für Verhaltensneurobiologie||Professur D-BIOL (03418)|T2030
+03426|Professur für Immunologie||Professur D-BIOL (03426)|D-BIOL
+03436|Professur für Rechtswissenschaft||Professur D-GESS (03436)|D-GESS
+03444|Professur für Nanotechnik||Professur D-MAVT (03444)|D-MAVT
+03445|Professur für Mathematik||Professur D-MATH (03445)|D-MATH
+03446|Professur für Internationale Beziehungen||Professur D-GESS (03446)|D-GESS
+03454|Professur für Systemneurophysiologie||Professur D-BIOL (03454)|D-BIOL
+03481|Professur für Neurowissenschaften||Professur D-BIOL (03481)|D-BIOL
+03491|Professur für Mathematik||Professur D-MATH (03491)|D-MATH
+03497|Professur für Architektur & Konstruktion||Professur D-ARCH (03497)|D-ARCH
+03499|Professur für Computational Science||Professur D-INFK (03499)|T3499
+03500|Professur für Mathematik||Professur D-MATH (03500)|D-MATH
+03513|Professur für Mathematik||Professur D-MATH (03513)|D-MATH
+03515|Forschungsstelle für Sicherheitspolitik||Professur D-GESS (03515)|D-GESS
+03519|Professur für Mathematik||Professur D-MATH (03519)|D-MATH
+03522|Professur für Architektur und Entwurf||Professur D-ARCH (03522)|D-ARCH
+03523|Professur für Architektur und Entwurf||Professur D-ARCH (03523)|D-ARCH
+03535|Bugmann, Harald|Waldökologie|Professur D-UWIS (03535)|
+03537|Professur für Architektur und Entwurf||Professur D-ARCH (03537)|T2100
+03546|Professur für Mathematik||Professur D-MATH (03546)|D-MATH
+03547|Professur für Strukturbiologie||Professur D-BIOL (03547)|D-BIOL
+03549|Professur für Technologiemanagement||Professur D-MTEC (03549)|D-MTEC
+03554|Professur für Pflanzenbiotechnologie||Professur D-BIOL (03554)|T2595
+03562|Professur für Experimentalphysik||Professur D-PHYS (03562)|D-PHYS
+03573|Leistungselektronik und Messtechnik||Professur D-ITET (03573)|D-ITET
+03575|Professur für Computational Science||Professur D-CHAB (03575)|D-CHAB
+03578|Landschaftsarchitektur||Professur D-ARCH (03578)|D-ARCH
+03583|Professur für Mathematik und Physik||Professur D-MATH (03583)|D-MATH
+03594|Professur für Software Engineering||Professur D-INFK (03594)|D-INFK
+03600|Professur für Mathematik||Professur D-MATH (03600)|D-MATH
+03609|Professur für Mikro- und Nanosysteme||Professur D-MAVT (03609)|D-MAVT
+03620|Professur für Architektur und Entwurf||Professur D-ARCH (03620)|D-ARCH
+03621|Professur für Architektur & Konstruktion||Professur D-ARCH (03621)|D-ARCH
+03631|Sozialpsychologie u. Hochschulforschung||Professur D-GESS (03631)|D-GESS
+03634|Professur f. Informationssicherheit/ZISC||Professur D-INFK (03634)|D-INFK
+03639|Professur für Soziologie||Professur D-GESS (03639)|D-GESS
+03649|Professur f. Internat. Konfliktforschung||Professur D-GESS (03649)|D-GESS
+03653|Professur für Informatik||Professur D-INFK (03653)|D-INFK
+04000|ETHZ Gebäude|||
+04050|FFW Forschungsstation Frühbühl, Walchwil|||
+04051|FFM Forschungsstation Frühbühl, Walchwil|||
+04052|FHE Forschungsstation Frühbühl, Walchwil|||
+04053|FHH Forschungsstation Frühbühl, Walchwil|||
+04054|FHS Forschungsstation Frühbühl, Walchwil|||
+04055|Forschungsstation Frühbühl, Walchwil|||
+04056|FRM Forschungsstation Frühbühl, Walchwil|||
+04057|FRV Forschungsstation Frühbühl, Walchwil|||
+04058|FSA Forschungsstation Frühbühl, Walchwil|||
+04059|FVG Forschungsstation Frühbühl, Walchwil|||
+04060|FVS Forschungsstation Frühbühl, Walchwil|||
+04061|FWM Forschungsstation Frühbühl, Walchwil|||
+04062|FWO Forschungsstation Frühbühl, Walchwil|||
+04063|FWV Forschungsstation Frühbühl, Walchwil|||
+04064|FZU Forschungsstation Frühbühl, Walchwil|||
+04067|SSC Sellenbüren, Stallikon|||
+04068|SSD Sellenbüren, Stallikon|||
+04069|SSF Sellenbüren, Stallikon|||
+04070|SZU Sellenbüren, Stallikon|||
+04071|SHH Hofstetterweid, Stallikon|||
+04072|SHL Hofsetterweid, Stallikon|||
+04073|SMH Massholdern Weidelhütte, Stallikon|||
+04074|SMS Massholdern Schopf, Stallikon|||
+04075|SMW Massholdern Weidscheune, Stallikon|||
+04076|SJS Massholdern Schutzhütte, Stallikon|||
+04077|SWB Gamlikon, Girstelhütte, Stallikon|||
+04078|MMB Müli-Sellenbüren Schopf, Stallikon|||
+04079|MMC Müli-Sellenbüren Scheune, Stallikon|||
+04080|MMV Müli-Sellenbüren Beckananl.Stallikon|||
+04081|MRBMüli-Sellenbüren Holzbrücke Stallikon|||
+04082|MME Müli-Sellenbüren, Bienenh.,Stallikon|||
+04083|MZU Müli-Sellenbüren, Umgeb., Stallikon|||
+04084|MUH Waldhütte Diebis, Stallikon|||
+04091|FHB Blockhütte Diebis, Stallikon|||
+04092|FHH Brennholzlager Hohensteigw., Waldegg|||
+04094|GGA Langackerstr. 30, Grossmatt, Uitikon|||
+04095|GGB Langackerstr. 22-28, Grossm.,Uitikon|||
+04096|GGC Schopf + Garage, Grossmatt, Uitikon|||
+04097|GGD Remisengebäude, Grossmatt, Uitikon|||
+04421|GMU Areal, Umgebung Grossmatt, Uitikon|||
+04515|Studienkommission|||
+04700|Geschäftsstelle des AVETH||Geschäftsstelle d. AVETH|T0020
+04712|Verein d. Mittelbaus der Informatik ETHZ|Verein d. Miitelbaus der Informatik ETHZ|VMI|
+04714|Verein Assistenten Chem.Laboratorien ETH||Verein Assist.Chem.Labor.|
+04800|VSETH Verband der Studierenden ETH||VSETH Verband|
+04801|Kommission f.Studentische Anlässe, KOSTA||KOSTA|
+04802|Filmstelle|||
+04804|WOKO|Studentische Wohngenossenschaft (WOKO)||
+04808|SOSeth|||
+04811|Architektura|||
+04812|AIV Akademischer Ingenieurverein||AIV|
+04813|AMIV Fachverein D-MAVT, D-ITET, D-MTEC||AMIV|
+04814|VCS Vereinigung der Chemiestudierenden||VCS|
+04815|APV Pharmazeutenverein|||
+04816|UFO Umwelt- u. Forstfachverein der ETHZ||UFO|
+04817|VIAL-ETH|||
+04818|GUV Geomatik- u. Umweltingenieurverein||GUV|
+04819|VMP Verein Math./Physik/Rechnergest.Wiss||VMP|
+04820|VEBIS Verein der Biologiestudenten||VEBIS|
+04821|VIS Verein der Informatikstudierenden||VIS Informatikstudierende|
+04822|SMW Studierende der Materialwissenschaft||SMW Materialwissenschaft|
+04823|JFvG Verein Junge Forsch.Gentechnologie||JFvG|
+04824|TSETH Fachvorstand Turn/Sportlehrerstud.||TSETH Fachvorstand|
+04829|vdf Hochschulverlag AG|||T8090
+04832|AUKO AusländerInnen Beratungsstelle||AUKO|
+04833|Zimmer- und Wohnungsvermittlung UZH/ETH||Zimmer/Wohnungsvermittlung|T0034
+04836|SAB Selbsthilfe-Genossenschaft||SAB|
+04837|STA Travel|||
+04838|ASVZ Akademischer Sportverband Zürich||ASVZ Akad.Sportverband|
+04841|Akademische Fluggruppe|||
+04842|Kinderkrippe ETH-Zentrum||KIKRI Zentrum|
+04843|Polybuchhandlung|||T8090
+04847|Stift. Kinderbetreuung Hochschulraum ZH||kihz|T8090
+04848|Stiftung Studenten Discount (SSD)||SSD|
+04853|ETHZ juniors|||
+04854|United Visions (Fernsehen für UNI & ETH)||United Visions|
+04855|Unitech International|||
+04860|Forschungsstiftung f. Mobilkommunikation||Mobilkommunikation|T2635
+04870|Studentenrestaurants|||
+04900|PeKo Personalkommission ETHZ||PeKo Personalkommission|
+04905|PVETH Pensionierten-Vereinigung|Vereinigung d. Pensionierten ETH/PVETH|PVETH|
+04914|ETH Big Band Zürich|||
+04940|AMFOR Administratives Forum der ETHZ||AMFOR|
+04960|GEP Gesell.Ehem. Studierender der ETHZ||GEP|
+04962|Materials Alumni ETH Zürich||Materials Alumni ETHZ|
+04963|VECS Verein. der ehem.Chemiestudierenden||VECS|
+05610|EMPA - Dübendorf|||
+05780|Universität Zürich|||
+05792|Medizinische Fakultät UNIZ|||
+06314|Amt für Bundesbauten|||
+07527|Ges. zur Förderung der Forschung|||
+07538|SGBF Schweiz.Gesell. Boden-/Felsmechanik||SGBF|
+07543|Stiftung Denkmalpflege|||
+07570|Intern.Vereinigung f.Brücken- u. Hochbau||IVBH|
+07947|Kommunikation|||
+08600|Elektroniklabor IWF|||D-BEPR
+08601|Werkstatt IWF||Werkstatt IFW|D-BEPR
+08602|Vermessungskurs|||T1106
+08603|Diplomvermessungskurs|||T1106
+09000|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09001|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09002|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09003|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09004|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09005|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09006|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09007|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09008|Kongressanschlüsse, Telefonie||Kongressanschlüsse|
+09009|Kongressanschlüsse, Telefonie|||
+09010|Personensuchanlage|||
+09141|Stipendien|||
+09176|Gebühren Spin off Firmen|||
+09177|Gebühren Wohnungen|||
+09178|prov.zugeteilte(reservierte)Räume||prov.zugeteilte Räume|
+09179|Schraenke|Schränke|Schränke|
+09182|Haustechnik Tech. Dienst|Haustechnik|Haustechnik|
+09183|Raum v.Institutionen ohne LZ|Raum von Institutionen ohne LZ|Raum v. Institut. ohne LZ|
+09184|Sitzungszimmer|||
+09185|Büros von emeritierten Professoren||Büros von em. Professoren|
+09186|Raumreserven, Zwischenbelegt||Raumreserven|
+09187|Raumreserven, längerfristig|Raumreseven längerfristig|Raumreserven längerfr.|
+09188|Unterrichtsräume, Rektorat||Unterrichtsräume|
+09190|Verkehrsfläche, Korridore||Verkehrsfläche|
+09191|Schächte|||
+09196|Schutzräume|||
+09198|Vermietete Räume|||
+09199|Freiflächen|||
+03658|Professur für Mathematik||Professur D-MATH (03658)|D-MATH
+03668|Professur für Architektur und Entwurf||Professur D-ARCH (03668)|D-ARCH
+03671|Professur für Architektur & Konstruktion||Professur D-ARCH (03671)|D-ARCH
+03665|Professur für Philosophie||Professur D-GESS (03665)|D-GESS
+03664|Professur für Wissenschaftsforschung||Professur D-GESS (03664)|D-GESS
+02048|Informatik Support-Gruppe D-GESS||ISG D-GESS|D-GESS
+03667|Bonizzi-Theler Professur f.Func.Genomics||Bonizzi-Theler Prof. F.G.|D-BIOL
+00066|Abteilung Finanzdienstleistungen||Abt.Finanzdienstleistungen|T0049
+03640|Biologisch-Orientierte Materialwissensch||Professur D-MATL (03640)|D-MATL
+02819|BWI Betriebswissenschaftliches Zentrum||BWI Zentrum|D-MTEC
+04916|Personalverband des Bundes (PVB)||Personalverband des Bundes|
+03666|Informationstechnologie und Ausbildung||Professur D-INFK (03666)|T3666
+04856|Verein Forum Supply Chain Management||Forum-SCM|
+01459|Lehre D-PHYS|||D-PHYS
+02011|Physik-Bibliothek|||T1490
+04610|Konferenz des Lehrkörpers|||T0030
+04846|Stelle f. Chancengleichheit Frau u. Mann||Stelle f.Chancengleichheit|T0021
+04810|JuFoGen Junges Forum Gentechnologie Zch||JuFoGen|
+02512|Schweiz. Geophysikalische Kommission||Geophysikal. Kommission|
+07540|Schweiz. Gesell. f. Konjunkturforschung||SGK|
+02272|ETH Sustainability|||T0021
+04857|SiROP Student Research Opportunities||SiROP|
+04681|ETH Zürich Foundation|||
+09171|Vermietet an Studenten|||
+09172|Vermietet an Gastdozenten|||
+09173|Vermietet als Dienstwohnung||Vermietet als Dienstwohn.|
+09174|Fremdvermietet|||
+09175|Vermietet an Spin Off Firmen||Vermietet Spin Off Firmen|
+01368|MBA Supply Chain Management||MBA-SCM|01357
+03682|Professur für Systemgestaltung||Professur D-MTEC (03682)|D-MTEC
+03681|Professur für Informationsmanagement||Professur D-MTEC (03681)|D-MTEC
+03680|Professur für Architektur und Entwurf||Professur D-ARCH (03680)|D-ARCH
+03679|Innovations- und Technologiemanagement||Professur D-MTEC (03679)|D-MTEC
+07550|Schweiz. Akademie der Techn. Wissensch.||SATW|
+07523|Schweiz.Akademie der Medizin. Wissensch.||SAMW|
+07521|Schweiz.Akademie der Naturwissenschaften||SANW|
+07522|Schweiz.Akademie d.Geistes-& Sozialwiss.||SAGW|
+05660|Eidg. Forschungsanstalt für WSL||WSL|
+02303|Forschungsstation Früebüel|||D-AGRL
+02304|Forschungsstation Alp Weissenstein||Forschungsst.Weissenstein|D-AGRL
+02302|Forschungsstation Chamau|||D-AGRL
+02308|Informatik-Support-Gruppe (ISG) D-AGRL||Informatik-Support-Gruppe|T2300
+00083|CSCS business services|||T0080
+06085|CSCS IT infrastructure/services||CSCS IT|T6085
+06086|CSCS HPC co-location services||CSCS HPC co-location serv.|T6085
+04682|Villa Garbald (Seminarzentrum)||Villa Garbald|
+03692|Metallische Systeme für Mikrokomponenten||Professur D-MATL (03692)|D-MATL
+03695|Nachhaltigkeit und Technologie||Professur D-MTEC (03695)|D-MTEC
+00069|ETH transfer|||
+02138|Informatik-Support-Group (ISG) D-MAVT||ISG|D-MAVT
+02333|Erdwissenschaften Bibliothek||Erdwissensch. Bibliothek|D-ERDW
+02158|Informatik-Support-Group (ISG) D-INFK||ISG D-INFK|D-INFK
+02108|Informatik-Support-Group (ISG) D-ARCH||ISG D-ARCH|D-ARCH
+02102|RAPLAB, Rapid Architect.Prototyping Lab.||RAPLAB D-ARCH|T2100
+02038|Informatik-Support-Group (ISG) D-BIOL||ISG D-BIOL|D-BIOL
+02348|Informatik-Support-Group (ISG) Umweltn.||ISG Umweltnaturwissensch.|D-UWIS
+02343|Bibliothek Umweltnaturwissenschaften||Biblitohek Umweltnaturwis.|D-UWIS
+02344|Werkstatt Umweltnaturwissenschaften||Werkstatt Umweltnaturwiss.|D-UWIS
+03635|Professur f. Ökonomie/Ressourcenökonomie||Professur D-MTEC (03635)|D-MTEC
+02821|Pool Leitung (D-MATH)|||D-MATH
+02820|Hilfsassistenten Pool (D-MATH)||Hilfsassistenten Pool|D-MATH
+02822|Pool Gruppe 1 (D-MATH)|||D-MATH
+02823|Pool Gruppe 2 (D-MATH)|||D-MATH
+02824|Pool Gruppe 3 (D-MATH)|||D-MATH
+02825|Pool Gruppe 4 (D-MATH)|||D-MATH
+02826|Pool Gruppe 5 (D-MATH)|||D-MATH
+02827|Pool Gruppe 6 (D-MATH)|||D-MATH
+02031|Bibliothek D-BIOL|||D-BIOL
+02657|Institut für Landschaftsarchitektur||Landschaftsarchitektur|02655
+02538|Institut für Molekulare Systembiologie||Molekulare Systembiologie|D-BIOL
+02595|Pflanzenbiologie Professuren||Pflanzenbiologie Proff.|T2595
+08662|Gruppe Yee, Professur D-BIOL (03418)||Professur D-BIOL (03418)|T2030
+08660|Gruppe Bucher, Professur D-BIOL (03252)||Professur D-BIOL (03252)|T3252
+02228|Energy Science Center (ESC)||Energy Science Center(ESC)|T2130
+08652|Gruppe Kroschewski (Biochemie)||Gruppe Kroschewski|T2517
+08655|Gruppe Meyer (Biochemie)||Gruppe Meyer|T2517
+08659|Departement Biologie||D-BIOL|
+08663|NMR-Service LOC|||T2514
+08664|MS-Service LOC|||T2514
+08665|Elementaranalysen LOC|||T2514
+08666|Röntgenstrukturanalyse LOC|||T2514
+08667|Radiochemie LOC|||T2514
+08668|Gruppe Individualverkehr|||T2610
+02017|Betriebsgruppe D-PHYS|||T2017
+02018|Informatik-Support-Group (ISG) D-PHYS||ISG D-PHYS|T2830
+01487|Hilfsassistenten D-PHYS|||T1490
+01491|Hörsaalbetrieb|||D-PHYS
+01492|Anfänger Praktikum (AP)|||T2012
+01493|Vorgerücktes Praktikum (VP)||Vorgerücktes Prakt. (VP)|T2012
+02830|Technische Betriebe D-PHYS, direkt||Techn. Betriebe D-PHYS|D-PHYS
+02831|Fotografie/Grafik|||T2830
+02832|Gasverflüssigung, direkt|||T2832
+02833|Ingenieurbüro|||D-PHYS
+02834|Labortechnik|||D-PHYS
+02835|Lagerbetriebe, direkt|||T2835
+02836|Werkstatt HPF|||T2013
+02837|Werkstatt HPT|||T2013
+02841|Elektroniklehrlabor EL|||D-PHYS
+02842|Mech. Lehrwerkstatt LW|||D-PHYS
+02844|Polymechaniker|||D-PHYS
+02845|Physiklaboranten|||D-PHYS
+02847|Konstrukteur|||D-PHYS
+02843|Lehrlinge andere|||D-PHYS
+02014|Betriebe D-PHYS|||T2014
+01490|Akademische Betriebe D-PHYS||Akadem. Betriebe D-PHYS|T1490
+01486|Seminarien und Kolloquien D-PHYS||Seminarien und Kolloquien|T1490
+02840|Lehrlingsausbildung D-PHYS|||
+02846|Elektroniker|||D-PHYS
+02026|Informatik-Support-Group (ISG) D-CHAB||Informatik-Support-Group|D-CHAB
+02023|Werkstatt D-CHAB|||D-CHAB
+08614|Information und Dokumentation D-ARCH||Info/Dokumentation D-ARCH|D-ARCH
+08615|gta Ausstellungen|||D-ARCH
+04803|Dozentenfoyerkommission|||T4610
+03518|Molekulare/Kognitive Neurowissenschaften||Professur D-BIOL (03518)|D-BIOL
+03356|Prof.Arbeits- & Organisationspsychologie||Professur D-MTEC (03356)|D-MTEC
+03494|Prof.Arbeits- u.Organisationspsychologie||Professur D-MTEC (03494)|D-MTEC
+02037|Rodent Center|||T2030
+02865|S-ENETH (Schulber.Erde,Umwelt,Nat.Ress.)||S-ENETH|D-UWIS
+02860|Zentr.Organisations- u.Arbeitswissensch.||Organisations-Arbeitswiss.|D-MTEC
+02851|Heliumverflüssigung|||T2832
+02215|Geschäftsstelle SystemsX.ch ETH Zürich||Geschäftsstelle SystemsX|T0020
+02230|Int.Competence Center f.Innovation(ICCI)||ICCI|T2120
+02852|Stickstoffverflüssigung|||T2832
+02232|Materials Research Center (MRC)||MRC|T2160
+02233|Compet. Center Digital Design & Modeling||CC-DDM|T2150
+02216|Academic and Career Advisory Program||ACAP|T0030
+03714|Professur für Europäische Politik||Professur D-GESS (03714)|T2045
+08517|Grüne Bibliothek|||T8510
+02231|Micro and Nano Science Platform (MNSP)||MNSP|T2130
+02229|Competence Center History of Knowledge||CC-HK|T2045
+03723|Ghazoul, Jaboury|||
+03709|Architektur und Digitale Fabrikation||Professur D-ARCH (03709)|T2602
+03708|Prof. Architektur u.Digitale Fabrikation||Professur D-ARCH (03708)|T2602
+04875|DSR Verpflegungsstätten ETH Zürich|DRS Verpflegungsstätten ETH Zürich|DRS Verpflegungsstätten|T8090
+03711|Harris, Nicola L. (ehemalig)|Umweltbiomedizin|Professur D-UWIS (03711)|D-UWIS
+08084|Fondsbewirtschaftung|||T0046
+02234|Kompetenzzentrum Architektur & Design||CC-AD|T2100
+02870|Hochschulinst.f.Schulpädag./Fachdidaktik||Schulpädag./Fachdidaktik|T0030
+02236|Kompetenzz.Systemphysiologie/met.Krankh.||CC-SPMD|T2030
+02036|Light Microscopy Center (LMC)|Ligth Microscopy Center (LMC)|Light Microscopy Center|T2030
+02720|Institut für Integrative Biologie||Integrative Biologie|T2350
+06089|Technology Integration|||
+06088|CSCS national supercomputing services||CSCS national supercomput.|T6085
+06087|Cluster Services ETH Zürich||Cluster Services|
+08670|Gruppe Biosystematik und Sammlungen||Gruppe Biosystematik|T3706
+02235|Zurich Center Imaging Science/Technology||CIMST|T2020
+03728|Engel, Stefanie|||D-UWIS
+03719|Strategisches Management & Innovation||Professur D-MTEC (03719)|T2120
+03737|Siegwart, Roland Y.|||D-MAVT
+03738|Professur für Entrepreneurial Risks||Professur D-MTEC (03738)|T2120
+01765|MAS Ernährung und Gesundheit||MAS Ernährung u.Gesundheit|T1756
+01771|DA Lebensmittelwissenschaft||DA Lebensmittelwissensch.|T1756
+01770|DA Agrarwissenschaft|||T1755
+01769|DR Lebensmittelwissenschaft||DR Lebensmittelwissensch.|T1756
+01764|DR Agrarwissenschaft|||T1755
+01762|MSc Lebensmittelwissenschaft||MSc Lebensmittelwissensch.|T1756
+01755|Studienrichtung Agrarwissenschaft||Studienrichtung Agrarwiss.|T1755
+01761|MSc Agrarwissenschaft|||T1755
+01751|DS Agrarwissenschaften|||T1755
+01753|BSc Agrarwissenschaft||Bsc Agrarwissenschaft|T1755
+01752|DS Lebensmittelwissenschaften||DS Lebensmittelwissensch.|T1756
+01756|Studienricht. Lebensmittelwissenschaften||Studien.Lebensmittelwiss.|T1756
+01754|BSc Lebensmittelwissenschaft||BSc Lebensmittelwissensch.|T1756
+01066|MAS Landschaftsarchitektur|||T1057
+01064|DR Architektur|||T1057
+01054|MSc Architektur|||T1057
+01052|BSc Architektur||Bsc Architektur|T1057
+01164|DR Maschinenbau und Verfahrenstechnik||DR Maschinenbau/Verfahren|T1157
+01156|MSc Micro and Nanosystems|||T1159
+01155|MSc Verfahrenstechnik|||T1157
+01154|MSc Maschineningenieurwissenschaften||MSc Maschineningenieurwiss|T1157
+01152|BSc Maschineningenieurwissenschaften||BSc Maschineningenieurwiss|T1157
+01214|DR Informationstechn. u. Elektrotechnik||DR Informat./Elektrotechn.|T1207
+01211|MSc Biomedizinische Technik||MSc Biomedizinische Techn.|T1209
+01210|MSc Elektrotechnik u. Informationstechn.||MSc Elektro/Informationst.|T1207
+01204|BSc Elektrotechnik u. Informationstechn.||BSc Elektro/Informationst.|T1207
+01207|Studienricht. Elektro/Informationstechn.||Elektro/Informationstechn.|T1207
+01264|DR Informatik|||T1257
+01254|MSC Informatik|MSc Informatik|MSc Informatik|T1257
+01252|BSc Informatik|||T1257
+01357|Studienr.Management,Technologie Ökonomie||Studienrichtung MTEC|T1357
+01352|MSc Management, Technologie u. Ökonomie||MSc MTEC|T1357
+01364|DR Management, Technologie u. Ökonomie||DR MTEC|T1357
+01370|DA Management, Technologie und Ökonomie||DA MTEC|T1357
+01867|MAS Security Policy a. Crisis Management||MAS Security Policy/Crisis|T1857
+01864|DR Geistes-,Sozial- und Staatswissensch.||DR GESS|T1857
+01855|MA Comparative a. International Studies||MA Comparative Studies|T1857
+01854|BA Berufsoffizier|||T1857
+01857|Studienr. Geistes-,Sozial u. Staatswiss.||Studienrichtung GESS|T1857
+01664|DR Erdwissenschaften|||T1657
+01656|MSc Applied Geophysics|||T1657
+01655|MSc Atmospheric and Climate Science||MSc Atmospheric Climate S.|T1657
+01654|MSc Erdwissenschaften|||T1657
+01652|BSc Erdwissenschaften|||T1657
+01314|DR Materialwissenschaft|||T1307
+01304|MSc Materialwissenschaft|||T1307
+01302|BSc Materialwissenschaft|||T1307
+01307|Studienrichtung Materialwissenschaft||Studienr. Materialwiss.|T1307
+01570|DA Biologie|||T1555
+01564|DR Biologie|||T1555
+01569|DA Bewegungswissenschaften und Sport||DA Bewegungswiss./Sport|T1556
+01563|DR Bewegungswissenschaften und Sport||DR Bewegungswiss./Sport|T1556
+01572|MSc Bewegungswissenschaften und Sport||MSc Bewegungswiss./Sport|T1556
+01571|MSc Biologie|||T1555
+01553|BSc Bewegungswissenschaften und Sport||BSc Bewegungswissen./Sport|T1556
+01552|BSc Biologie|||T1555
+01556|Studienr.Bewegungswissenschaften u.Sport||Studienr.Bewegungsw./Sport|T1556
+01555|Studienrichtung Biologie|||T1555
+01457|Studienrichtung Physik|||T1457
+01451|BSc Physik|||T1457
+01453|MSc Physik|||T1457
+01464|DR Physik|||T1457
+01430|Studienrichtung Mathematik|||T1430
+01431|Studienr.Rechnergestützte Wissenschaften||Studienr.Rechnergest.Wiss.|T1431
+01405|BSc Rechnergestützte Wissenschaften||BSc Rechnerge. Wissensch.|T1431
+01412|MSc Rechnergestützte Wissenschaften||MSc Rechnerge. Wissensch.|T1431
+01438|DR Rechnergestützte Wissenschaften||DR Rechnerge. Wissensch.|T1431
+01446|DA Rechnergestützte Wissenschaften||DA Rechnerge. Wissensch.|T1431
+01404|BSc Mathematik|||T1430
+01411|MSc Mathematik|||T1430
+01441|MAS Finance|||T1430
+01439|DR Mathematik|||T1430
+01445|DA Mathematik|||T1430
+01807|Studienrichtung Forstwissenschaften||Studienr. Forstwissensch.|T1807
+01814|DR Forstwissenschaften|||T1807
+01707|Studienricht. Umweltnaturwissenschaften||Studienr. Umweltnaturwiss.|T1707
+01702|BSc Umweltnaturwissenschaften||BSc Umweltnaturwissensch.|T1707
+01704|MSc Umweltnaturwissenschaften||MSc Umweltnaturwissensch.|T1707
+01504|Studienrichtung Chemie|||T1504
+01505|Studienr. Chemieingenieurwissenschaften||Studienr.Chemieingenieurw.|T1505
+01506|Studienr.Interdisziplinäre Naturwiss.|Studienr. Interdisziplinäre Naturwiss.|Studienr.Interd.Naturwiss.|T1506
+01604|Studienrichtung Pharmaz. Wissenschaften||Studienr.Pharmaz.Wissensch|T1604
+01515|BSc Chemie|||T1504
+01516|BSc Chemieingenieurwissenschaften||BSc Chemieingenieurwiss.|T1505
+01517|BSc Interdisziplin. Naturwissenschaften||BSc Interd. Naturwissensch|T1506
+01605|BSc Pharmazeutische Wissenschaften||BSc Pharmaz.Wissenschaften|T1604
+01521|MSc Chemie|||T1504
+01522|MSc Chemie- und Bioingenieurwissensch.||MSc Chemie/Bioingenieurwi.|T1505
+01523|MSc Interdisziplinäre Naturwissensch.||MSc Interd.Naturwissensch.|T1506
+01611|MSc Pharmazeutische Wissenschaften||MSc Pharmaz.Wissenschaften|T1604
+01537|DR Chemie|||T1504
+01538|DR Chemieingenieurwissenschaften||DR Chemieingenieurwiss.|T1505
+01539|DR Interdisziplinäre Naturwissenschaften||DR Interd. Naturwissensch.|T1506
+01614|DR Pharmazeutische Wissenschaften||DR Pharmaz. Wissenschaften|T1604
+01520|DA Chemie|||T1504
+01540|DA Chemieingenieurwissenschaften||DA Chemieingenieurwissen.|T1505
+01541|DA Interdisziplinäre Naturwissenschaften||DA Interd.Naturwissensch.|T1506
+01622|WBZ Radiopharmazeutische Chemie||WBZ Radiopharmaz. Chemie|T1604
+01501|DS Chemie|||T1504
+01502|DS Chemieingenieurwissenschaften||DS Chemieingenieurwissen.|T1505
+01503|DS Interdisziplinäre Naturwissenschaften||DS Interd.Naturwissensch.|T1506
+01620|DA Pharmazeutische Wissenschaften||DA Pharmaz. Wissenschaften|T1604
+01104|Studienricht. Bauingenieurwissenschaften||Studienr.Bauingenieurwiss.|T1104
+01105|Studienr. Umweltingenieurwissenschaften||Studienr.Umweltingenieurw.|T1105
+01106|Studienrichtung Geomatik und Planung||Studienr.Geomatik/Planung|T1106
+01111|DS Kulturtechnik und Vermessung||DS Kulturtechn./Vermessung|T1106
+01126|BSc Umweltingenieurwissenschaften||BSc Umweltingenieurwiss.|T1105
+01125|BSc Bauingenieurwissenschaften||BSc Bauingenieurwissensch.|T1104
+01127|BSc Geomatik und Planung|||T1106
+01130|MSc Bauingenieurwissenschaften||MSc Bauingenieurwissensch.|T1104
+01131|MSc Umweltingenieurwissenschaften||MSc Umweltingenieurwiss.|T1105
+01132|MSc Geomatik und Planung|||T1106
+01133|MSc Raumentwicklung u.Infrastruktursyst.||MSc Raumentwicklung|T1106
+01145|DR Bauingenieurwissenschaften||DR Bauingenieurwissensch.|T1104
+01146|DR Umweltingenieurwissenschaften||DR Umweltingenieurwiss.|T1105
+01147|DR Geomatik und Planung|||T1106
+01113|MAS Water Resources Management a. Engin.||MAS Water Resources Manag.|T1104
+01120|DA Bauingenieurwissenschaften||DA Bauingenieurwissensch.|T1104
+01121|DA Umweltingenieurwissenschaften||DA Umweltingenieurwiss.|T1105
+01122|DA Geomatik und Planung|||T1106
+03702|Professur für Entwicklungsbiologie||Professur D-BIOL (03702)|T2595
+03707|Professur für Pflanzenbiochemie||Professur D-BIOL (03707)|T2595
+03516|Professur für Phytopathologie||Professur D-AGRL (03516)|T2300
+02274|Geschäftsstelle CCES|||T0020
+00019|Stab Professuren|||T0020
+03361|Professur für Nationalökonomie||Professur D-GESS (03361)|T2045
+02875|Euresearch Zurich||Euresearch Zürich|T0022
+03729|Makroökonomie: Innovation und Politik||Professur D-MTEC (03729)|
+03748|Professur für Biosysteme||Professur D-BSSE (03748)|T2060
+04858|AMIV-Verlag|||T8090
+02721|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|T2350
+02722|Institut für Terrestrische Ökosysteme||Terrestrische Ökosysteme|T2350
+02032|D-BIOL Shop|||T2030
+03654|Professur für Sensomotorische Systeme||Professur D-MAVT (03654)|D-MAVT
+02723|Institut für Umweltentscheidungen||Umweltentscheidungen|T2300
+02060|Department of Biosystems (D-BSSE)||D-BSSE|T2060
+02275|Life Science Zurich (LSZ)|||T2275
+02276|Life Science Zurich Learning Center||Life Science Zurich|T2275
+02861|ETH Wohnforum - ETH CASE|||T2100
+02061|D-BSSE-Shop|||T2060
+03755|Professur für Informatik||Professur D-INFK (03755)|T2150
+03764|Professur für Experimentalphysik||Professur D-PHYS (03764)|T2010
+03744|Professur für Literaturwissenschaft||Professur D-GESS (03744)|
+02168|Informatik-Support-Group (ISG) D-MATL||ISG D-MATL|T2160
+06071|ID-MMS Führung|||T0079
+06072|ID-Multimedia Infrastruktur||ID-Multimedia Infrastrukt.|T0079
+06073|ID-Multimedia Produktion u. Distribution||ID-Multimedia Prod.& Dist.|T0079
+06074|ID-Videoconferencing & Collaboration||ID-Videocon./Collaboration|T0079
+03763|Professur für Multifunktionsmaterialien||Professur D-MATL (03763)|T02160
+08616|gta Verlag|||T2601
+08617|gta Archiv|||T2601
+T2275|Total Life Science Zurich (LSZ)||Total Life Science Zurich|T2271
+01212|MSc Energy Science and Technology||MSc Energy Sciene/Techn.|T1209
+01511|Studienrichtung Biotechnologie||Studienr. Biotechnologie|T1511
+01518|BSc Biotechnologie|||T1505
+01524|MSc Biotechnologie|||T1505
+06090|CSCS scientific computing research||CSCS scientific computin|T0080
+03765|Professur für Unternehmensführung||Professur D-MTEC (03765)|T2120
+03327|Professur für Agrarwirtschaft||Professur D-AGRL (03327)|T2700
+03762|Professur für System Nanobiologie||Professur D-BSSE (03762)|
+08674|Gruppe Ishikawa|||T2030
+08675|Gruppe Knecht|||T2030
+02237|Swiss Electromagnetics Research & Engin.||SEREC|T2140
+08676|Gruppe Systemökologie|||T2720
+08557|Kundenservices allg. inkl. Leitung||Kundenservices all/Leitung|T8557
+08522|Archive und Nachlässe|||T8520
+08523|Bilder und Karten|||T8520
+00079|ID-Multimedia Services|||T0079
+02053|Bibliothek WIF|||T2045
+08677|Gruppe Panse|||T2517
+08618|IVT Stab|||T2610
+08129|Gärtnerei Zentrum|||T0050
+08130|Gärtnerei Hönggerberg|||T0050
+06011|ID-API Führung|||T0072
+06012|ID-Einkauf und Lizenzmanagement||ID-Einkauf&Lizenzmanagem.|T0072
+06014|ID-Kurswesen|||T0072
+06015|ID-Client Delivery|||T0072
+06016|ID-Infrastrukturbetrieb im Auftrag||ID-Infrastrukturbetrieb|T0072
+06045|ID-Server|||T0075
+06042|ID-Speicher|||T0075
+06044|ID-HPC|||T0075
+06063|ID-Mail/Directories|||T0077
+06065|ID-Identity Management&Web-Applikationen||ID-Ident.Management Web-Ap|T0077
+06066|ID-VPP Betrieb|||T0077
+06067|ID-VPP Entwicklung|||T0077
+06068|ID-Hosting|||T0077
+03779|Professur für Architektur & Konstruktion||Professur D-ARCH (03779)|T2100
+03784|Professur für Soziologie||Professur D-GESS (03784)|T2045
+01612|MScMedicinal Industr.Pharmaceut.Sciences||MScMedicinal Industr.Phar.|T1604
+01255|MSc Computational Biology&Bioinformatics||MSc Comput.Biology&Bioinf.|T1259
+02871|Didaktische Ausbildung|||T0030
+04825|OBIS|||T8090
+03793|Professur Quantitatives Risk Management||Professur D-MATH (03793)|T2000
+03791|Professur für Computational Biology||Professur D-BSSE (03791)|
+08585|Integration und Entwicklung||Integration u. Entwicklung|T8580
+08513|ETH-Bibliothek HDB|||T8519
+03783|Professur für Philosophie||Professur D-GESS (03783)|T2045
+03790|Professur für Computational Biology||Professur D-BSSE (03790)|T2060
+03771|Professur für Mathematik||Professur D-MATH (03771)|T2000
+03794|Professur für Architektur und Kunst||Professur D-ARCH (03794)|T2100
+08451|Alarmzentrale|||T0017
+08452|Erstintervention|||T0017
+02062|D-BSSE Departementsweite Ausgaben||Departementsweite Ausgaben|T2060
+02063|Administrative Central Facilities||Adm. Central Facilities|T2060
+01413|MSc Statistik|||T1430
+03593|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+02862|SAP Forschungsprojekt CEC Lab||SAP Forschungsprojekt CEC|T2120
+03795|Professur für Intellectual Property||Professur D-GESS (03795)|T2045
+03796|Professur für Mathematik||Professur D-MATH (03796)|T2000
+03599|Institut für Quantenelektronik||Quantenelektronik|
+03651|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|
+03474|Institut für Geotechnik||Geotechnik|
+03706|Institut für Integrative Biologie||Integrative Biologie|T3706
+03254|Institut f. Geodäsie u. Photogrammetrie||Geodäsie Photogrammetrie|
+03425|Laboratorium für Organische Chemie||Organische Chemie|
+03734|Institut für Geophysik||Geophysik|
+03533|NEU|||
+03520|Institut für Zellbiologie||Zellbiologie|
+03314|Institut für Bauplanung u. Baubetrieb||Bauplanung Baubetrieb|
+08608|NEU|||
+03198|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.||IPAS|
+03296|NEU|||
+03466|Hurni, Lorenz|||
+03489|Institut für Biomechanik||Biomechanik|
+03670|Institut für Polymere||Polymere|
+03459|NEU|||
+03176|NEU|||
+03393|Institut für Integrative Biologie||Integrative Biologie|
+03408|Institut für Mikrobiologie||Mikrobiologie|
+08759|Institut für Baustoffe (IfB)||Baustoffe|
+03345|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|
+03595|Institut für Biochemie||Biochemie|
+03486|Institut für Geschichte||Geschichte|
+03392|Geologisches Institut||Geologie|
+03656|Institut für Biomedizinische Technik||Biomedizinische Technik|
+03328|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+03510|Institut für Verfahrenstechnik||Verfahrenstechnik|
+03414|Institut für Geschichte+Theorie d. Arch.||GTA|
+03233|Institut für Geschichte+Theorie d. Arch.||GTA|
+03777|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03432|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|
+03228|Institut für Integrierte Systeme||Integrierte Systeme|
+03561|Faber, Michael H.|||
+03532|Institut für Biochemie||Biochemie|
+03627|Inst.für Robotik u. Intelligente Systeme|Inst. für Robotik u. Intelligente System|Robotik/Intelligente Syst.|
+03352|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+03457|Welzl, Emmerich|||
+03521|Inst.f. Verkehrsplanung&Transportsysteme||Verkehrsplanung (IVT)|
+03496|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03177|Institut f. Geodäsie u. Photogrammetrie||Geodäsie Photogrammetrie|
+03477|Inst. für Elektrische Energieübertragung||Energieübertragung|
+03484|Institut für Verfahrenstechnik||Verfahrenstechnik|
+03304|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03257|NEU|||
+03453|Institut für Neuroinformatik||Neuroinformatik|
+03401|Laboratorium für Kristallographie||Kristallographie|
+03676|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03186|Institut für Astronomie||Astronomie|
+03307|Institut für Mechanische Systeme||Mechanische Systeme|
+03766|Institut für Visual Computing||Visual Computing|
+03417|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+03758|Inst. Dynam. Syst. & Regelungst.||Dynam. Systeme/Reg.tech.|
+03722|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+03610|Institut für Kommunikationstechnik||Kommunikationstechnik|
+03775|Geologisches Institut|||
+03387|Institut f.Technologie in d. Architektur||Technologie in Architektur|
+03428|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.||IPAS|
+03569|Laboratorium für Festkörperphysik||Festkörperphysik|
+03469|Institut für Bauplanung u. Baubetrieb||Bauplanung Baubetrieb|
+03388|Institut für Elektronik||Elektronik|
+03686|Institut für Computersysteme||Computersysteme|
+03732|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|
+03427|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.||IPAS|
+03462|Professur für Thermodynamik||Professur D-MAVT (03462)|
+03778|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03731|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+03517|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03663|Institut für Molekulare Systembiologie||Molekulare Systembiologie|
+03311|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+03476|Institut für Geophysik||Geophysik|
+03402|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+03429|Inst.f.Techn.Informatik u.Kommunik.Netze||Techn. Informatik (TIK)|
+03543|Institut für Biochemie||Biochemie|
+03626|I.f.Lebensmittelwiss./Ernährung/Gesundh.||Lebensmittelwiss./Ernährn.|
+03782|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03511|Laboratorium für Organische Chemie||Organische Chemie|
+03353|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+03720|Laboratorium für Festkörperphysik||Festkörperphysik|
+03213|NEU|||
+03394|Institut f. Geodäsie u. Photogrammetrie||Geodäsie Photogrammetrie|
+03306|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+03363|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+03465|Löw, Simon|||
+03660|Institut für Städtebau||Städtebau|
+03504|NEU|||
+03611|Institut für Energietechnik||Energietechnik|
+03289|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+03622|Institut für Theoretische Physik||Theoretische Physik|
+03292|Institut für Energietechnik||Energietechnik|
+03759|Institut für Quantenelektronik||Quantenelektronik|
+03740|Institut für Mikrobiologie||Mikrobiologie|
+03479|Institut für Fluiddynamik||Fluiddynamik|
+03463|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03725|Prasser, Horst-Michael|||
+03689|Institut für Informationssysteme||Informationssysteme|
+03348|Institut für Verfahrenstechnik||Verfahrenstechnik|
+03220|Grün, Armin (emeritus)|||
+03541|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+03633|Institut für Bildverarbeitung||Bildverarbeitung|
+03335|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+03234|Inst.f.Techn.Informatik u.Kommunik.Netze||Techn. Informatik (TIK)|
+03416|Institut für Automatik||Automatik|
+03661|Institut für Metallforschung||Metallforschung|
+03655|Institut für Geotechnik||Geotechnik|
+03274|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|
+03338|Institut für Theoretische Informatik||Theoretische Informatik|
+03286|Inst. Dynam. Syst. & Regelungst.||Dynam. Systeme/Reg.tech.|
+03652|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+03336|Institut für Geophysik||Geophysik|
+03129|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+03605|Institut für Mechanische Systeme||Mechanische Systeme|
+03332|NEU|||
+03202|Institut für Theoretische Physik||Theoretische Physik|
+03662|Inst.f.Techn.Informatik u.Kommunik.Netze||Techn. Informatik (TIK)|
+03203|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03582|NEU|||
+03255|Günter, Peter (emeritus)|||
+03712|Inst. f. Denkmalpflege u. Bauforschung||Denkmalpflege/Bauforschung|
+03424|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+03745|Institut für Biochemie||Biochemie|
+03571|Institut für Theoretische Physik||Theoretische Physik|
+03420|Gross, Markus|||
+03565|Institut für Biomechanik||Biomechanik|
+03259|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+03449|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03769|Institut für Theoretische Physik||Theoretische Physik|
+03574|Institut für Geschichte+Theorie d. Arch.||GTA|
+03789|Seminar für Statistik (SfS)||Seminar für Statistik(SfS)|
+03514|Institut für Bildverarbeitung||Bildverarbeitung|
+03512|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+03698|Institut für Geophysik||Geophysik|
+03430|Laboratorium für Organische Chemie||Organische Chemie|
+03160|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+03368|Professur für Organische Chemie||Professur D-CHEM (03368)|
+03625|Institut für Mikrobiologie||Mikrobiologie|
+03741|Institut für Biomedizinische Technik||Biomedizinische Technik|
+03630|Institut für Zellbiologie||Zellbiologie|
+03772|NEU|||
+03604|Inst.f.Techn.Informatik u.Kommunik.Netze||Techn. Informatik (TIK)|
+03638|Laboratorium für Organische Chemie||Organische Chemie|
+03503|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+03473|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|
+03776|Institut für Zellbiologie||Zellbiologie|
+03683|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03451|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+03419|Institut für Fluiddynamik||Fluiddynamik|
+03340|Institut für Theoretische Informatik||Theoretische Informatik|
+03413|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|
+03787|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+03669|NEU|||
+03299|Institut für Terrestrische Ökosysteme||Terrestrische Ökosysteme|
+03773|Institut für Theoretische Physik||Theoretische Physik|
+03422|Institut für Computersysteme||Computersysteme|
+03648|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.||IPAS|
+03753|Stern, Elsbeth|||
+03608|Institut für Kommunikationstechnik||Kommunikationstechnik|
+03792|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+03687|Laboratorium für Organische Chemie||Organische Chemie|
+03367|Institut für Zellbiologie||Zellbiologie|
+03568|Inst. f. Signal- u. Informationsverarb.||Signalverarbeitung|
+03704|Institut für Theoretische Informatik||Theoretische Informatik|
+03641|Wegener, Konrad|||
+03657|Gaberdiel, Matthias|||
+03495|Institut für Biochemie||Biochemie|
+03359|Institut für Polymere||Polymere|
+03607|Institut für Baustoffe (IfB)||Baustoffe|
+03757|Institut für Pervasive Computing||Pervasive Computing|
+03647|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03357|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|
+03685|Institut für Virtuelle Produktion||Virtuelle Produktion|
+03696|Institut f.Technologie in d. Architektur||Technologie in Architektur|
+03472|Inst.f.Feldtheorie & Höchstfrequenztech.||Feldtheorie/Höchstfrequenz|
+03690|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03613|Institut für Astronomie||Astronomie|
+03700|Institut für Zellbiologie||Zellbiologie|
+03756|Institut für Informationssysteme||Informationssysteme|
+03284|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+03632|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+03251|NEU|||
+03674|Inst.f. Verkehrsplanung&Transportsysteme||Verkehrsplanung (IVT)|
+03530|Institut für Energietechnik||Energietechnik|
+03559|Andersson, Göran|||
+03412|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+03592|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+03591|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+03337|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.||IPAS|
+03455|Norrie, Moira|||
+03548|Institut für Energietechnik||Energietechnik|
+03285|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+03344|Laboratorium für Organische Chemie||Organische Chemie|
+03726|Inst. f. Raum- u. Landschaftsentwicklung||Raum- u. Landschaftsentw.|
+03507|Institut für Mechanische Systeme||Mechanische Systeme|
+03447|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+03265|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.||IPAS|
+03597|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03619|NEU|||
+03324|NEU|||
+03528|Institut für Pervasive Computing||Pervasive Computing|
+08763|Laboratorium für Organische Chemie||Organische Chemie|
+03739|Institut für Molekulare Systembiologie||Molekulare Systembiologie|
+03713|Institut für Molekulare Systembiologie||Molekulare Systembiologie|
+03675|NEU|||
+03612|Institut für Astronomie||Astronomie|
+03240|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|
+03781|Institut für Theoretische Physik||Theoretische Physik|
+03371|Keller, Ursula|||
+03360|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03767|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+03290|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+03581|Institut für Mechanische Systeme||Mechanische Systeme|
+03673|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+03770|Institut für Zellbiologie||Zellbiologie|
+03691|Institut für Geotechnik||Geotechnik|
+03754|Geologisches Institut||Geologie|
+03439|Laboratorium für Festkörperphysik||Festkörperphysik|
+03750|Institut für Biomedizinische Technik||Biomedizinische Technik|
+03788|Institut für Astronomie||Astronomie|
+03785|NEU|||
+03786|Institut für Biochemie||Biochemie|
+03742|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03258|NEU|||
+03614|NEU|||
+03636|Institut für Quantenelektronik||Quantenelektronik|
+03209|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03760|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03492|Laboratorium für Organische Chemie||Organische Chemie|
+03391|Institut für Operations Research||Operations Research|
+03710|Institut für Molekulare Systembiologie|Institut für Molekulare Sytembiologie|Molekulare Systembiologie|
+03733|Institut für Baustoffe (IfB)||Baustoffe|
+03752|Institut für Bauplanung u. Baubetrieb||Bauplanung Baubetrieb|
+03724|Institut f.Technologie in d. Architektur||Technologie in Architektur|
+03797|Professur f. Ökonomie, Energiewirtschaft||Professur D-MTEC (03797)|T2120
+03539|Nationalökonomie und Energiewirtschaft||Professur D-MTEC (03539)|T2120
+02238|Nord-Süd-Zentrum|||T2350
+02872|Archiv für Zeitgeschichte (AfZ)||Archiv für Zeitgeschichte|T2526
+04859|seed sustainability|||T8090
+02277|Center f. Information Sciences/Databases||C-ISD|T2060
+02864|ETH-Leistungen f. Bibliothek Oechslin||Leist. Bibliothek Oechslin|T2100
+02013|Zentrale Werkstatt D-PHYS|||T2013
+02858|Chemie/Laborinstall./Holz|||T2835
+02859|Gase|||T2835
+02857|Labormaterial|||T2835
+02856|Elektromaterial|||T2835
+02855|Werkstattmaterial|||T2835
+02012|Praktika D-PHYS|||T2012
+02016|Administration D-PHYS|||T2016
+06022|ID-Daten- und Sprachkommunikation||ID-Daten- und Sprachkom.|T0073
+06023|ID-Netzwerknahe Applikationen||ID-Netzwerknahe Applik.|T0073
+06052|ID-Support Zentrale Organe|||T0076
+06033|ID-Support Team|||T0074
+06032|ID-Call Center|||T0074
+06025|ID-Netzwerkinstallationen und -planung||ID-Netzwerkinstallationen|T0073
+06024|ID-Netzwerksicherheit|||T0073
+06026|ID-Kommunikationssupport|||T0073
+06053|ID-Operative Informationssysteme Allgem.||ID-Operative Informations.|T0076
+06004|ID-Qualitätsmanagement|||T6000
+00000|Gesamthierarchie ETH Zürich u. Einheiten||Gesamthierarchie ETH|T0000
+04701|Geschäftsstelle Telejob (AVETH)||Geschäftsstelle Telejob|T0020
+02064|Scientific Central Facilities||Scient. Central Facilities|T2060
+08171|Events (Unt.+ Rep.)|||T8160
+02863|Projekt Enterprise Computing Center(ECC)||Projekt Enterprise Comput.|T2150
+03699|Professur Computational Systems Biology||Professur D-BSSE (03699)|T2060
+03780|Professur für Consumer Behavior||Professur D-AGRL (03780)|T2300
+03813|Professur für Logistikmanagement||Professur D-MTEC (03813)|T2120
+03799|Literatur- und Kulturwissenschaft||Professur D-GESS (03799)|T2045
+02866|CINA|||T2060
+08619|Labor für Ionenstrahlphysik (LIP)||LIP|T2532
+02239|Risk Center|||T2045
+03684|Professur für Biosystems Engineering||Professur D-BSSE (03684)|T2060
+08594|retro.seals.ch|||T8590
+08593|E-Depot|||T8590
+08592|Metadatenserver|||T8590
+08591|Webportal E-lib.ch|||T8590
+08590|E-lib.ch allg.inkl. Koordinationsstelle||E-lib.ch allg.inkl. Koord.|T8590
+08551|Fachreferate|||T8557
+03694|Biotechnologie u. Bioingenieurwissensch.||Professur D-BSSE (03694)|T2060
+03818|Management von Informationssystemen i.U.||Professur D-MTEC (03818)|
+03808|Professur für Entwicklungsökonomie||Professur D-GESS (03808)|
+02867|CECAM Aktivitäten|||T2010
+01488|Physikalisches Kolloquium D-PHYS|Physikalisches Kolloguium D-PHYS|Physikalisches Kolloguium|T1490
+03749|Sbalzarini, Ivo F.|Professur für Computational Science|Professur D-INFK (03749)|T2150
+03309|Professur für Informatik||Professur D-INFK (03309)|T2150
+03249|Gander, Walter (emeritus)|||T2150
+02217|Veranstaltungen & Standortentwicklung||Veranstaltungen/Standort.|T0025
+00040|Bereich VP für Finanzen & Controlling||VP Finanzen & Controlling|T0040
+04520|Strategiekommission|||T0022
+04501|Risikomanagement-Kommission||Risikomanagement-Komm.|T0040
+02240|Centre f. Climate Systems Modeling(C2SM)||C2CM|T2350
+02659|Institut für Visual Computing||Visual Computing|T2150
+03659|Gruppe Prof. Buhmann|||T2150
+05355|Rektorin der ETH Zürich|||
+01068|MAS in Urban Design|||T1057
+01067|MAS Gesamtprojektleitung Bau||MAS iBau|T1057
+01856|MA Geschichte und Philosophie d. Wissens||MA Geschichte&Philosophie|T1857
+01454|MSc Neural Systems and Computation||MSc Neural Systems/Comput.|T1457
+01160|MSc Nuclear Engineering|||T1159
+01914|DR Biosysteme||DR biosysteme|01914
+01909|Lehre Biosysteme|||T1909
+02251|Kompetenzzentrum Lernen und Lehren||KLL|T2045
+03831|Professorship of Complex Materials||Professur D-MATL (03831)|T2160
+01902|BSc Biotechnologie (D-BSSE)||BSc Biotechnologie(D-BSSE)|T1909
+01904|MSc Biotechnologie (D-BSSE)||MSc Biotechnologie(D-BSSE)|T1909
+03602|Professur für Bioverfahrenstechnik||Professur D-BSSE (03602)|T2060
+08073|Lehrlingswesen Personalabteilung||Lehrlingswesen Personalab.|T8073
+08074|Lernende ASVZ|||T8073
+04876|Stiftung SWITCH|||T8090
+03842|Prof.Entscheidungstheorie/Verhaltenssp.||Professur D-GESS (03842)|
+01414|MSc Quantitative Finance|||T1430
+01161|MSc Robotics, Systems and Control||MSc Robotics,Systems Cont.|T1159
+01112|MAS in Natural Hazards Management||MAS in Natural Hazards|T1105
+03826|Professur für Mathematik||Professur D-MATH (03826)|T2000
+03845|Professur für Finanzmathematik||Professur D-MATH (03845)|T2000
+03840|Professur f. Applied Economics; I & I||Professur D-MTEC (03840)|T2120
+03846|Professur für Global Governance||Professur D-GESS (03846)|T2045
+03844|Professur für Finanzmathematik||Professur D-MATH (03844)|T2000
+03839|Professur für Mathematik||Professur D-MATH (03839)|T2000
+03825|Professur für Mathematik||Professur D-MATH (03825)|T2000
+03851|Professur für Angewandte Mathematik||Professur D-MATH (03851)|T2000
+03856|Professur für Humane Immunologie||Professur D-BIOL (03856)|T2030
+03848|Professur für Photonik||Professur D-ITET (03848)|
+02885|Studienorientierung und Coaching||Studienorientierung/Coach.|T0030
+02868|Genetic Diversity Centre (GDC)||Genetic Diversity Centre|T2350
+02880|Lehrentwicklung und -technologie||Lehrentwicklung/Techn.|T0030
+08075|Career Center|||T0045
+08682|Einheit Verhalten, Gesundheit, Tierwohl||Verhalten/Gesundh.Tierwohl|T2703
+01123|MAS in Sustainable Water Rescources|MAS in Sustainable Water Resources|MAS in Sustainable Water|T1105
+03866|Professur für Strukturbiologie||Professur D-BIOL (03866)|T2030
+03863|Professur für Architektur und Entwurf||Professur D-ARCH (03863)|T2100
+03862|Professur für Architektur und Entwurf||Professur D-ARCH (03862)|T2100
+02725|Institut für Geochemie und Petrologie||Geochemie und Petrologie|T2725
+00084|CSCS operations management|||T0080
+02218|Treffpunkt Science City|||T0030
+08054|Gästehaus Villa Hatt|||T2217
+03716|Professur für Wirtschaftsforschung||Professur D-MTEC (03716)|T2120
+02307|Informatik Einheiten D-AGRL||Informatik Einheit. D-AGRL|T2300
+03721|Professur f. Millimeterwellen/Terahertz.||Professur D-ITET (03721)|T2140
+02829|Doctoral School Mathematics||Doctoral School Mathematic|T2000
+T1490|Betriebe D-PHYS|||
+T2012|Akademische Betriebe D-PHYS||Akademische Betriebe|
+T2832|Technische Betriebe D-PHYS, direkt||Techn. Betriebe D-PHYS|
+T2835|Technische Betriebe D-PHYS, direkt||Techn. Betriebe D-PHYS|
+03210|D-Management, Technologie und Ökonomie||D-MTEC|
+03162|I. f. Pflanzen/Tier/Agrarökosystem-Wiss.|I.f. Pflanzen/Tier/Agrarökosystem-Wiss.|IPAS|
+05351|EPFZ, IER, Lausanne|||
+08798|Laboratorium für Festkörperphysik||Lab.f. Festkörperphysik|
+03718|Institut für Landschaftsarchitektur||Landschaftsarchitektur|
+03584|Bonhoeffer, Sebastian|||
+03452|Institut für Mechanische Systeme||Mechanische Systeme|
+03264|Institut für Verhaltenswissenschaften||Verhaltenswissenschaften|
+04346|HPL Neubauprojekt Life Science, Tiergeb.||ETHZ Gebäude|
+04990|Lehrlingsvereinigung|||
+06202|Dir.f.Entwicklungszusammenarbeit||Entwicklungszusammenarbeit|
+06501|Direktion d. Militärverwaltung||Militärverwaltung|
+06520|Direktion d.Armeemotorfahrzeug.||Armeemotorfarhzeug|
+04510|Disziplinarkommission|||
+04805|Dokumentations- und Informationszentale|Dokumentations- und Informationszentrale|Dokum.u.Info-Zentrale|
+06200|Departement f.auswärt.Angeleg.||Dep.f.ausw.Angeleg|
+05951|Der Zürcher Student|||
+03538|Studio Basel/Institut Stadt d. Gegenwart||Studio BS/Stadt Gegenwart|
+06301|Departement des Innern,Sekr.||Departement des Innern|
+06201|Departement f.auswärt.Angelegenheiten||Departement f.auswärt.Ang.|
+06806|Del.für Fragen der Atomenergie||Del.f. Atomenergie|
+06315|Bundesamt für Forstwesen|||
+06532|Bundesamt für Infanterie|||
+06402|Bundesamt für Justiz|||
+06533|Bund.f.mechanis.u.I.Truppen|Bund.f.mechanis.u.I.Truppe|Bund.f.mechanis.u.I.Truppe|
+06512|Bund.f.Genie Fest.|||
+06518|Bund.f.Luftschutzt|||
+03369|Institut für Theoretische Physik||Theoretische Physik|
+08081|Betriebl. Rechnungswesen|||
+09102|Biogen SA, Genf|||
+08260|Bereich RZ|||
+07310|Ber.Kom. Landwirt.|||
+01714|Studienricht. Umweltnaturwissenschaften||Studienr. Umweltnaturwiss.|
+04086|AWC  Alp Weissenstein, Sommer||ETHZ Gebäude|
+04087|AWD  Alp Weissenstein, Wohnh.||ETHZ Gebäude|
+07601|Aargau|||
+05912|Abendtechn.Bern|||
+05914|Abendtech.Lausanne|||
+05916|Abendtech. Zürich|||
+04294|ADM  Auf der Mauer 2||ETHZ Gebäude|
+04104|AGS  Atelierhaus Gisel||ETHZ Gebäude|
+08247|ASVZ (Unt.+Rep.)|||
+04475|AWB  Alp Weissenstein Bergün||ETHZ Gebäude|
+08134|Inneneinrichtung|||
+04138|SOK  Sonneggstrasse 23||ETHZ Gebäude|
+04166|SOP  Sonneggstrasse 27||ETHZ Gebäude|
+04174|SOW  Sonneggstrasse 63||ETHZ Gebäude|
+04167|SOX  Sonneggstrasse 74||ETHZ Gebäude|
+04232|STS  Schmelzbergstrasse 25||ETHZ Gebäude|
+04844|STUZ|||
+04428|SWV  Wagistrasse 10, Schlieren||ETHZ Gebäude|
+07808|Samedan|||
+02331|Samml. und Ausstell. D-ERDW||Samml./Ausstell.D-ERDW|
+07615|Schaffhausen|||
+04119|MLY  Medienkaverne||ETHZ Gebäude|
+04111|MM   Leonhardstrasse 34||ETHZ Gebäude|
+05495|EIR IRT|||
+05670|EAWAG|||
+08799|Professur für Mathematik||Professur D-MATH (03519)|
+08800|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+T0072|Informatikdienste|||
+07055|Eidg.b.K.Weltraumf|||
+06100|Eidgenossen.Behörd|||
+06319|Bund.f.Umweltsch.|||
+06802|Bundesa.f. Verkehr|||
+06804|Bund.f.Wasserwirt.|||
+06803|Bund.f.Zivilluftf.|||
+06408|Bund.f.Zivilschutz|||
+06513|Bund.f.Übermittl.T|||
+06405|Bundesanwaltschaft|||
+06305|Bundesarchiv|||
+06105|Bundesgericht|||
+06104|Bundeskanzlei|||
+06723|Bundesa.f.Konjunkt|||
+06707|Bundesa.für Landw.|||
+06610|BFO|||
+06403|Bund.f.Polizeiwes.|||
+06406|Bund.f.Privatvers.|||
+06410|Bund.f.Raumplanung|||
+06514|Bund.f.Sanität|||
+06318|Bund.f.Sozialvers.|||
+06317|Bund.für Statistik|||
+06515|Militärveterinärd.|||
+06407|Bund.f.geist.Eigen|||
+06724|Bund.f.w.Kriegsvor|||
+06536|Bund.f. Adjutantur|||
+06404|Bund.f.Ausländerfr|||
+06320|Bund.f.Bild.u.Wiss|||
+03529|Inst. f. Signal- u. Informationsverarb.||Signalverarbeitung|
+05031|EPFL,I.MACHINES HYD.|||
+05071|EPFL,I.MATHEMAT. AP.|||
+05036|EPFL,I.MICROTECHN.|||
+05016|EPFL,I.PETROGRAPHIE|||
+05304|EPFL,COMM. 3EME C.|||
+05040|EPFL,DEP.ELECTRICITE|||
+05060|EPFL, DEP.CHIMIE|||
+05030|EPFL,DEP.MECANIQUE|||
+05050|EPFL,DEP.PHYSIQUE|||
+05010|EPFL,DEP.GENIE CIVIL|||
+05020|EPFL,DEP.GENIE R.|||
+05033|EPFL,I.AERODYNAMIQUE|||
+05005|EPFL,Com.de Rech.|||
+05004|EPFL,Planung|||
+04239|GLA  Gloriastrasse 68|GLA Gloriastrasse 68|GLA Gloriastrasse 68|
+04243|GLO  Gloriastrasse 82||ETHZ Gebäude|
+08127|Freizeitwerkstatt|||
+07607|Fribourg|||
+06715|F.Landw.Pflanzenb.|||
+07335|Forsch.Wohnungsbau|||
+06713|Forscha.f.Agrikult|||
+06712|Forsch.f.Viehwirt.|||
+04695|Bereich VP f.Forschung & Wirtschaftsbez.||VP Forschung/Wirtschaftsb.|
+09900|Departemente, direkt|||
+06716|F.Obst-Wein-Garten|||
+08167|MAN (Unt.+Rep.)|||
+06900|Alkoholverwaltung|||
+08070|Personal|||
+T8400|Abteilung Betrieb|||
+08400|Gebäudeautomation|||T8411
+T8320|Abteilung Betrieb|||
+08320|Bereich SLA|||
+08324|Gebäudebereich SLA|||
+08404|Fachbereich GA|||T8411
+08327|Fernwärmebetrieb|||
+08450|Löhne Bereich HC|||
+T2701|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+04256|HRS Hirschengraben 84, 8092 Zürich||ETHZ Gebäude|
+T8459|ETH Zürich, direkt||ETH Zürich Gesamt|
+08459|Energie/Medien n.d.|||
+T8460|T-E/M Zentrum|||
+08460|T-E/M Zentrum n.d.|||
+08461|Elektrizität Zentrum|||
+08462|Wasser Zentrum|||
+08464|Gas Zentrum|||
+08465|Kehricht Zentrum|||
+T8470|T-E/M Hönggerberg|||
+08470|E/M Hönggerberg n.d.|||
+08471|Elektrizität Höngg|||
+08472|Wasser Hönggerberg|||
+08473|Heizung Hönggerberg|||
+08475|Kehricht Hönggerberg|||
+T8480|T-E/M Uebrige|||
+08480|E/M Uebrige n.d.|||
+08482|Wasser Uebrige|||
+08483|Heizung Uebrige|||
+08484|Gas Uebrige Bereiche|||
+08485|Kehricht Uebrige|||
+T2652|D-Informationstechnologie/Elektrotechnik||D-ITET|
+08420|Competence Center Betrieb|||T8411
+02811|Institut für Verfahrenstechnik||Verfahrenstechnik|
+02813|Institut für Verfahrenstechnik||Verfahrenstechnik|
+02159|Departement Informatik||D-INFK|
+04394|I35  Winterthurerstr. 190||ETHZ Gebäude|
+04395|I55  Winterthurerstr. 190||ETHZ Gebäude|
+04168|IFW  Haldeneggsteig 4||ETHZ Gebäude|
+07441|IKRK|||
+T0073|Informatikdienste|||
+T0074|Informatikdienste|||
+T0075|Informatikdienste|||
+T0076|Informatikdienste|||
+T0077|Informatikdienste|||
+08678|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+08728|Departement Umweltwissenschaften||D-UWIS|
+T3722|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+04486|MAN  Rechenzentrum ETH, Manno TI||ETHZ Gebäude|
+04120|ML   Sonneggstrasse 3||ETHZ Gebäude|
+07575|Int.Quartärverein.|||
+07409|Int.Zivilluftfahrt|||
+08131|Abteilung Dienste|||
+07503|Stip.-Berater-Konf|||
+04850|Internat.Stud.Club|||
+07403|Intern.Atomenergie|||
+07410|Int.Fernmeldever.|||
+07408|Int. Währungsfonds|||
+06401|Just.u.P.dep.,Sekr.|||
+03386|Institut für Elektronik||Elektronik|
+04275|KUB  Kürbergstrasse 20||ETHZ Gebäude|
+07650|Kanton Zürich|||
+03761|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+T8463|T-Heizung Zentrum|||
+T8473|T-Heizung Hönggerb.|||
+09331|AUM Verrechn.mess.|||
+09332|CLM Verrechn.mess.|||
+09333|CUM Verrechn.mess.|||
+09334|FLM Verrechn.mess.|||
+09336|HAM Verrechn.mess.|||
+09337|HFM Verrechn.mess.|||
+09338|HLE Verrechn.mess.|||
+09339|HLG Verrechn.mess.|||
+09340|HSM Verrechn.mess.|||
+09343|LEM Verrechn.mess.|||
+09344|LFM Verrechn.mess.|||
+09345|LHM Verrechn.mess.|||
+09346|LRM Verrechn.mess.|||
+09348|NEM Verrechn.mess.|||
+09349|NLM Verrechn.mess.|||
+09351|SPM Verrechn.mess.|||
+09352|STM Verrechn.mess.|||
+09354|SUM Verrechn.mess.|||
+09355|UNM Verrechn.mess.|||
+09356|WAM Verrechn.mess.|||
+09360|WPM Verrechn.mess.|||
+T0022|Schulleitung und Dienste|||
+T0025|Schulleitung und Dienste|||
+T0040|Schulleitung und Dienste|||
+T0021|Bereich Präsident der ETH Zürich||Bereich Präsident|
+T3186|Institut für Astronomie||Astronomie|
+T0000|Gesamthierarchie ETH Zürich u. Einheiten||Gesamthierarchie ETH|
+T0009|Gesamthierarchie ETH Zürich u. Einheiten||Gesamthierarchie ETH|
+T0002|Gesamthierarchie ETH Zürich u. Einheiten||Gesamthierarchie ETH|
+03823|Inst. f. Raum- u. Landschaftsentwicklung||Raum- u. Landschaftsentw.|
+03824|Institut f. Geodäsie u. Photogrammetrie||Geodäsie Photogrammetrie|
+08803|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+03820|VA für Wasserbau/Hydrologie/Glaziologie||VAW Wasserbau|
+06519|Kriegsmat.Verwalt.|||
+03217|Seminar für Statistik (SfS)||Seminar für Statistik(SfS)|
+04483|LBV  Gutsbetrieb les Barges Vouvry||ETHZ Gebäude|
+04145|LEB  Leonhardstrasse 19||ETHZ Gebäude|
+04146|LEC  Leonhardstrasse 25||ETHZ Gebäude|
+04147|LED  Leonhardstrasse 25a||ETHZ Gebäude|
+07574|LEST-Stiftung|||
+04217|LFG  Universitätstrasse 2||ETHZ Gebäude|
+04223|LFO  Universitätstrasse 2||ETHZ Gebäude|
+04220|LFW  Universitätstrasse 2||ETHZ Gebäude|
+04386|LHT  Lerchenhalde 37||ETHZ Gebäude|
+04387|LHV  Lerchenhalde 39||ETHZ Gebäude|
+04388|LHX  Lerchenhalde 41||ETHZ Gebäude|
+04389|LHZ  Lerchenhalde 43||ETHZ Gebäude|
+04115|LOW  Löwenstrasse 42||ETHZ Gebäude|
+04374|LRA  Lerchenrain 1||ETHZ Gebäude|
+04380|LRG  Lerchenrain 7||ETHZ Gebäude|
+04382|LRL  Lerchenrain 11||ETHZ Gebäude|
+04383|LRN  Lerchenrain 13||ETHZ Gebäude|
+04384|LRO  Garage bei Lerchenrain 19||ETHZ Gebäude|
+04049|LSH Schutzhütte Limmernfirn, Linthal||ETHZ Gebäude|
+06304|Landes-Bibliothek|||
+06312|Landesmuseum|||
+06561|Landestopographie|||
+08574|Ausleihe|||
+T8580|ETH-Bibliothek|||
+08515|NEBIS-Verbundzentrale|||
+03645|Weber-Ban (SNF)(eh.)|||
+08210|Löhne Bereich ET|||
+08350|Löhne Bereich FEL|||
+08310|Löhne Bereich HP|||
+08170|Löhne Bereich Ltg|||
+08270|Löhne Bereich RZ|||
+08390|Löhne Bereich ZVH|||
+08370|Löhne Bereich ZVZ|||
+T2120|Departemente, direkt|||
+04261|HAA  Häldeliweg 15/17, 8092 Zürich||ETHZ Gebäude|
+04259|HAC  Häldeliweg 19, 8092 Zürich||ETHZ Gebäude|
+04246|KPL Kreuzplatz 5, 8032 Zürich||ETHZ Gebäude|
+04028|BSA Zentrum f. Biosysteme Basel||ETHZ Gebäude|
+04029|LEE Bauprojekt "CLA4" Leonhardstr.||ETHZ Gebäude|
+04030|HPW Gewächshaus UWIS Schafmattstr.||ETHZ Gebäude|
+04033|HZB Remisengebäude Schauenbergstr. 92||ETHZ Gebäude|
+04034|HZC Doppelgarage Schauenbergstr. 90||ETHZ Gebäude|
+04035|HZD Lagergebäude Schauenbergstr. 96||ETHZ Gebäude|
+03697|Institut für Visual Computing||Visual Computing|
+04041|BSP Spitalstrasse 12, 4056 Basel||ETHZ Gebäude|
+T2020|Departemente, direkt|||
+T1509|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+07380|Eidg.Hagelkommiss.|||
+07110|Eidg.Stipend.Komm.|||
+05550|EAFV|||
+05600|EMPA|||
+04242|ETL  Physikstrasse 3||ETHZ Gebäude|
+04240|ETZ  Gloriastrasse 35||ETHZ Gebäude|
+05052|EPFL,L.PHYSIQUE TH.|||
+04245|ETA  Gloriastrasse 35||ETHZ Gebäude|
+04241|ETF  Sternwartstrasse 7||ETHZ Gebäude|
+09111|ETH Bulletin AOA|||
+05014|EPFL,L.GEOTECHNIQUE|||
+05054|EPFL,L.PHYSIQUE AP.|||
+05051|EPFL,L.PHYSIQUE EXP.|||
+05021|EPFL,I.PHOTOGRAMM.|||
+05018|EPFL,I.PRODUC.D'E.|||
+05091|EPFL,I.RECHERCHE L.|||
+05035|EPFL,I.REGLAGE AUT.|||
+05012|EPFL,I.STATIQUE|||
+05034|EPFL,I.THERMIQUE A.|||
+05022|EPFL,I.GENIE RURAL|||
+05081|EPFL,I.METAUX|||
+05013|EPFL,L.HYDRAULICE|||
+05053|EPFL,L.OPTIQUE PHYS.|||
+05032|EPFL,I.THERMODYNAM.|||
+05061|EPFL,I.CHIMIE PHYS.|||
+05063|EPFL,I.GENIE CHIM.|||
+T2502|Departement Mathematik||D-MATH|
+T2703|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+T2534|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+T2640|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2532|Departement Physik||D-PHYS|
+T2511|Departement Physik||D-PHYS|
+T2629|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+T2513|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+08125|Schreinerei Hönggerberg|||
+08124|Schreinerei Zentrum|||
+03501|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03435|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+07542|Schweiz.Asienstif.|||
+07526|Schw.Ver.Landespl.|||
+07524|Schweiz.V.f.Atomen.|||
+07150|Schweiz. Wiss.Rat|||
+07504|Zentr.f.Hochschulw|||
+05911|Schw.Landw.Techn.Z|||
+06960|SBB|||
+07520|Schw.Nationalfonds|||
+09103|Verb.Sport i.d.Sch|||
+07616|Schwyz|||
+07809|Sellenbüren|||
+03421|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+03244|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+07814|Würenlingen|||
+07815|Würenlos|||
+07404|Ernährungs-u.Landw|||
+08540|ETH-Bibliothek|||
+05002|EPFL,Verwaltung|||
+05306|EPFL,ASSOCI.ETUD.|||
+05307|EPFL,ASSOCI.PERS.|||
+05072|EPFL,C. DE CALCUL|||
+05059|EPFL,CE.RECH.PHYS.|||
+05301|EPFL,COMM.REFORME|||
+05453|EIR SAPHIR|||
+05432|EIR Sicherheit|||
+05473|EIR Techn. Dienste|||
+05423|EIR Thermohydraul.|||
+05433|EIR Wärmetechnik|||
+04238|EKZ  Energiekanäle Zentrum||ETHZ Gebäude|
+05640|EMPA - St.Gallen|||
+06705|BIGA|||
+00099|Andere Bundesdien.|||
+04839|Akadem. Orchester|||
+06080|ID-IT-Projekte|||
+08061|Stab Portfoliomanagement|||
+08062|Stab Portfoliomanagement|||
+08063|Stab Portfoliomanagement|||
+08209|Personal TGM ET|||
+08229|Personal TGM HG|||
+08289|Personal TGM HI|||
+08309|Personal TGM HP|||
+08329|Personal Techn. Gebäudemanagement  SLA|Personal Techn. Gebäudemanagement SLA|Personal TGM SLA|
+08453|Pikett|||
+08492|Sicherheit, Gesundheit und Umwelt||Sicherheit, Gesund.,Umwelt|
+08493|Sicherheit, Gesundheit und Umwelt||Sicherheit, Gesund.,Umwelt|
+08494|Anlass- und Personenschutz|||
+08495|Sicherheit, Gesundheit und Umwelt||Sicherheit, Gesund.,Umwelt|
+08496|Laborsicherheit|||
+T0048|Finanzen und Controlling|||
+T2655|Departement Architektur||D-ARCH|
+08620|FIRST Center for Micro- and Nanoscience||FIRST|
+T2205|Bereich VP f.Forschung & Wirtschaftsbez.||VP Forschung/Wirtschaftsb.|
+08621|FIRST Center for Micro- and Nanoscience||FIRST|
+08622|FIRST Center for Micro- and Nanoscience||FIRST|
+08623|FIRST Center for Micro- and Nanoscience||FIRST|
+08624|FIRST Center for Micro- and Nanoscience||FIRST|
+08626|FIRST Center for Micro- and Nanoscience||FIRST|
+07803|Hünenberg-Chamau|||
+01670|DA ERDW|||
+01870|Studienr. Geistes-,Sozial u. Staatswiss.||Studienrichtung GESS|
+01270|DA Informatik|||
+01170|DA MAVT|||
+01470|Studienrichtung Physik|||
+01720|Studienricht. Umweltnaturwissenschaften||Studienr. Umweltnaturwiss.|
+04912|Christl.Gewerksch.|||
+07900|City-Parkhaus AG|||
+04161|CLU  Clausiusstrasse 50||ETHZ Gebäude|
+04158|CLV  Clausiusstrasse 47||ETHZ Gebäude|
+04159|CLW  Clausiusstrasse 49||ETHZ Gebäude|
+04162|CLY  Clausiusstrasse 72||ETHZ Gebäude|
+04210|CNB  Universitätstrasse 6||ETHZ Gebäude|
+04212|CNS ETH Zentrum, Spöndlistr, R.+Plz.||ETHZ Gebäude|
+07467|CERN Genf|||
+04191|CHA  Universitätstr. 8, 8092 ZH||ETHZ Gebäude|
+04192|CHB  Universitätstr. 16||ETHZ Gebäude|
+04133|CLD  Clausiusstr. 37||ETHZ Gebäude|
+06103|Bundesrat|||
+03502|Seminar für Statistik (SfS)||Seminar für Statistik(SfS)|
+08119|Abteilung Dienste|||
+03827|Gassert, Roger|||
+03828|Krohl, Alexander|||
+03829|Institut für Astronomie||Astronomie|
+03830|Institut für Theoretische Physik||Theoretische Physik|
+08552|Monographische Medien|||
+08555|Zeitschriften|||
+08568|Budget. Lizenzen, Projekte|Budget, Lizenzen, Projekte|Budget, Lizenzen, Projekte|
+08573|Magazinbestand|||
+08575|Dokumentenlieferung|||
+03798|Institut für Terrestrische Ökosysteme||Terrestrische Ökosysteme|
+03800|Institut f.Technologie in d. Architektur||Technologie in Architektur|
+T2659|Departement Informatik||D-INFK|
+07472|Europ.Rundf.-Union|||
+07462|Europ.Wirtschaftsg|||
+07461|Europ.Wirtschaftsk|||
+08072|Personal|||
+02339|Departement Erdwissenschaften||D-ERDW|
+04423|MUS  Mühle Sellenbüren||ETHZ Gebäude|
+04490|MVA  Monte Verità||ETHZ Gebäude|
+02139|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+03545|Studio Basel/Institut Stadt d. Gegenwart||Studio BS/Stadt Gegenwart|
+06711|Meliorationsamt|||
+06311|Meteorol.Zentralan|||
+06534|Militär-Pferdeanst|||
+06562|Mil.versicherung|||
+07465|Montanunion|||
+06603|Münzstätte|||
+04218|NEA  Universitätstrasse 2||ETHZ Gebäude|
+04131|NW   Clausiusstrasse 25||ETHZ Gebäude|
+07806|Nante|||
+07060|Schweiz.UNESCO-Kom|||
+06101|Nationalrat|||
+08086|Abteilung Rechnungswesen|||
+07612|Neuenburg|||
+09290|N.zut.Kosten Inform.|||
+09110|Nicht zuteil.K.AOA|||
+09280|ETH-Bibliothek|||
+07613|Nidwalden|||
+06516|Oberkriegskommiss.|||
+07614|Obwalden|||
+07405|Org.für Erziehung|||
+04249|PFA  Pfingstweidstr. Technopark||ETHZ Gebäude|
+04247|PRE  Predigergasse 9||ETHZ Gebäude|
+08122|Abteilung Dienste|||
+09193|Parking|||
+03381|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+T2350|Departemente, direkt|||
+03672|Institut für Theoretische Informatik||Theoretische Informatik|
+05798|FOS (UNIZ)|||
+05799|PLM (UNIZ)|||
+T6000|Informatikdienste|||
+06000|ID Allgemein|||
+06001|ID-Informatikdienste Direktion||ID-Informatikdienste Dir.|
+06003|ID-Zentrale Wartungsverträge Departement||ID-Zentr.Wartungsverträge|
+06031|ID-HD-Führungsaufgaben|||
+06041|ID-SD-Führungsaufgaben|ID-SD Führungsaufgaben||
+06051|ID-Bi-Führungsaufgaben|ID-BI-Führungsaufgaben|ID-BI-Führungsaufgaben|
+06061|ID-BD-Führungsaufgaben|||
+04038|LMS Lägeren Messstation Pflanzeninst.||ETHZ Gebäude|
+04113|WEF Weinbergstr. 22a, 8001 Zürich||ETHZ Gebäude|
+03727|Inst.f.Bewegungswissenschaften und Sport||IBWS|
+04031|HPX "Provisorium f.Praktika/Rochadenfl."||ETHZ Gebäude|
+05000|EPFL,Leit.Verw.|||
+05476|EIR Kantine|||
+05471|EIR Leitung Adm.|||
+05441|EIR Leitung Mat.|||
+05421|EIR Leitung Reakt.|||
+05451|EIR Leitung Wiss.|||
+05443|EIR Metallurgie|||
+05413|EIR Prospektivstud|||
+05456|EIR Radioaktiv.Abf|||
+05424|EIR Reaktoranlagen|||
+05422|EIR Reaktorphysik|||
+05497|EIR ASK|||
+05472|EIR Allgem.Verwalt|||
+05475|EIR Bibliothek|||
+05445|EIR Brennstoff|||
+05444|EIR Chemie|||
+05411|EIR Direktion|||
+05410|EIR Direktionsres.|||
+05412|EIR Direktionsstab|||
+05474|EIR Druckerei|||
+05455|EIR Elektrotechnik|||
+05434|EIR Energ.+ Umwelt|||
+01257|SR Informatik|||
+T1307|Lehre MATL|||
+T1755|Lehre AGRL|||
+T1756|Lehre AGRL|||
+T3350|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+T3417|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+T3160|Institut für Geochemie und Petrologie||Geochemie und Petrologie|
+T3476|Institut für Geophysik||Geophysik|
+T3670|Institut für Polymere||Polymere|
+T8180|Abteilung Betrieb|||
+08180|Bereich AU|||
+08184|Geb. Bereich AU|||
+04393|I32  Uni Irchel Block 32||ETHZ Gebäude|
+03380|Institut für Integrierte Systeme||Integrierte Systeme|
+05754|HSG,Jurist.Abt.|||
+05756|HSG,Sprach.Hist.Phil|||
+05755|HSG,Technol.-Nat.Abt|||
+05753|HSG,Volksw.-Wirt.|||
+07500|Hochschulkonferenz|||
+04500|Bereich Präsident der ETH Zürich||Bereich Präsident|
+03563|Institut f.Technologie in d. Architektur||Technologie in Architektur|
+03206|Institut für Mikrobiologie||Mikrobiologie|
+03540|Studio Basel/Institut Stadt d. Gegenwart||Studio BS/Stadt Gegenwart|
+04835|Hilfsa.f.Flüchtl.|||
+05750|Hochsch. St.Gallen|||
+05752|HSG,Betriebsw.Abt.|||
+06703|Handelsabteilung|||
+09194|Heizung und Klima|||
+00097|Heizung, Wärme|||
+04319|HPV  Hönggerberg||ETHZ Gebäude|
+04320|HPZ  Hönggerberg||ETHZ Gebäude|
+04291|HSA  Hochschulsportanlage Fluntern||ETHZ Gebäude|
+04325|HSP  Hönggerberg||ETHZ Gebäude|
+04172|HUT  Huttenstrasse 34||ETHZ Gebäude|
+T1505|Lehre CHAB|||
+T1604|Lehre CHAB|||
+T1555|Lehre BIOL|||
+T1556|Lehre BIOL|||
+T1857|Lehre GESS|||
+T1057|Lehre ARCH|||
+04303|HSC Science City, Arealplanung Hönggerb.||ETHZ Gebäude|
+04036|FRU Freudenbergstr. 112, Umgebung||ETHZ Gebäude|
+04263|HCH  Hochstrasse 60||ETHZ Gebäude|
+06611|Finanzkontrolle|||
+06601|Finanzverwaltung|||
+06913|Fernmeldedienste|||
+09189|Feuerwehr|||
+04065|FWN Forschungsstation Früebüel||ETHZ Gebäude|
+08120|Abteilung Dienste|||
+04409|FWA  Arthur Rohn-Str. Forsthaus||ETHZ Gebäude|
+04413|FWF  Arthur Rohn-Str. Garage m. Ger.||ETHZ Gebäude|
+04418|FWG  Arthur Rohn-Str. Werkst. u. H.||ETHZ Gebäude|
+04066|FSS Forschungsstation Früebüel||ETHZ Gebäude|
+04479|FST  Eschikon 33, Stall||ETHZ Gebäude|
+04480|FTL  Eschikon 33, Trafo/Lager||ETHZ Gebäude|
+04481|FLY  Eschikon 33, Lysimeterstation||ETHZ Gebäude|
+04478|FMG  Eschikon 33, Mehrzweckgebäude||ETHZ Gebäude|
+04420|FOH  Forsthaus Waldegg||ETHZ Gebäude|
+07541|FOND.SUISSE RECH.|||
+04455|FEL  Eschikon-Lindau||ETHZ Gebäude|
+04472|FGH  Eschikon 33, Gewächshäuser||ETHZ Gebäude|
+04474|FGS  Eschikon 33, Gewächshäuser||ETHZ Gebäude|
+07466|Euratom|||
+07470|Europ.Abschussrak.|||
+07571|Luft-u.Raumfahrt.|||
+07471|Europ. Kernenergie|||
+07469|Europ. Raumforsch.|||
+04484|VWN  Hünenberg ZG||ETHZ Gebäude|
+04488|VWV  Hünenberg ZG||ETHZ Gebäude|
+04851|Verb.Ausl.Studier.|||
+04920|Vereinig.h.Bundesb|||
+06800|Verk.Energ.Wirtsch|||
+08116|Abteilung Dienste|||
+06106|Versich. Gericht|||
+08207|VEC/Hü (Unt.+ Rep.)|||
+07813|Villigen|||
+06700|Volkswirtschaftsd.|||
+04150|WEH  Weinbergstrasse 35||ETHZ Gebäude|
+04149|WEL  Weinbergstr. 74||ETHZ Gebäude|
+04153|WEN  Weinbergstrasse 94||ETHZ Gebäude|
+04293|WEP  Weinbergstr. 109||ETHZ Gebäude|
+04109|WET  Weinbergstr. 43||ETHZ Gebäude|
+04289|WIL  Wilfriedstrasse 6||ETHZ Gebäude|
+08189|Personal TGM AU|||
+08190|Löhne Bereich AU|||
+03705|Institut für Integrative Biologie||Integrative Biologie|
+03703|Institut für Molekulare Systembiologie||Molekulare Systembiologie|
+T2014|Departement Physik||D-PHYS|
+T2016|Betriebe D-PHYS|||
+T1106|Lehre BAUG|||
+03746|Van Bokhoven, Jeroen A.|||
+T2518|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+04024|STB Stampfenbachstr. 69, 8006 Zürich||ETHZ Gebäude|
+03751|Institut für Automatik||Automatik|
+T2721|Departement Umweltwissenschaften||D-UWIS|
+T2723|Departement Umweltwissenschaften||D-UWIS|
+02027|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+T2160|Departemente, direkt|||
+02169|Departement Materialwissenschaft||D-MATL|
+01320|Studienrichtung Materialwissenschaft||Studienr. Materialwiss.|
+T2516|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+03650|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+T2653|Netzwerk Stadt und Landschaft D-ARCH||Netzwerk Stadt/Landschaft|
+04359|HXA Einsteinstr. 4, freisteh. Holzbar.||ETHZ Gebäude|
+T2654|Netzwerk Stadt und Landschaft D-ARCH||Netzwerk Stadt/Landschaft|
+04366|HXB  Einsteinstr. 4, Sitzungspavillon||ETHZ Gebäude|
+03137|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+03238|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+08572|Information|||
+T8550|ETH-Bibliothek|||
+08503|Personald. u. Ausb.|||
+08511|Bibliothek Erdwiss.|||
+04252|RAC Rämistrasse 36, 8001 Zürich||ETHZ Gebäude|
+08430|Löhne Bereich Competence Center Betrieb||Löhne Bereich CB|T8411
+04219|NEW Universitätsstrasse 2||ETHZ Gebäude|
+03628|Institut für Biomedizinische Technik||Biomedizinische Technik|
+05788|UNI Z.,Betriebsd.|||
+04118|PZL Parzelle 263, Gr.st. Leonhardstr. 19||ETHZ Gebäude|
+T2658|Departement Informatik||D-INFK|
+T2656|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T2610|Departement Bau, Umwelt und Geomatik||D-BAUG|
+04182|SEM Scheuchzerstr. 65a, 8006 Zürich||ETHZ Gebäude|
+03644|Institut für Fluiddynamik||Fluiddynamik|
+T2060|Departemente, direkt|||
+04290|GMA  Geomagn.Mess-Station Adl.||ETHZ Gebäude|
+04311|HPF  Hönggerberg||ETHZ Gebäude|
+04313|HPH  Hönggerberg||ETHZ Gebäude|
+04324|HPI  Infrastrukturgebäude||ETHZ Gebäude|
+04314|HPK  Hönggerberg||ETHZ Gebäude|
+04316|HPP  Hönggerberg||ETHZ Gebäude|
+04318|HPT  Hönggerberg||ETHZ Gebäude|
+04309|HPU Physik-Umgebung Hönggerberg||ETHZ Gebäude|
+04333|HIG  Hönggerberg||ETHZ Gebäude|
+04326|HIK  Klimahalle (Holzlagerung)||ETHZ Gebäude|
+04334|HIP  Bau-Pavillon Hönggerberg||ETHZ Gebäude|
+04336|HIR  Pavillon III für Archit.||ETHZ Gebäude|
+04323|HCI  Chemieneubau||ETHZ Gebäude|
+04352|HDB  Hönggerberg, Depot-Bibli.||ETHZ Gebäude|
+04322|HEK  Energiekanäle Hönggerberg||ETHZ Gebäude|
+04110|HG   Rämistr. 101||ETHZ Gebäude|
+04300|H   Hönggerberg||ETHZ Gebäude|
+04254|HAD  Haldenbachstr. 44, 8006 ZH||ETHZ Gebäude|
+04141|HAW  Haldeneggsteig 5||ETHZ Gebäude|
+04269|HCB  Hochstrasse 58||ETHZ Gebäude|
+T2608|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T2720|Departement Umweltwissenschaften||D-UWIS|
+05797|SBC (UNIZ)|||
+T1431|Lehre MATH/PHYS/RW|||
+T1457|Lehre D-PHYS|||
+T1504|Lehre CHAB|||
+T2645|Departement Materialwissenschaft||D-MATL|
+08707|Professur Probleme d. Entwicklungsländer||Professur D-GESS (03350)|
+08708|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+08709|Institut für Astromonie|Institut für Astronomie|Astronomie|
+08711|Institut für Atmosphäre und Klima||Atmosphäre und Klima|T3690
+08713|Laboratorium für Organische Chemie||Organische Chemie|
+08725|Fukuda, K. (Tit.)|||
+08726|VA für Wasserbau/Hydrologie/Glaziologie||VAW Wasserbau|
+08731|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+08737|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+08746|Laboratorium für Organische Chemie||Organische Chemie|
+08747|Kissling, E. (Tit.)|||
+08749|Institut für Theoretische Physik||Theoretische Physik|
+08758|Inst.f.Bewegungswissenschaften und Sport||IBWS|
+08765|Richner, H. (Tit.)|||
+08769|Schönfeld, B. (Tit.)|||
+08774|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+08778|Seminar für Statistik (SfS)||Seminar für Statistik(SfS)|
+08779|Stähelin, J. (Tit.)|||
+08786|Ulmer, P. (Tit.)|||
+08790|Walde, P. J. (Tit.)|||
+08793|Weissert, H.J.(Tit.)|||
+08794|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+08795|Wieler, R. (Tit.)|||
+08796|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+04440|VRS  Hünenberg ZG||ETHZ Gebäude|
+04441|VSC  Hünenberg ZG||ETHZ Gebäude|
+04417|VSF  Hünenberg ZG||ETHZ Gebäude|
+04452|VSG  Hünenberg ZG||ETHZ Gebäude|
+04493|VSJ  Hünenberg ZG||ETHZ Gebäude|
+04442|VSQ  Hünenberg ZG||ETHZ Gebäude|
+04467|VSR  Hünenberg ZG||ETHZ Gebäude|
+05950|VSS|||
+04443|VSS  Hünenberg ZG||ETHZ Gebäude|
+04468|VSW  Hünenberg ZG||ETHZ Gebäude|
+04482|VTR  Hünenberg ZG||ETHZ Gebäude|
+04450|VVS  Hünenberg ZG||ETHZ Gebäude|
+04476|VWA  Hünenberg ZG||ETHZ Gebäude|
+03801|Institut für Integrierte Systeme||Integrierte Systeme|
+03730|Institut für Mechanische Systeme||Mechanische Systeme|
+08505|Kommunikation und Webredaktion||Kommunikation/Webredaktion|
+03834|Inst. Isotopengeologie/Mineral.Rohstoffe||Isotopengeologie|
+03837|Institut für Quantenelektronik||Quantenelektronik|
+03802|Institut für Biochemie||Biochemie|
+03843|Park, Hyung Gyu|||
+03806|Carmeliet, Jan|||
+03809|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+03810|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+03812|Institut für Terrestrische Ökosysteme||Terrestrische Ökosysteme|
+03423|Meyer, Adrian (em.)|||
+T3252|Pflanzenbiologie Professuren||Pflanzenbiologie Proff.|
+03816|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03819|Wolfrum, Christian|||
+03768|Laboratorium für Festkörperphysik||Festkörperphysik|
+03815|Laboratorium für Festkörperphysik||Festkörperphysik|
+03342|Departement Umweltwissenschaften||D-UWIS|
+03277|Institut für Polymere||Polymere|
+T2604|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T2623|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+T2631|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2632|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2636|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2639|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2647|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T2705|Departement Erdwissenschaften||D-ERDW|
+T2722|Departement Umweltwissenschaften||D-UWIS|
+08756|Monnier, R. (Tit.)|||
+05671|EAWAG Kastanienbaum|||
+04112|GEP Alumni Pavillon, Leonhardstr. 34||ETHZ Gebäude|
+T0056|Immobilien|||
+T3351|Laboratorium für Festkörperphysik||Festkörperphysik|
+T3599|Institut für Quantenelektronik||Quantenelektronik|
+T3381|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+T2595|Departement Biologie||D-BIOL|
+08083|Abteilung Rechnungswesen|||
+T0066|Finanzen und Controlling|||
+08510|Bibliothek Zentrum|||
+T8570|ETH-Bibliothek|||
+08570|Magazinbestand und Digitalisierung||Magazinbestand/Digitalis.|
+T0065|Bereich Rektor der ETH Zürich||Bereich Rektor|
+T0070|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|
+T0049|Bereich VP für Finanzen & Controlling||VP Finanzen & Controlling|
+T0054|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|
+T1157|Lehre MAVT|||
+01157|SR Maschinening.|||
+06615|Ärztl.Dienst allg.|||
+07777|übrige Räume|||
+04317|HPR  Hönggerberg||ETHZ Gebäude|
+04913|Evang.Arbeit.u.Ang|||
+05070|EPFL,DEP.MATHEMAT.|||
+05442|EIR Hotlabor|||
+05904|EC.TECH.GENEVE|||
+05717|Uni BE, Philosophisch-Historische F.|||
+05718|UniBE,Phil.Naturw.F.|||
+05721|UniFR,Leitung+Behörd|||
+05725|UniFR,Math.-Naturw.|||
+05724|UniFR,Phil.Fak.|||
+05723|UniFR,Rechts-Wirt.|||
+05722|UniFR,Theol.Fak.|||
+05786|UniZH,Kantonsspital|||
+05781|UniZH,Leitung+Behörd|||
+05794|UniZH,Phil.I|||
+05795|UniZH,Phil.II|||
+05785|UniZH,Rechenzentrum|||
+05791|UniZH,Rechts-u.St.|||
+05783|UniZH,Techn. Dienst|||
+05790|UniZH,Theol.Fak.|||
+05793|UniZH,Vet.-Med.Fak.|||
+05784|UniZH,Zentr.Biblio.|||
+07621|Uri|||
+04910|VBAEZ|||
+04430|VEC  Hünenberg ZG, Areal-Uebersicht||ETHZ Gebäude|
+04438|VES  Hünenberg ZG, Areal Sch.||ETHZ Gebäude|
+04400|VGW  Hünenberg ZG||ETHZ Gebäude|
+04401|VHA  Hünenberg ZG||ETHZ Gebäude|
+04489|VHZ  Hünenberg ZG||ETHZ Gebäude|
+04405|VNG  Hünenberg ZG||ETHZ Gebäude|
+04406|VNS  Hünenberg ZG||ETHZ Gebäude|
+04265|VOB  Voltastrasse 24||ETHZ Gebäude|
+04258|VOG Vogelsangstr. 11||ETHZ Gebäude|
+07716|Zch-Abordn.d.Stadtr.|||
+07708|Zch-Bauamt I|||
+07709|Zch-Bauamt II|||
+07714|Zch-Friedensr. Ämter|||
+07701|Zch-Gemeinderat|||
+07706|Zch-Polizeiamt|||
+07711|Zch-Schulamt|||
+07703|Zch-Stadtkanzlei|||
+07702|Zch-Stadtrat|||
+07710|Zch-Verw.Industr.B.|||
+07704|Zch-Verw.Abt.Präs.|||
+07712|Zch-Wohlfahrtsamt|||
+07810|Stallikon|||
+06605|Steuerverwaltung|||
+07120|Stift.Pro Helvetia|||
+00098|Strom, Wasser, Oel|||
+07385|Studienk.Luftfahrt|||
+04602|Bereich Rektor der ETH Zürich||Bereich Rektor|
+06102|Ständerat|||
+T9110|T-Allg. Abt. AOA|||
+T8220|Abteilung Betrieb|||
+T8280|Abteilung Betrieb|||
+T8240|Abteilung Betrieb|||
+T8260|Abteilung Betrieb|||
+T2500|Departement Mathematik||D-MATH|
+T8380|Abteilung Betrieb|||
+04140|TAN  Tannenstrasse 1||ETHZ Gebäude|
+05903|TECHNICUM CANTONAL|||
+05906|TECH.LS|||
+05917|Tech.HTL Wädenswil|||
+05908|Techn.Muttenz-BS|||
+05909|Techn. Rapperswil|||
+08287|Technopark (U+R)|||
+07535|Technorama|||
+T0045|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|
+03833|Laboratorium für Festkörperphysik||Festkörperphysik|
+04101|LCU Situation Lugano Cornaredo||ETHZ Gebäude|
+04343|HIA Forschungs-/Laborgebäude Wasserbau||ETHZ Gebäude|
+04021|STC Stampfenbachstr. 67, 8006 Zürich||ETHZ Gebäude|
+03805|Institut für Theoretische Physik||Theoretische Physik|
+03743|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+08582|IC-Support|||
+T8587|ETH-Bibliothek|||
+05734|UniGE,F.SC.ECONOM.|||
+05731|UniGE,Leitung+Behörd|||
+05760|Univ. LAUSANNE|||
+05762|UniLS,BIBLIO.|||
+04295|WPW  Wärmepumpe Walcheplatz||ETHZ Gebäude|
+07622|Waadt|||
+07623|Wallis|||
+09112|Web Office AOA|||
+09260|Weiterb. Pers.|||
+07406|Weltgesundh.Organ.|||
+03869|Inst. für Elektrische Energieübertragung||Energieübertragung|
+08804|Institut für Umweltentscheidungen||Umweltentscheidungen|
+T6085|Centro Svizzero di Calcolo Scientifico||CSCS|
+03678|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+08801|Professur für Mathematik||Professur D-MATH (08801)|
+T8590|ETH-Bibliothek|||
+T2618|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+T0003|ETH Zürich, direkt||ETH Zürich Gesamt|
+T2501|Departement Mathematik||D-MATH|
+T2611|Departement Bau, Umwelt und Geomatik||D-BAUG|
+07811|Tänikon|||
+04122|UNG  Universitätstrasse 19||ETHZ Gebäude|
+05730|Univ. GENEVE|||
+05735|UniGE,F.DROIT|||
+05733|UniGE,F.LETTRES|||
+05732|UniGE,F.SCIENCES|||
+08071|Personal|||
+08220|Bereich HG|||
+08280|Bereich HI|||
+08240|Bereich ML|||
+07605|Basel-Land|||
+07604|Basel-Stadt|||
+02119|Departement Bau, Umwelt und Geomatik||D-BAUG|
+03556|Inst. f. Molekularbiologie u. Biophysik||Molekularbiologie|
+04460|BHM  Merenschwand||ETHZ Gebäude|
+07537|Arbeitsgem. Umwelt|||
+04834|Arbeitsvermittlung|||
+02109|Departement Architektur||D-ARCH|
+04711|Assist.Abteil.Arch|||
+02815|Institut für Kartografie||Kartografie|
+08121|Abteilung Dienste|||
+07800|Andere Gemeinden|||
+07602|Appenzell-Ausserrh|||
+07603|Appenzell-Innerrho|||
+09140|Allg. Kosten Rekt.|||
+06613|A.f.Mass u.Gewicht|||
+08164|Leit. Abt. Betrieb|||
+08160|Leitung Betrieb|||
+08110|Abteilung Dienste|||
+03589|Institut für Mikrobiologie||Mikrobiologie|
+08520|Spezialsammlungen|||
+08524|Alte Drucke|||
+08609|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+08610|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+08612|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+T2717|Departement Umweltwissenschaften||D-UWIS|
+03596|Institut für Integrative Biologie||Integrative Biologie|
+T3690|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+05770|UniLS,PHARMACIE|||
+05769|UniLS,SC.SOCIALES|||
+05764|UniLS,F.DROIT|||
+05765|UniLS,F.MEDECINE|||
+05763|UniLS,F.THEOLOGIE|||
+05766|UniLS,F.LETTRES|||
+05772|UniLS,I.POLICE SCIE.|||
+05761|UniLS,Leitung+Behörd|||
+05740|Univ. NEUCHATEL|||
+05744|UniNE,F. DE DROIT|||
+05745|UniNE,F.THEOL.|||
+05742|UniNE,F.SCIENCES|||
+05741|UniNE,Leitung+Behörd|||
+04124|UNO  Universitätstrasse 41||ETHZ Gebäude|
+07400|UNO Haupts.NewYork|||
+07401|UNO Sitz Geneve|||
+04123|UNS  Universitätsstr. 65||ETHZ Gebäude|
+07812|Uitikon|||
+02349|Departement Umweltwissenschaften||D-UWIS|
+05703|UniBS,Jur.Fak.|||
+05701|UniBS,Leitung+Behörd|||
+05705|UniBS,Phil.Hist.Fak.|||
+05702|UniBS,Theol.Fak.|||
+05710|Universität Bern|||
+05713|UniBE,Christk.Theol.|||
+05712|UniBE,Ev.-Theol.Fak.|||
+05711|UniBE,Leitung+Behörd|||
+04211|CLI Neubauprojekt Kinderkrippe Zentrum||ETHZ Gebäude|
+04372|HWO Hönggerberg Wohnareal||ETHZ Gebäude|
+T1657|Lehre ERDW|||
+T1707|Lehre Umweltwissenschaften||Lehre UWIS|
+T1807|Lehre Umweltwissenschaften||Lehre UWIS|
+T1709|Departement Umweltwissenschaften||D-UWIS|
+T3569|Laboratorium für Festkörperphysik||Festkörperphysik|
+T3439|Laboratorium für Festkörperphysik||Festkörperphysik|
+03433|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+06112|Abteilung Controlling|||
+06120|Abteilung Controlling|||
+06140|Zentrale Bewirtschaftung FC||Zentr.  Bewirtschaftung FC|
+T8098|Schulleitung und Dienste|||
+08098|Zentraler Ausgleich|||
+04043|ZAE Zähringerstrasse 24 / 8001 Zürich||ETHZ Gebäude|
+04499|SWW Wagistrasse 25/27, Schlieren||ETHZ Gebäude|
+T2140|Departemente, direkt|||
+02149|D-Informationstechnologie/Elektrotechnik||D-ITET|
+01206|Studienricht. Elektro/Informationstechn.||Elektro/Informationstechn.|
+01220|Studienricht. Elektro/Informationstechn.||Elektro/Informationstechn.|
+02536|Departement Biologie||D-BIOL|
+03606|Departement Erdwissenschaften||D-ERDW|
+04042|BEF Effingerstr. 6a, 3011 Bern||ETHZ Gebäude|
+08407|ABa Unterhalt|||
+T8340|Abteilung Betrieb|||
+08340|Bereich FEL|||
+08440|Bereich HC|||
+08444|Geb. Bereich HC|||
+T3481|Departement Biologie||D-BIOL|
+T3418|Departement Biologie||D-BIOL|
+T3647|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+T3363|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+06614|Personalamt|||
+03351|Laboratorium für Festkörperphysik||Festkörperphysik|
+02019|Departement Physik||D-PHYS|
+06910|PTT|||
+06702|Preiskontrollst.|||
+04840|Psy.Beratungsst.|||
+04341|RZY  Haldeneggsteig 4/Weinberg||ETHZ Gebäude|
+07773|Raum f.Angest.Ver.|||
+07772|Raum f. Zen.Wi.Di.|||
+00016|Bereich Präsident der ETH Zürich||Bereich Präsident|
+08114|Abteilung Dienste|||
+08562|ETH-Bibliothek|||
+07807|Rossberg-Kempthal|||
+09181|ETHZ Gebäude|||
+04181|SEC  Scheuchzerstr. 7||ETHZ Gebäude|
+04225|SEI  Seilergraben 45-49, Zürich||ETHZ Gebäude|
+04170|SEW  Scheuchzerstrasse 68/70||ETHZ Gebäude|
+05450|SIN Schw.Inst.f.Nuk.|||
+04451|SLA  Schwerzenbach||ETHZ Gebäude|
+04226|SOB  Schönberggasse 15||ETHZ Gebäude|
+04139|SOI  Sonneggstrasse 28||ETHZ Gebäude|
+05611|Sprengstand EMPA|||
+07618|St. Gallen|||
+07700|Stadt Zürich|||
+04100|ZTR  ETH Zentrum Areal||ETHZ Gebäude|
+08360|Zentr. Vers. Z|||
+06602|Zentr.Ausgleichsst|||
+08384|Fachbereich ZVH|||
+08364|Fachbereich ZVZ|||
+06606|Zollverwaltung|||
+07816|Zuoz|||
+T2515|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+T1759|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+T1059|Departement Architektur||D-ARCH|
+T1109|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T1359|D-Management, Technologie und Ökonomie||D-MTEC|
+T1559|Departement Biologie||D-BIOL|
+T1659|Departement Erdwissenschaften||D-ERDW|
+T1259|Departement Informatik||D-INFK|
+T1434|Departement Mathematik||D-MATH|
+T1459|Departement Physik||D-PHYS|
+T0012|ETH Zürich, direkt||ETH Zürich Gesamt|
+T0008|Lehre und Forschung, direkt||Lehre und Forschung|
+05011|EPFL,I.CONSTRUCT.|||
+05303|EPFL,CONF.CHEFS|||
+06718|F.Betriebsw.Landt.|||
+07413|Zoll-u.Handelsabk.|||
+08410|Löhne Bereich GA|||T8411
+08330|Löhne Bereich SLA|||
+08583|Bibliotheks-IT-Serv.|||
+05340|CEPF, Lausanne|||
+T8420|Abteilung Betrieb|||
+02116|Departement Bau, Umwelt und Geomatik||D-BAUG|
+04399|I36  Winterthurerstr. 190||ETHZ Gebäude|
+02814|Institut für Verfahrenstechnik||Verfahrenstechnik|
+05902|Höh.Techn.Lehranst|||
+04132|CLT  Clausiusstrasse 33||ETHZ Gebäude|
+04169|CLX  Clausiusstrasse 35||ETHZ Gebäude|
+04193|CHC  Universitätstr. 22||ETHZ Gebäude|
+08118|Abteilung Dienste|||
+08553|Bestandesübernahmen und Bereinigungen||Bestandesübernahmen/Berein|
+08755|Institut für Geschichte+Theorie d. Arch.||GTA|
+08580|IT-Services|||
+07611|Luzern|||
+08230|Löhne Bereich HG|||
+08250|Löhne Bereich ML|||
+06517|Bund.f.Transporttr|||
+08064|Stab Portfoliomanagement|||
+T2538|Departement Biologie||D-BIOL|
+04280|ZUE  Zürichbergstrasse 18, 8092 Zürich||ETHZ Gebäude|
+T2509|Departement Physik||D-PHYS|
+T2830|Betriebe D-PHYS|||
+T2840|Betriebe D-PHYS|||
+07412|Weltorg.Meteorolog|||
+07411|Weltpostverein BE|||
+02332|Departement Erdwissenschaften||D-ERDW|
+07464|Westeurop. Union|||
+06970|Kreisdir. III ZH|||
+04148|LEO  Leonhardstrasse 27||ETHZ Gebäude|
+04381|LRI  Lerchenrain 9||ETHZ Gebäude|
+06717|Landw.Forsch.Laus.|||
+06564|Mil.spital u.Gutsb.|||
+06912|Postdienste|||
+04462|RSG  Radiospektrographie||ETHZ Gebäude|
+04422|SBS  Stallikon, Sellenbüren||ETHZ Gebäude|
+07536|Ver. Sonnenenergie|||
+07525|Schw.Ver.Weltraumt|||
+T8200|Abteilung Betrieb|||
+04156|TUS  Turnerstrasse 21||ETHZ Gebäude|
+T2646|Departement Materialwissenschaft||D-MATL|
+T2643|Departement Informatik||D-INFK|
+T1159|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+05720|Uni Freiburg|||
+04930|Vereinigung VMO|||
+04308|HPS HP Trainingscenter Hönggerberg ZH||ETHZ Gebäude|
+04342|HIT Neubau New Sciences Hönggerberg, ZH||ETHZ Gebäude|
+04961|Informatik-Alumni|||
+08112|Abteilung Dienste|||
+07619|Tessin|||
+03225|Geologisches Institut||Geologie|
+07620|Thurgau|||
+T0050|Immobilien|||
+T0057|Immobilien|||
+09270|Zent. Ausgleich FC|||
+T2648|Departement Bau, Umwelt und Geomatik||D-BAUG|
+04025|M2R Moussonstrasse 2, 8044 Zürich||ETHZ Gebäude|
+T2521|Departement Biologie||D-BIOL|
+T2533|Departement Physik||D-PHYS|
+T0060|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|
+T0001|ETH-nahe Einheiten, direkt|||
+T4000|ETH Zürich, direkt||ETH Zürich Gesamt|
+T3325|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+T2045|Departemente, direkt|||
+T2710|Departement Umweltwissenschaften||D-UWIS|
+T2704|Departement Erdwissenschaften||D-ERDW|
+T2504|Departement Physik||D-PHYS|
+T2605|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T2517|Departement Biologie||D-BIOL|
+T2634|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2635|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2628|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+T2506|Departement Erdwissenschaften||D-ERDW|
+T2607|Departement Bau, Umwelt und Geomatik||D-BAUG|
+T2526|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+T2642|Departement Informatik||D-INFK|
+T2637|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2520|Departement Biologie||D-BIOL|
+T2706|Departement Erdwissenschaften||D-ERDW|
+T2702|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+07654|Kt.ZH,Dir.d.Innern|||
+07661|Kt.ZH,Fürsorgedir.|||
+07660|Kt.ZH,Gesund.dir.|||
+07655|Kt.ZH,Justizdir.|||
+07656|Kt.ZH,Polizeidir.|||
+07653|Kt.ZH,Staatskanz.|||
+05900|Kant.Techn. Biel|||
+05901|Kant.Tech.Burgdorf|||
+07805|Kastanienbaum|||
+07375|Komm.f.Atomenergie|||
+07505|Komm.f.Studienref.|||
+07065|Komm.f.Techn.Zusam|||
+04601|Bereich Rektor der ETH Zürich||Bereich Rektor|
+07506|Konf.Hochschulsek.|||
+08564|ETH-Bibliothek|||
+09197|ETHZ Gebäude|||
+04830|Krankenkasse Stud.|||
+06920|Kreispostdir. ZH|||
+04362|HXC  Einsteinstrasse 8||ETHZ Gebäude|
+04363|HXD  Einsteinstrasse 6||ETHZ Gebäude|
+04364|HXE  Einsteinstr. 4||ETHZ Gebäude|
+04310|HP   Hönggerberg Physik||ETHZ Gebäude|
+03232|Institut für Computersysteme||Computersysteme|
+07610|Graubünden|||
+06531|Gruppe für Ausbild.|||
+06511|Gr.f.Generalstabsd|||
+06541|Gruppe f.Rüstungsd|||
+07529|Ges.z.Förd.d. BWI|||
+06604|Getreideverwaltung|||
+07609|Glarus|||
+08115|Abteilung Dienste|||
+04600|Bereich Rektor der ETH Zürich||Bereich Rektor|
+07533|Gesell.Hochsch.For|||
+07530|Ges.f.Werkzeugmbau|||
+07528|Ges.Förd.Festkörp.|||
+02049|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+09104|Gemüsebaugenoss.|||
+06911|Gen. Direktion PTT|||
+06961|Generaldir. SBB|||
+07608|Genf|||
+08204|Geb. Bereich ET|||
+08344|Gebäudebereich FEL|||
+08224|Geb. Bereich HG|||
+08284|Geb. Bereich HI|||
+08304|Geb. Bereich HP|||
+08244|Geb. Bereich ML|||
+08264|Geb. Bereich RZ|||
+T2619|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+04236|GLC Neubau "VAW", Gloriastr. 37/39||ETHZ Gebäude|
+04205|CAB  Universitätstrasse 6||ETHZ Gebäude|
+06725|Bundesa.f.Wohnungs|||
+06316|Bund.f.Gesundheits|||
+06805|Bund.f.Energiewirt|||
+02039|Departement Biologie||D-BIOL|
+07606|Bern|||
+04991|Personal|||
+04230|STW  Schmelzbergstrasse 25||ETHZ Gebäude|
+09192|Sanitärräume|||
+03330|Schmid-Hempel, Paul|||
+05498|EIR IG|||
+07802|Dübendorf|||
+T0079|Informatikdienste|||
+03774|Institut für Neuroinformatik||Neuroinformatik|
+T3327|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+06400|Just.u.Polizeidep.|||
+09357|WEM Verrechn.mess.|||
+03821|Laboratorium für Organische Chemie||Organische Chemie|
+04144|LEA  Leonhardstrasse 15||ETHZ Gebäude|
+03811|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03803|Institut für Bildverarbeitung||Bildverarbeitung|
+03817|Institut für Biomedizinische Technik||Biomedizinische Technik|
+03440|Delbaen, Freddy (emeritus)|||
+T3636|Institut für Quantenelektronik||Quantenelektronik|
+T1207|Lehre ITET|||
+08117|Abteilung Dienste|||
+06521|Pulververwaltung|||
+03437|Institut für Polymere||Polymere|
+06303|Zentral-Bibliothek|||
+05907|Z.Sch.Techn.Luzern|||
+07624|Zug|||
+00317|alt Inst.Mat.pr.|||
+05737|UniGE,F.AUTO.THEOL.|||
+08200|Bereich ET|||
+08300|Bereich HP|||
+08514|Baubibliothek|||
+04273|BOT  Zollikerstrasse 107||ETHZ Gebäude|
+07817|Lindau-Eschikon|||
+T8520|ETH-Bibliothek|||
+08611|Institut für Baustatik und Konstruktion||Baustatik Konstruktion|
+T8440|Abteilung Betrieb|||
+T3367|Institut für Zellbiologie||Zellbiologie|
+T3501|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+T3517|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+05700|Universität Basel|||
+05706|UniBS,Phil.Nat.Fak.|||
+04379|HWK Neue Kinderkrippe Hönggerberg||ETHZ Gebäude|
+09265|Zent. Ausgleich PA|||
+04129|CLA  Tannenstrasse 3||ETHZ Gebäude|
+T2505|Departement Physik||D-PHYS|
+07658|Kt.ZH,Finanzdir.|||
+07651|Kt.ZH,Kantonsrat|||
+07659|Kt.ZH,Volksw.Dir.|||
+04881|Kath.Stud.Seelsorg|||
+07260|Komm.f.Einkaufsfr.|||
+04329|HKK  Kinderkrippe Hönggerberg||ETHZ Gebäude|
+02805|Departement Materialwissenschaft||D-MATL|
+03857|I.f.Lebensmittelwiss./Ernährung/Gesundh.||IFNH|
+03858|Nyström, Laura M.|||
+03847|Institut f.Technologie in d. Architektur||Technologie in Architektur|
+03849|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|
+03850|McNeill, Kristopher|||
+03852|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+03853|Sturla, Shana|||
+03854|Institut für Atmosphäre und Klima||Atmosphäre und Klima|
+03855|Laboratorium für Festkörperphysik||Festkörperphysik|
+T3775|Geologisches Institut||Geologie|
+08806|Bernasconi (Tit.)|||
+02065|D-BSSE IT|||
+03864|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+03859|Adey, Bryan T.|||
+03861|Bode, Jeffrey W.|||
+03865|Institut für Energietechnik||Energietechnik|
+03867|Laboratorium für Organische Chemie||Organische Chemie|
+T3780|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+08681|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+04090|RSA Rüschlikon, Säumerstrasse 4, Gebäude||ETHZ Gebäude|
+04253|ONA Neunbrunnenstr. 50, 8050 Zürich||ETHZ Gebäude|
+04282|WEV Weinbergstr. 56/58, 8092 Zürich||ETHZ Gebäude|
+04369|ODA Dörflistrasse 120, 8050 Zürich||ETHZ Gebäude|
+08683|Departement Biologie||D-BIOL|
+08249|Personal TGM ML|||
+08349|Personal Techn. Gebäudemanagement FEL||Personal TGM FEL|
+08491|Security|||
+07662|Kt.ZH,Erzieh.dir.|||
+05090|EPFL,DEP.ARCH.|||
+05055|EPFL,LAB.GENIE ATOM.|||
+07532|Gewässerschutzstif|||
+03355|Institut für Theoretische Physik||Theoretische Physik|
+08805|Professur für Computational Science||Professur D-INFK (03499)|
+07502|Kon.Erziehungsdir.|||
+T2115|Departemente, direkt|||
+T2130|Departemente, direkt|||
+03701|Institut für Neuroinformatik||Neuroinformatik|
+04496|SEA Engstringerstr. 5, Schlieren||ETHZ Gebäude|
+08586|Prozess- und Projektbüro|||
+08630|Inst. f. Raum- u. Landschaftsentwicklung||Raum- u. Landschaftsentw.|
+04494|HPE Neubauprojekt, Wolfgang-Pauli-Str.18||ETHZ Gebäude|
+T3666|Departement Informatik||D-INFK|
+03832|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|
+03835|Iida, Fumiya (SNF-Professur)||Iida, Fumiya|
+03841|Institut für Theoretische Informatik||Theoretische Informatik|
+03836|Institut für Mikrobiologie||Mikrobiologie|
+03838|Institut für Integrative Biologie||Integrative Biologie|
+T8099|ETH Zürich, direkt||ETH Zürich Gesamt|
+T0020|Schulleitung und Dienste|||
+T0030|Schulleitung und Dienste|||
+T0080|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|
+T3511|Laboratorium für Organische Chemie||Organische Chemie|
+T2300|Departemente, direkt|||
+T2030|Departemente, direkt|||
+T2330|Departemente, direkt|||
+T2000|Departemente, direkt|||
+T2010|Departemente, direkt|||
+T0007|Lehre und Forschung, direkt||Lehre und Forschung|
+08764|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+08775|Sigrist, M. (Tit.)|||
+08782|Professur für Oberflächentechnik||Professur D-MATL (03389)|
+04492|VWS  Hünenberg ZG||ETHZ Gebäude|
+04852|Vereinig.Jüd.Stud.|||
+06801|Verk.En.W.,Gen-Sekr.|||
+06720|Veterinäramt|||
+04142|WEC  Weinbergstrasse 11||ETHZ Gebäude|
+04154|WES  Weinbergstrasse 41||ETHZ Gebäude|
+04312|HPG  Hönggerberg||ETHZ Gebäude|
+04315|HPM  Hönggerberg||ETHZ Gebäude|
+04332|HIF  Hönggerberg||ETHZ Gebäude|
+04331|HIL  Hönggerberg||ETHZ Gebäude|
+04327|HIU HI-Umgebung Hönggerberg||ETHZ Gebäude|
+04340|HEZ  Hönggerberg||ETHZ Gebäude|
+04345|HIB Neubauprojekt Forschungsgeb. D-ARCH||ETHZ Gebäude|
+04268|HCA  Hochstrasse 56||ETHZ Gebäude|
+03443|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+08550|Integrierte Medienbearbeitung||Integrierte Medienbearb.|
+07501|Hochsch.Rek.Konfer|||
+05414|EIR Personaldienst|||
+01070|DA ARCH|||
+04260|VAW  Gloriastrasse 37/39||ETHZ Gebäude|
+04495|VFS Versuchsgut, Futtersilo||ETHZ Gebäude|
+04402|VHL  Hünenberg ZG||ETHZ Gebäude|
+04404|VJS  Hünenberg ZG||ETHZ Gebäude|
+04264|VOA  Voltastrasse 18||ETHZ Gebäude|
+T8360|Abteilung Betrieb|||
+05905|TECH.LE LOCLE|||
+05910|Techn. Winterthur|||
+04102|LCA Forsch.-/Laborgeb. Supercomp. Center||ETHZ Gebäude|
+T3499|Departement Informatik||D-INFK|
+08802|Professur für Mathematik||Professur D-MATH (08802)|
+05017|EPFL,C.BETON ARME|||
+05496|EIR SIN|||
+05457|EIR Technik|||
+05003|EPFL,Com.Indust.|||
+T1257|Lehre INFK|||
+T3336|Institut für Geophysik||Geophysik|
+T3661|Institut für Metallforschung||Metallforschung|
+04305|HVB HI-Brücke Hönggerberg||ETHZ Gebäude|
+T1506|Lehre CHAB|||
+T1104|Lehre BAUG|||
+03688|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+T2301|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+04037|FRN Freudenbergstr. 110, Nebengebäude||ETHZ Gebäude|
+04410|FWB  Arthur Rohn-Str. Wohnbaracke||ETHZ Gebäude|
+04171|FLI  Fliederstrasse 23||ETHZ Gebäude|
+04424|FOL  Lehrrevier (Areal)||ETHZ Gebäude|
+04880|Evang.Studentengem|||
+09195|Medienstationen|||
+06500|Militärdepartement|||
+04173|NEL  Nelkenstrasse 11||ETHZ Gebäude|
+07539|Nat.Energ.Forsch.F|||
+04039|FRB Freudenbergstr. 112, 8044 Zürich||ETHZ Gebäude|
+06002|ID-Vertragswesen|||
+03735|Institut f. Pharmazeut. Wissenschaften||Pharmazeut. Wissenschaften|
+08720|Inst.f.Biogeochemie u.Schadstoffdynamik||Biogeochemie/Schadstoffd.|
+08743|Informationstechnologie und Ausbildung||Professur D-INFK (03666)|
+08757|Departement Umweltwissenschaften||D-UWIS|
+05743|UniNE,F.LETTRES|||
+04396|UZI  Universität  ZH, Irchel||ETHZ Gebäude|
+05704|UniBS,Mediz.Fak.|||
+08721|Erbudak, M. (Tit.)|||
+08745|Holliger, K. (Tit.)|||
+08760|Seminar für Angewandte Mathematik||Angewandte Mathematik|
+08783|Thoma, F. (Tit.)|||
+08785|Uggowitzer, P.(Tit.)|||
+06719|Gestüt Avenches|||
+06921|Kreistelephondirektion Zürich|||
+04136|LEH  Leonhardshalde 21||ETHZ Gebäude|
+04222|LFH  Universitätstrasse 2||ETHZ Gebäude|
+04457|LMK  Kirchberg Lysimeterstat.||ETHZ Gebäude|
+04385|LRR  Lerchenrain 19||ETHZ Gebäude|
+05913|Abendtechnik. Genf|||
+04085|AWA  Alp Weissenstein, Bergün||ETHZ Gebäude|
+04163|SOL  Sonneggstrasse 33||ETHZ Gebäude|
+08227|SV-Serv (Unt.+Rep)|||
+06572|Bund.f.Mil.Flugpl.|||
+T2527|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+T2523|Departement Biologie||D-BIOL|
+07531|Volkswirtsch.Stift|||
+06704|Sekt.f.Ein.-u.Ausf|||
+07105|Eidg.K.f.Denkmalpf|||
+04680|ETHZ-Forum f.Umw.f|||
+05082|EPFL,L.MATERIAUX P.|||
+05083|EPFL,L.PHOTOELASTIC.|||
+05015|EPFL,I.TECHN.d.TR|||
+05041|EPFL,I.ELECTROTECH|||
+05023|EPFL,I.GEODESIE|||
+03579|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+08501|Direktion, Dir.ass.|||
+08584|Infrastruktur-Manag.|||
+07804|Illnau/Effretikon|||
+04398|I17  Winterthurerstr. 190||ETHZ Gebäude|
+02812|Institut für Verfahrenstechnik||Verfahrenstechnik|
+05751|HSG,Leitung+Behörd|||
+03297|Institut für Integrative Biologie||Integrative Biologie|
+07414|Hochk. Flüchtlinge|||
+04255|HRG  Hirschengraben 62||ETHZ Gebäude|
+04307|HVS HI-Strassen/Plz. Hönggerberg||ETHZ Gebäude|
+T0017|Bereich VP  für Personal & Ressourcen||VP Personal & Ressourcen|
+07663|Kt.ZH,Baudir.|||
+07652|Kt.ZH,Reg.rat|||
+07330|Komm.f.Konjunkturf|||
+07325|Komm.Förd.d.Forsch|||
+T0053|Immobilien|||
+05350|EPFL Ecublens|||
+05305|EPFL,ASSOCI.ASS.|||
+05481|EIR Strahlenüberw.|||
+04157|EKK  Ekkehardstrasse 6||ETHZ Gebäude|
+05452|EIR Isotopenprod.|||
+05415|EIR Rechenzentrum|||
+05400|Eidg.Inst.f.Reakt.|||
+04454|VSM  Hünenberg ZG||ETHZ Gebäude|
+04432|VVH  Hünenberg ZG||ETHZ Gebäude|
+08530|Verbund|||T0060
+06701|Volksw.d.,Gen.Sekr.|||
+07707|Zch-Gesundh.u.W.a.|||
+07715|Zch-Wahlbüros|||
+07534|Förd.des Bauwesens|||
+T8160|Abteilung Betrieb|||
+04177|TUR  Turnerstrasse 1||ETHZ Gebäude|
+T2510|Departement Physik||D-PHYS|
+03822|Institut für Biomechanik||Biomechanik|
+07705|Zch-Finanzamt|||
+02009|Departement Mathematik||D-MATH|
+04130|NO   Sonneggstrasse 5||ETHZ Gebäude|
+04809|Neuer Stud.Bund|||
+07460|OECD,Europarat Str.|||
+04160|RZ   Clausiusstrasse 59||ETHZ Gebäude|
+07775|Raum f. Unterricht|||
+09180|ETHZ Gebäude|||
+07617|Solothurn|||
+05771|UniLS,FRANCAIS MOD.|||
+05768|UniLS,HAUT.ET.COMM.|||
+05767|UniLS,F.SCIENCES|||
+07407|Int.Bank Wiederauf|||
+T2514|D-Chemie u. Angewandte Biowissenschaften||D-CHAB|
+05714|UniBE,Rechts-u.Wirt.|||
+04190|CHN  Universitätstrasse 16||ETHZ Gebäude|
+08581|Medien- und IT-Services allg. inkl. L.||Medien- und IT-Services|
+03506|Alonso, Gustavo|||
+04473|FGP  Eschikon 33, Gewächshäuser||ETHZ Gebäude|
+T3503|Institut für Teilchenphysik (IPP)||Teilchenphysik (IPP)|
+07657|Kt.ZH,Mil.dir.|||
+08380|Zentr. Vers. H|||
+03544|Studio Basel/Institut Stadt d. Gegenwart||Studio BS/Stadt Gegenwart|
+03172|Inst. f. Raum- u. Landschaftsentwicklung||Raum- u. Landschaftsentw.|
+04089|RSU Rüschlikon, Säumerstrasse, Umgebung||ETHZ Gebäude|
+T2725|Departement Erdwissenschaften||D-ERDW|
+03871|Inst.f.Chemie-/Bioingenieurwissenschaft.||Chemie-/Bioingenieurwiss.|
+K1267|Muster|||
+T8090|ETH-nahe Einheiten, direkt|||
+T2100|Departemente, direkt|||
+T2150|Departemente, direkt|||
+T2650|D-Informationstechnologie/Elektrotechnik||D-ITET|
+T2627|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+T2601|Departement Architektur||D-ARCH|
+04497|ZIM  Sternwarte Zimmerwald||ETHZ Gebäude|
+T2715|Departement Materialwissenschaft||D-MATL|
+T1859|D-Geistes,Sozial- u.Staatswissenschaften||D-GESS|
+06313|Bund.f.Strassenbau|||
+06535|Bund.f. Artillerie|||
+06571|Mil.Flugw.u.Flieg.|||
+07801|Birmensdorf|||
+08463|Heizung Zentrum|||
+08474|Gas Hönggerberg|||
+08481|Elektrizität Uebrige|||
+08424|Fachbereich CB|||T8411
+T1309|Departement Materialwissenschaft||D-MATL|
+04464|VGV  Vauffelin Versuchsgel||ETHZ Gebäude|
+04266|VOC  Voltastrasse 26||ETHZ Gebäude|
+04911|VPOD|||
+04416|VRC  Hünenberg ZG||ETHZ Gebäude|
+T1909|Department of Biosystems (D-BSSE)||D-BSSE|
+08587|Innovation und M.|||
+T8073|Personal|||
+03807|Laboratorium für Organische Chemie||Organische Chemie|
+03814|Institut für Geschichte||Geschichte|
+T2622|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+04371|I23 Uni Irchel, Block 23, Zürich||ETHZ Gebäude|
+04267|HCW  Hochstrasse 60a||ETHZ Gebäude|
+T1209|D-Informationstechnologie/Elektrotechnik||D-ITET|
+04335|HIQ  Bau-Pavillon Hönggerberg||ETHZ Gebäude|
+04330|HI   Hönggerberg, Ing.wissensch.||ETHZ Gebäude|
+06600|Finanzdepartement|||
+04414|FWS  Arthur Rohn-Str. Lagerschuppen||ETHZ Gebäude|
+08290|Löhne Bereich HI|||
+07440|Organ.Sammelnummer|||
+07573|Theor.u.Ang.Mechan|||
+08267|Irchel Pharm.(U+R)|||
+07402|Intern. Arbeitsamt|||
+07713|Zch-Betr.u.Stadtamm.|||
+T0034|Bereich Rektor der ETH Zürich||Bereich Rektor|
+06566|Turn-u.Sportschule|||
+05736|UniGE,F.MEDECINE|||
+04022|KOL Hauptgebäude Universität Zürich||ETHZ Gebäude|
+05716|UniBE,Vet.-Med.Fak.|||
+05782|UniZH,Administration|||
+05787|UniZH,Strickhof|||
+01820|Studienrichtung Forstwissenschaften||Studienr. Forstwissensch.|
+04164|CLP  Clausiusstr. 45||ETHZ Gebäude|
+07572|CENTRE INT. SC.|||
+T8557|ETH-Bibliothek|||
+08566|DigiCenter|||
+03804|Institut für Theoretische Physik||Theoretische Physik|
+T3520|Institut für Zellbiologie||Zellbiologie|
+T3391|Institut für Operations Research||Operations Research|
+T2657|Netzwerk Stadt und Landschaft D-ARCH||Netzwerk Stadt/Landschaft|
+04288|EBW  Degenried||ETHZ Gebäude|
+08500|Direktion + Stab|||
+01057|SR Architektur|||
+T1105|Lehre BAUG|||
+T2535|Departement Biologie||D-BIOL|
+05915|Abendt. St.Gallen|||
+08269|Personal TGM RZ|||
+08449|Personal TGM HC|||
+T0046|Finanzen und Controlling|||
+08625|FIRST Center for Micro- and Nanoscience||FIRST|
+04419|FWH  Arthur Rohn-Str. Neues Ök.geb.||ETHZ Gebäude|
+09335|GLM Verrechn.mess.|||
+09342|KTV Verrechn.mess.|||
+09350|SOM Verrechn.mess.|||
+09358|WFM Verrechn.mess.|||
+04099|PZA Parzelle 4500, Gr.st. Adlisbergstr.||ETHZ Gebäude|
+09999|ETHZ Gebäude|||
+T1357|Lehre MTEC|||
+T3389|Departement Materialwissenschaft||D-MATL|
+04027|NID Niederdorfstr. 88, 8001 Zürich||ETHZ Gebäude|
+04040|LUI USI-Campus, via Giuseppe Buffi 13||ETHZ Gebäude|
+06021|ID-KOM-Führungsaufgaben|||
+05431|EIR Leitung Sicher|||
+T8300|Abteilung Betrieb|||
+T8500|ETH-Bibliothek|||
+07443|OECD|||
+05715|UniBE,Medizin.Fak.|||
+04224|LFV  Schmelzbergstrasse 7||ETHZ Gebäude|
+04088|AWS  Alp Weissenstein, Stall||ETHZ Gebäude|
+04690|Witwen-u.Waisenka.|||
+07175|Eidg.Maturitätskom|||
+05062|EPFL,I.ELECTROCHIM.|||
+08187|FOW (Unt.+ Rep.)|||
+07468|Eurochemic Mol (B)|||
+07463|Europ.Freihandelsv|||
+07415|Entwicklungsprogr.|||
+03736|Laboratorium für Physikalische Chemie||Physikalische Chemie|
+T1430|Lehre MATH/PHYS/RW|||
+T8510|ETH-Bibliothek|||
+06300|Depart. des Innern|||
+04434|DUA  Ueberlandstr. 17||ETHZ Gebäude|
+08021|Immobilien|||
+06612|Bankenkommission|||
+08090|Ang. Vereinigungen|||
+04251|RIA Lagerhalle Rickenstr. 18/20, ZH||ETHZ Gebäude|
+T2013|Technische Betriebe D-PHYS, direkt||Techn. Betriebe D-PHYS|
+03715|Institut für Geschichte+Theorie d. Arch.||GTA|
+03717|Seminar für Statistik (SfS)||Seminar für Statistik(SfS)|
+T2606|Departement Bau, Umwelt und Geomatik||D-BAUG|
+02129|D-Management, Technologie und Ökonomie||D-MTEC|
+04032|HZA Möbellager Schauenbergstr. 94||ETHZ Gebäude|
+04344|HLB Lern- u.Begegnungszentr. Hönggerberg||ETHZ Gebäude|
+01657|SR Erdwiss.|||
+T2600|Departement Architektur||D-ARCH|
+04106|BEG Beckenhofstrasse 6, Zürich||ETHZ Gebäude|
+T2537|Departement Mathematik||D-MATH|
+T2602|Departement Architektur||D-ARCH|
+T2620|D-Maschinenbau und Verfahrenstechnik||D-MAVT|
+T2641|Departement Informatik||D-INFK|
+04023|BIR Militärakademie, Kaserne, Geb. 'B'||ETHZ Gebäude|
+05302|EPFL,CONSEIL MAITRES|||
+05080|EPFL,DEP.MATERIAUX|||
+05001|EPFL,Präsidium Dir.|||
+06714|Forsch.für Milchw.|||
+08099|Allgemeine Aufwend|||
+02309|D-Agrar- und Lebensmittelwissenschaften||D-AGRL|
+03870|Professur für Biophysik||Professur D-BSSE (03870)|T2060
+08629|Finanzmathematik-CS|||
+02874|Nanoscale Exploratory Technology Lab.||Nanoscale Exploratory Lab.|
+08055|Spezialfonds Rektorin 1|||
+08056|Spezialfonds Rektorin 2|||
+04391|ELA Bibliothek Werner Oechslin|Bibliothek Werner Oechslin|ETHZ Gebäude|
+03873|Weismantel, Robert|||
+08807|Peikert, Ronald (Tit.-Prof.)|||
+08606|LPC Professoren-OK|||
+03860|Professur für Synthetische Biologie||Professur D-BSSE (03680)|
+02278|Geschäftsstelle Climate-KIC an der ETHZ||GS Climate-KIC|
+K0000|Kommunikation Default Topf||Kommunikation Default Top|
+K1339|SpinOff Dybuster AG|||
+K1344|SpinOff TEP Energy GmbH|||
+K1329|SpinOff Qvanteq AG|||
+K1331|SpinOff Inspire AG|||
+K1333|SpinOff Arktis Radiation Detectors Ltd.|||
+K1335|SpinOff Nebion AG|||
+K1337|SpinOff i-Risk GmbH|||
+K1341|SpinOff greenTEC GmbH|||
+K1353|SpinOff Celeroton AG|||
+K1357|SpinOff Jürgen Held- Systemergonomie|||
+K1359|SpinOff Nanotion AG|||
+K1361|Fremdfirma Forum SCM|||
+K1420|SpinOff Philochem AG|||
+K1422|SpinOff ChromaCon AG|||
+K1424|SpinOff Zürich Instruments GmbH|||
+K1426|SpinOff Pearltec AG|||
+K1428|SpinOff LEP Consultants AG|||
+K1430|SpinOff staila technologies GmbH|||
+K1414|SpinOff Dacuda|||
+K1416|SpinOff BiognosSYS AG|||
+K1418|SpinOff GetYourGuide GmbH|||
+03875|Institut für Verfahrenstechnik||Verfahrenstechnik|
+K1409|SpinOff Limmat Scientific AG|||
+K1411|SpinOff Skybotix GmbH|||
+K1432|SpinOff ProteoMedix AG|||
+K1434|SpinOff ImmoQ GmbH|||
+K1436|SpinOff Synvo GmbH|||
+K1438|SpinOff Vilea GmbH|||
+K1440|SpinOff Andartis AG|||
+K1442|SpinOff kooba GmbH|||
+K1445|SpinOff Hirschfactor|||
+K1447|SpinOff CovalX GmbH|||
+K1449|SpinOff Adlyte AG|||
+K1381|lipibio|||
+K1384|lipibio|||
+K1387|lipibio|||
+K1401|lipibio|||
+K1395|lipibio|||
+K1404|SpinOff Lipideon Biotechnology AG|||
+K1407|SpinOff ACP Aadvanced Circuit Pursuit AG|||
+03878|Professur für Architektur und Städtebau||Professur D-ARCH (02878)|T2100
+03882|Professur für Architektur und Städtebau||Professur D-ARCH (03882)|
+K1288|teste|||
+K1539|Fremdfirma Teleinformatik Services AG|||
+K1524|Fremdfirma Elintec AG|||
+K1526|Fremdfirma ALPIQ InTec Ost AG|||
+K1513|Fremdfirma BNF - Univerität Bern|||
+K1520|Fremdfirma Elektro Meuli AG|||
+K1522|Fremdfirma Hitachi Data Systems AG|||
+K1532|Fremdfirma Dosim AG|||
+K1529|Fremdfirma Hunziker & Urban Haustechnik|||
+K1534|Fremdfirma Elektro-Anlagen Mösler+ Meier|||
+K1537|Fremdfirma Max Bosshard, Baurealisation|||
+K1541|Fremdfirma Jaisli-Xamax AG|||
+K1543|Fremdfirma Cofely AG|||
+K1551|Fremdfirma Siemens Building Technologies|||
+K1555|Fremdfirma ARGE Benz/Heusser|||
+K1557|Fremdfirma ETAVIS Installationen AG|||
+K1559|Fremdfirma AZ Elektro AG|||
+K1567|Fremdfirma Hans K. Schibli AG|||
+K1570|Fremdfirma Holder Huber AG|||
+K1573|Fremdfirma BWT Bau AG|||
+K1579|Fremdfirma GammaRenax AG|||
+03868|Eglinton, Timothy I.|||
+03880|Del Gado, Emanuela (SNF-Professur)|||
+K1507|Fremdfirma ELEKTROBAER|||
+03879|Christandl, Matthias (SNF-Professur)|||
+08506|Betriebsmanagement|||
+08518|Bibliothek D-GESS|||
+08519|Bibliothek Science City|||T8519
+08576|ILV|||
+08578|Mediendistribution und Gebühren||Mediendistribution/Gebühr|
+K1510|Fremdfirma ANS Architekten und Planer|||
+K1545|Fremdfirma Stäfa Control System SCS AG|||
+K1548|Fremdfirma Fabrisolar AG|||
+K1553|Fremdfirma Honegger Reinigungen AG|||
+K1561|Fremdfirma Burkhalter AG|||
+K1564|Fremdfirma Hensel + Co|||
+K1575|Fremdfirma Novartis Forschungsstiftung|||
+K1577|Fremdfirma E. O. Knecht, Inh. A. Meyer A|||
+K1602|Fremdfirma Vebego Services AG|||
+K1727|SpinOff Celestrius AG|||
+K1736|SpinOff InSphero AG|||
+K1761|Fremdfirma Schiess ITI AG|||
+03588|Ursprung, Philip|||
+03872|Prof. Oberflächen-/Grenzflächen-Chemie|Prof.Oberflächen-/Grenzflächen-Chemie|Professur D-CHAB (03872)|
+03874|Professur für Mathematik||Professur D-MATH (03874)|
+03876|Professur für RNA-Biologie||Professur D-BIOL (03876)|
+03877|Professur f. Integrat.Risikomanagement|Professur f.Integrat.Risikomanagement|Professur D-MTEC (03877)|T2120
+03881|Professur für Architektur und Entwurf||Professur D-ARCH (03881)|T2100
+03883|Köppl, Heinz Wolfgang (SNF-Professur)|||
+03884|Panse, Vikram G. (SNF-Professur)|||
+03885|Read, Justin I. (SNF-Professur)|||
+03886|Schindler, Konrad|||
+03887|Institut f.Umweltingenieurwissenschaften||Umweltingenieurwissensch.|T2608
+03888|Wörner, Hans Jakob (SNF-Professur)|||
+02280|NFS Molecular Ultrafast Sciences&Techno||NFS Molecular Ultrafast Sc|T0022
+08684|Disney Research Zürich|||
+08685|Gruppe Swiss CAR|||T3905
+K1803|Fremdfirma ISS FM Service AG|||
+K1809|Fremdfirma Compagnoni Elektro AG|||
+K1801|Fremdfirma Sigrist + Partner AG|||
+03889|Professur für Hochleistungselektronik||Professur D-ITET (03889)|T2140
+03890|Institut für Baustatik und Konstruktion||Baustatik und Konstruktion|T2605
+03891|Flatt, Robert J.|||
+03892|Home, Jonathan|||
+03893|Püschel, Markus|||
+03894|Walter, Achim|||
+03895|Professur f. Nanophotonik/Nanoelektronik||Professur D-ITET (03895)|
+K1857|Fremdfirma Sylvia Davis|||
+K1842|SpinOFF Cloudbroker GmbH|||
+K1845|SpinOff Enertronics GmbH|||
+K1848|SpinOff Malcisbo AG|||
+K1854|Fremdfirma The Walt Disney Studios|||
+K1851|SpinOff FrontDam GmbH|||
+K1913|Fremdfirma ATel|||
+04114|AMA Auf der Mauer 17, 8001 Zürich|||
+06115|ETHIS-Programm|||T0048
+08808|Institut für Geochemie und  Petrologie|Institut für Geochemie und Petrologie|Geochemie und Petrologie|T3160
+K1910|Fremdfirma Medizinische Genetik|||
+K1982|SpinOff YouRehab AG|||
+02054|Decision Sciences Laboratory|||
+02886|Gastprofessuren D-ARCH|||
+02887|Gastdozierende D-ARCH|||
+08809|Frangi, Andrea (Tit.-Prof.)|||
+08810|Schmid, Christian (Tit.-Prof.)|||
+04250|PLB Plattenstrasse 28, 8032 Zürich||PLB Plattenstrasse 28|
+08588|focusTerra|||
+K2044|SpinOff Microduits GmbH|||
+K2047|SpinOff ROB Technolgies|||
+02281|NFS für Quantum Science and Technology||NFS für Quantum Science|
+03896|Beisert, Niklas|||
+03897|Professur für Mathematik||Professur D-MATH (03897)|
+03898|Gunawan, Rudiyanto|||
+03899|Professur für Finanzmathematik||Professur D-MATH (03899)|
+03900|Nolin, Pierre|||
+03901|Raubal, Martin|||
+03902|Schlüter, Arno|||
+03903|Professur für Materialtheorie||Professur D-MATL (03903)|
+03904|Wallny, Rainer|||
+04020|KO2 Karl Schmid-Strasse 4, 8006 Zürich|||
+K2144|Spin Off de Cavis AG|||
+K2166|SpinOff fybit GbmH|||
+K2182||||
+K2200|SpinOff Koubachi GmbH|||
+K2184|SpinOff Gecko Research|||
+K2195|SpinOff keoto AG|||
+K2249|SpinOff Climeworks GmbH|||
+K2247|SpinOff Habtronics GmbH|||
+K2231|Fremdfirma Sprachenzentrum|||
+K2233|SpinOff ServiceHunter GmbH|||
+K2264|SpinOff senozon AG|||
+02003|Professuren Reine Mathematik|||
+08811|Inst. f.Molekularbiologie u.Biophysik|Inst. f.Molekurarbiologie u.Biophysik|Molekularbiologie/Biophys,|
+K2521|Fremdfirma Lauber IWISA AG|||
+08411|Bereich TG|||
+08057|IT Portfoliomanagement VPPR||IT Portfoliomanagement|
+08331|Bereich LS|||
+08686|Gruppe Strassenverkehrstechnik||Strassenverkehrstechnik|
+04696|Delegierter für Tierschutzbelange||Delegierter f. Tierschutz.|
+04348|HCU HC-Umgebung Hönggerberg|HCU HC-Umgegung Hönggerberg|HCU HC-Umgeb. Hönggerberg|
+06027|ID-Datennetz|||
+06028|ID-Sprachnetz|||
+06054|ID-Operative Informationssysteme SAP||ID-Operative Informations.|
+06055|ID-Operative Informationssysteme Lehre||ID-Operat.Inform.systeme L|
+06056|ID-Operative Inform.systeme Real Estate||ID-Operat.Inform.syst.Real|
+06091|CSCS Veranstaltungen||CSCS Veranstatlungen|
+06146|Gastronomie|||
+09272|Tresorerie & Cash Management||Tresorerie & Cash Managem.|
+02252|Kompetenzzentrum Welternährungssystem||K.Zentrum Welternährungs.|
+04698|Delegierte für Chancengleichheit||Delegierte Chancengleichh.|
+04699|Delegierter Intern.Institution.Angeleg.|Delegierter Intern.Institution. Angeleg.|Delgierter Intern. Instit.|
+04697|Delegierter für Nachhaltigkeit||Delegierter Nachhaltigkeit|
+03907|Institut für Geophysik||Geophysik|
+06034|ID-D-BIOL|||
+06035|ID-D-GESS|||
+03905|Prof. f.Technologie-/Innovationsmanagem.|Prof.f.Technologie-/Innovationsmanagem.|Professur D-MTEC (03905)|
+03906|Degen, Christian|||
+03908|Professur für Informatik||Professur D-INFK (03908)|
+03909|Levine, Jonathan M.|||
+03910|Schmidt, Thomas J.|||
+03911|Professur für Informatik||Professur D-INFK (03911)|
+03912|Professur für Bioengineering||Professur D-BSSE (03912)|
+00013|Personal und Dienste|||
+02838|Visuelle Kommunikation|||
+08076|Controlling und Projekte||Controlling/Projekte|
+08077|Zentrale Bewirtschaftung PA||Zentr. Bewirtschaftung PA|
+K2641|SpinOff Frontier Lattices|||
+08058|Singapore ETH Centre (SEC)|||
+08687|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+08812|Laboratorium für Anorganische Chemie||Anorganische Chemie|
+K2685|Fremdfirma Europcar|||
+04093|HCP Büromodule Hönggerberg|||
+04098|HWW Hönggerberg, Wohnen West|||
+08631|IfU - Umweltlabor|||
+03913|Professur f. Architektur u. Konstruktion||Professur D-ARCH (03913)|
+03914|deMello, Andrew|||
+03915|Institut für Biomechanik||Biomechanik|
+03916|Institut für Mechanische Systeme||Mechanische Systeme|
+08671|Gruppe Gerlich|||
+08813|Wüthrich, Mario Valentin (Tit.-Prof.)|||
+K2881|SpinOff streamwise GmbH|||
+04116|MSA (Aussenstation Singapore)|||
+06036|ID-D-MTEC|||
+K2960|SpinOff Hydrosolutions GmbH|||
+01554|BSc Gesundheitswiss. und Technologie|||
+01216|DAS Inf.technologie und Elektrotechnik|||
+01221|DZ Elektrotechnik und Informationstech.|||
+01269|Lehrdiplom Informatik|||
+01271|DZ Informatik|||
+01447|Lehrdiplom Mathematik|||
+01455|MSc Hochenergiephysik|||
+01469|Lehrdiplom Physik|||
+01542|Lehrdiplom Chemie|||
+01565|Lehrdiplom Biologie|||
+01566|Lehrdiplom Sport|||
+01568|DZ Bewegungswissenschaften|||
+01669|Lehrdiplom Geographie|||
+01772|DZ Agrarwissenschaft|||
+01773|DZ Lebensmittelwissenschaft|||
+01171|DZ Maschinening.wiss. u. Verfahrenstech.|||
+01448|DZ Mathematik|||
+01449|DZ Rechnergestützte Wissenschaften|||
+01471|DZ Physik|||
+01719|DZ Umweltlehre|||
+03917|Burgert, Ingo|||
+03918|Fiebig, Manfred|||
+03919|Hebel, Dirk|||
+03920|Johnson, Steven|||
+03921|Khammash, Mustafa|||
+03922|Koh, Lian Pin (SNF-Professur)|||
+03923|Kornmann, Benoît (SNF-Professur)|||
+03924|Lehnerer, Alexander|||
+03925|Luisier, Mathieu (SNF-Professur)|||
+03926|Pandharipande, Rahul|||
+03927|Picotti, Paola (SNF-Professur)|||
+03928|Refregier, Alexandre|||
+03930|Stojadinovic, Bozidar|||
+03931|Strasser, Michael (SNF-Professur)|||
+03932|Topalovic, Milica|||
+03933|Winkel, Lenny (SNF-Professur)|||
+03934|Kovalenko, Maksym|||
+04117|BSB Syngenta Areal, Basel|||
+04128|MUG Mühlegasse 21, 8001 Zürich|||

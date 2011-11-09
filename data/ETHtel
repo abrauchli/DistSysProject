@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# set path explicitly for sites which have a faster grep (like gnu
+# grep or agrep) in /usr/local/bin
+
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/ucb
+export PATH
+
+grep -i "$*" /usr/local/lib/tel.ETH

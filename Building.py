@@ -33,8 +33,10 @@ class Floor:
 
 class Building:
   
-  def __init__(self,name):
+  def __init__(self,name,strasse="",stadt="Zürich"):
     self.name = name
+    self.strasse = strasse
+    self.stadt = stadt
     self.floors = {}
 
   def __str__(self):
@@ -54,7 +56,8 @@ class Building:
 
   def json(self):
     return self.__dict__
-  
+
+def addBuilding(bldname,stadt,strasse):
 def addRoom(bldname,flname,rmname):
   ## Check if building is around
   found = False
