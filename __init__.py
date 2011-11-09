@@ -1,6 +1,9 @@
 from sqlalchemy import sql, schema, create_engine
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import os, os.path
+import json
+import Building
+import AccessPoints
 app = Flask(__name__)
 
 
@@ -8,6 +11,9 @@ app = Flask(__name__)
 def hello():
 	return "Hello World"
 
+@app.route("/all")
+def all():
+  return json.dumps(Building.buildings, default=lambda o: o.json())
 
 def connect():
   global schema, dbengine
@@ -19,4 +25,7 @@ def connect():
   return dbengine
 
 if __name__ == "__main__":
-	app.run(port=23032,host="0.0.0.0")
+  global accessPoints
+  accessPoints = AccessPoints.WLANAccessPoints()
+  print all()
+  app.run(port=23032,host="0.0.0.0")
