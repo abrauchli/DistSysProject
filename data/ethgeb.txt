@@ -1,225 +1,225 @@
 0|noname|noname
 1058|Mattenstrasse 26|4058 Basel
-ADM|Auf der Mauer 2|8092 Zürich
-AGS|Streulistrasse 74a|8032 Zürich
-AMA|Auf der Mauer 17|8001 Zürich
+ADM|Auf der Mauer 2|8092 ZÃ¼rich
+AGS|Streulistrasse 74a|8032 ZÃ¼rich
+AMA|Auf der Mauer 17|8001 ZÃ¼rich
 AWA|noname|noname
-AWB|Alp Weissenstein|7482 Bergün-Preda
+AWB|Alp Weissenstein|7482 BergÃ¼n-Preda
 AWC|noname|noname
 AWD|noname|noname
 AWS|noname|noname
 BEC|noname|noname
 BEF|Effingerstr. 6a|3011 Bern
-BEG|Beckenhofstrasse 6|8092 Zürich
-BGG|Botanischer Garten|8627 Grüningen
+BEG|Beckenhofstrasse 6|8092 ZÃ¼rich
+BGG|Botanischer Garten|8627 GrÃ¼ningen
 BHM|noname|noname
-BIR|Militärakademie, Kaserne, Gebäude "B"|8903 Birmensdorf
+BIR|MilitÃ¤rakademie, Kaserne, GebÃ¤ude "B"|8903 Birmensdorf
 BOF|noname|noname
-BOT|Zollikerstrasse 107|8008 Zürich
+BOT|Zollikerstrasse 107|8008 ZÃ¼rich
 BSA|noname|noname
 BSB|noname|noname
 BSP|Spitalstrasse 8|4056 Basel
-BWI|Zürichbergstrasse 18|8028 Zürich
-CAB|Universitätstrasse 6|8092 Zürich
+BWI|ZÃ¼richbergstrasse 18|8028 ZÃ¼rich
+CAB|UniversitÃ¤tstrasse 6|8092 ZÃ¼rich
 CAN|noname|noname
-CBB|Universitätstrasse 6|8092 Zürich
-CBM|Universitätstrasse 6|8092 Zürich
+CBB|UniversitÃ¤tstrasse 6|8092 ZÃ¼rich
+CBM|UniversitÃ¤tstrasse 6|8092 ZÃ¼rich
 CEPF|Conseil des EPF, en Bassenges|1015 Lausanne
 CER|Chateau d'Oex|1837 Chateau-d'Oex
-CERN|Europäisches Kernforschungszentrum|1211 Genève 23
-CHA|Universitätstrasse 8|8092 Zürich
-CHB|Universitätstrasse 16|8092 Zürich
-CHC|Universitätstrasse 22|8092 Zürich
-CHN|Universitätstrasse 16|8092 Zürich
-CLA|Tannenstrasse 3|8092 Zürich
-CLD|Clausiusstrasse 37|8092 Zürich
-CLI|Neubauprojekt Kinderkrippe Zentrum, Clausiusstrasse|8092 Zürich
-CLP|Clausiusstrasse 45|8092 Zürich
-CLT|Clausiusstrasse 33|8092 Zürich
-CLU|Clausiusstrasse 50|8092 Zürich
-CLV|Clausiusstrasse 47|8092 Zürich
-CLW|Clausiusstrasse 49|8092 Zürich
-CLX|Clausiusstrasse 35|8006 Zürich
-CLY|Clausiusstrasse 72|8092 Zürich
-CNB|Universitätstrasse 6|8092 Zürich
-CNS|Spöndlistrasse, Rampen + Plz.|8092 Zürich
+CERN|EuropÃ¤isches Kernforschungszentrum|1211 GenÃ¨ve 23
+CHA|UniversitÃ¤tstrasse 8|8092 ZÃ¼rich
+CHB|UniversitÃ¤tstrasse 16|8092 ZÃ¼rich
+CHC|UniversitÃ¤tstrasse 22|8092 ZÃ¼rich
+CHN|UniversitÃ¤tstrasse 16|8092 ZÃ¼rich
+CLA|Tannenstrasse 3|8092 ZÃ¼rich
+CLD|Clausiusstrasse 37|8092 ZÃ¼rich
+CLI|Neubauprojekt Kinderkrippe Zentrum, Clausiusstrasse|8092 ZÃ¼rich
+CLP|Clausiusstrasse 45|8092 ZÃ¼rich
+CLT|Clausiusstrasse 33|8092 ZÃ¼rich
+CLU|Clausiusstrasse 50|8092 ZÃ¼rich
+CLV|Clausiusstrasse 47|8092 ZÃ¼rich
+CLW|Clausiusstrasse 49|8092 ZÃ¼rich
+CLX|Clausiusstrasse 35|8006 ZÃ¼rich
+CLY|Clausiusstrasse 72|8092 ZÃ¼rich
+CNB|UniversitÃ¤tstrasse 6|8092 ZÃ¼rich
+CNS|SpÃ¶ndlistrasse, Rampen + Plz.|8092 ZÃ¼rich
 COL|noname|noname
-CRI|Neubauprojekt Kinderkrippe Zentrum, Clausiusstrasse|8092 Zürich
+CRI|Neubauprojekt Kinderkrippe Zentrum, Clausiusstrasse|8092 ZÃ¼rich
 DUA|noname|noname
 DUMMY|noname|noname
-Eawag|Eidg. Anst. für Wasserversorgung, Abwasserreinigung|8600 Dübendorf
+Eawag|Eidg. Anst. fÃ¼r Wasserversorgung, Abwasserreinigung|8600 DÃ¼bendorf
 EBW|noname|noname
 EKK|noname|noname
-EKZ|Energiekanal Zentrum|8092 Zürich
+EKZ|Energiekanal Zentrum|8092 ZÃ¼rich
 ELA|Bibliothek Werner Oechslin|Luegetenstrasse 11, 8840 Einsiedeln
-Empa|Eidg. Materialprüfungs- und Forschungsanstalt|8600 Dübendorf
-EPFL|Ecole Politechnique Fédérale|1015 Lausanne
+Empa|Eidg. MaterialprÃ¼fungs- und Forschungsanstalt|8600 DÃ¼bendorf
+EPFL|Ecole Politechnique FÃ©dÃ©rale|1015 Lausanne
 EPFZ|Case postale 110, Station 2|1015 Lausanne
-ETA|Gloriastrasse 35|8092 Zürich
-ETF|Sternwartstrasse 7|8092 Zürich
-ETL|Physikstrasse 3|8092 Zürich
-ETZ|Gloriastrasse 35|8092 Zürich
+ETA|Gloriastrasse 35|8092 ZÃ¼rich
+ETF|Sternwartstrasse 7|8092 ZÃ¼rich
+ETL|Physikstrasse 3|8092 ZÃ¼rich
+ETZ|Gloriastrasse 35|8092 ZÃ¼rich
 EWZ|noname|noname
 F|noname|noname
 FBU|Eschikon 33|8315 Lindau
 FEL|Eschikon 33|8315 Lindau
-FFM|Forschungsstation Früebüel|6318 Walchwil
-FFW|Forschungsstation Früebüel|6318 Walchwil
+FFM|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FFW|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
 FGA|Eschikon 33|8315 Lindau
-FGH|Eschikon 33, Gewächshäuser 38-42|8315 Lindau
-FGP|Eschikon 33, Gewächshäuser 80+90+100|8315 Lindau
+FGH|Eschikon 33, GewÃ¤chshÃ¤user 38-42|8315 Lindau
+FGP|Eschikon 33, GewÃ¤chshÃ¤user 80+90+100|8315 Lindau
 FGS|Eschikon 33|8315 Lindau
-FHA|Forschungsstation Früebüel|6318 Walchwil
-FHB|Blockhütte Hohensteigw.|8142 Uitikon-Waldegg
-FHE|Forschungsstation Früebüel|6318 Walchwil
+FHA|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FHB|BlockhÃ¼tte Hohensteigw.|8142 Uitikon-Waldegg
+FHE|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
 FHH|Brennholzlager Hohensteigw.|8142 Uitikon-Waldegg
-FLI|Fliederstrasse 23|8092 Zürich
+FLI|Fliederstrasse 23|8092 ZÃ¼rich
 FLY|Eschikon 33|8315 Lindau
 FMG|Eschikon 33|8315 Lindau
 FOH|Arthur Rohn-Strasse|8142 Uitikon-Waldegg
-FOS|UNIZ, August Forel-Str. 7|8008 Zürich
-FPH|Forschungsstation Früebüel|6318 Walchwil
-FRB|Freudenbergstr. 112|8044 Zürich
-FRM|Forschungsstation Früebüel|6318 Walchwil
-FRN|Freudenbergstrasse 110, Nebengebäude|8044 Zürich
-FRU|Freudenbergstrasse 112, Umgebung|8044 Zürich
-FRV|Forschungsstation Früebüel|6318 Walchwil
-FSA|Forschungsstation Früebüel|6318 Walchwil
-FSS|Forschungsstation Früebüel|6318 Walchwil
+FOS|UNIZ, August Forel-Str. 7|8008 ZÃ¼rich
+FPH|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FRB|Freudenbergstr. 112|8044 ZÃ¼rich
+FRM|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FRN|Freudenbergstrasse 110, NebengebÃ¤ude|8044 ZÃ¼rich
+FRU|Freudenbergstrasse 112, Umgebung|8044 ZÃ¼rich
+FRV|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FSA|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FSS|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
 FST|Eschikon 33|8315 Lindau
 FTL|Eschikon 33|8315 Lindau
-FVG|Forschungsstation Früebüel|6318 Walchwil
-FVS|Forschungsstation Früebüel|6318 Walchwil
+FVG|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FVS|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
 FWA|noname|noname
 FWB|noname|noname
 FWF|noname|noname
 FWG|noname|noname
-FWH|Lehrwald ETH Zürich, Forsthaus Waldegg|8142 Uitikon Waldegg
-FWM|Forschungsstation Früebüel|6318 Walchwil
-FWN|Forschungsstation Früebüel|6318 Walchwil
-FWO|Forschungsstation Früebüel|6318 Walchwil
+FWH|Lehrwald ETH ZÃ¼rich, Forsthaus Waldegg|8142 Uitikon Waldegg
+FWM|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FWN|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+FWO|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
 FWS|noname|noname
-FWV|Forschungsstation Früebüel|6318 Walchwil
+FWV|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
 FZL|Eawag - aquatic research, Seestr. 79|6047 Kastanienbaum
-FZU|Forschungsstation Früebüel|6318 Walchwil
-GEO|Zürichbergstrasse 38|8044 Zürich
-GEP|Alumni Pavillon, Leonhardstr. 34|8092 Zürich
+FZU|Forschungsstation FrÃ¼ebÃ¼el|6318 Walchwil
+GEO|ZÃ¼richbergstrasse 38|8044 ZÃ¼rich
+GEP|Alumni Pavillon, Leonhardstr. 34|8092 ZÃ¼rich
 GGA|Langackerstrasse 30, Grossmatt|8142 Uitikon-Waldegg
 GGB|Langackerstr. 22-28 Grossmatt|8142 Uitikon-Waldegg
 GGC|Schopf + Garage, Grossmatt|8142 Uitikon-Waldegg
-GGD|Remisengebäude, Grossmatt|8142 Uitikon-Waldegg
-GLA|Gloriastrasse 68|8044 Zürich
-GLC|Neubau "VAW", Gloriastrasse 37/39|8006 Zürich
-GLD|Gladbachstrasse 114|8044 Zürich
-GLO|Gloriastrasse 82|8044 Zürich
+GGD|RemisengebÃ¤ude, Grossmatt|8142 Uitikon-Waldegg
+GLA|Gloriastrasse 68|8044 ZÃ¼rich
+GLC|Neubau "VAW", Gloriastrasse 37/39|8006 ZÃ¼rich
+GLD|Gladbachstrasse 114|8044 ZÃ¼rich
+GLO|Gloriastrasse 82|8044 ZÃ¼rich
 GMA|noname|noname
 GMU|Areal, Umgebung Grossmatt|8142 Uitikon-Waldegg
 GW|noname|noname
-HAA|Häldeliweg 15/17|8092 Zürich
+HAA|HÃ¤ldeliweg 15/17|8092 ZÃ¼rich
 HAB|noname|noname
-HAC|Häldeliweg 19|8092 Zürich
-HAD|Haldenbachstr. 44|8092 Zürich
-HAW|Haldeneggsteig 5|8092 Zürich
-HCA|Hochstrasse 56|8044 Zürich
-HCB|Hochstrasse 58|8044 Zürich
-HCH|Hochstrasse 60|8092 Zürich
-HCI|Wolfgang-Pauli-Str. 10|8093 Zürich
+HAC|HÃ¤ldeliweg 19|8092 ZÃ¼rich
+HAD|Haldenbachstr. 44|8092 ZÃ¼rich
+HAW|Haldeneggsteig 5|8092 ZÃ¼rich
+HCA|Hochstrasse 56|8044 ZÃ¼rich
+HCB|Hochstrasse 58|8044 ZÃ¼rich
+HCH|Hochstrasse 60|8092 ZÃ¼rich
+HCI|Wolfgang-Pauli-Str. 10|8093 ZÃ¼rich
 HCP|noname|noname
-HCS|Hochstrasse 48|8092 Zürich
-HCW|Hochstrasse 60a|8092 Zürich
-HDB|Schafmattstr. 13|8093 Zürich
-HEK|Energiekanäle|8093 Zürich
-HEZ|Schafmattstr. 11|8093 Zürich
-HG|Rämistrasse 101|8092 Zürich
-HG1|Hauptgebäude ETH, Rämistr. 101|8092 Zürich
-HGI|Giblenstrasse 6|8093 Zürich
-HIA|Forschungs-/Laborgebäude Wasserbau|8093 Zürich
-HIB|Forschungsgebäude D-ARCH (Neubauprojekt)|8093 Zürich
-HIF|Schafmattstr. 6|8093 Zürich
-HIG|Garage Bauwissenschaften|8093 Zürich
-HIK|Klimahalle (Baustatik und Konstruktion)|Schafmattstr. 8, 8093 Zürich
-HIL|Wolfgang-Pauli-Str. 15|8093 Zürich
-HIP|Wolfgang-Pauli-Str. 17|8093 Zürich
-HIQ|Wolfgang-Pauli-Str. 19|8093 Zürich
-HIR|Wolfgang-Pauli-Str. 21|8093 Zürich
-HIT|Wolfgang-Pauli-Str. 27|8093 Zürich
-HIU|HI-Umgebung Hönggerberg|8093 Zürich
-HIV|Gewächshaus|8093 Zürich
-HIZ|Wolfgang-Pauli-Str. 23|8093 Zürich
-HKI|Kiosk|8093 Zürich
-HKK|Schafmattstr. 15|8093 Zürich
-HLB|Lern- und Begegnungszentrum Hönggerberg|8093 Zürich
+HCS|Hochstrasse 48|8092 ZÃ¼rich
+HCW|Hochstrasse 60a|8092 ZÃ¼rich
+HDB|Schafmattstr. 13|8093 ZÃ¼rich
+HEK|EnergiekanÃ¤le|8093 ZÃ¼rich
+HEZ|Schafmattstr. 11|8093 ZÃ¼rich
+HG|RÃ¤mistrasse 101|8092 ZÃ¼rich
+HG1|HauptgebÃ¤ude ETH, RÃ¤mistr. 101|8092 ZÃ¼rich
+HGI|Giblenstrasse 6|8093 ZÃ¼rich
+HIA|Forschungs-/LaborgebÃ¤ude Wasserbau|8093 ZÃ¼rich
+HIB|ForschungsgebÃ¤ude D-ARCH (Neubauprojekt)|8093 ZÃ¼rich
+HIF|Schafmattstr. 6|8093 ZÃ¼rich
+HIG|Garage Bauwissenschaften|8093 ZÃ¼rich
+HIK|Klimahalle (Baustatik und Konstruktion)|Schafmattstr. 8, 8093 ZÃ¼rich
+HIL|Wolfgang-Pauli-Str. 15|8093 ZÃ¼rich
+HIP|Wolfgang-Pauli-Str. 17|8093 ZÃ¼rich
+HIQ|Wolfgang-Pauli-Str. 19|8093 ZÃ¼rich
+HIR|Wolfgang-Pauli-Str. 21|8093 ZÃ¼rich
+HIT|Wolfgang-Pauli-Str. 27|8093 ZÃ¼rich
+HIU|HI-Umgebung HÃ¶nggerberg|8093 ZÃ¼rich
+HIV|GewÃ¤chshaus|8093 ZÃ¼rich
+HIZ|Wolfgang-Pauli-Str. 23|8093 ZÃ¼rich
+HKI|Kiosk|8093 ZÃ¼rich
+HKK|Schafmattstr. 15|8093 ZÃ¼rich
+HLB|Lern- und Begegnungszentrum HÃ¶nggerberg|8093 ZÃ¼rich
 HOT|noname|noname
-HPE|Ersatzneubau f. Festkörperphysik, Wolfgang-Pauli-Strasse 18|8093 Zürich
-HPF|Schafmattstr. 16|8093 Zürich
-HPG|Garage Physikbereich|8093 Zürich
-HPH|Schafmattstr. 36|8093 Zürich
-HPI|Wolfgang-Pauli-Str. 14|8093 Zürich
-HPK|Schafmattstr. 20|8093 Zürich
-HPL|Neubauprojekt Life Science, Tiergebäude, ETH Hönggerberg|8093 Zürich
-HPM|Schafmattstr. 18|8093 Zürich
-HPP|Schafmattstr. 30|8093 Zürich
-HPR|Schafmattstr. 36|8093 Zürich
-HPS|Schafmattstr. 33|8093 Zürich
-HPT|Wolfgang-Pauli-Str. 16|8093 Zürich
-HPU|Physik-Umgebung Hönggerberg|8093 Zürich
-HPV|Schafmattstr. 34|8093 Zürich
-HPW|Gewächshaus UWIS, Schafmattstrasse|8093 Zürich
-HPX|Provisorium für Praktika u. Rochadenfläche, Hönggerberg|8093 Zürich
-HPZ|Schafmattstr. 32|8093 Zürich
-HRD|Hardstrasse 301|8005 Zürich
-HRG|Hirschengraben 62|8092 Zürich
-HRS|Hirschengraben 84|8001 Zürich
-HSA|Hochschulsportanlagen Fluntern|8044 Zürich
-HSC|Science City, Arealplanung Hönggerberg|8093 Zürich
+HPE|Ersatzneubau f. FestkÃ¶rperphysik, Wolfgang-Pauli-Strasse 18|8093 ZÃ¼rich
+HPF|Schafmattstr. 16|8093 ZÃ¼rich
+HPG|Garage Physikbereich|8093 ZÃ¼rich
+HPH|Schafmattstr. 36|8093 ZÃ¼rich
+HPI|Wolfgang-Pauli-Str. 14|8093 ZÃ¼rich
+HPK|Schafmattstr. 20|8093 ZÃ¼rich
+HPL|Neubauprojekt Life Science, TiergebÃ¤ude, ETH HÃ¶nggerberg|8093 ZÃ¼rich
+HPM|Schafmattstr. 18|8093 ZÃ¼rich
+HPP|Schafmattstr. 30|8093 ZÃ¼rich
+HPR|Schafmattstr. 36|8093 ZÃ¼rich
+HPS|Schafmattstr. 33|8093 ZÃ¼rich
+HPT|Wolfgang-Pauli-Str. 16|8093 ZÃ¼rich
+HPU|Physik-Umgebung HÃ¶nggerberg|8093 ZÃ¼rich
+HPV|Schafmattstr. 34|8093 ZÃ¼rich
+HPW|GewÃ¤chshaus UWIS, Schafmattstrasse|8093 ZÃ¼rich
+HPX|Provisorium fÃ¼r Praktika u. RochadenflÃ¤che, HÃ¶nggerberg|8093 ZÃ¼rich
+HPZ|Schafmattstr. 32|8093 ZÃ¼rich
+HRD|Hardstrasse 301|8005 ZÃ¼rich
+HRG|Hirschengraben 62|8092 ZÃ¼rich
+HRS|Hirschengraben 84|8001 ZÃ¼rich
+HSA|Hochschulsportanlagen Fluntern|8044 ZÃ¼rich
+HSC|Science City, Arealplanung HÃ¶nggerberg|8093 ZÃ¼rich
 HSP|noname|noname
-HUT|Huttenstrasse 34|8092 Zürich
-HVB|HI-Brücke Hönggerberg|8093 Zürich
-HVS|HI-Strassen/Plz. Hönggerberg|8093 Zürich
-HWK|Neue Kinderkrippe Hönggerberg|8093 Zürich
-HWO|Hönggerberg Wohnareal|8093 Zürich
-HXA|Einsteinstr. 4,  freisteh. Holzbaracke|8093 Zürich
-HXB|Einsteinstr. 4, Sitzungspavillon|8093 Zürich
-HXC|Einsteinstr. 8|8093 Zürich
-HXD|Dienstwohnung|Einsteinstr. 6, 8049 Zürich
-HXE|Einsteinstr. 4|8093 Zürich
-HZA|Möbellager, Schauenbergstr. 94|8093 Zürich
-HZB|Remisengebäude, Schauenbergstr. 92|8093 Zürich
-HZC|Doppelgarage, Schauenbergstr.90|8093 Zürich
-HZD|Lagergebäude, Schauenbergstr. 96|8093 Zürich
+HUT|Huttenstrasse 34|8092 ZÃ¼rich
+HVB|HI-BrÃ¼cke HÃ¶nggerberg|8093 ZÃ¼rich
+HVS|HI-Strassen/Plz. HÃ¶nggerberg|8093 ZÃ¼rich
+HWK|Neue Kinderkrippe HÃ¶nggerberg|8093 ZÃ¼rich
+HWO|HÃ¶nggerberg Wohnareal|8093 ZÃ¼rich
+HXA|Einsteinstr. 4,  freisteh. Holzbaracke|8093 ZÃ¼rich
+HXB|Einsteinstr. 4, Sitzungspavillon|8093 ZÃ¼rich
+HXC|Einsteinstr. 8|8093 ZÃ¼rich
+HXD|Dienstwohnung|Einsteinstr. 6, 8049 ZÃ¼rich
+HXE|Einsteinstr. 4|8093 ZÃ¼rich
+HZA|MÃ¶bellager, Schauenbergstr. 94|8093 ZÃ¼rich
+HZB|RemisengebÃ¤ude, Schauenbergstr. 92|8093 ZÃ¼rich
+HZC|Doppelgarage, Schauenbergstr.90|8093 ZÃ¼rich
+HZD|LagergebÃ¤ude, Schauenbergstr. 96|8093 ZÃ¼rich
 UZI 17|noname|noname
 UZI 23|noname|noname
 UZI 35|noname|noname
 UZI 36|noname|noname
 UZI 55|noname|noname
-IFW|Haldeneggsteig 4 / Weinbergstrasse|8092 Zürich
+IFW|Haldeneggsteig 4 / Weinbergstrasse|8092 ZÃ¼rich
 ISE|noname|noname
 ITIS|noname|noname
 KANT|noname|noname
 KO2|noname|noname
-KOL|Hauptgebäude Universität Zürich, Rämistrasse 71|8001 Zürich
-KPL|Kreuzplatz 5|8032 Zürich
+KOL|HauptgebÃ¤ude UniversitÃ¤t ZÃ¼rich, RÃ¤mistrasse 71|8001 ZÃ¼rich
+KPL|Kreuzplatz 5|8032 ZÃ¼rich
 KUB|noname|noname
-LCA|Forschungs-/Laborgebäude Supercomputing|6928 Manno
+LCA|Forschungs-/LaborgebÃ¤ude Supercomputing|6928 Manno
 LCU|Situation Lugano Cornaredo|noname
-LEA|Leonhardstrasse 15|8092 Zürich
-LEB|Leonhardstrasse 19|8092 Zürich
-LEC|Leonhardstrasse 25|8092 Zürich
-LED|Leonhardstrasse 25 A|8092 Zürich
-LEE|Bauprojekt CLA 4, Leonhardstrasse|8092 Zürich
-LEH|Leonhardshalde 21|8092 Zürich
-LEO|Leonhardstrasse 27|8092 Zürich
-LFG|Universitätstrasse 2|8092 Zürich
-LFH|Universitätstrasse 2|8092 Zürich
-LFO|Schmelzbergstrasse 9|8092 Zürich
-LFV|Schmelzbergstrasse 7|8092 Zürich
-LFW|Universitätstrasse 2|8092 Zürich
+LEA|Leonhardstrasse 15|8092 ZÃ¼rich
+LEB|Leonhardstrasse 19|8092 ZÃ¼rich
+LEC|Leonhardstrasse 25|8092 ZÃ¼rich
+LED|Leonhardstrasse 25 A|8092 ZÃ¼rich
+LEE|Bauprojekt CLA 4, Leonhardstrasse|8092 ZÃ¼rich
+LEH|Leonhardshalde 21|8092 ZÃ¼rich
+LEO|Leonhardstrasse 27|8092 ZÃ¼rich
+LFG|UniversitÃ¤tstrasse 2|8092 ZÃ¼rich
+LFH|UniversitÃ¤tstrasse 2|8092 ZÃ¼rich
+LFO|Schmelzbergstrasse 9|8092 ZÃ¼rich
+LFV|Schmelzbergstrasse 7|8092 ZÃ¼rich
+LFW|UniversitÃ¤tstrasse 2|8092 ZÃ¼rich
 LHT|noname|noname
 LHV|noname|noname
 LHX|noname|noname
 LHZ|noname|noname
 LMK|noname|noname
-LMS|Lägeren Messstation Pflanzeninstitut|5430 Wettingen
+LMS|LÃ¤geren Messstation Pflanzeninstitut|5430 Wettingen
 LOW|noname|noname
 LRA|noname|noname
 LRG|noname|noname
@@ -227,96 +227,96 @@ LRI|noname|noname
 LRL|noname|noname
 LRN|noname|noname
 LRO|noname|noname
-LRR|Lerchenrain 19|8046 Zürich
-LSH|Schutzhütte Limmernfirn|8783 Linthal
+LRR|Lerchenrain 19|8046 ZÃ¼rich
+LSH|SchutzhÃ¼tte Limmernfirn|8783 Linthal
 LUI|Departement of Chemistry and Applied Biosciences ETH Zurich,|USI-Campus, Via G. Buffi 13, 6900 Lugano
-M2R|Moussonstrasse 2|8044 Zürich
+M2R|Moussonstrasse 2|8044 ZÃ¼rich
 MAN|Via Cantonale|6928 Manno/TI
-ML|Sonneggstrasse 3|8092 Zürich
-MLY|Clausiusstr.|8092 Zürich
-MM|Leonhardstrasse 34|8092 Zürich
-MMB|Müli-Sellenbüren Schopf|8143 Stallikon
-MMC|Müli-Sellenbüren Scheune|8143 Stallikon
-MME|Müli-Sellenbüren Bienenh.|8143 Stallikon
-MMV|Müli-Sellenbüren, Beckenanl.|8143 Stallikon
-MOE|Baracke Katzloecher|3986 Ried-Mörel
+ML|Sonneggstrasse 3|8092 ZÃ¼rich
+MLY|Clausiusstr.|8092 ZÃ¼rich
+MM|Leonhardstrasse 34|8092 ZÃ¼rich
+MMB|MÃ¼li-SellenbÃ¼ren Schopf|8143 Stallikon
+MMC|MÃ¼li-SellenbÃ¼ren Scheune|8143 Stallikon
+MME|MÃ¼li-SellenbÃ¼ren Bienenh.|8143 Stallikon
+MMV|MÃ¼li-SellenbÃ¼ren, Beckenanl.|8143 Stallikon
+MOE|Baracke Katzloecher|3986 Ried-MÃ¶rel
 MOU|noname|noname
-MRB|Müli-Sellenbüren Holzbrücke|8143 Stallikon
+MRB|MÃ¼li-SellenbÃ¼ren HolzbrÃ¼cke|8143 Stallikon
 MSA|noname|noname
 MUG|noname|noname
-MUH|Waldhütte Diebis|8143 Stallikon
+MUH|WaldhÃ¼tte Diebis|8143 Stallikon
 MUS|Stallikon ZH|8143 Stallikon
-MVA|Monte Verità|6612 Ascona
-MZU|Müli-Sellenbüren Umgebung|8143 Stallikon
-NEA|Universitätstrasse 2|8092 Zürich
-NEL|Nelkenstrasse 11|8092 Zürich
-NEW|Universitätstrasse 2|8092 Zürich
+MVA|Monte VeritÃ |6612 Ascona
+MZU|MÃ¼li-SellenbÃ¼ren Umgebung|8143 Stallikon
+NEA|UniversitÃ¤tstrasse 2|8092 ZÃ¼rich
+NEL|Nelkenstrasse 11|8092 ZÃ¼rich
+NEW|UniversitÃ¤tstrasse 2|8092 ZÃ¼rich
 NID|noname|noname
-NO|Sonneggstrasse 5|8092 Zürich
-NW|Clausiusstrasse 25|8092 Zürich
-ODA|Dörflistrasse 120|8050 Zürich
-ONA|Neunbrunnenstrasse 50|8050 Zürich
-PFA|Technoparkstrasse 1|8005 Zürich
-PLB|Plattenstrasse 28|8032 Zürich
-PLD|Plattenstrasse 32 (Uni)|8032 Zürich
-PLM|(UNIZ) Plattenstr. 14|8032 Zürich
-PRE|Predigergasse 9|8001 Zürich
+NO|Sonneggstrasse 5|8092 ZÃ¼rich
+NW|Clausiusstrasse 25|8092 ZÃ¼rich
+ODA|DÃ¶rflistrasse 120|8050 ZÃ¼rich
+ONA|Neunbrunnenstrasse 50|8050 ZÃ¼rich
+PFA|Technoparkstrasse 1|8005 ZÃ¼rich
+PLB|Plattenstrasse 28|8032 ZÃ¼rich
+PLD|Plattenstrasse 32 (Uni)|8032 ZÃ¼rich
+PLM|(UNIZ) Plattenstr. 14|8032 ZÃ¼rich
+PRE|Predigergasse 9|8001 ZÃ¼rich
 PSA|Personensuchanlage ohne festen Standort|noname
 PSI|Paul Scherrer Institut|5232 Villigen PSI
 PTT|noname|noname
-RAC|Rämistrasse 36|8092 Zürich
-RAM|Rämistr. 42|8001 Zürich
-REA|Regensbergstrasse 244|8050 Zürich
-RIA|Lagerhalle Rickenstr. 18/20|8050 Zürich
+RAC|RÃ¤mistrasse 36|8092 ZÃ¼rich
+RAM|RÃ¤mistr. 42|8001 ZÃ¼rich
+REA|Regensbergstrasse 244|8050 ZÃ¼rich
+RIA|Lagerhalle Rickenstr. 18/20|8050 ZÃ¼rich
 ROK|Rossberg Oberhof|8310 Kempttal
-RSA|Säumerstrasse 4, Gebäude A|8803 Rüschlikon
+RSA|SÃ¤umerstrasse 4, GebÃ¤ude A|8803 RÃ¼schlikon
 RSG|noname|noname
-RSU|Säumerstrasse, Umgebung|8803 Rüschlikon
-RUE|Rüschlikon Seestrasse 72|8803 Rüschlikon
+RSU|SÃ¤umerstrasse, Umgebung|8803 RÃ¼schlikon
+RUE|RÃ¼schlikon Seestrasse 72|8803 RÃ¼schlikon
 RUK|Rossberg Unterhof|8310 Kempttal
-RZ|Clausiusstrasse 59|8092 Zürich
-RZY|Haldeneggsteig 4/Weinbergstr.|8092 Zürich
+RZ|Clausiusstrasse 59|8092 ZÃ¼rich
+RZY|Haldeneggsteig 4/Weinbergstr.|8092 ZÃ¼rich
 SBB|noname|noname
-SBC|Stampfenbachstr. 63 (UNIZ)|8006 Zürich
+SBC|Stampfenbachstr. 63 (UNIZ)|8006 ZÃ¼rich
 SCH|noname|noname
 SEA|Engstringerstrasse 5|8952 Schlieren
-SEC|Scheuchzerstr. 7|8092 Zürich
-SEI|Seilergraben 45/47/49|8092 Zürich
-SEM|Scheuchzerstr. 65a|8006 Zürich
-SES|Scheuchzerstrasse 17|8092 Zürich
-SEW|Scheuchzerstrasse 68/70|8092 Zürich
+SEC|Scheuchzerstr. 7|8092 ZÃ¼rich
+SEI|Seilergraben 45/47/49|8092 ZÃ¼rich
+SEM|Scheuchzerstr. 65a|8006 ZÃ¼rich
+SES|Scheuchzerstrasse 17|8092 ZÃ¼rich
+SEW|Scheuchzerstrasse 68/70|8092 ZÃ¼rich
 SF|noname|noname
 SGA|Grabenstrasse 11|8952 Schlieren
 SGB|Grabenstrasse 11a|8952 Schlieren
 SGC|Grabenstrasse 3|8952 Schlieren
-SHH|Hofstetterweid Staffelhütte|8143 Stallikon
+SHH|Hofstetterweid StaffelhÃ¼tte|8143 Stallikon
 SHL|Hofstetterweid Langeneggerh.|8143 Stallikon
 SJ|noname|noname
-SJS|Massholdern Schutzhütte|8143 Stallikon
+SJS|Massholdern SchutzhÃ¼tte|8143 Stallikon
 SLA|Schorenstrasse 16|8603 Schwerzenbach
 SM|noname|noname
-SMH|Massholdern Weidelhütte|8143 Stallikon
+SMH|Massholdern WeidelhÃ¼tte|8143 Stallikon
 SMS|Massholdern Schopf|8143 Stallikon
 SMW|Massholdern Weidscheune|8143 Stallikon
-SOB|Schönberggasse 15|8001 Zürich
-SOI|Sonneggstrasse 28|8092 Zürich
-SOK|Sonneggstrasse 23|8092 Zürich
-SOL|Sonneggstrasse 33|8092 Zürich
-SOP|Sonneggstrasse 27|8092 Zürich
-SOW|Sonneggstrasse 63|8092 Zürich
-SOX|Sonneggstrasse 74|8092 Zürich
+SOB|SchÃ¶nberggasse 15|8001 ZÃ¼rich
+SOI|Sonneggstrasse 28|8092 ZÃ¼rich
+SOK|Sonneggstrasse 23|8092 ZÃ¼rich
+SOL|Sonneggstrasse 33|8092 ZÃ¼rich
+SOP|Sonneggstrasse 27|8092 ZÃ¼rich
+SOW|Sonneggstrasse 63|8092 ZÃ¼rich
+SOX|Sonneggstrasse 74|8092 ZÃ¼rich
 SR|noname|noname
-SSC|Sellenbüren, Reppischstr. 50|8143 Stallikon
-SSD|Sellenbüren, Reppischstr. 50|8143 Stallikon
-SSF|Sellenbüren, 2 Schuppen|8143 Stallikon
-SSH|Hofstetterweid Staffelhütte|8143 Stallikon
-STB|Stampfenbachstr. 69|8092 Zürich
-STC|Stampfenbachstrasse 67|8092 Zürich
-STD|Stadelhoferstrasse 22|8001 Zürich
+SSC|SellenbÃ¼ren, Reppischstr. 50|8143 Stallikon
+SSD|SellenbÃ¼ren, Reppischstr. 50|8143 Stallikon
+SSF|SellenbÃ¼ren, 2 Schuppen|8143 Stallikon
+SSH|Hofstetterweid StaffelhÃ¼tte|8143 Stallikon
+STB|Stampfenbachstr. 69|8092 ZÃ¼rich
+STC|Stampfenbachstrasse 67|8092 ZÃ¼rich
+STD|Stadelhoferstrasse 22|8001 ZÃ¼rich
 STL|noname|noname
-STS|Schmelzbergstrasse 25|8025 Zürich
-STW|Schmelzbergstrasse 25 Sternwarte|8092 Zürich
-SWB|Gamlikon, Girstelhütte|8143 Stallikon
+STS|Schmelzbergstrasse 25|8025 ZÃ¼rich
+STW|Schmelzbergstrasse 25 Sternwarte|8092 ZÃ¼rich
+SWB|Gamlikon, GirstelhÃ¼tte|8143 Stallikon
 SWITCH|noname|noname
 SWR|noname|noname
 SWS|Postfach|8952 Schlieren
@@ -327,31 +327,31 @@ SWU/4|Wagistrasse 4|8952 Schlieren
 SWU/6|Wagistrasse 2|8952 Schlieren
 SWV|Postfach|8952 Schlieren
 SWW|Wagistrasse 25/27|8952 Schlieren
-SZU|Sellenbüren, Umgebung|8143 Stallikon
-TAB|Büro/Mannschaft Tätsch|8308 Illnau
-TAG|Einstellgarage Tätsch|8308 Illnau
-TAH|Versuchshalle Tätsch|8308 Illnau
-TAI|Areal Tätsch|8308 Illnau
-TAN|Tannenstrasse 1|8092 Zürich
-TUR|Turnerstrasse 1|8092 Zürich
+SZU|SellenbÃ¼ren, Umgebung|8143 Stallikon
+TAB|BÃ¼ro/Mannschaft TÃ¤tsch|8308 Illnau
+TAG|Einstellgarage TÃ¤tsch|8308 Illnau
+TAH|Versuchshalle TÃ¤tsch|8308 Illnau
+TAI|Areal TÃ¤tsch|8308 Illnau
+TAN|Tannenstrasse 1|8092 ZÃ¼rich
+TUR|Turnerstrasse 1|8092 ZÃ¼rich
 TUS|noname|noname
 TXU|Standort Supercomputing Center|noname
-UNA|Universitätstrasse 9|8092 Zürich
+UNA|UniversitÃ¤tstrasse 9|8092 ZÃ¼rich
 UNB|noname|noname
-UNG|Universitätstrasse 19|8092 Zürich
+UNG|UniversitÃ¤tstrasse 19|8092 ZÃ¼rich
 UNI|noname|noname
-UNK|Universitätstrasse 31|8092 Zürich
-UNL|Universitätstrasse 33|8092 Zürich
-UNO|Universitätstrasse 41|8092 Zürich
-UNS|Universitätstrasse 65|8092 Zürich
+UNK|UniversitÃ¤tstrasse 31|8092 ZÃ¼rich
+UNL|UniversitÃ¤tstrasse 33|8092 ZÃ¼rich
+UNO|UniversitÃ¤tstrasse 41|8092 ZÃ¼rich
+UNS|UniversitÃ¤tstrasse 65|8092 ZÃ¼rich
 UPC|noname|noname
-USZ|Universitätsspital|8091 Zürich
-UZI|Winterthurerstr.190, Uni-Irchel|8057 Zürich
-VAW|Gloriastrasse 37/39|8092 Zürich
-VEC|Versuchsgut CHamau|6331 Hünenberg
-VEF|Versuchsgut Früebüel Zugerberg|6318 Walchwil
-VFS|Versuchsgut, Futtersilo Chamau|6331 Hünenberg
-VGV|Versuchsgelände Vauffelin|2537 Biel
+USZ|UniversitÃ¤tsspital|8091 ZÃ¼rich
+UZI|Winterthurerstr.190, Uni-Irchel|8057 ZÃ¼rich
+VAW|Gloriastrasse 37/39|8092 ZÃ¼rich
+VEC|Versuchsgut CHamau|6331 HÃ¼nenberg
+VEF|Versuchsgut FrÃ¼ebÃ¼el Zugerberg|6318 Walchwil
+VFS|Versuchsgut, Futtersilo Chamau|6331 HÃ¼nenberg
+VGV|VersuchsgelÃ¤nde Vauffelin|2537 Biel
 VGW|noname|noname
 VH|noname|noname
 VHA|noname|noname
@@ -360,12 +360,12 @@ VHZ|noname|noname
 VJS|noname|noname
 VNG|noname|noname
 VNS|noname|noname
-VOA|Voltastrasse 18|8092 Zürich
-VOB|Voltastrasse 24|8092 Zürich
-VOC|Voltastrasse 26|8044 Zürich
-VOD|Voltastrasse 65|8092 Zürich
-VOE|Voltastrasse 58|8044 Zürich
-VOG|Vogelsangstr.11|8006 Zürich
+VOA|Voltastrasse 18|8092 ZÃ¼rich
+VOB|Voltastrasse 24|8092 ZÃ¼rich
+VOC|Voltastrasse 26|8044 ZÃ¼rich
+VOD|Voltastrasse 65|8092 ZÃ¼rich
+VOE|Voltastrasse 58|8044 ZÃ¼rich
+VOG|Vogelsangstr.11|8006 ZÃ¼rich
 VRC|noname|noname
 VRS|noname|noname
 VSC|noname|noname
@@ -378,43 +378,43 @@ VSR|noname|noname
 VSS|noname|noname
 VSW|noname|noname
 VTR|noname|noname
-VVH|Versuchsgut Chamau, Verwaltungsgebäude|6331 Hünenberg
+VVH|Versuchsgut Chamau, VerwaltungsgebÃ¤ude|6331 HÃ¼nenberg
 VVS|noname|noname
 VWA|noname|noname
 VWN|noname|noname
 VWS|noname|noname
 VWV|noname|noname
-WAE|Steinackerstrasse 101|8804 Au/Wädenswil
-WEB|Weinbergstrasse 9|8092 Zürich
-WEC|Weinbergstrasse 11|8092 Zürich
-WED|Weinbergstrasse 18|8092 Zürich
-WEF|Weinbergstrasse 22a|8001 Zürich
-WEH|Weinbergstrasse 35|8092 Zürich
-WEL|Weinbergstrasse 74|8006 Zürich
-WEN|Weinbergstrasse 94|8006 Zürich
-WEP|Weinbergstrasse 109|8092 Zürich
-WES|Weinbergstrasse 41|8092 Zürich
-WET|Weinbergstrasse 43|8092 Zürich
-WEV|Weinbergstrasse 56/58|8092 Zürich
-WIL|Wilfriedstrasse 6|8032 Zürich
+WAE|Steinackerstrasse 101|8804 Au/WÃ¤denswil
+WEB|Weinbergstrasse 9|8092 ZÃ¼rich
+WEC|Weinbergstrasse 11|8092 ZÃ¼rich
+WED|Weinbergstrasse 18|8092 ZÃ¼rich
+WEF|Weinbergstrasse 22a|8001 ZÃ¼rich
+WEH|Weinbergstrasse 35|8092 ZÃ¼rich
+WEL|Weinbergstrasse 74|8006 ZÃ¼rich
+WEN|Weinbergstrasse 94|8006 ZÃ¼rich
+WEP|Weinbergstrasse 109|8092 ZÃ¼rich
+WES|Weinbergstrasse 41|8092 ZÃ¼rich
+WET|Weinbergstrasse 43|8092 ZÃ¼rich
+WEV|Weinbergstrasse 56/58|8092 ZÃ¼rich
+WIL|Wilfriedstrasse 6|8032 ZÃ¼rich
 WIN|noname|noname
-WPW|Wärmepumpe Walche|8000 Zürich
+WPW|WÃ¤rmepumpe Walche|8000 ZÃ¼rich
 WRO-1058|Mattenstr. 26|4058 Basel
-WSL|Eidg. Forschungsanstalt für Wald, Schnee u. Landschaft (WSL)|8903 Birmensdorf
-WUR|Würenlos AG|8116 Würenlos
+WSL|Eidg. Forschungsanstalt fÃ¼r Wald, Schnee u. Landschaft (WSL)|8903 Birmensdorf
+WUR|WÃ¼renlos AG|8116 WÃ¼renlos
 WV|noname|noname
-Y11|Winterthurerstr.190|8057 Zürich
-Y17|Winterthurerstr.190|8057 Zürich
-Y23|Uni Irchel, Block 23, Winterthurerstr.190|8057 Zürich
-Y25|Winterthurerstr.190|8057 Zürich
-Y32|Winterthurerstr.190|8057 Zürich
-Y35|Winterthurerstr.190|8057 Zürich
-Y36|Winterthurerstr.190|8057 Zürich
-Y42|Winterthurerstr.190|8057 Zürich
-Y55|Winterthurerstr.190|8057 Zürich
-ZAE|Zähringerstr.24|8092 Zürich
-ZEW|Zeltweg 29|8032 Zürich
+Y11|Winterthurerstr.190|8057 ZÃ¼rich
+Y17|Winterthurerstr.190|8057 ZÃ¼rich
+Y23|Uni Irchel, Block 23, Winterthurerstr.190|8057 ZÃ¼rich
+Y25|Winterthurerstr.190|8057 ZÃ¼rich
+Y32|Winterthurerstr.190|8057 ZÃ¼rich
+Y35|Winterthurerstr.190|8057 ZÃ¼rich
+Y36|Winterthurerstr.190|8057 ZÃ¼rich
+Y42|Winterthurerstr.190|8057 ZÃ¼rich
+Y55|Winterthurerstr.190|8057 ZÃ¼rich
+ZAE|ZÃ¤hringerstr.24|8092 ZÃ¼rich
+ZEW|Zeltweg 29|8032 ZÃ¼rich
 ZIM|noname|noname
-ZOC|Zollikerstrasse 137|8008 Zürich
-ZUE|Zürichbergstrasse 18|8032 Zürich
-ZUI|Plattenstrasse 11 (Uni)|8028 Zürich
+ZOC|Zollikerstrasse 137|8008 ZÃ¼rich
+ZUE|ZÃ¼richbergstrasse 18|8032 ZÃ¼rich
+ZUI|Plattenstrasse 11 (Uni)|8028 ZÃ¼rich

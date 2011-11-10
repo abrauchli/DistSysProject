@@ -1,3 +1,5 @@
+# -*- coding: <utf-8> -*-
+import codecs
 import json
 import csv
 import re
@@ -11,16 +13,20 @@ class AccessPoint:
   def __init__(self,idstring,mac):
     if (re.match(wlanID,idstring)):
       m = re.search(wlanID,idstring)
-      self.building = m.group(1).upper()
-      self.floor = m.group(2).upper()
-      self.room = ""+m.group(3)
+      building = m.group(1).upper()
+      floor = m.group(2).upper()
+      room = ""+m.group(3)
     else:
       m = re.search(wlanIDAlt,idstring)
-      self.building = m.group(1).upper()
-      self.floor = m.group(2).upper()
-      self.room = ""+m.group(3)+"."+m.group(4)
-    Building.addRoom(self.building,self.floor,self.room)
-
+      building = m.group(1).upper()
+      floor = m.group(2).upper()
+      room = ""+m.group(3)+"."+m.group(4)
+  #Building.addRoom(self.building,self.floor,self.room)
+    room = Building.findRoom(building,floor,room)
+    if (room != None):
+      self.room = room
+      self.building = Building.findBuilding(building)
+       
   def __str__(self):
     return "{b} {f} {r}".format(b=self.building,f=self.floor,r=self.room)
 

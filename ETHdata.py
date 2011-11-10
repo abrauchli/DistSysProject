@@ -1,4 +1,5 @@
 # -*- coding: <utf-8> -*-
+import codecs
 import re
 import csv
 import Building
@@ -10,11 +11,13 @@ ETHROOMS = 'data/ethuint.txt'
 def fillBuildings():
   reader = csv.reader(open(ETHBUILDINGS, 'rb'), delimiter='|')
   for row in reader:
+    print row
     Building.addBuilding(row[0],row[1],row[2])
 
 def fillRooms():
   reader = csv.reader(open(ETHROOMS, 'rb'), delimiter='|')
   for row in reader:
+    print row
     b = row[0]
     art = row[2]
     ROOMMATCH = "(\w+)\s+(\S+)"
