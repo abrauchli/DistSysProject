@@ -4,6 +4,7 @@ import os, os.path
 import json
 import Building
 import AccessPoints
+import ETHdata
 app = Flask(__name__)
 
 
@@ -26,6 +27,7 @@ def connect():
 
 if __name__ == "__main__":
   global accessPoints
+  ETHdata.readETHData()
   accessPoints = AccessPoints.WLANAccessPoints()
   print all()
   app.run(port=23032,host="0.0.0.0")
