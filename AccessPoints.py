@@ -39,7 +39,7 @@ class AccessPoint:
 
   def getInfo(self):
     return {"mac":self.mac, 
-      "bssid": self.bssid,
+      "id": self.idstring,
       }
 
   def __str__(self):
