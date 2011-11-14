@@ -10,6 +10,17 @@ app = Flask(__name__)
 
 
 @app.route("/")
+def currentRoutes():
+  return """
+<pre>Currently mapped routes:
+  /r/ <-- Lists all buildings
+  /r/<building>
+  /r/<building>/<floor>
+  /r/<building>/<floor>/<room>
+  /m/ <-- Lists all mac adresses
+  /m/<macadress>
+</pre>
+  """
 @app.route("/r/")
 def all():
   return json.dumps(Building.getAllInfo())
@@ -39,4 +50,4 @@ if __name__ == "__main__":
   ETHdata.readETHData()
   AccessPoints.read()
   print getAccessPoint("00:03:52:e5:ad:51")
-  app.run(port=23032,host="0.0.0.0")
+  app.run(port=23032,host="0.0.0.0",debug=true)
