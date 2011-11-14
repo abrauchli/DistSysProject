@@ -21,13 +21,19 @@ class Room(object):
   def __str__(self):
     return self.number+" "+self.roomtype
  
-  def getAllInfo(self):
-    return {'type': self.roomtype, 'number': self.number}
+  # Object information type
+  def objectInfo(self):
+    return {'type': self.roomtype, 
+      'number': self.number,
+      'map' : "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}&raumNr={room}"
+        .format(building=self.building.name,floor=self.floor.floor,room=self.number)
+}
+  # Recursive information
   def getInfo(self):
-    return {'building': self.building.getInfo(),
-      'floor' : self.floor.floor,
-      'room' :  self.number,
-      'type'  : self.roomtype}
+    r = self.objectInfo()
+    r["floor"]=self.floor.floor
+    r["building"]=self.building.name
+    return r
 
 class Floor(object):
   def __init__(self,floor,building):
@@ -58,11 +64,22 @@ class Floor(object):
   def __str__(self):
     return self.floor
   
-  def getAllInfo(self):
+  # Recursive information
+  def getInfo(self):
+    r = self.objectInfo()
+    r["building"] = self.building.name
+    return r
+
+  # Object information
+  def objectInfo(self):
     rooms = []
     for k,r in self.rooms.iteritems():
-      rooms.append(r.getAllInfo())
-    return {'floor': self.floor, 'rooms': rooms}
+      rooms.append(r.objectInfo())
+    return {'floor': self.floor,
+      'rooms': rooms,
+      'map' : "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}"
+        .format(building=self.building.name,floor=self.floor)
+      }
 
 class Building(object):  
   def __init__(self,name,strasse="",stadt=u"Zürich"):
@@ -101,29 +118,28 @@ class Building(object):
   
   def floor(self,floor):
     return self.floors[floor]
-
-  def json(self):
-    return self.__dict__
   
-  def getAllInfo(self):
+  # Recursive info
+  def getInfo(self):
     r = []
     for k,f in self.floors.iteritems():
-      r.append(f.getAllInfo())
-    return {'name': self.name,
-      'street': self.strasse,
-      'city': self.stadt,
-      'floors': r}
+      r.append(f.objectInfo())
+    k = self.objectInfo()
+    k["floors"]=r
+    return k
 
-  def getInfo(self):
+  # Object information
+  def objectInfo(self):
     return  {'name': self.name,
       'street': self.strasse,
       'city': self.stadt }
-def getAllInfo():
+
+
+## Direct access
+def getInfo():
   r = []
   for k,v in buildings.iteritems():
-#    print v
-    r.append(v.getAllInfo())
-
+    r.append(v.getInfo())
   return r
 
 def findRoom(bldname,flname,rmname):

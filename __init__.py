@@ -14,7 +14,7 @@ def currentRoutes():
   return """
 <pre>Currently mapped routes:
   /r/ <-- Lists all buildings
-  /r/building>
+  /r/building
   /r/building/floor
   /r/building/floor/room
   /m/ <-- Lists all mac adresses
@@ -23,7 +23,7 @@ def currentRoutes():
   """
 @app.route("/r/")
 def all():
-  return json.dumps(Building.getAllInfo())
+  return json.dumps(Building.getInfo())
 
 @app.route("/m/")
 def getAccessPoints():
@@ -34,17 +34,17 @@ def getAccessPoint(macaddress):
 @app.route("/r/<building>")
 def getBuilding(building):
   return json.dumps(Building.findBuilding(building)
-      .getAllInfo())
+      .getInfo())
       
 @app.route("/r/<building>/<room>")
 def getFloor(building,room):
   return json.dumps(Building.findFloor(building,room)
-      .getAllInfo())
+      .getInfo())
 
 @app.route("/r/<building>/<room>/<floor>")
 def getRoom(building,room,floor):
   return json.dumps(Building.findRoom(building,room,floor)
-      .getAllInfo())
+      .getInfo())
 
 if __name__ == "__main__":
   ETHdata.readETHData()
