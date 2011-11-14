@@ -14,6 +14,7 @@ class Room(object):
       raise
 #raise
     if type(floor) != Floor:
+      print floor
       print "Floor has wrong type: ", type(floor)
       raise
 #    raise
@@ -41,7 +42,7 @@ class Floor(object):
       raise
   def addRoom(self,number,roomtype):
     if number not in self.rooms:
-      self.rooms[number] = Room(number,self.building,self.floor,roomtype)
+      self.rooms[number] = Room(number,self.building,self,roomtype)
 
   def findRoom(self,room):
     if room in self.rooms:
