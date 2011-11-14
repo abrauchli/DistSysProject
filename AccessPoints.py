@@ -13,6 +13,8 @@ wlanIDAlt = "air-(\w+)-(\w)(\d+)-(\d)-\w"
 accessPoints = {}
 class AccessPoint:
   def __init__(self,idstring,mac):
+    self.mac = mac
+    self.idstring = idstring    
     if (re.match(wlanID,idstring)):
       m = re.search(wlanID,idstring)
       building = m.group(1).upper()
@@ -29,16 +31,16 @@ class AccessPoint:
     if self.room is None:
       Building.addRoom(building,floor,room)
       self.room = Building.findRoom(building,floor,room)
-    self.mac = mac
     
-  def getAllInfo(self):
-    return {"mac":self.mac, "room":self.room.getInfo() }
+  def objectInfo(self):
+    return {"mac":self.mac, 
+      "id": self.idstring,
+      "location":self.room.getInfo() }
 
   def getInfo(self):
-    print self.room
-    return {"building": self.room.building.name,
-      "floor": self.room.floor.floor,
-      "room": self.room.number }
+    return {"mac":self.mac, 
+      "bssid": self.bssid,
+      }
 
   def __str__(self):
 
@@ -50,10 +52,11 @@ def read():
     a = AccessPoint(row[1],row[5]) 
     accessPoints[row[5]] = a
 
-def getInfo(mac):
-  return accessPoints[mac].getAllInfo()
+def objectInfo(mac):
+  return accessPoints[mac].objectInfo()
 
-def getAllInfo():
-  r = {}
+def getInfo():
+  r = []
   for m,v in accessPoints.iteritems():
-    r[m] = v.getInfo()
+    r.append(v.getInfo())
+  return r

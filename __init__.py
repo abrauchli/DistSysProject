@@ -21,16 +21,17 @@ def currentRoutes():
   /m/macadress
 </pre>
   """
+
 @app.route("/r/")
 def all():
   return json.dumps(Building.getInfo())
 
 @app.route("/m/")
 def getAccessPoints():
-  return json.dumps(AccessPoints.getAllInfo())
+  return json.dumps(AccessPoints.getInfo())
 @app.route("/m/<macaddress>")
 def getAccessPoint(macaddress):
-  return json.dumps(AccessPoints.getInfo(macaddress))
+  return json.dumps(AccessPoints.objectInfo(macaddress))
 @app.route("/r/<building>")
 def getBuilding(building):
   return json.dumps(Building.findBuilding(building)
