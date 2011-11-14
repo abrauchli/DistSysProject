@@ -4,25 +4,26 @@ import json
 import csv
 import re
 import Building 
-data = "data/wlan.csv"
+#data = "data/wlan.csv"
+data = ["data/wlan_honegg.csv", "data/wlan_zentrum.csv"]
 
-wlanRegex = "air-(\w+)-(\w)(\d+)i--\w"
-wlanID = "air-(\w+)-(\w)(\d+)-\w"
-wlanIDAlt = "air-(\w+)-(\w)(\d+)-(\d)-\w"
-
+wlanRegex = "air-(\w+)-(\w+)(\d+)i--\w"
+wlanID = "air-(\w+)-(\w+)(\d+)-\w"
+wlanIDAlt = "air-(\w+)-(\w+)(\d+)-(\d+)-\w"
+wlanIDSpecial = "air-(\w+)-(\w+)-\w"
 accessPoints = {}
 class AccessPoint:
   def __init__(self,idstring,mac,bssid):
     self.mac = mac
     self.idstring = idstring
     self.bssid = bssid
-    if (re.match(wlanID,idstring)):
-      m = re.search(wlanID,idstring)
+    if (re.search(wlanID,idstring)):
+      m = re.match(wlanID,idstring)
       building = m.group(1).upper()
       floor = m.group(2).upper()
       room = ""+m.group(3)
     else:
-      m = re.search(wlanIDAlt,idstring)
+      m = re.match(wlanIDAlt,idstring)
       building = m.group(1).upper()
       floor = m.group(2).upper()
       room = ""+m.group(3)+"."+m.group(4)
@@ -51,11 +52,18 @@ class AccessPoint:
     return "{b} {f} {r}".format(b=self.room.building,f=self.room.floor,r=self.room)
 
 def read():
-  reader = csv.reader(open(data,'rb'))
-  for row in reader:
-    a = AccessPoint(row[1],row[5],row[0]) 
-    accessPoints[row[5]] = a
-
+  for f in data:
+    reader = csv.reader(open(f,'rb'))
+    for row in reader:
+      mac = row[5]
+      bssid = row[0]
+      idstring = row[1]
+      if not re.search(wlanID,idstring) and not re.search(wlanIDAlt,idstring):
+        print "Ignoring row: ",row
+      else:
+        a = AccessPoint(idstring,mac,bssid) 
+        accessPoints[row[5]] = a
+    
 def objectInfo(mac):
   return accessPoints[mac].objectInfo()
 
