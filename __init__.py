@@ -10,32 +10,33 @@ app = Flask(__name__)
 
 
 @app.route("/")
-@app.route("/r")
+@app.route("/r/")
 def all():
-  return json.dumps(Building.toJSON())
+  return json.dumps(Building.getAllInfo())
 
 @app.route("/m/")
 def getAccessPoints():
-  return json.dumps(AccessPoints.toJSON())
+  return json.dumps(AccessPoints.getAllInfo())
 @app.route("/m/<macaddress>")
 def getAccessPoint(macaddress):
-  return json.dumps(AccessPoints.toJSON(macaddress))
+  return json.dumps(AccessPoints.getInfo(macaddress))
 @app.route("/r/<building>")
 def getBuilding(building):
   return json.dumps(Building.findBuilding(building)
-      .toJSON())
+      .getAllInfo())
       
 @app.route("/r/<building>/<room>")
 def getFloor(building,room):
   return json.dumps(Building.findFloor(building,room)
-      .toJSON())
+      .getAllInfo())
 
 @app.route("/r/<building>/<room>/<floor>")
 def getRoom(building,room,floor):
   return json.dumps(Building.findRoom(building,room,floor)
-      .toJSON())
+      .getAllInfo())
 
 if __name__ == "__main__":
   ETHdata.readETHData()
   AccessPoints.read()
+#print getAccessPoint("00:03:52:e5:ad:51")
   app.run(port=23032,host="0.0.0.0")

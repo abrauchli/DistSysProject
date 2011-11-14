@@ -8,13 +8,23 @@ class Room:
     self.building = building
     self.roomtype = t
     self.number = number
-
+    if type(building) is not Building:
+      print "Building has wrong type"
+#raise
+    if type(floor) is not Floor:
+      print "Floor has wrong type"
+#    raise
   def __str__(self):
     return self.number+" "+self.roomtype
  
-  def toJSON(self):
+  def getAllInfo(self):
     return {'type': self.roomtype, 'number': self.number}
-    
+  def getInfo(self):
+    return {'building': self.building.getInfo(),
+      'floor' : self.floor.floor,
+      'room' :  self.number,
+      'type'  : self.roomtype}
+
 class Floor:
   def __init__(self,floor,building):
     self.building = building
@@ -28,6 +38,7 @@ class Floor:
   def findRoom(self,room):
     if room in self.rooms:
       return self.rooms[room]
+    print "Couldn't find room: "+room
     return None
 
   def room(self,room):
@@ -38,10 +49,10 @@ class Floor:
   def __str__(self):
     return self.floor
   
-  def toJSON(self):
+  def getAllInfo(self):
     rooms = []
     for k,r in self.rooms.iteritems():
-      rooms.append(r.toJSON())
+      rooms.append(r.getAllInfo())
     return {'floor': self.floor, 'rooms': rooms}
 
 class Building:  
@@ -67,6 +78,7 @@ class Building:
   def findFloor(self,floor):
     if floor in self.floors:
       return self.floors[floor]
+    print "Couldn't find floor:" + floor
     return None
 
   def addFloor(self,floor):
@@ -84,20 +96,24 @@ class Building:
   def json(self):
     return self.__dict__
   
-  def toJSON(self):
+  def getAllInfo(self):
     r = []
     for k,f in self.floors.iteritems():
-      r.append(f.toJSON())
+      r.append(f.getAllInfo())
     return {'name': self.name,
       'street': self.strasse,
       'city': self.stadt,
       'floors': r}
 
-def toJSON():
+  def getInfo(self):
+    return  {'name': self.name,
+      'street': self.strasse,
+      'city': self.stadt }
+def getAllInfo():
   r = []
   for k,v in buildings.iteritems():
-    print v
-    r.append(v.toJSON())
+#    print v
+    r.append(v.getAllInfo())
 
   return r
 
@@ -116,6 +132,7 @@ def findBuilding(bldname):
 def findFloor(bldname,floor):
   if bldname in buildings:
     return buildings[bldname].findFloor(floor)
+  print "Couldn't find building: "+bldname
   return None
 
 def addBuilding(bldname,stadt,strasse):
@@ -123,7 +140,7 @@ def addBuilding(bldname,stadt,strasse):
   if b not in buildings:
     buildings[b] = Building(bldname,strasse,stadt)
 
-def addRoom(bldname,flname,rmname,roomtype):
+def addRoom(bldname,flname,rmname,roomtype=u"Büro"):
   ## Check if building is around
   #  found = False
   b = bldname.upper()

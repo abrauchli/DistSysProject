@@ -23,28 +23,37 @@ class AccessPoint:
       building = m.group(1).upper()
       floor = m.group(2).upper()
       room = ""+m.group(3)+"."+m.group(4)
-  #Building.addRoom(self.building,self.floor,self.room)
-    room = Building.findRoom(building,floor,room)
-    if (room != None):
-      self.room = room
-      self.building = Building.findBuilding(building)
-       
+    
+    print building + " " + floor + " " + room
+    self.room = Building.findRoom(building,floor,room)
+    if self.room is None:
+      Building.addRoom(building,floor,room)
+      self.room = Building.findRoom(building,floor,room)
+    self.mac = mac
+    
+  def getAllInfo(self):
+    return {"mac":self.mac, "room":self.room.getInfo() }
+
+  def getInfo(self):
+    print self.room
+    return {"building": self.room.building.name,
+      "floor": self.room.floor.floor,
+      "room": self.room.number }
+
   def __str__(self):
-    return "{b} {f} {r}".format(b=self.building,f=self.floor,r=self.room)
+
+    return "{b} {f} {r}".format(b=self.room.building,f=self.room.floor,r=self.room)
 
 def read():
   reader = csv.reader(open(data,'rb'))
   for row in reader:
-    print row
-    #  print ', '.join(rowi
     a = AccessPoint(row[1],row[5]) 
     accessPoints[row[5]] = a
 
-def toJSON(mac):
-  return accessPoints[mac]
+def getInfo(mac):
+  return accessPoints[mac].getAllInfo()
 
-def toJSON():
-  r = []
-  for a in accessPoints:
-    r.append(a)
-  return r
+def getAllInfo():
+  r = {}
+  for m,v in accessPoints.iteritems():
+    r[m] = v.getInfo()
