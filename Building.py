@@ -1,26 +1,29 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 import json
 import re
 buildings = {}
 class Room:
-  def __init__(self,number,t=u"Büro"):
+  def __init__(self,number,building,floor,t=u"Büro"):
+    self.floor = floor
+    self.building = building
     self.roomtype = t
     self.number = number
 
   def __str__(self):
     return self.number+" "+self.roomtype
-
+ 
   def toJSON(self):
     return {'type': self.roomtype, 'number': self.number}
     
 class Floor:
-  def __init__(self,floor):
+  def __init__(self,floor,building):
+    self.building = building
     self.floor = floor
     self.rooms = {}
 
   def addRoom(self,number,roomtype):
     if number not in self.rooms:
-      self.rooms[number] = Room(number,roomtype)
+      self.rooms[number] = Room(number,self.building,self.floor,roomtype)
 
   def findRoom(self,room):
     if room in self.rooms:
@@ -69,7 +72,7 @@ class Building:
   def addFloor(self,floor):
     floor.upper()
     if floor not in self.floors:
-      self.floors[floor] = Floor(floor)
+      self.floors[floor] = Floor(floor,self)
   
   def addRoom(self,floor,room,roomtype):
     self.addFloor(floor)
