@@ -38,5 +38,5 @@ def getRoom(building,room,floor):
 if __name__ == "__main__":
   ETHdata.readETHData()
   AccessPoints.read()
-#print getAccessPoint("00:03:52:e5:ad:51")
+  print getAccessPoint("00:03:52:e5:ad:51")
   app.run(port=23032,host="0.0.0.0")

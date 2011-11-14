@@ -2,17 +2,20 @@
 import json
 import re
 buildings = {}
-class Room:
+class Room(object):
   def __init__(self,number,building,floor,t=u"Büro"):
     self.floor = floor
     self.building = building
     self.roomtype = t
     self.number = number
-    if type(building) is not Building:
+    if type(building) != Building:
+      print building.name+" "+building.strasse
       print "Building has wrong type"
+      raise
 #raise
-    if type(floor) is not Floor:
-      print "Floor has wrong type"
+    if type(floor) != Floor:
+      print "Floor has wrong type: ", type(floor)
+      raise
 #    raise
   def __str__(self):
     return self.number+" "+self.roomtype
@@ -25,12 +28,17 @@ class Room:
       'room' :  self.number,
       'type'  : self.roomtype}
 
-class Floor:
+class Floor(object):
   def __init__(self,floor,building):
     self.building = building
     self.floor = floor
     self.rooms = {}
 
+    if type(building) != Building:
+      print building.name+" "+building.strasse
+
+      print "Building has wrong type"
+      raise
   def addRoom(self,number,roomtype):
     if number not in self.rooms:
       self.rooms[number] = Room(number,self.building,self.floor,roomtype)
@@ -55,7 +63,7 @@ class Floor:
       rooms.append(r.getAllInfo())
     return {'floor': self.floor, 'rooms': rooms}
 
-class Building:  
+class Building(object):  
   def __init__(self,name,strasse="",stadt=u"Zürich"):
     if strasse =="noname":
       strasse = u""
