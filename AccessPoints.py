@@ -7,10 +7,10 @@ import Building
 #data = "data/wlan.csv"
 data = ["data/wlan_honegg.csv", "data/wlan_zentrum.csv"]
 
-wlanRegex = "air-(\w+)-(\w+)(\d+)i--\w"
-wlanID = "air-(\w+)-(\w+)(\d+)-\w"
-wlanIDAlt = "air-(\w+)-(\w+)(\d+)-(\d+)-\w"
-wlanIDSpecial = "air-(\w+)-(\w+)-\w"
+wlanRegex = "air-(\w+)-([a-zA-Z]+)(\d+)i--\w"
+wlanID = "air-(\w+)-([a-zA-Z]+)(\d+)-\w"
+wlanIDAlt = "air-(\w+)-([a-zA-Z]+)(\d+)-(\d+)-\w"
+wlanIDSpecial = "air-([a-zA-Z]+)-(\w+)-\w"
 accessPoints = {}
 class AccessPoint:
   def __init__(self,idstring,mac,bssid):
