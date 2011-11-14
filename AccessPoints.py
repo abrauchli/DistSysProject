@@ -12,9 +12,10 @@ wlanIDAlt = "air-(\w+)-(\w)(\d+)-(\d)-\w"
 
 accessPoints = {}
 class AccessPoint:
-  def __init__(self,idstring,mac):
+  def __init__(self,idstring,mac,bssid):
     self.mac = mac
-    self.idstring = idstring    
+    self.idstring = idstring
+    self.bssid = bssid
     if (re.match(wlanID,idstring)):
       m = re.search(wlanID,idstring)
       building = m.group(1).upper()
@@ -26,20 +27,23 @@ class AccessPoint:
       floor = m.group(2).upper()
       room = ""+m.group(3)+"."+m.group(4)
     
-    print building + " " + floor + " " + room
+#    print building + " " + floor + " " + room
     self.room = Building.findRoom(building,floor,room)
     if self.room is None:
+      print "Adding Room"
       Building.addRoom(building,floor,room)
       self.room = Building.findRoom(building,floor,room)
-    
+#      print self.room.number 
   def objectInfo(self):
     return {"mac":self.mac, 
       "id": self.idstring,
-      "location":self.room.getInfo() }
+      "location":self.room.getInfo(),
+      "bssid": self.bssid}
 
   def getInfo(self):
     return {"mac":self.mac, 
       "id": self.idstring,
+      "bssid": self.bssid
       }
 
   def __str__(self):
@@ -49,7 +53,7 @@ class AccessPoint:
 def read():
   reader = csv.reader(open(data,'rb'))
   for row in reader:
-    a = AccessPoint(row[1],row[5]) 
+    a = AccessPoint(row[1],row[5],row[0]) 
     accessPoints[row[5]] = a
 
 def objectInfo(mac):
