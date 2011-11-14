@@ -14,11 +14,11 @@ def currentRoutes():
   return """
 <pre>Currently mapped routes:
   /r/ <-- Lists all buildings
-  /r/<building>
-  /r/<building>/<floor>
-  /r/<building>/<floor>/<room>
+  /r/building>
+  /r/building/floor
+  /r/building/floor/room
   /m/ <-- Lists all mac adresses
-  /m/<macadress>
+  /m/macadress
 </pre>
   """
 @app.route("/r/")
