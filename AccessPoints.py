@@ -72,3 +72,45 @@ def getInfo():
   for m,v in accessPoints.iteritems():
     r.append(v.getInfo())
   return r
+
+def getRoom(mac):
+  return accesspoints[mac]
+
+def computeLocation(aps):
+  x = float(0)
+  y = float(0)
+  s = float(0)
+  r = {}
+  m = None
+  mS = 0.0
+  print aps
+  for data in aps:
+    if data.has_key("mac") and data.has_key("strength"):
+      mac = data["mac"]
+      strength = float(data["strength"])
+      room = accessPoints[mac].room
+      if room == None:
+        r[mac] = {"error": "Not Found"}
+      else: ## Code doesn't work
+        center = room.getRelativePosition()
+        r[mac] = {"coordinates": center}
+        x += float(center[0])*strength
+        y += float(center[1])*strength
+        s += float(strength)
+        if (abs(strength) > abs(mS)):
+          mS = strength
+          m = room
+  if (s != 0.0):
+    x = x/s
+    y = y/s
+    # r["position"] = {"x": x, "y": y}
+  if (m != None):
+    t = m.getInfo()
+    t["x"] = m.getRelativePosition()[0]
+    t["y"] = m.getRelativePosition()[1]
+    r["position"] = t
+    return r
+  else:
+    r["error"] = "Not data found"
+    return r
+

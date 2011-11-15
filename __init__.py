@@ -20,7 +20,7 @@ def currentRoutes():
   /r/building/floor/room
   /m/ <-- Lists all mac adresses
   /m/macadress
-  /getNearesLocation/ <-- Send a JSON object via HTTP POST and you shall receive another JSON object :)
+  /getNearestLocation/ <-- Send a JSON object via HTTP POST and you shall receive another JSON object :)
 </pre>
   """
 
@@ -51,12 +51,15 @@ def getRoom(building,room,floor):
   return json.dumps(Building.findRoom(building,room,floor)
       .getInfo())
 
-@app.route("/getNearesLocation/", methods=['GET', 'POST'])
+@app.route("/getNearestLocation/", methods=['GET', 'POST'])
 def returnNearestLocation():
   if request.method == "POST":
-    return request.form['json']
+    if request.json != None:
+      return json.dumps(AccessPoints.computeLocation(request.json))
+    else:
+      return "No JSON sent"
   else: 
-    return """<pre>Please send request with HTTP GET</pre>"""
+    return """<pre>Please send request with HTTP POST</pre>"""
 
 if __name__ == "__main__":
   ETHdata.readETHData()

@@ -58,6 +58,12 @@ class Room(Cacheable):
       'map' : self.getURL(),
       'cached' : self.cached
     }
+
+  def getRelativePosition(self):
+    if self.center == None:
+      Cache.getCenter(self)
+    return self.center
+
   # Recursive information
   def getInfo(self):
     if self.center == None:
