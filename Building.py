@@ -55,7 +55,8 @@ class Room(Cacheable):
   def objectInfo(self):
     return {'type': self.roomtype, 
       'number': self.number,
-      'map' : self.getURL()
+      'map' : self.getURL(),
+      'cached' : self.cached
     }
   # Recursive information
   def getInfo(self):
@@ -120,7 +121,9 @@ class Floor(Cacheable):
       rooms.append(r.objectInfo())
     return {'floor': self.floor,
       'rooms': rooms,
-      'map' : self.getURL()}
+      'map' : self.getURL(),
+      'cached': self.cached
+    }
 
 class Building(object):  
   def __init__(self,name,strasse="",stadt=u"Zürich"):
