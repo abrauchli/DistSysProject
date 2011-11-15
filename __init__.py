@@ -6,6 +6,7 @@ import json
 import Building
 import AccessPoints
 import ETHdata
+import Cache
 app = Flask(__name__)
 
 
@@ -60,4 +61,7 @@ def returnNearestLocation():
 if __name__ == "__main__":
   ETHdata.readETHData()
   AccessPoints.read()
+
+  Cache.cache(Building.findRoom("HG","F","5"))
+        
   app.run(port=23032,host="0.0.0.0",debug=True)
