@@ -1,0 +1,4 @@
+client/bin/
+*.class
+*~
+thumbs.db
