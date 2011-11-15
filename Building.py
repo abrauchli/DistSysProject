@@ -91,9 +91,6 @@ class Floor(Cacheable):
     return  "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}".format(building=self.building.name
             ,floor=self.floor)
 
-  def getURL(self):
-    return self.getNonCachedURL()
-
   def findRoom(self,room):
     if room in self.rooms:
       return self.rooms[room]
