@@ -61,7 +61,7 @@ def returnNearestLocation():
 if __name__ == "__main__":
   ETHdata.readETHData()
   AccessPoints.read()
-
-  Cache.cache(Building.findRoom("HG","F","5"))
-        
+#  print getAccessPoint("00:0f:61:b4:b6:00")
+#Cache.cache(Building.findRoom("HG","F","5"))
+#  print getRoom("HG","F","5")    
   app.run(port=23032,host="0.0.0.0",debug=True)

@@ -29,6 +29,7 @@ class Room(Cacheable):
     self.roomtype = t
     self.number = number
     self.cached = False
+    self.center = None
     if type(building) != Building:
       print building.name+" "+building.strasse
       print "Building has wrong type"
@@ -52,16 +53,19 @@ class Room(Cacheable):
  
   # Object information type
   def objectInfo(self):
-    Cache.cache(self)
     return {'type': self.roomtype, 
       'number': self.number,
       'map' : self.getURL()
     }
   # Recursive information
   def getInfo(self):
+    if self.center == None:
+      Cache.getCenter(self)
+    Cache.cache(self)   
     r = self.objectInfo()
     r["floor"]=self.floor.floor
     r["building"]=self.building.name
+    r["center"]=self.center
     return r
 
 class Floor(Cacheable):
@@ -113,6 +117,7 @@ class Floor(Cacheable):
 
   # Object information
   def objectInfo(self):
+    Cache.cache(self)
     rooms = []
     for k,r in self.rooms.iteritems():
       rooms.append(r.objectInfo())
