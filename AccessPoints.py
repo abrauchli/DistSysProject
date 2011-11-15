@@ -93,7 +93,7 @@ def computeLocation(aps):
         r[mac] = {"error": "Not Found"}
       else: ## Code doesn't work
         center = room.getRelativePosition()
-        r[mac] = {"coordinates": center}
+        r[mac] = room.getInfo()
         x += float(center[0])*strength
         y += float(center[1])*strength
         s += float(strength)
