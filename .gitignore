@@ -2,3 +2,6 @@ client/bin/
 *.class
 *~
 thumbs.db
+*.aux
+*.log
+*.pdf

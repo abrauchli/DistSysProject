@@ -1,0 +1,49 @@
+\documentclass{ubicomp2011}
+%\usepackage{times}
+%\usepackage{url}
+\usepackage[utf8]{inputenc}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage{ifthen}
+\pagenumbering{arabic}  % Arabic page numbers for submission.
+
+\input{macros}
+
+\begin{document}
+% to make various LaTeX processors do the right thing with page size
+\special{papersize=21cm,29.7cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\paperwidth}{21cm}
+\setlength{\pdfpageheight}{\paperheight}
+\setlength{\pdfpagewidth}{\paperwidth}
+
+\title{Distributed Systems -- Free Project}
+\numberofauthors{3} % it's ok like this
+\author{
+	\alignauthor Andrea Helfenstein\\
+		\affaddr{08-913-865}\\
+		\email{helandre@student.ethz.ch}
+	\alignauthor Steven Köppel\\
+		\affaddr{08-912-727}\\
+		\email{koeppels@student.ethz.ch}
+	\alignauthor Pascal Spörri\\
+		\affaddr{\todo{Legi}}\\
+		\email{spoerrip@student.ethz.ch}
+	\brk % custom command for linebreaking
+	\alignauthor Andreas Brauchli\\
+		\affaddr{\todo{Legi}}\\
+		\email{andrebra@student.ethz.ch}
+	\alignauthor Marc Egg\\
+		\affaddr{\todo{Legi}}\\
+		\email{megg@student.ethz.ch}
+}
+\maketitle
+
+\input{content/abstract_intro}
+\input{content/network_comm}
+\input{content/server}
+\input{content/android_app}
+\input{content/acknowledgements}
+
+\end{document}

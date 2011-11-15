@@ -1,0 +1,63 @@
+\section{Network Communication}
+For the communication between server and client, we use REST with JSON. In this section we describe the request mechanisms that we defined for our system.
+
+\subsection{Getting Information about Rooms and Buildings}
+The room information is generally located at \code{<host>/r/}.
+\begin{description}
+	\cDescItem{<host>/r/}{Returns a list of all the buildings.}
+	\cDescItem{<host>/r/<building>}{Returns a list of all the floors in this building.}
+	\cDescItem{<host>/r/<building>/<floor>}{Returns a list of all the rooms on this floor.}
+	\cDescItem{<host>/r/<building>/<floor>/<room>}{Returns only the specified room.}
+\end{description}
+
+\paragraph{Room Object}
+The JSON room object has the following fields:
+\begin{description}
+	\cDescItem{building (String)}{name of the building}
+	\cDescItem{floor (String)}{}
+	\cDescItem{number (String)}{}
+	\cDescItem{type (String)}{e.g. ``Sitzung/Konferenz'', ``Büro'', ``Feuerlöschposten''}
+	\cDescItem{map (String)}{URL for downloading the floor map, with the requested room marked in cyan}
+	\cDescItem{cached (boolean)}{indicates if the map needs to be downloaded from the ETH server, or is cached on our server (need to download the map from \code{<host><map>})}
+	\cDescItem{center (int[2])}{indicates the center of this room in pixel coordinates of the specified map}
+\end{description}
+
+\paragraph{Floor Object}
+The JSON floor object has the following fields:
+\begin{description}
+	\cDescItem{building (String)}{name of the building}
+	\cDescItem{floor (String)}{}
+	\cDescItem{rooms (List<Room>)}{the rooms don't have the fields \code{building} and \code{floor} (this would be redundant)}
+	\cDescItem{map (String)}{URL for downloading the floor map, without any room marked specially}
+	\cDescItem{cached (boolean)}{indicates if the map needs to be downloaded from the ETH server, or is cached on our server (need to download the map from \code{<host><map>})}
+\end{description}
+
+\paragraph{Building Object}
+The JSON building object has the following fields:
+\begin{description}
+	\cDescItem{name (String)}{name of the building}
+	\cDescItem{street (String)}{address of the building (\code{<street> <number>})}
+	\cDescItem{city (String)}{address of the building (\code{<zip code> <city>})}
+	\cDescItem{floors (List<Floor>)}{the floors don't have the field \code{building} (this would be redundant)}
+\end{description}
+
+\subsection{Getting the Current Position}
+To get the current location in the form of a room, send a POST request to \code{<host>/getNearestLocation/}. The body consists of a list of JSON WiFi readings.
+
+\paragraph{WiFi Reading Object}
+The JSON WiFi reading object has the following fields:
+\begin{description}
+	\cDescItem{mac (String)}{MAC address in the form \code{00:03:52:2b:e9:01}}
+	\cDescItem{strength (String)}{\todo{in what format?}}
+\end{description}
+
+\paragraph{Answer}
+\todo{find a better name for this}
+The answer to the request sends for each sent MAC address the containing room, as well as a location in form of a room, where the client probably is.\\
+The answer has the following fields:
+\begin{description}
+	\cDescItem{<mac> (Room)}{\code{<mac>} is a MAC address of the form \code{00:03:52:2b:e9:01}}
+	\cDescItem{position (Room)}{}
+\end{description}
+
+\todo{TODO}

@@ -1,0 +1,20 @@
+% colors
+\definecolor{Orange}{rgb}{1,0.5,0}
+
+% misc commands
+\newcommand{\comment}[1]{}
+\newcommand{\todo}[1]{\textsf{\textbf{\textcolor{Orange}{[[#1]]}}}}
+
+% customized item command for the description environment
+\newcommand{\cDescItem}[2]{\vspace{-0.5em}\item[\code{#1}]\ifthenelse{\equal{#2}{}}{}{\hfill\\#2}}
+
+% code
+\newcommand{\code}[1]{{\ttfamily{#1}}}
+
+% addition to ubicomp2011 to put a linebreak between 3rd and 4th author
+\newcommand{\brk}
+	{
+		\end{tabular}\\
+		\vspace{0.5em}
+		\begin{tabular}[t]{c}
+	}
