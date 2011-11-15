@@ -2,12 +2,31 @@
 import json
 import re
 buildings = {}
-class Room(object):
+CACHED_URL_PREFIX = "/cache/"
+CACHED_IMAGE_TYPE = "gif"
+
+class Cacheable(object):
+  def __init__(self):
+    self.cached = False
+  def getCachedURL(self):
+    return CACHED_URL_PREFIX+self.getFilename()+"."+CACHED_IMAGE_TYPE 
+  def getURL(self):
+    if self.cached:
+      return self.getCachedURL()
+    else:
+      return self.getNonCachedURL()
+  def getFileprefix(self):
+    return "If you see this, something is borken"
+  def getFilename(self): 
+    return self.getFileprefix()+"."+CACHED_IMAGE_TYPE
+
+class Room(Cacheable):
   def __init__(self,number,building,floor,t=u"Büro"):
     self.floor = floor
     self.building = building
     self.roomtype = t
     self.number = number
+    self.cached = False
     if type(building) != Building:
       print building.name+" "+building.strasse
       print "Building has wrong type"
@@ -18,6 +37,14 @@ class Room(object):
       print "Floor has wrong type: ", type(floor)
       raise
 #    raise
+  def getFileprefix(self):
+    return "{prefix}_{suffix}".format(prefix=self.floor.getFilename(),suffix=self.number)
+
+  def getNonCachedURL(self):
+    return "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}&raumNr={room}".format(building=self.building.name
+            ,floor=self.floor.floor
+            ,room=self.number)
+  
   def __str__(self):
     return self.number+" "+self.roomtype
  
@@ -25,9 +52,8 @@ class Room(object):
   def objectInfo(self):
     return {'type': self.roomtype, 
       'number': self.number,
-      'map' : "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}&raumNr={room}"
-        .format(building=self.building.name,floor=self.floor.floor,room=self.number)
-}
+      'map' : self.getURL()
+    }
   # Recursive information
   def getInfo(self):
     r = self.objectInfo()
@@ -35,7 +61,7 @@ class Room(object):
     r["building"]=self.building.name
     return r
 
-class Floor(object):
+class Floor(Cacheable):
   def __init__(self,floor,building):
     self.building = building
     self.floor = floor
@@ -49,6 +75,17 @@ class Floor(object):
   def addRoom(self,number,roomtype):
     if number not in self.rooms:
       self.rooms[number] = Room(number,self.building,self,roomtype)
+
+  def getFileprefix(self):
+    return "{prefix}_{suffix}".format(prefix=self.building.getFilename()
+        ,suffix=self.floor.floor)
+
+  def getNonCachedURL(self):
+    return  "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}".format(building=self.building.name
+            ,floor=self.floor)
+
+  def getURL(self):
+    return self.getNonCachedURL()
 
   def findRoom(self,room):
     if room in self.rooms:
@@ -77,9 +114,7 @@ class Floor(object):
       rooms.append(r.objectInfo())
     return {'floor': self.floor,
       'rooms': rooms,
-      'map' : "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}"
-        .format(building=self.building.name,floor=self.floor)
-      }
+      'map' : self.getURL()}
 
 class Building(object):  
   def __init__(self,name,strasse="",stadt=u"Zürich"):
@@ -119,6 +154,9 @@ class Building(object):
   def floor(self,floor):
     return self.floors[floor]
   
+  def getFilename(self):
+    return self.name
+
   # Recursive info
   def getInfo(self):
     r = []
