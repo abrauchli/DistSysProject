@@ -10,6 +10,7 @@ import org.apache.http.impl.client.*;
 import org.json.*;
 
 import android.content.Context;
+import android.test.IsolatedContext;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,15 +31,15 @@ public class RequestHandler {
 		this.context = context;
 	}
 
-	private JSONObject getRequest(String resourceLoc) {
+	private Object getRequest(String resourceLoc, Class expectedResult) {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(PROTO_PREFIX + HOST + ":" + PORT + resourceLoc);
 		get.addHeader("Accept", "application/json");
-		JSONObject jsonResponse = null;
+		Object jsonResponse = null;
 		HttpResponse response;
 		try {
 			response = client.execute(get);
-			jsonResponse = parseResponse(response);
+			jsonResponse = parseResponse(response, expectedResult);
 		} catch (ClientProtocolException e) {
 			Toast.makeText(context, "ClientProtocolException", Toast.LENGTH_LONG).show();
 			Log.e(TAG, e.toString());
@@ -49,16 +50,16 @@ public class RequestHandler {
 		return jsonResponse;
 	}
 
-	private JSONObject postRequest(String resourceLoc, JSONArray jsonRequest) {
+	private Object postRequest(String resourceLoc, JSONArray jsonRequest, Class expectedResult) {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(PROTO_PREFIX + HOST + ":" + PORT + resourceLoc);
 		post.addHeader("Content-Type", "application/json");
-		JSONObject jsonResponse = null;
+		Object jsonResponse = null;
 		try {
 			StringEntity se = new StringEntity(jsonRequest.toString());
 			post.setEntity(se);
 			HttpResponse response = client.execute(post);
-			jsonResponse = parseResponse(response);
+			jsonResponse = parseResponse(response, expectedResult);
 		} catch (ClientProtocolException e) {
 			Toast.makeText(context, "ClientProtocolException", Toast.LENGTH_LONG).show();
 			Log.e(TAG, e.toString());
@@ -69,8 +70,8 @@ public class RequestHandler {
 		return jsonResponse;
 	}
 
-	private JSONObject parseResponse(HttpResponse response) {
-		JSONObject jsonResponse = null;
+	private Object parseResponse(HttpResponse response, Class expectedResult) {
+		Object jsonResponse = null;
 		try {
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
@@ -80,7 +81,11 @@ public class RequestHandler {
 					text += inputline + '\n';
 				}
 				try {
-					jsonResponse = new JSONObject(text);
+					if (expectedResult.equals(JSONArray.class)) {
+						jsonResponse = new JSONArray(text);
+					} else if (expectedResult.equals(JSONObject.class)) {
+						jsonResponse = new JSONObject(text);
+					}
 				} catch (JSONException e) {
 					Toast.makeText(context, "JSONException", Toast.LENGTH_LONG).show();
 					Log.e(TAG, e.toString());
@@ -93,26 +98,51 @@ public class RequestHandler {
 		return jsonResponse;
 	}
 
-	public JSONObject getAllBuildings() {
-		return getRequest(ROOMS);
+	public JSONArray getAllBuildings() {
+		JSONArray ja = null;
+		Object obj = getRequest(ROOMS, JSONArray.class);
+		if (obj instanceof JSONArray) {
+			ja = (JSONArray) obj;
+		}
+		return ja;
 	}
 
 	public JSONObject getBuilding(String building) {
+		JSONObject jo = null;
 		String resourceLocation = String.format("%s%s", ROOMS, building);
-		return getRequest(resourceLocation);
+		Object obj = getRequest(resourceLocation, JSONObject.class);
+		if (obj instanceof JSONObject) {
+			jo = (JSONObject) obj;
+		}
+		return jo;
 	}
 
 	public JSONObject getFloor(String building, String floor) {
+		JSONObject jo = null;
 		String resourceLocation = String.format("%s%s/%s", ROOMS, building, floor);
-		return getRequest(resourceLocation);
+		Object obj = getRequest(resourceLocation, JSONObject.class);
+		if (obj instanceof JSONObject) {
+			jo = (JSONObject) obj;
+		}
+		return jo;
 	}
 
 	public JSONObject getRoom(String building, String floor, String roomNumber) {
+		JSONObject jo = null;
 		String resourceLocation = String.format("%s%s/%s/%s", ROOMS, building, floor, roomNumber);
-		return getRequest(resourceLocation);
+		Object obj = getRequest(resourceLocation, JSONObject.class);
+		if (obj instanceof JSONObject) {
+			jo = (JSONObject) obj;
+		}
+		return jo;
 	}
 
 	public JSONObject getLocation(JSONArray wifiReadings) {
-		return postRequest(LOCATION, wifiReadings);
+		JSONObject jo = null;
+		Object obj = postRequest(LOCATION, wifiReadings, JSONObject.class);
+		if (obj instanceof JSONObject) {
+			jo = (JSONObject) obj;
+		}
+		return jo;
 	}
 }
