@@ -49,7 +49,7 @@ public class RequestHandler {
 		return jsonResponse;
 	}
 
-	private JSONObject postRequest(String resourceLoc, JSONObject jsonRequest) {
+	private JSONObject postRequest(String resourceLoc, JSONArray jsonRequest) {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(PROTO_PREFIX + HOST + ":" + PORT + resourceLoc);
 		post.addHeader("Content-Type", "application/json");
@@ -112,7 +112,7 @@ public class RequestHandler {
 		return getRequest(resourceLocation);
 	}
 
-	public JSONObject getLocation(JSONObject wifiReadings) {
+	public JSONObject getLocation(JSONArray wifiReadings) {
 		return postRequest(LOCATION, wifiReadings);
 	}
 }
