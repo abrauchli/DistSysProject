@@ -1,12 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:id="@+id/btn_scan"
+			android:text="Scan"
+			android:layout_width="0dp" />
+		<Button
+		    android:id="@+id/btn_dummy"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="Dummy" />
+		<Button
+		    android:id="@+id/btn_location"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="Location?" />
+	</LinearLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+	<TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Guessed Location/Room"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
+	<TextView
+		android:layout_width="wrap_content"
+		android:id="@+id/txt_room"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="" />
+	<TextView
+		android:layout_width="wrap_content"
+		android:id="@+id/txt_ap"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="" />
+
+	<TextView
+	    android:id="@+id/textView2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="List of Access Points"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<ListView
+		android:id="@+id/lst_networks"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent" />
 </LinearLayout>
