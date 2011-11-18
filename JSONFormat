@@ -1,3 +1,5 @@
-{'status' = true/false , 'result' = []
+{'ok' = true , 'result' = []/{} }
+
+{'ok' = false, 'message' = '   ' }
 
 
