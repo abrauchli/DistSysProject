@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
   This file is part of SurvivalGuide
   Copyleft 2011 The SurvivalGuide Team
@@ -20,7 +21,7 @@ import Cacheable
 import ETHBuilding
 import ETHFloor
 
-class Room(Cacheable):
+class Room(Cacheable.Cacheable):
   def __init__(self,number,building,floor,desc=u"Büro"):
     self.floor = floor
     self.building = building
@@ -28,12 +29,12 @@ class Room(Cacheable):
     self.number = number
     self.cached = False
     self.center = None
-    if type(building) != Building:
+    if type(building) != ETHBuilding.Building:
       print building.name+" "+building.strasse
       print "Building has wrong type"
       raise
 #raise
-    if type(floor) != Floor:
+    if type(floor) != ETHFloor.Floor:
       print floor
       print "Floor has wrong type: ", type(floor)
       raise
@@ -75,5 +76,3 @@ class Room(Cacheable):
       "map"   : self.getURL(),
       "location" : self.getCoords()
     }
-
-

@@ -3,7 +3,7 @@
 # Server DNS Name
 SERVER_PORT = 32123
 SERVER_NAME = "localhost"
-SERVER_URL = "http://{SERVER_NAME}:{PORT}".format(PORT=PORT,SERVER_NAME=SERVER_NAME)
+SERVER_URL = "http://{SERVER_NAME}:{PORT}".format(PORT=SERVER_PORT,SERVER_NAME=SERVER_NAME)
 # Defaults for the cache
 LOCAL_CACHE_URL = "/static/cache/" 
 LOCAL_CACHE_DIR = "static/cache/"

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
   This file is part of SurvivalGuide
   Copyleft 2011 The SurvivalGuide Team
@@ -20,13 +21,13 @@ import Cacheable
 import ETHBuilding
 import ETHRoom
 
-class Floor(Cacheable):
+class Floor(Cacheable.Cacheable):
   def __init__(self,floor,building):
     self.building = building
     self.floor = floor
     self.rooms = {}
     self.cached = False
-    if type(building) != Building:
+    if type(building) != ETHBuilding.Building:
       print building.name+" "+building.strasse
 
       print "Building has wrong type"
@@ -34,7 +35,7 @@ class Floor(Cacheable):
 
   def addRoom(self,number,desc):
     if number not in self.rooms:
-      self.rooms[number] = Room(number,self.building,self,desc)
+      self.rooms[number] = ETHRoom.Room(number,self.building,self,desc)
 
   def getFileprefix(self):
     return "{prefix}_{suffix}".format(prefix=self.building.getFilename()
@@ -69,11 +70,8 @@ class Floor(Cacheable):
       "map" : self.getURL()
     }
   def getDetailedInfo(self):
-    b = building.getInfo()
-    b[name] = building.
-    return {
+     return {
       "building" : building.getInfo(),
       "map"      : self.getURL(),
       "rooms"    : self.getRooms()
       }
-  

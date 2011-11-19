@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
   This file is part of SurvivalGuide
   Copyleft 2011 The SurvivalGuide Team
@@ -16,8 +17,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import ETHFloor
-import ETHRoom
+import ETHFloor 
+import ETHRoom 
 
 class Building(object):  
   def __init__(self,name,city=u"Zürich",street=""):
@@ -48,7 +49,7 @@ class Building(object):
   def addFloor(self,floor):
     floor.upper()
     if floor not in self.floors:
-      self.floors[floor] = Floor(floor,self)
+      self.floors[floor] = ETHFloor.Floor(floor,self)
   
   def addRoom(self,floor,room,roomtype):
     self.addFloor(floor)
@@ -83,4 +84,4 @@ class Building(object):
   def getDetailedInfo(self):
     r = {"name" : self.name}
     r["address"] = self.getInfo()["address"]
-    r["floors"] 
+    r["floors"]
