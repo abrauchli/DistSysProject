@@ -66,18 +66,20 @@ class Building(object):
             "city"    : self.city,
             "address" : self.street
            }
+
   def getFloors(self):
     r = {}
     for k,f in self.floors.iteritems():
-      r[k] = {
-        "map" : f.getURL()
-        "rooms" : f.getRooms()
-        }
+      r[k] = f.getInfo()
+
+    return r
+
   def getInfo(self):
     return {
             "name" : self.name,
             "address" : self.getAddress()
            }
+
   def getDetailedInfo(self):
     r = {"name" : self.name}
     r["address"] = self.getInfo()["address"]

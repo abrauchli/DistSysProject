@@ -19,5 +19,26 @@
 import ETHBuilding
 import ETHFloor
 import ETHRoom
-def init():
 
+
+buildings = {}
+
+def init():
+  # Initialize Buildings
+
+def getBuildings():
+  # Return hash of buildings
+  r = {}
+  for k,b in buildings.iteritems():
+    r[k] = b.getInfo()
+
+  return r
+
+def getBuilding(building):
+  # Return hash of building
+
+def getFloor(building,floor):
+  # Return hash of floor in building
+
+def getRoom(building,floor,room):
+  # Return hash of room on floor in building

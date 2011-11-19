@@ -56,15 +56,15 @@ r/CAB
           map = “....”
 
 Error Message: “Building not found”
-r/CAB/E
+r/CAB/E # DONE, but not tested 
   {
     building : {same as r/CAB}
     rooms: {
        18.1: {
          desc = “Büro”
-          map = “....”
+    map = “....”
 
-r/CAB/E/18.1
+r/CAB/E/18.1  ## DONE, but not tested
   {
     building = “CAB”
     floor = ”E”

@@ -61,16 +61,19 @@ class Floor(Cacheable):
   def getRooms(self):
     r = {}
     for k,r in self.rooms.iteritems():
-      r[k] = {
-        "desc" : r.desc,
-        "map"  : r.getURL()
-      }
+      r[k] = r.getInfo() 
     return r
+    
   def getInfo(self):
+    return {
+      "map" : self.getURL()
+    }
+  def getDetailedInfo(self):
     b = building.getInfo()
     b[name] = building.
     return {
-      "building" : building.name,
-      "floor" : 
+      "building" : building.getInfo(),
+      "map"      : self.getURL(),
+      "rooms"    : self.getRooms()
+      }
   
-

@@ -21,10 +21,10 @@ import ETHBuilding
 import ETHFloor
 
 class Room(Cacheable):
-  def __init__(self,number,building,floor,t=u"Büro"):
+  def __init__(self,number,building,floor,desc=u"Büro"):
     self.floor = floor
     self.building = building
-    self.roomtype = t
+    self.desc = desc
     self.number = number
     self.cached = False
     self.center = None
@@ -53,5 +53,27 @@ class Room(Cacheable):
     if self.center == None:
       Cache.getCenter(self)
     return self.center
+
+
+  def getCoords(self):
+    if self.center == None:
+      return {}
+    return {
+      "x": self.center[0],
+      "y": self.center[1]
+     }
+
+  def getInfo(self):
+    return {
+      "desc" : self.desc
+    }
+  def getDetailedInfo(self):
+    return {
+      "building" : self.building.name,
+      "floor" : self.floor.name,
+      "desc"  : self.desc,
+      "map"   : self.getURL(),
+      "location" : self.getCoords()
+    }
 
 
