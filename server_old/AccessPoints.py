@@ -3,10 +3,7 @@ import codecs
 import json
 import csv
 import re
-import Model 
-from ETHRoom import Room
-from ETHFloor import Floor
-from ETHBuilding import Building
+import Building 
 #data = "data/wlan.csv"
 data = ["data/wlan_honegg.csv", "data/wlan_zentrum.csv"]
 
@@ -30,14 +27,13 @@ class AccessPoint:
       building = m.group(1).upper()
       floor = m.group(2).upper()
       room = ""+m.group(3)+"."+m.group(4)
-   
-    print idstring +" -> "+building+" "+floor+" "+room
     
-    self.room = Model.findRoom(building,floor,room)
+#    print building + " " + floor + " " + room
+    self.room = Building.findRoom(building,floor,room)
     if self.room is None:
       print "Adding Room"
-      Model.addRoom(building,floor,room)
-      self.room = Model.findRoom(building,floor,room)
+      Building.addRoom(building,floor,room)
+      self.room = Building.findRoom(building,floor,room)
 #      print self.room.number 
   def objectInfo(self):
     return {"mac":self.mac, 
@@ -81,39 +77,6 @@ def getRoom(mac):
   return accesspoints[mac]
 
 def computeLocation(aps):
-  strength = 0.0
-  mac = ""
-
-  apsResult = {}
-  for k.v in aps.iteritems():
-    if abs(float(v)) >= abs(float(strength)):
-      mac = k
-    room = accessPoints[k]
-    apsResult[k] = {
-        "coords" : room.location,
-        "location" : room.getDetailedInfo()
-      }
-
-  if mac == "":
-    return None
-  room = accesspoints[mac]
-  postype = "unknown"
-  if type(room) == Room:
-    postype = "room"
-  elif type(room) == Floor:
-    postype = "floor"
-
-  return {
-    "location" : { 
-       "type" : postype,
-       "result" : room.getDetailedInfo(),
-       "coords" : room.location
-      },
-    "aps" : apsResult
-   }
-
-
-"""
   x = float(0)
   y = float(0)
   s = float(0)
@@ -121,9 +84,10 @@ def computeLocation(aps):
   m = None
   mS = 0.0
   print aps
-  for k,v in aps.iteritems():
-      mac = k
-      strength = v
+  for data in aps:
+    if data.has_key("mac") and data.has_key("strength"):
+      mac = data["mac"]
+      strength = float(data["strength"])
       room = accessPoints[mac].room
       if room == None:
         r[mac] = {"error": "Not Found"}
@@ -149,7 +113,4 @@ def computeLocation(aps):
   else:
     r["error"] = "Not data found"
     return r
-"""
 
-if __name__== "__main__":
-  read()

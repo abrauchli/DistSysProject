@@ -19,8 +19,6 @@ import sys
 def getCenter(filename):
   print "Computing boundaries on: ",filename
   im = Image.open(filename, "r").convert("RGB")
-  if im is None:
-    raise "Image doesn't exist"
   pix = im.load() # get pixel 2d array
   for i in range(im.size[0]):
     for j in range(im.size[1]):
@@ -28,8 +26,7 @@ def getCenter(filename):
         pix[i, j] = (0, 0, 0)
 #im.show() # show filtered layer
   bbox = im.getbbox() # bounding box (x1, y1, x2, y2)
-  if bbox is None:
-    return None
+    
   # (x, y, w, h) # bounding box
   # res = (bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[2])
   
@@ -37,7 +34,7 @@ def getCenter(filename):
   res = (bbox[0] + ((bbox[2] - bbox[0]) / 2), bbox[1] + ((bbox[3] - bbox[1]) / 2))
   assert res[0] < im.size[0] and res[1] < im.size[1]
   print res
-  return {"center": res, "boundingbox": bbox}
+  return res
 
 def main(argv=None):
   if argv is None:
