@@ -20,7 +20,7 @@
 
 import urllib
 import os
-import ETHColorcoord
+import Colorcoord
 
 from PIL import Image
 def checkIfImageIsValid(filename):
