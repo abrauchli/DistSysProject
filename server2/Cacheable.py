@@ -75,6 +75,9 @@ class Cacheable(object):
     self.cached = True    
 
   def computeCoordinates(self):
+    if not self.mapAvailable:
+      return
+
     m = config.mongodbMapPositionCACHE.find_one({"_id":filename})
     if m is None:
       dest = LOCAL_CACHE_DIR+filename
@@ -99,5 +102,5 @@ class Cacheable(object):
               "location": location 
             }
         self.location = location 
-        
-
+    else:
+      self.location = m["location"]
