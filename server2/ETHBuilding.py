@@ -82,6 +82,7 @@ class Building(object):
            }
 
   def getDetailedInfo(self):
-    r = {"name" : self.name}
-    r["address"] = self.getInfo()["address"]
-    r["floors"]
+    return {"name" : self.name,
+      "address" : self.getAddress(),
+      "floors" : self.getFloors()
+     }

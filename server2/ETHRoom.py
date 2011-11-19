@@ -71,7 +71,7 @@ class Room(Cacheable.Cacheable):
   def getDetailedInfo(self):
     return {
       "building" : self.building.name,
-      "floor" : self.floor.name,
+      "floor" : self.floor.floor,
       "desc"  : self.desc,
       "map"   : self.getURL(),
       "location" : self.getCoords()

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: <utf-8> -*-
+# -*- coding: utf-8 -*-
 """
   This file is part of SurvivalGuide
   Copyleft 2011 The SurvivalGuide Team
@@ -21,12 +21,25 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify
 import os, os.path
 import json
-import Building
-import AccessPoints
-import ETHdata
-import Cache
+import Model
+import config
+
 app = Flask(__name__)
 
+def resultOkay(obj):
+  return json.dumps(
+      {
+        "ok": True,
+        "result": obj
+      }
+      )
+def resultError(message):
+  return json.dumps(
+      {
+        "ok": False,
+        "message": message 
+      }
+        )
 
 @app.route("/")
 def currentRoutes():
@@ -109,9 +122,40 @@ r/CAB/E/18.1  ## DONE, but not tested
 
 </pre>
 """
+#  {ok = true, result = {BLOB}
 
 @app.route("/r/")
+def all():
+  return resultOkay(Model.getBuildings())
 @app.route("/r/<building>")
-@app.route("/r/<building>/<room>")
-@app.route("/r/<building>/<room>/<floor>")
+def getBuilding(building):
+  r = Model.getBuilding(building)
+  if r != None:
+    return resultOkay(r)
+  else:
+    return resultError("Could not find building")
 
+@app.route("/r/<building>/<room>")
+def getFloor(building,room):
+  r = Model.getFloor(building,room)
+  if r != None:
+    return resultOkay(r)
+  else:
+    return resultError("Could not find floor or building")
+
+@app.route("/r/<building>/<room>/<floor>")
+def getRoom(building,room,floor):
+  r = Model.getRoom(building,room,floor)
+  if r!= None:
+    return resultOkay(r)
+  else:
+    return resultError("Could not find room, floor or building")
+
+
+if __name__ == "__main__":
+  Model.init()
+  #AccessPoints.read()
+#  print getAccessPoint("00:0f:61:b4:b6:00")
+#Cache.cache(Building.findRoom("HG","F","5"))
+#  print getRoom("HG","F","5")    
+  app.run(port=config.SERVER_PORT,host="0.0.0.0",debug=True)
