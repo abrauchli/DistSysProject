@@ -41,7 +41,8 @@ class Room(Cacheable.Cacheable):
       raise
 #    raise
     self.downloadMap()
-
+    self.location = None
+    self.computeCoordinates() 
   def getFileprefix(self):
     return "{prefix}_{suffix}".format(prefix=self.floor.getFileprefix(),suffix=self.number)
 
@@ -59,13 +60,7 @@ class Room(Cacheable.Cacheable):
     return self.center
 
 
-  def getCoords(self):
-    if self.center == None:
-      return {}
-    return {
-      "x": self.center[0],
-      "y": self.center[1]
-     }
+
 
   def getInfo(self):
     return {
@@ -77,5 +72,5 @@ class Room(Cacheable.Cacheable):
       "floor" : self.floor.floor,
       "desc"  : self.desc,
       "map"   : self.getURL(),
-      "location" : self.getCoords()
+      "location" : self.location
     }

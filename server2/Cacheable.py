@@ -77,11 +77,11 @@ class Cacheable(object):
   def computeCoordinates(self):
     if not self.mapAvailable:
       return
-
+    filename = self.getFilename()
     m = config.mongodbMapPositionCACHE.find_one({"_id":filename})
     if m is None:
-      dest = LOCAL_CACHE_DIR+filename
-      loc = ETHColorcoord.getCenter()
+      src = LOCAL_CACHE_DIR+filename
+      loc = Colorcoord.getCenter(src)
       if loc is None:
         config.mongodbMapPositionCACHE.insert(
             {
