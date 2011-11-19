@@ -1,148 +1,137 @@
+/*
+ * This file is part of SurvivalGuide
+ * Copyleft 2011 The SurvivalGuide Team
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package ch.ethz.inf.vs.android.g54.a4.net;
 
-import java.io.*;
-
-import org.apache.http.*;
-import org.apache.http.client.*;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.*;
-import org.json.*;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
-import android.test.IsolatedContext;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * Singleton class in charge of http connections to the server
+ * Also does basic JSON parsing and displays toast on errors
+ */
 public class RequestHandler {
-	private static final String PROTO_PREFIX = "http://";
-	private static final String HOST = "deserver.moeeeep.com";
+	private static final String HOST = "http://deserver.moeeeep.com";
 	private static final int PORT = 23032;
-
-	private static final String ROOMS = "/r/";
-	private static final String MACS = "/m/";
-	private static final String LOCATION = "/getNearestLocation/";
 
 	private static final String TAG = "SG_NetLib";
 
-	private Context context;
+	private Context context = null;
+	private static RequestHandler instance = null;
 
-	public RequestHandler(Context context) {
+	/** Singleton ctor */
+	private RequestHandler() { }
+
+	/** Get the RequestHandler singleton */
+	public static RequestHandler getInstance() {
+		if (RequestHandler.instance == null) {
+			RequestHandler.instance = new RequestHandler();
+		}
+		return RequestHandler.instance;
+	}
+
+	/** Initialize the instance's context for toasty error messages */
+	public void setContext(Context context) {
 		this.context = context;
 	}
 
-	private Object getRequest(String resourceLoc, Class expectedResult) {
+	/**
+	 * Execute an HTTP get on a given resource on the configured server
+	 * @param res The resource URL without host
+	 * @return a JSONObject / JSONArray
+	 */
+	public Object request(String res) {
 		HttpClient client = new DefaultHttpClient();
-		HttpGet get = new HttpGet(PROTO_PREFIX + HOST + ":" + PORT + resourceLoc);
-		get.addHeader("Accept", "application/json");
-		Object jsonResponse = null;
-		HttpResponse response;
+		String responseBody = null;
 		try {
-			response = client.execute(get);
-			jsonResponse = parseResponse(response, expectedResult);
-		} catch (ClientProtocolException e) {
-			Toast.makeText(context, "ClientProtocolException", Toast.LENGTH_LONG).show();
+			HttpGet htget = new HttpGet(HOST + ":" + PORT + res);
+			BasicHeader header = new BasicHeader("Accept", "application/json");
+			htget.addHeader(header);
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			responseBody = client.execute(htget, responseHandler);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(context, "Request failed", Toast.LENGTH_LONG).show();
 			Log.e(TAG, e.toString());
-		} catch (IOException e) {
-			Toast.makeText(context, "IOException", Toast.LENGTH_LONG).show();
-			Log.e(TAG, e.toString());
+			return null;
+
+		} finally {
+			client.getConnectionManager().shutdown();
 		}
-		return jsonResponse;
+		return parseResponse(responseBody);
 	}
 
-	private Object postRequest(String resourceLoc, JSONArray jsonRequest, Class expectedResult) {
+	/**
+	 * Execute an HTTP post on a given resource on the configured server
+	 * @param res The resource URL without host
+	 * @param data The data to post
+	 * @return a JSONObject / JSONArray
+	 */
+	public Object post(String res, String data) {
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(PROTO_PREFIX + HOST + ":" + PORT + resourceLoc);
-		post.addHeader("Content-Type", "application/json");
-		Object jsonResponse = null;
+		String responseBody = null;
+
 		try {
-			StringEntity se = new StringEntity(jsonRequest.toString());
+			HttpPost post = new HttpPost(HOST + ":" + PORT + res);
+			post.addHeader("Content-Type", "application/json");
+			StringEntity se = new StringEntity(data);
 			post.setEntity(se);
-			HttpResponse response = client.execute(post);
-			jsonResponse = parseResponse(response, expectedResult);
-		} catch (ClientProtocolException e) {
-			Toast.makeText(context, "ClientProtocolException", Toast.LENGTH_LONG).show();
-			Log.e(TAG, e.toString());
-		} catch (IOException e) {
-			Toast.makeText(context, "IOException", Toast.LENGTH_LONG).show();
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			responseBody = client.execute(post, responseHandler);
+
+		} catch (Exception e) {
+			Toast.makeText(context, "POST request failed", Toast.LENGTH_LONG).show();
 			Log.e(TAG, e.toString());
 		}
-		return jsonResponse;
+		return parseResponse(responseBody);
 	}
 
-	private Object parseResponse(HttpResponse response, Class expectedResult) {
-		Object jsonResponse = null;
+	/** Do the actual JSON parsing and ensure a correct server response */
+	private Object parseResponse(String response) {
 		try {
-			HttpEntity entity = response.getEntity();
-			if (entity != null) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()));
-				String inputline, text = "";
-				while ((inputline = reader.readLine()) != null) {
-					text += inputline + '\n';
+			JSONObject jso = new JSONObject(response);
+			if (!jso.getBoolean("ok")) {
+				String msg = "Request failed";
+				if (jso.has("message")) {
+					msg += jso.getString("message");
 				}
-				try {
-					if (expectedResult.equals(JSONArray.class)) {
-						jsonResponse = new JSONArray(text);
-					} else if (expectedResult.equals(JSONObject.class)) {
-						jsonResponse = new JSONObject(text);
-					}
-				} catch (JSONException e) {
-					Toast.makeText(context, "JSONException", Toast.LENGTH_LONG).show();
-					Log.e(TAG, e.toString());
-				}
+				Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+				Log.e(TAG, msg);
 			}
-		} catch (IOException e) {
-			Toast.makeText(context, "IOException", Toast.LENGTH_LONG).show();
-			Log.e(TAG, e.toString());
-		}
-		return jsonResponse;
-	}
 
-	public JSONArray getAllBuildings() {
-		JSONArray ja = null;
-		Object obj = getRequest(ROOMS, JSONArray.class);
-		if (obj instanceof JSONArray) {
-			ja = (JSONArray) obj;
-		}
-		return ja;
-	}
+			assert (jso.has("result"));
+			return jso.get("result");
 
-	public JSONObject getBuilding(String building) {
-		JSONObject jo = null;
-		String resourceLocation = String.format("%s%s", ROOMS, building);
-		Object obj = getRequest(resourceLocation, JSONObject.class);
-		if (obj instanceof JSONObject) {
-			jo = (JSONObject) obj;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return null;
 		}
-		return jo;
-	}
-
-	public JSONObject getFloor(String building, String floor) {
-		JSONObject jo = null;
-		String resourceLocation = String.format("%s%s/%s", ROOMS, building, floor);
-		Object obj = getRequest(resourceLocation, JSONObject.class);
-		if (obj instanceof JSONObject) {
-			jo = (JSONObject) obj;
-		}
-		return jo;
-	}
-
-	public JSONObject getRoom(String building, String floor, String roomNumber) {
-		JSONObject jo = null;
-		String resourceLocation = String.format("%s%s/%s/%s", ROOMS, building, floor, roomNumber);
-		Object obj = getRequest(resourceLocation, JSONObject.class);
-		if (obj instanceof JSONObject) {
-			jo = (JSONObject) obj;
-		}
-		return jo;
-	}
-
-	public JSONObject getLocation(JSONArray wifiReadings) {
-		JSONObject jo = null;
-		Object obj = postRequest(LOCATION, wifiReadings, JSONObject.class);
-		if (obj instanceof JSONObject) {
-			jo = (JSONObject) obj;
-		}
-		return jo;
 	}
 }

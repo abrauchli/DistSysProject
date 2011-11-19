@@ -17,9 +17,27 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
-import java.util.List;
+import java.util.HashMap;
 
-public class Measurement {
-	long timestamp;
-	List<WifiReading> readings;
+public abstract class LazyObject {
+	/** Instance caching */
+	private static HashMap<String, LazyObject> instances = new HashMap<String, LazyObject>();
+
+	/** Hidden constructor, use get */
+	protected LazyObject() {}
+
+	/** Get instance by name */
+	public static LazyObject get(String name, Class<? extends LazyObject> type) {
+		LazyObject o = instances.get(name);
+		if (o != null)
+			return o;
+
+		try {
+			o = type.newInstance();
+			instances.put(name, o);
+			return o;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

@@ -1,3 +1,20 @@
+/*
+ * This file is part of SurvivalGuide
+ * Copyleft 2011 The SurvivalGuide Team
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
@@ -53,6 +70,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
 
 		handler = new Handler();
+		RequestHandler.getInstance().setContext(this);
 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
@@ -107,26 +125,20 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			loadDummyData();
 			break;
 		case R.id.btn_location:
-			RequestHandler rh = new RequestHandler(this);
-			JSONObject location = rh.getLocation(readingsToJson(visibleNetworks));
+			Location location = Location.getFromReadings(visibleNetworks);
 			if (location == null) {
 				showToast("getting location failed");
+
+			} else if (!location.isValid()) {
+				showToast("no position found");
+
 			} else {
-				try {
-					// TODO move parsing to RequestHandler
-					if (!location.has("position")) {
-						showToast("no position found");
-					} else {
-						JSONObject position = location.getJSONObject("position");
-						String building = position.getString("building");
-						String floor = position.getString("floor");
-						String room = position.getString("number");
-						txt_room.setText(String.format("%s %s %s", building, floor, room));
-						txt_ap.setText("");
-					}
-				} catch (JSONException e) {
-					showException(TAG, e);
-				}
+				String building = location.getBuilding().toString();
+				// TODO: might not have a floor or room set
+				String floor = "TODO"; // location.getFloor().toString();
+				String room = "TODO"; // position.getString("number");
+				txt_room.setText(String.format("%s %s %s", building, floor, room));
+				txt_ap.setText("");
 			}
 			break;
 		}
@@ -150,21 +162,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			visibleNetworks.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
 		}
 		adapter.notifyDataSetChanged();
-	}
-	
-
-	private JSONArray readingsToJson(List<WifiReading> readings) {
-		JSONObject ap;
-		JSONArray aps = new JSONArray();
-		for (WifiReading reading : readings) {
-			try {
-				ap = new JSONObject().put("mac", reading.mac).put("strength", reading.signal);
-				aps.put(ap);
-			} catch (JSONException e) {
-				showException("readingsToJson", e);
-			}
-		}
-		return aps;
 	}
 
 	private void showReadings(final List<WifiReading> readings) {

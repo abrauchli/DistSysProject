@@ -19,7 +19,23 @@ package ch.ethz.inf.vs.android.g54.a4.types;
 
 import java.util.List;
 
-public class Measurement {
-	long timestamp;
-	List<WifiReading> readings;
+import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
+
+public class Building extends LazyObject {
+
+	/** Get a list of all buildings */
+	public static List<Building> getBuildings() {
+		RequestHandler req = RequestHandler.getInstance();
+		req.request("/r");
+		return null; // TODO
+	}
+
+	/** Get a building by identifier */
+	public static Building getBuilding(String name) {
+		return (Building) get(name, Building.class);
+	}
+
+//	public List<Floor> getFloors() {
+//		// TODO
+//	}
 }
