@@ -40,6 +40,8 @@ class Room(Cacheable.Cacheable):
       print "Floor has wrong type: ", type(floor)
       raise
 #    raise
+    self.downloadMap()
+
   def getFileprefix(self):
     return "{prefix}_{suffix}".format(prefix=self.floor.getFileprefix(),suffix=self.number)
 
