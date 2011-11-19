@@ -1,3 +1,7 @@
 This repository contains the final project from the
 distributed systems class tought at ETH Zurich, Switzerland
 code named ETH-Survivor
+
+Dependencies for the server:
+  apt-get install python-flask mongodb-server python-pymongo
+  
