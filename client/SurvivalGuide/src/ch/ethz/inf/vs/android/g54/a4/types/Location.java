@@ -35,7 +35,9 @@ public class Location {
 
 	/**
 	 * Get the location from a list of wifi readings
-	 * @param readings A list of wifi readings
+	 * 
+	 * @param readings
+	 *            A list of wifi readings
 	 * @return a location instance
 	 */
 	public static Location getFromReadings(List<WifiReading> readings) {

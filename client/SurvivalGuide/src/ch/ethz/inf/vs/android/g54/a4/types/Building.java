@@ -32,7 +32,7 @@ public class Building extends LazyObject {
 	private Address address;
 	private List<Floor> floors;
 
-	// Fields instanciated upon generation
+	// Fields instantiated upon generation
 	private String name;
 
 	protected Building(String ID) {
@@ -54,7 +54,7 @@ public class Building extends LazyObject {
 
 	@Override
 	protected boolean isLoaded() {
-		return (address == null) || (floors == null);
+		return (address != null) && (floors != null);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class Building extends LazyObject {
 				floors = new LinkedList<Floor>();
 				for (Iterator<?> keys = flrs.keys(); keys.hasNext();) {
 					String key = (String) keys.next();
-					LazyObject.get(Floor.constructID(name, key), Floor.class);
+					Floor.getFloor(name, key);
 					// TODO: set map url
 				}
 			} catch (JSONException e) {

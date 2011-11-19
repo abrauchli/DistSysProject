@@ -27,48 +27,53 @@ import org.json.JSONObject;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Floor extends LazyObject {
-	
+
 	// lazily generated fields
 	private List<Room> rooms;
-	
-	// fields generated upon initialization
+	// TODO: map url and map
+
+	// fields instantiated upon initialization
 	private String building;
-	private String floor;
-	
+	private String name;
 
 	protected Floor(String ID) {
 		super(ID);
 		// ID should always be something like 'CAB E'
 		String[] parts = ID.split(" ");
 		building = parts[0];
-		floor = parts[1];
+		name = parts[1];
 	}
-	
+
+	/** Get a floor by identifier */
+	public static Floor getFloor(String building, String floor) {
+		return (Floor) get(constructID(building, floor), Floor.class);
+	}
+
 	protected static String constructID(String building, String floor) {
 		return String.format("%s %s", building, floor);
 	}
 
 	@Override
 	protected boolean isLoaded() {
-		return rooms == null;
+		return rooms != null;
 	}
 
 	@Override
 	protected void load() {
 		RequestHandler req = RequestHandler.getInstance();
-		Object o = req.request(String.format("/r/%s/%s", building, floor));
+		Object o = req.request(String.format("/r/%s/%s", building, name));
 		if (o instanceof JSONObject) {
 			try {
-				JSONObject b = (JSONObject) o;
-				
+				JSONObject f = (JSONObject) o;
+
 				// TODO: parse building and initialize it if necessary
-				
+
 				// parse rooms
-				JSONObject rms = b.getJSONObject("rooms");
+				JSONObject rms = f.getJSONObject("rooms");
 				rooms = new LinkedList<Room>();
 				for (Iterator<?> keys = rms.keys(); keys.hasNext();) {
 					String key = (String) keys.next();
-					LazyObject.get(Room.constructID(building, floor, key), Floor.class);
+					Room.getRoom(building, name, key);
 					// TODO: set map url
 					// TODO: set description
 				}
@@ -90,11 +95,11 @@ public class Floor extends LazyObject {
 	}
 
 	public Building getBuilding() {
-		return (Building) LazyObject.get(building, Building.class);
+		return Building.getBuilding(building);
 	}
 
-	public String getFloor() {
-		return floor;
+	public String getName() {
+		return name;
 	}
 
 }

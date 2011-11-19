@@ -17,21 +17,25 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
-public class Address {
+public class Coordinate {
+	private float x, y;
 
-	private String street;
-	private String city;
-
-	public Address(String street, String city) {
-		this.street = street;
-		this.city = city;
+	public Coordinate(float x, float y) {
+		this.x = x;
+		this.y = y;
 	}
 
-	public String getStreet() {
-		return street;
+	public Coordinate(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
-	public String getCity() {
-		return city;
+	public float getX() {
+		return x;
 	}
+
+	public float getY() {
+		return y;
+	}
+
 }
