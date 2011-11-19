@@ -27,7 +27,7 @@ SERVER_URL = config.SERVER_URL
 CACHED_IMAGE_TYPE = config.CACHED_IMAGE_TYPE
 
 def fileCached(filename):
-  files = os.listdir(Building.CACHE)
+  files = os.listdir(LOCAL_CACHE_DIR)
   if filename in files:
     return True
   return False

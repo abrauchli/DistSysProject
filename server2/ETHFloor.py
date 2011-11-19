@@ -20,6 +20,7 @@
 import Cacheable
 import ETHBuilding
 import ETHRoom
+import ETHMap
 
 class Floor(Cacheable.Cacheable):
   def __init__(self,floor,building):
@@ -33,7 +34,7 @@ class Floor(Cacheable.Cacheable):
 
       print "Building has wrong type"
       raise
-
+    self.downloadMap()
   def addRoom(self,number,desc):
     if number not in self.rooms:
       self.rooms[number] = ETHRoom.Room(number,self.building,self,desc)
