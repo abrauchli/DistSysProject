@@ -27,7 +27,7 @@ class Floor(Cacheable.Cacheable):
     self.building = building
     self.floor = floor
     self.rooms = {}
-    self.mapAvailable = {}
+    self.mapAvailable = True
     self.cached = False
     if type(building) != ETHBuilding.Building:
       print building.name+" "+building.strasse
@@ -35,6 +35,7 @@ class Floor(Cacheable.Cacheable):
       print "Building has wrong type"
       raise
     self.downloadMap()
+
   def addRoom(self,number,desc):
     if number not in self.rooms:
       self.rooms[number] = ETHRoom.Room(number,self.building,self,desc)
@@ -69,11 +70,13 @@ class Floor(Cacheable.Cacheable):
     
   def getInfo(self):
     return {
-      "map" : self.getURL()
+      "map" : self.getURL(),
+      "mapAvailable" : self.mapAvailable
     }
   def getDetailedInfo(self):
      return {
       "building" : self.building.getInfo(),
       "map"      : self.getURL(),
+      "mapAvailable" : self.mapAvailable,
       "rooms"    : self.getRooms()
       }

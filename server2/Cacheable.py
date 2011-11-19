@@ -18,14 +18,14 @@
 import os
 import urllib
 import config
+import ETHMap
 ## Defaults for distsysproject
 #CACHED_URL_PREFIX = "/static/cache/"
 #CACHE = "static/cache/"
 #CACHED_IMAGE_TYPE = "gif"
-LOCAL_CACHE_URL = config.LOCAL_CACHE_URL
 LOCAL_CACHE_DIR = config.LOCAL_CACHE_DIR
-SERVER_URL = config.SERVER_URL
 CACHED_IMAGE_TYPE = config.CACHED_IMAGE_TYPE
+CACHE_URL = config.CACHE_URL
 
 def fileCached(filename):
   files = os.listdir(LOCAL_CACHE_DIR)
@@ -37,29 +37,36 @@ class Cacheable(object):
   def __init__(self):
     self.cached = False
   def getCachedURL(self):
-    return SERVER_URL+LOCAL_CACHE_URL+self.getFilename() 
+    return CACHE_URL+self.getFilename() 
   def getURL(self):
     if self.cached:
       return self.getCachedURL()
     else:
       return self.getNonCachedURL()
+
   def getFileprefix(self):
     raise "You need to inherit this class"
+
   def getFilename(self): 
     return self.getFileprefix()+"."+CACHED_IMAGE_TYPE
 
+  def mapValid(self):
+    self.mapAvailable = ETHMap.checkIfImageIsValid(self.getFilename())
+
+
   def downloadMap(self):
     if self.cached:
+      self.mapValid()
       return
-
     filename = self.getFilename()
 
     if fileCached(filename):
       self.cached = True
-      print filename+" was already cached."
+      #print filename+" was already cached."
       return
     dest = LOCAL_CACHE_DIR+filename
     url = self.getNonCachedURL()
     print "Downloading: {url}\nto: {dest}".format(url=url,dest=dest)
     urllib.urlretrieve(url,dest)
     self.cached = True
+    self.mapValid()

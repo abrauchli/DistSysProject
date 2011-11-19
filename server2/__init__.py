@@ -77,6 +77,7 @@ r/CAB/E # DONE, but not tested
        18.1: {
          desc = “Büro”
     map = “....”
+    mapAvailable = true/false
 
 r/CAB/E/18.1  ## DONE, but not tested
   {
@@ -85,6 +86,7 @@ r/CAB/E/18.1  ## DONE, but not tested
     name= 18.1
     desc= Büro
     map = “...”
+    mapAvailable = true/false
     location =
 
 /json
@@ -151,6 +153,15 @@ def getRoom(building,room,floor):
   else:
     return resultError("Could not find room, floor or building")
 
+@app.route("/json",methods=['GET', 'POST'])
+def jsonRequest():
+  if request.method == "POST":
+    if request.json != None:
+      return resultOkay({})
+    else:
+      return resultError("Input malformed: You didn't send the request with application/json")
+  else: 
+    return """<pre>Expecting application/json via HTTP POST</pre>"""
 
 if __name__ == "__main__":
   Model.init()

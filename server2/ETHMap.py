@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
   This file is part of SurvivalGuide
@@ -21,4 +22,22 @@ import urllib
 import os
 import ETHColorcoord
 
+from PIL import Image
+def checkIfImageIsValid(filename):
+  im = Image.open(filename, "r").convert("RGB")
+  if im is None:
+    raise "Image doesn't exist"
+  pix = im.load() # get pixel 2d array
+  if pix[0,0] == (241,229,193):
+    return False
+  return True
 
+def test():
+  errorfile = "static/cache/1058_D.gif"
+  goodfile = "static/cache/ADM_A.gif"
+
+  print "Error file: ",checkIfImageIsValid(errorfile)
+  print "Good file: ",checkIfImageIsValid(goodfile)
+
+if __name__ == "__main__":
+  test()

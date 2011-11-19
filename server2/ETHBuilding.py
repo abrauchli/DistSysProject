@@ -51,9 +51,9 @@ class Building(object):
     if floor not in self.floors:
       self.floors[floor] = ETHFloor.Floor(floor,self)
   
-  def addRoom(self,floor,room,roomtype):
+  def addRoom(self,floor,room,desc):
     self.addFloor(floor)
-    self.floors[floor].addRoom(room,roomtype)
+    self.floors[floor].addRoom(room,desc)
   
   def floor(self,floor):
     return self.floors[floor]
