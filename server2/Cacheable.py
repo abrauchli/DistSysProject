@@ -100,7 +100,7 @@ class Cacheable(object):
             {
               "_id": filename,
               "location": location 
-            }
+            })
         self.location = location 
     else:
       self.location = m["location"]

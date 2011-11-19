@@ -24,7 +24,7 @@ import ETHColorcoord
 
 from PIL import Image
 def checkIfImageIsValid(filename):
-  print filename
+#print filename
   im = Image.open(filename, "r").convert("RGB")
   if im is None:
     raise "Image doesn't exist"
