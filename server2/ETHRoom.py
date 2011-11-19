@@ -20,6 +20,7 @@
 import Cacheable
 import ETHBuilding
 import ETHFloor
+import ETHMap
 
 class Room(Cacheable.Cacheable):
   def __init__(self,number,building,floor,desc=u"Büro"):
@@ -46,7 +47,7 @@ class Room(Cacheable.Cacheable):
     return "http://www.rauminfo.ethz.ch/Rauminfo/grundrissplan.gif?gebaeude={building}&geschoss={floor}&raumNr={room}".format(building=self.building.name
             ,floor=self.floor.floor
             ,room=self.number)
-  
+    self.downloadMap()
   def __str__(self):
     return self.number+" "+self.roomtype
  

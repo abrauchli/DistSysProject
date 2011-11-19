@@ -15,7 +15,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+import os
 import config
 ## Defaults for distsysproject
 #CACHED_URL_PREFIX = "/static/cache/"
@@ -25,6 +25,12 @@ LOCAL_CACHE_URL = config.LOCAL_CACHE_URL
 LOCAL_CACHE_DIR = config.LOCAL_CACHE_DIR
 SERVER_URL = config.SERVER_URL
 CACHED_IMAGE_TYPE = config.CACHED_IMAGE_TYPE
+
+def fileCached(filename):
+  files = os.listdir(Building.CACHE)
+  if filename in files:
+    return True
+  return False
 
 class Cacheable(object):
   def __init__(self):
@@ -40,3 +46,19 @@ class Cacheable(object):
     raise "You need to inherit this class"
   def getFilename(self): 
     return self.getFileprefix()+"."+CACHED_IMAGE_TYPE
+
+  def downloadMap(self):
+    if self.cached:
+      return
+
+    filename = self.getFilename()
+
+    if fileCached(filename):
+      self.cached = True
+      print filename+" was already cached."
+      return
+    dest = LOCAL_CACHE_DIR+filename
+    url = self.getNonCachedURL()
+    print "Downloading: {url}\nto: {dest}".format(url=url,dest=dest)
+    urllib.urlretrieve(url,dest)
+    self.cached = True
