@@ -42,12 +42,23 @@ public class Location {
 	 */
 	public static Location getFromReadings(List<WifiReading> readings) {
 		RequestHandler rh = RequestHandler.getInstance();
-		rh.post("/getNearestLocation/", readingsToJSON(readings).toString());
-		// TODO actual JSON parsing
+		Object o = rh.post("/json", readingsToJSON(readings).toString());
+		if (o instanceof JSONObject) {
+			try {
+				JSONObject res = (JSONObject) o;
+				res.getJSONObject("location");
+				// TODO: parse location
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			// TODO: error handling?
+		}
 		return new Location(Building.getBuilding("TODO: removeMe"));
 	}
 
-	/** Whether there is an actual location associate with this request */
+	/** Whether there is an actual location associated with this request */
 	public boolean isValid() {
 		return this.valid;
 	}
@@ -57,18 +68,21 @@ public class Location {
 		return this.building;
 	}
 
-	private static JSONArray readingsToJSON(List<WifiReading> readings) {
-		JSONObject ap;
-		JSONArray aps = new JSONArray();
+	private static JSONObject readingsToJSON(List<WifiReading> readings) {
+		JSONObject aps = new JSONObject();
 		for (WifiReading reading : readings) {
 			try {
-				ap = new JSONObject();
-				ap.put("mac", reading.mac);
-				ap.put("strength", reading.signal);
-				aps.put(ap);
+				aps.put(reading.mac, reading.signal);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+		}
+		JSONObject req = new JSONObject();
+		try {
+			req.put("request", "location");
+			req.put("aps", aps);
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		return aps;
 	}
