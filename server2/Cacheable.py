@@ -23,13 +23,14 @@ import config
 #CACHED_IMAGE_TYPE = "gif"
 LOCAL_CACHE_URL = config.LOCAL_CACHE_URL
 LOCAL_CACHE_DIR = config.LOCAL_CACHE_DIR
+SERVER_URL = config.SERVER_URL
 CACHED_IMAGE_TYPE = config.CACHED_IMAGE_TYPE
 
 class Cacheable(object):
   def __init__(self):
     self.cached = False
   def getCachedURL(self):
-    return LOCAL_CACHE_URL+self.getFilename() 
+    return SERVER_URL+LOCAL_CACHE_URL+self.getFilename() 
   def getURL(self):
     if self.cached:
       return self.getCachedURL()

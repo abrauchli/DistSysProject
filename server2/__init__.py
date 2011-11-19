@@ -51,9 +51,9 @@ r/CAB
     address: {
         city:
         street:
-        floors: {
-          A : {
-            map = “....”
+    floors: {
+        A : {
+          map = “....”
 
 Error Message: “Building not found”
 r/CAB/E
