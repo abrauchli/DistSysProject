@@ -23,6 +23,10 @@ import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Building extends LazyObject {
 
+	protected Building(String ID) {
+		super(ID);
+	}
+
 	/** Get a list of all buildings */
 	public static List<Building> getBuildings() {
 		RequestHandler req = RequestHandler.getInstance();
