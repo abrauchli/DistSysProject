@@ -19,6 +19,7 @@ import os
 import urllib
 import config
 import ETHMap
+import Colorcoord
 ## Defaults for distsysproject
 #CACHED_URL_PREFIX = "/static/cache/"
 #CACHE = "static/cache/"
@@ -26,6 +27,7 @@ import ETHMap
 LOCAL_CACHE_DIR = config.LOCAL_CACHE_DIR
 CACHED_IMAGE_TYPE = config.CACHED_IMAGE_TYPE
 CACHE_URL = config.CACHE_URL
+
 
 def fileCached(filename):
   files = os.listdir(LOCAL_CACHE_DIR)
@@ -50,23 +52,52 @@ class Cacheable(object):
   def getFilename(self): 
     return self.getFileprefix()+"."+CACHED_IMAGE_TYPE
 
-  def mapValid(self):
-    self.mapAvailable = ETHMap.checkIfImageIsValid(self.getFilename())
-
-
   def downloadMap(self):
     if self.cached:
-      self.mapValid()
       return
     filename = self.getFilename()
+    m = config.mongodbMapCACHE.find_one({"_id":filename})
+    if m is None:
+      dest = LOCAL_CACHE_DIR+filename
+      url = self.getNonCachedURL()
+      if not fileCached(filename):
+        print "Downloading: {url}\nto: {dest}".format(url=url,dest=dest)
+        urllib.urlretrieve(url,dest)
+      self.mapAvailable = ETHMap.checkIfImageIsValid(dest)
+      config.mongodbMapCACHE.insert(
+          {
+            "_id":filename,
+            "mapAvailable":self.mapAvailable
+          })  
+    else:
+      self.mapAvailable = m["mapAvailable"]
+      
+    self.cached = True    
 
-    if fileCached(filename):
-      self.cached = True
-      #print filename+" was already cached."
-      return
-    dest = LOCAL_CACHE_DIR+filename
-    url = self.getNonCachedURL()
-    print "Downloading: {url}\nto: {dest}".format(url=url,dest=dest)
-    urllib.urlretrieve(url,dest)
-    self.cached = True
-    self.mapValid()
+  def computeCoordinates(self):
+    m = config.mongodbMapPositionCACHE.find_one({"_id":filename})
+    if m is None:
+      dest = LOCAL_CACHE_DIR+filename
+      loc = ETHColorcoord.getCenter()
+      if loc is None:
+        config.mongodbMapPositionCACHE.insert(
+            {
+              "_id": filename, 
+              "location": None
+            }
+            )
+      else:
+        location = {
+            "x": loc["center"][0],
+            "y": loc["center"][1],
+            "boundingbox": loc["boundingbox"]
+          }
+
+        config.mongodbMapPositionCACHE.insert(
+            {
+              "_id": filename,
+              "location": location 
+            }
+        self.location = location 
+        
+

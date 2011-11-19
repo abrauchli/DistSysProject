@@ -71,12 +71,16 @@ class Floor(Cacheable.Cacheable):
   def getInfo(self):
     return {
       "map" : self.getURL(),
-      "mapAvailable" : self.mapAvailable
+      "mapAvailable" : self.mapAvailable,
+      "location" : self.location
+
     }
   def getDetailedInfo(self):
      return {
       "building" : self.building.getInfo(),
       "map"      : self.getURL(),
       "mapAvailable" : self.mapAvailable,
-      "rooms"    : self.getRooms()
+      "rooms"    : self.getRooms(),
+      "location" : self.location
+
       }
