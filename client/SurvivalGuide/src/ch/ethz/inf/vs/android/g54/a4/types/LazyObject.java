@@ -36,14 +36,22 @@ public abstract class LazyObject {
 			return o;
 
 		try {
-			Constructor<? extends LazyObject> c = type.getConstructor(new Class[]{String.class});
-			o = c.newInstance(new Object[]{name});
+			Constructor<? extends LazyObject> c = type.getConstructor(new Class[] { String.class });
+			o = c.newInstance(new Object[] { name });
 			instances.put(name, o);
 			return o;
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	protected String ID;
+
+	public String getID() {
+		return ID;
+	}
+
+	protected abstract boolean isLoaded();
+
+	protected abstract void load();
 }

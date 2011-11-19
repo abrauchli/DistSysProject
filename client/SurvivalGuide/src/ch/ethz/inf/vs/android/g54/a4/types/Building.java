@@ -17,21 +17,34 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Building extends LazyObject {
 
+	// Lazily generated fields
+	private Address address;
+	private List<Floor> floors;
+
+	// Fields instanciated upon generation
+	private String name;
+
 	protected Building(String ID) {
 		super(ID);
+		this.name = ID;
 	}
 
 	/** Get a list of all buildings */
 	public static List<Building> getBuildings() {
 		RequestHandler req = RequestHandler.getInstance();
 		req.request("/r");
-		return null; // TODO
+		return null;// TODO: list of all buildings
 	}
 
 	/** Get a building by identifier */
@@ -39,7 +52,63 @@ public class Building extends LazyObject {
 		return (Building) get(name, Building.class);
 	}
 
-//	public List<Floor> getFloors() {
-//		// TODO
-//	}
+	@Override
+	protected boolean isLoaded() {
+		return (address == null) || (floors == null);
+	}
+
+	@Override
+	protected void load() {
+		RequestHandler req = RequestHandler.getInstance();
+		Object o = req.request(String.format("/r/%s", name));
+		if (o instanceof JSONObject) {
+			try {
+				JSONObject b = (JSONObject) o;
+				
+				// TODO: decide if this would make sense or not
+				// parse name of the building (though already set by constructor)
+				// name = b.getString("name");
+				
+				// parse address
+				JSONObject addr = b.getJSONObject("address");
+				String street = addr.getString("street");
+				String city = addr.getString("city");
+				address = new Address(street, city);
+				
+				// parse floors
+				JSONObject flrs = b.getJSONObject("floors");
+				floors = new LinkedList<Floor>();
+				for (Iterator<?> keys = flrs.keys(); keys.hasNext();) {
+					String key = (String) keys.next();
+					LazyObject.get(Floor.constructID(name, key), Floor.class);
+					// TODO: set map url
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				address = null;
+				floors = null;
+			}
+		} else {
+			// TODO: error handling?
+		}
+	}
+
+	public List<Floor> getFloors() {
+		if (!isLoaded()) {
+			load();
+		}
+		return floors;
+	}
+
+	public Address getAddress() {
+		if (!isLoaded()) {
+			load();
+		}
+		return null;
+	}
+
+	public String getName() {
+		return name;
+	}
 }
