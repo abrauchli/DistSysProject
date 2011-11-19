@@ -22,7 +22,9 @@ from flask import Flask, request, session, g, redirect, url_for, abort, render_t
 import os, os.path
 import json
 import Model
+import Controller
 import config
+import AccessPoints
 
 app = Flask(__name__)
 
@@ -165,6 +167,7 @@ def jsonRequest():
 
 if __name__ == "__main__":
   Model.init()
+  AccessPoints.read()
   #AccessPoints.read()
 #  print getAccessPoint("00:0f:61:b4:b6:00")
 #Cache.cache(Building.findRoom("HG","F","5"))
