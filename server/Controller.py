@@ -22,4 +22,4 @@ def parseJSONRequest(req):
   request = req["request"]
   if redistribute == "location":
     aps = req["aps"]
-    AccessPoint.computeLocation(aps)
+    return AccessPoint.computeLocation(aps)

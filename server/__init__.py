@@ -159,7 +159,11 @@ def getRoom(building,room,floor):
 def jsonRequest():
   if request.method == "POST":
     if request.json != None:
-      return resultOkay({})
+      req = Controller.parseJSONRequest(request.json)
+      if req != None:      
+        return resultOkay(req)
+      else:
+        return resultError("Either Input or output malformed")
     else:
       return resultError("Input malformed: You didn't send the request with application/json")
   else: 
