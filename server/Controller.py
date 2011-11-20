@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
   This file is part of SurvivalGuide
   Copyleft 2011 The SurvivalGuide Team
@@ -18,8 +17,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import AccessPoints
 def parseJSONRequest(req):
   request = req["request"]
-  if redistribute == "location":
+  if request == "location":
     aps = req["aps"]
-    return AccessPoint.computeLocation(aps)
+    return AccessPoints.computeLocation(aps)

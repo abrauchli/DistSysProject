@@ -85,18 +85,19 @@ def computeLocation(aps):
   mac = ""
 
   apsResult = {}
-  for k.v in aps.iteritems():
+  for k,v in aps.iteritems():
     if abs(float(v)) >= abs(float(strength)):
       mac = k
-    room = accessPoints[k]
-    apsResult[k] = {
-        "coords" : room.location,
-        "location" : room.getDetailedInfo()
-      }
+    ap = accessPoints[k]
+    if ap != None:
+      apsResult[k] = {
+          "coords" : ap.room.location,
+          "location" : ap.room.getDetailedInfo()
+        }
 
   if mac == "":
     return None
-  room = accesspoints[mac]
+  room = accessPoints[mac].room
   postype = "unknown"
   if type(room) == Room:
     postype = "room"
