@@ -11,8 +11,8 @@ from ETHBuilding import Building
 data = ["data/wlan_honegg.csv", "data/wlan_zentrum.csv"]
 
 wlanRegex = "air-(\w+)-([a-zA-Z]+)(\d+)i--\w"
-wlanID = "air-(\w+)-([a-zA-Z]+)(\d+)-\w"
-wlanIDAlt = "air-(\w+)-([a-zA-Z]+)(\d+)-(\d+)-\w"
+wlanID = "air-(\w+)-([a-zA-Z]+)(\d+)-[a-zA-Z]+"
+wlanIDAlt = "air-(\w+)-([a-zA-Z]+)(\d+)-(\d+)-[a-zA-Z]+"
 wlanIDSpecial = "air-([a-zA-Z]+)-(\w+)-\w"
 accessPoints = {}
 class AccessPoint:
@@ -20,7 +20,7 @@ class AccessPoint:
     self.mac = mac
     self.idstring = idstring
     self.bssid = bssid
-    if (re.search(wlanID,idstring)):
+    if (re.match(wlanID,idstring)):
       m = re.match(wlanID,idstring)
       building = m.group(1).upper()
       floor = m.group(2).upper()
