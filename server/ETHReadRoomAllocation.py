@@ -30,6 +30,12 @@ USED_ROOM_COLOR = '#006799'
 CLOSED_ROOM_COLOR = '#cccccc'
 SUNDAY_ROOM_COLOR = '#eeeeee'
 
+
+ROOM_CLOSED = 2
+ROOM_USED = 1
+ROOM_OPEN = 0
+
+
 availableRooms = []
 """
   </td> <td>  <select name="monat"><option value="Jan">Jan</option>
@@ -77,13 +83,13 @@ def findColor(td):
 def getRoomState(td):
   color = findColor(td)
   if color == FREE_ROOM_COLOR:
-    return "free"
+    return ROOM_OPEN
   if color == USED_ROOM_COLOR:
-    return "used"
+    return ROOM_USED
   if color == CLOSED_ROOM_COLOR:
-    return "closed"
+    return ROOM_CLOSED
   if color == SUNDAY_ROOM_COLOR:
-    return "closed"
+    return ROOM_CLOSED
   return "unknown"
 
 def parseRaumInfoURL(url):
@@ -145,7 +151,8 @@ def parseRaumInfoURL(url):
 #
 #  for row in roomtable:
 #    print row
-  return {"header":rowHeaders, "time": timetable, "timetable": roomtable, "dt": DT }
+#  return {"header":rowHeaders, "time": timetable, "timetable": roomtable, "dt": DT }
+  return {"header": rowHeaders, "stime":rowHeaders[0],"etime":(rowHeaders[:]+DT),"timetable": roomtable, "dt": DT}
 
 def parseRaumInfoWebsite(building,floor,room,date):
   s = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude={building}&geschoss={floor}&raumNr={room}&rektoratInListe=true&raumInRaumgruppe=true&tag={day}&monat={month}&jahr={year}&checkUsage=anzeigen".format(
