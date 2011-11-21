@@ -16,10 +16,40 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+import ETHBuilding
+import ETHFloor
+import ETHRoom
+import Model
+import ETHReadRoomAllocation
+import config
 import AccessPoints
+
 def parseJSONRequest(req):
   request = req["request"]
   if request == "location":
     aps = req["aps"]
     return AccessPoints.computeLocation(aps)
+  if request == "freerroom":
+    building = req["building"]
+    floor = req["floor"]
+    return findFreeRoom(building,floor)
+def isAllocateableRoom(room):
+  if room.desc in config.ROOMTYPE_LEARNING:
+    return True
+  return False
+
+def findFreeRoom(building,floor=None,stime=7.0,etime=8.0):
+  if floor = None:
+    building = Model.findBuilding(building)
+    rooms = building.getAllRooms()
+  else:
+    floor = Model.findFloor(building,floor)
+    rooms = floor.getAllRooms()
+  rooms = filter(lambda x: isAllocateableRoom(r),rooms)
+  r = []
+  for room in rooms:
+    if ETReadRoomAllocation.isRoomFree(room,stime,etime):
+      r.append(room.getDetailedInfo())
+
+  return r
+

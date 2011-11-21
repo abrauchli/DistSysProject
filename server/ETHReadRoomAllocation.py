@@ -20,6 +20,7 @@ import re
 import time
 import datetime
 from ETHRoom import Room
+from numpy import arange
 URL = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude=CHN&geschoss=D&raumNr=44&rektoratInListe=true&raumInRaumgruppe=true&tag=20&monat=Nov&jahr=2011&checkUsage=anzeigen"
 
 DT = 0.25
@@ -163,6 +164,7 @@ def parseRaumInfoURL(url):
         }
       }
 
+
 def parseRaumInfoWebsite(building,floor,room,date):
   s = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude={building}&geschoss={floor}&raumNr={room}&rektoratInListe=true&raumInRaumgruppe=true&tag={day}&monat={month}&jahr={year}&checkUsage=anzeigen".format(
       building=building,
@@ -181,4 +183,24 @@ def getRoomAllocation(room,date=datetime.date.today()):
   floor=room.floor.floor
   room=room.number
   return parseRaumInfoWebsite(building,floor,room,date)
- 
+
+def isRoomFree(room,stime=7.0,etime=22.0,date=datetime.date.today()):
+  if etime > stime:
+    print "Endtime is bigger than starttime"
+    raise
+  if stime%DT != 0 and etime%DT != 0:
+    print "Stime {s} or Etime {e} mod {dt} != 0".format(s=stime,e=etime,dt=DT)
+    raise
+  rdata = getRoomAllocation(room,date)
+  rtime = arange(rdata[stime],rdata[etime],DT)
+  table = rdata[timetable]
+  datestring = "{day}.{month}".format(day=date.day,month=date.month)
+  column = rdata[header].index(datestring)
+  rowstart = rtime.index(stime)
+  rowend   = rtime.index(etime)
+  for r in range(rowstart,rowend):
+    if table[r,column] != ROOM_OPEN:
+      return False
+
+  return True
+

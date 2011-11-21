@@ -86,3 +86,9 @@ class Building(object):
       "address" : self.getAddress(),
       "floors" : self.getFloors()
      }
+
+  def getAllRooms(self):
+    r = []
+    for floor in self.floors:
+      r.append(floor.getAllRooms())
+    return r
