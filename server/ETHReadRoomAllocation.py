@@ -19,14 +19,48 @@ import urllib
 import re
 import time
 import datetime
+import ETHRoom
 URL = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude=CHN&geschoss=D&raumNr=44&rektoratInListe=true&raumInRaumgruppe=true&tag=20&monat=Nov&jahr=2011&checkUsage=anzeigen"
 
+DT = 0.25
 HEADER_REGEX = "" 
 
 FREE_ROOM_COLOR = '#99cc99'
 USED_ROOM_COLOR = '#006799'
 CLOSED_ROOM_COLOR = '#cccccc'
 SUNDAY_ROOM_COLOR = '#eeeeee'
+
+availableRooms = []
+"""
+  </td> <td>  <select name="monat"><option value="Jan">Jan</option>
+  <option value="Feb">Feb</option>
+  <option value="Mär">Mär</option>
+  <option value="Apr">Apr</option>
+  <option value="Mai">Mai</option>
+
+  <option value="Jun">Jun</option>
+  <option value="Jul">Jul</option>
+  <option value="Aug">Aug</option>
+  <option value="Sep">Sep</option>
+  <option value="Okt">Okt</option>
+  <option value="Nov" selected="selected">Nov</option>
+  <option value="Dez">Dez</option></select>
+  """
+
+monthMap = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mär",
+    4: "Apr",
+    5: "Mai",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sep",
+    10:"Okt",
+    11:"Nov",
+    12:"Dez"}
+
 def findRowspan(td):
   attrs = td.attrs
   for a in attrs:
@@ -52,7 +86,7 @@ def getRoomState(td):
     return "closed"
   return "unknown"
 
-def parseRaumInfoWebsite(url):
+def parseRaumInfoURL(url):
   f = urllib.urlopen(url)
   html = f.read()
 
@@ -85,7 +119,7 @@ def parseRaumInfoWebsite(url):
       time = float(m.group(1))
       timetable.append(time)
     else:
-      time += 0.25
+      time += DT
       timetable.append(time)
 
   # Create the roomtable
@@ -111,5 +145,24 @@ def parseRaumInfoWebsite(url):
 #
 #  for row in roomtable:
 #    print row
-  return {"header":rowHeaders, "time": timetable, "timetable": roomtable }
+  return {"header":rowHeaders, "time": timetable, "timetable": roomtable, "dt": DT }
 
+def parseRaumInfoWebsite(building,floor,room,date):
+  s = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude={building}&geschoss={floor}&raumNr={room}&rektoratInListe=true&raumInRaumgruppe=true&tag={day}&monat={month}&jahr={year}&checkUsage=anzeigen".format(
+      building=building,
+      floor=floor,
+      room=room,
+      year=date.year,
+      month=monthMap[date.month],
+      day=date.day)
+  return parseRaumInfoURL(s)
+
+def getRoomAllocation(room,date=datetime.date.today()):
+  if type(room) != Room:
+    print "Input has wrong type"
+    raise
+  building=room.building.name
+  floor=room.floor.floor
+  room=room.number
+  return parseRaumInfoWebsite(building,floor,room,date)
+ 
