@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usbin/env python
 # -*- coding: utf-8 -*-
 # Copyleft 2011 Pascal Spörri <pascal.spoerri@gmail.com>
 #
@@ -42,13 +42,13 @@ def findColor(td):
 def getRoomState(td):
   color = findColor(td)
   if color == FREE_ROOM_COLOR:
-    return " free "
+    return "free"
   if color == USED_ROOM_COLOR:
-    return " used "
+    return "used"
   if color == CLOSED_ROOM_COLOR:
     return "closed"
   if color == SUNDAY_ROOM_COLOR:
-    return "sunday"
+    return "closed"
   return "unknown"
 
 
@@ -88,18 +88,16 @@ for tr in rows[1:]:
   columnid = 0
   for td in cols:
     state = getRoomState(td)
-    if ((rowid)%4) !=0:
+    if state != "unknown":
       rowspan = findRowspan(td)
-      print range(rowid,rowid+rowspan)
-      sr = 0
+      startcolum = 0
+      for c in range(0,7):
+        if roomtable[rowid][c] == None:
+          startcolum = c
+          break
       for i in range(rowid,rowid+rowspan):
-        for c in range(sr,6):
-          if roomtable[i][c] == None:
-            roomtable[i][c] = state
-            sr = c
-            break
-    columnid += 1
-
+        roomtable[i][startcolum] = state
+      columnid += 1
   rowid += 1
 
 for row in roomtable:
