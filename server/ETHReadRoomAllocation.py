@@ -19,7 +19,7 @@ import urllib
 import re
 import time
 import datetime
-import ETHRoom
+from ETHRoom import Room
 URL = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude=CHN&geschoss=D&raumNr=44&rektoratInListe=true&raumInRaumgruppe=true&tag=20&monat=Nov&jahr=2011&checkUsage=anzeigen"
 
 DT = 0.25
