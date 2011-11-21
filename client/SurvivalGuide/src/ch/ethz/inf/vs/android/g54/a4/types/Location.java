@@ -45,7 +45,7 @@ public class Location {
 		return new Location(Building.getBuilding("TODO: removeMe"));
 	}
 
-	/** Whether there is an actual location associate with this request */
+	/** Whether there is an actual location associated with this request */
 	public boolean isValid() {
 		return this.valid;
 	}

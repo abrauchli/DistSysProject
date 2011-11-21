@@ -14,12 +14,6 @@
 			android:text="Scan"
 			android:layout_width="0dp" />
 		<Button
-		    android:id="@+id/btn_dummy"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:text="Dummy" />
-		<Button
 		    android:id="@+id/btn_location"
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"

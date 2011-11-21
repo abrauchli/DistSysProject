@@ -17,10 +17,12 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.Comparator;
+
 import android.net.wifi.ScanResult;
 
 public class WifiReading {
-
+	
 	final public String mac;
 	final public String ssid;
 	final public int signal;
@@ -36,5 +38,23 @@ public class WifiReading {
 		this.ssid = result.SSID;
 		this.signal = result.level;
 	}
+
+	public static Comparator<WifiReading> byMac = new Comparator<WifiReading>() {
+		public int compare(WifiReading lhs, WifiReading rhs) {
+			return lhs.mac.compareToIgnoreCase(rhs.mac);
+		}
+	};
 	
+	public static Comparator<WifiReading> bySsid = new Comparator<WifiReading>() {
+		public int compare(WifiReading lhs, WifiReading rhs) {
+			return lhs.ssid.compareToIgnoreCase(rhs.ssid);
+		}
+	};
+	
+	public static Comparator<WifiReading> bySignal = new Comparator<WifiReading>() {
+		public int compare(WifiReading lhs, WifiReading rhs) {
+			return (lhs.signal < rhs.signal) ? 1 : (lhs.signal > rhs.signal) ? -1 : 0; // descending order
+		}
+	};
+
 }

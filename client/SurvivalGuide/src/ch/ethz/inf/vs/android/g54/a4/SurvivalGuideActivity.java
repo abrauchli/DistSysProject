@@ -18,6 +18,7 @@
 package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -35,6 +36,8 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -74,14 +77,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
-			Button btn_dummy = (Button) findViewById(R.id.btn_dummy);
 			Button btn_location = (Button) findViewById(R.id.btn_location);
 			txt_room = (TextView) findViewById(R.id.txt_room);
 			txt_ap = (TextView) findViewById(R.id.txt_ap);
 			lst_networks = (ListView) findViewById(R.id.lst_networks);
 
 			btn_scan.setOnClickListener(this);
-			btn_dummy.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
@@ -110,6 +111,28 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.mni_buildings:
+			showToast("not implemented"); // TODO
+			break;
+		case R.id.mni_dummy_data:
+			loadDummyData(false);
+			break;
+		case R.id.mni_dummy_data_2:
+			loadDummyData(true);
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
 	public Object onRetainNonConfigurationInstance() {
 		if (visibleNetworks != null)
 			return visibleNetworks;
@@ -121,17 +144,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 		case R.id.btn_scan:
 			wifi.startScan();
 			break;
-		case R.id.btn_dummy:
-			loadDummyData();
-			break;
 		case R.id.btn_location:
 			Location location = Location.getFromReadings(visibleNetworks);
 			if (location == null) {
 				showToast("getting location failed");
-
 			} else if (!location.isValid()) {
 				showToast("no position found");
-
 			} else {
 				String building = location.getBuilding().toString();
 				// TODO: might not have a floor or room set
@@ -144,36 +162,37 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	private void loadDummyData() {
+	private void loadDummyData(boolean allowNonexistant) {
+		int mincount = 3, maxcount = 8;
 		String[] macs = { "00:0f:61:1a:18:4", // air-cab-e32-a
 				"00:03:52:1c:34:5", // air-cab-e16-a
 				"00:03:52:29:ae:4", // air-cab-e45-a
 				"00:03:52:1b:f6:5", // air-cab-g11-a
-				"00:0f:61:1a:20:8", // air-cab-e22-2-a
-				"55:44:33:22:11:0" }; // NON-EXISTANT
-		String[] mactypes = {"eth", "public", "MOBILE-EAPSIM", "eduroam"};
+				"00:03:52:1b:f4:f", // air-cab-g11-b
+				"00:03:52:1c:14:b", // air-cab-e11-a
+				"00:03:52:1c:14:d", // air-cab-e12-a
+				// "00:0f:61:1a:20:8", // air-cab-e22-2-a
+				"ff:ff:ff:ff:ff:f" }; // NON-EXISTANT
+		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
 		Random rand = new Random();
-		int count = rand.nextInt(4)+1;
+		int count = rand.nextInt(maxcount - mincount) + mincount;
 		visibleNetworks.clear();
 		for (int i = 0; i < count; i++) {
-			int macidx = rand.nextInt(macs.length);
+			int macidx = rand.nextInt(allowNonexistant ? macs.length : macs.length - 1);
 			int mactype = rand.nextInt(4);
 			int signal = rand.nextInt(70) - 90; // -21 to -90
 			visibleNetworks.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
 		}
-		adapter.notifyDataSetChanged();
+		showReadings(visibleNetworks);
 	}
 
 	private void showReadings(final List<WifiReading> readings) {
-		visibleNetworks.clear();
-		visibleNetworks.addAll(readings);
+		if (readings != visibleNetworks) {
+			visibleNetworks.clear();
+			visibleNetworks.addAll(readings);
+		}
+		Collections.sort(visibleNetworks, WifiReading.bySignal);
 		adapter.notifyDataSetChanged();
-		/*
-		 * // going via handler does not seem to be necessary, not sure handler.post(new Runnable() {
-		 * 
-		 * @Override public void run() { // visibleNetworks.clear(); visibleNetworks.addAll(results);
-		 * adapter.notifyDataSetChanged(); } });
-		 */
 	}
 
 	private class WifiScanReceiver extends BroadcastReceiver {
