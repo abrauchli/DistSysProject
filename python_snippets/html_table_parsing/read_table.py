@@ -1,4 +1,4 @@
-#!/usbin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyleft 2011 Pascal Spörri <pascal.spoerri@gmail.com>
 #
@@ -17,7 +17,8 @@
 from BeautifulSoup import BeautifulSoup
 import urllib
 import re
-
+import time
+import datetime
 URL = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude=CHN&geschoss=D&raumNr=44&rektoratInListe=true&raumInRaumgruppe=true&tag=20&monat=Nov&jahr=2011&checkUsage=anzeigen"
 
 HEADER_REGEX = "" 
@@ -51,55 +52,64 @@ def getRoomState(td):
     return "closed"
   return "unknown"
 
+def parseRaumInfoWebsite(url):
+  f = urllib.urlopen(url)
+  html = f.read()
 
-f = urllib.urlopen(URL)
-html = f.read()
+  soup = BeautifulSoup(''.join(html))
 
-soup = BeautifulSoup(''.join(html))
+  table = soup.findAll('table')[1]
+  rows = table.findAll('tr')
+ 
+  # Parse headers
+  rowHeaders = map(lambda row: " ".join(row.findAll(text=True)), rows[0].findAll('b'))
+  rowHeaders = map(lambda item: re.match("\w+\s+(\d+\.\d+)", item).group(1), rowHeaders)
+  # Add sunday
+  m = re.match("(\d+)\.(\d+)",rowHeaders[0])
+  mday = int(m.group(1))
+  mmonth = int(m.group(2))
+  myear = datetime.date.today().year 
+  dmonday = datetime.date(myear,mmonth,mday)
+  dsunday = dmonday-datetime.timedelta(days=1)
+  rowHeaders = ["{day}.{month}".format(day=dsunday.day,month=dsunday.month)]+rowHeaders
 
-table = soup.findAll('table')[1]
-rows = table.findAll('tr')
-#rowHeaders = map(lambda row: row.findAll(text=True)[1], rows[0].findAll('b'))
-rowHeaders = map(lambda row: " ".join(row.findAll(text=True)), rows[0].findAll('b'))
-print rowHeaders
-time = 0
-timetable = []
-## Find out the number of time values we have
-for tr in rows[1:]:
-  cols = tr.findAll('td')
-  htime = cols[0].find('b')
-  if htime is not None:  
-    m = re.match("(\d+)\-\d+",htime.find(text=True))
-    time = float(m.group(1))
-    timetable.append(time)
-  else:
-    time += 0.25
-    timetable.append(time)
-  print ""
+  # Find the time on the left side
+  time = 0
+  timetable = []
+  ## Find out the number of time values we have
+  for tr in rows[1:]:
+    cols = tr.findAll('td')
+    htime = cols[0].find('b')
+    if htime is not None:  
+      m = re.match("(\d+)\-\d+",htime.find(text=True))
+      time = float(m.group(1))
+      timetable.append(time)
+    else:
+      time += 0.25
+      timetable.append(time)
 
-print timetable
+  # Create the roomtable
+  roomtable = [[None]*7 for x in xrange(len(timetable))]
 
-roomtable = [[None]*7 for x in xrange(len(timetable))]
-print roomtable
-
-rowid = 0
-for tr in rows[1:]:
-  cols = tr.findAll('td')
-  columnid = 0
-  for td in cols:
-    state = getRoomState(td)
-    if state != "unknown":
-      rowspan = findRowspan(td)
-      startcolum = 0
-      for c in range(0,7):
-        if roomtable[rowid][c] == None:
-          startcolum = c
-          break
-      for i in range(rowid,rowid+rowspan):
-        roomtable[i][startcolum] = state
-      columnid += 1
-  rowid += 1
-
-for row in roomtable:
-  print row
+  rowid = 0
+  for tr in rows[1:]:
+    cols = tr.findAll('td')
+    columnid = 0
+    for td in cols:
+      state = getRoomState(td)
+      if state != "unknown":
+        rowspan = findRowspan(td)
+        startcolum = 0
+        for c in range(0,7):
+          if roomtable[rowid][c] == None:
+            startcolum = c
+            break
+        for i in range(rowid,rowid+rowspan):
+          roomtable[i][startcolum] = state
+        columnid += 1
+    rowid += 1
+#
+#  for row in roomtable:
+#    print row
+  return {"header":rowHeaders, "time": timetable, "timetable": roomtable }
 
