@@ -177,29 +177,34 @@ def parseRaumInfoWebsite(building,floor,room,date):
 
 def getRoomAllocation(room,date=datetime.date.today()):
   if type(room) != Room:
-    print "Input has wrong type"
-    raise
+    raise Exception("Input has wrong type")
   building=room.building.name
   floor=room.floor.floor
   room=room.number
   return parseRaumInfoWebsite(building,floor,room,date)
 
 def isRoomFree(room,stime=7.0,etime=22.0,date=datetime.date.today()):
-  if etime > stime:
-    print "Endtime is bigger than starttime"
-    raise
+  if etime < stime:
+    raise Exception("Endtime is smaller than starttime")
   if stime%DT != 0 and etime%DT != 0:
     print "Stime {s} or Etime {e} mod {dt} != 0".format(s=stime,e=etime,dt=DT)
     raise
   rdata = getRoomAllocation(room,date)
-  rtime = arange(rdata[stime],rdata[etime],DT)
-  table = rdata[timetable]
+  rtime = arange(rdata["stime"],rdata["etime"],DT)
+  table = rdata["timetable"]
   datestring = "{day}.{month}".format(day=date.day,month=date.month)
-  column = rdata[header].index(datestring)
-  rowstart = rtime.index(stime)
-  rowend   = rtime.index(etime)
+  column = rdata["header"].index(datestring)
+  for i in range(0,len(rtime)):
+    if stime >= rtime[i]:
+      rowstart = i
+      break
+  
+  for i in range(0,len(rtime)):
+    if etime <= rtime[i]:
+      rowend = i
+      break
   for r in range(rowstart,rowend):
-    if table[r,column] != ROOM_OPEN:
+    if table[r][column] != ROOM_OPEN:
       return False
 
   return True

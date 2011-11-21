@@ -85,6 +85,6 @@ class Floor(Cacheable.Cacheable):
   def getAllRooms(self):
     r = []
     for k,v in self.rooms.iteritems():
-      r += v
+      r.append(v)
 
     return r

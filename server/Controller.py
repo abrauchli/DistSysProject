@@ -29,9 +29,9 @@ def parseJSONRequest(req):
   if request == "location":
     aps = req["aps"]
     return AccessPoints.computeLocation(aps)
-  if request == "freerroom":
+  if request == "freeroom":
     building = req["building"]
-    floor = req["floor"]
+    floor = req.get("floor")
     return findFreeRoom(building,floor)
 def isAllocateableRoom(room):
   if room.desc in config.ROOMTYPE_LEARNING:
@@ -39,17 +39,17 @@ def isAllocateableRoom(room):
   return False
 
 def findFreeRoom(building,floor=None,stime=7.0,etime=8.0):
-  if floor = None:
-    building = Model.findBuilding(building)
-    rooms = building.getAllRooms()
+  if floor == None:
+    b = Model.findBuilding(building)
+    r = b.getAllRooms()
   else:
-    floor = Model.findFloor(building,floor)
-    rooms = floor.getAllRooms()
-  rooms = filter(lambda x: isAllocateableRoom(r),rooms)
-  r = []
+    f = Model.findFloor(building,floor)
+    r = f.getAllRooms()
+  rooms = filter(lambda x: isAllocateableRoom(x),r)
+  ret = []
   for room in rooms:
-    if ETReadRoomAllocation.isRoomFree(room,stime,etime):
-      r.append(room.getDetailedInfo())
+    if ETHReadRoomAllocation.isRoomFree(room,stime,etime):
+      ret.append(room.getDetailedInfo())
 
-  return r
+  return ret
 

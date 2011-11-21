@@ -89,6 +89,6 @@ class Building(object):
 
   def getAllRooms(self):
     r = []
-    for floor in self.floors:
-      r.append(floor.getAllRooms())
+    for k,v in self.floors.iteritems():
+      r.extend(v.getAllRooms())
     return r
