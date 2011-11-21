@@ -169,7 +169,7 @@ def getRoomAllocation(building,room,floor):
   r = Model.findRoom(building,room,floor)
   if r!= None:
     timetable = ETHReadRoomAllocation.getRoomAllocation(r)
-    return resultOkay(r)
+    return resultOkay(timetable)
   else:
     return resultError("Could not find room, floor or building")
 
