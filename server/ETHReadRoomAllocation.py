@@ -152,7 +152,7 @@ def parseRaumInfoURL(url):
 #  for row in roomtable:
 #    print row
 #  return {"header":rowHeaders, "time": timetable, "timetable": roomtable, "dt": DT }
-  return {"header": rowHeaders, "stime":rowHeaders[0],"etime":(rowHeaders[:]+DT),"timetable": roomtable, "dt": DT}
+  return {"header": rowHeaders, "stime":rowHeaders[0],"etime":(rowHeaders[-1]+DT),"timetable": roomtable, "dt": DT}
 
 def parseRaumInfoWebsite(building,floor,room,date):
   s = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude={building}&geschoss={floor}&raumNr={room}&rektoratInListe=true&raumInRaumgruppe=true&tag={day}&monat={month}&jahr={year}&checkUsage=anzeigen".format(
