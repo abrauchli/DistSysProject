@@ -17,6 +17,9 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+/**
+ * Class now directly representing pixel data, but later could be adapted to gps data
+ */
 public class Coordinate {
 	private float x, y;
 

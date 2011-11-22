@@ -47,6 +47,7 @@ public abstract class LazyObject {
 
 	protected String ID;
 
+	/** Get the unique ID of this LazyObject. */
 	public String getID() {
 		return ID;
 	}
