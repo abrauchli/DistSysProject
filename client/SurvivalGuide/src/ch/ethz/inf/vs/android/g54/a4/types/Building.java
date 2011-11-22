@@ -26,6 +26,9 @@ import org.json.JSONObject;
 
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
+/**
+ * Lazily loaded class representing buildings.
+ */
 public class Building extends LazyObject {
 
 	// Lazily generated fields
@@ -35,6 +38,7 @@ public class Building extends LazyObject {
 	// Fields instantiated upon generation
 	private String name;
 
+	/** Hidden constructor, use get */
 	protected Building(String ID) {
 		super(ID);
 		this.name = ID;
@@ -94,6 +98,7 @@ public class Building extends LazyObject {
 		}
 	}
 
+	/** Get the list of floors, located in this building. */
 	public List<Floor> getFloors() {
 		if (!isLoaded()) {
 			load();
@@ -101,6 +106,7 @@ public class Building extends LazyObject {
 		return floors;
 	}
 
+	/** Get the address of this building. */
 	public Address getAddress() {
 		if (!isLoaded()) {
 			load();
@@ -108,6 +114,7 @@ public class Building extends LazyObject {
 		return null;
 	}
 
+	/** Get the name of this building. */
 	public String getName() {
 		return name;
 	}

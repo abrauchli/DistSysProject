@@ -34,6 +34,7 @@ public class Room extends LazyObject {
 	String floor;
 	String name;
 
+	/** Hidden constructor, use get */
 	protected Room(String ID) {
 		super(ID);
 		// ID should always be something like 'CAB G 11.1'

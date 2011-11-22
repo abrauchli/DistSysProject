@@ -19,7 +19,6 @@ package ch.ethz.inf.vs.android.g54.a4.types;
 
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
