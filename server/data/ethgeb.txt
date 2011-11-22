@@ -1,4 +1,3 @@
-0|noname|noname
 1058|Mattenstrasse 26|4058 Basel
 ADM|Auf der Mauer 2|8092 Zürich
 AGS|Streulistrasse 74a|8032 Zürich

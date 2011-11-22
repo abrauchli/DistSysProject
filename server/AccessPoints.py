@@ -3,13 +3,16 @@ import codecs
 import json
 import csv
 import re
-import Building 
+import Model 
+from ETHRoom import Room
+from ETHFloor import Floor
+from ETHBuilding import Building
 #data = "data/wlan.csv"
 data = ["data/wlan_honegg.csv", "data/wlan_zentrum.csv"]
 
 wlanRegex = "air-(\w+)-([a-zA-Z]+)(\d+)i--\w"
-wlanID = "air-(\w+)-([a-zA-Z]+)(\d+)-\w"
-wlanIDAlt = "air-(\w+)-([a-zA-Z]+)(\d+)-(\d+)-\w"
+wlanID = "air-(\w+)-([a-zA-Z]+)(\d+)-[a-zA-Z]+"
+wlanIDAlt = "air-(\w+)-([a-zA-Z]+)(\d+)-(\d+)-[a-zA-Z]+"
 wlanIDSpecial = "air-([a-zA-Z]+)-(\w+)-\w"
 accessPoints = {}
 class AccessPoint:
@@ -17,7 +20,7 @@ class AccessPoint:
     self.mac = mac
     self.idstring = idstring
     self.bssid = bssid
-    if (re.search(wlanID,idstring)):
+    if (re.match(wlanID,idstring)):
       m = re.match(wlanID,idstring)
       building = m.group(1).upper()
       floor = m.group(2).upper()
@@ -27,13 +30,14 @@ class AccessPoint:
       building = m.group(1).upper()
       floor = m.group(2).upper()
       room = ""+m.group(3)+"."+m.group(4)
+   
+    print idstring +" -> "+building+" "+floor+" "+room
     
-#    print building + " " + floor + " " + room
-    self.room = Building.findRoom(building,floor,room)
+    self.room = Model.findRoom(building,floor,room)
     if self.room is None:
       print "Adding Room"
-      Building.addRoom(building,floor,room)
-      self.room = Building.findRoom(building,floor,room)
+      Model.addRoom(building,floor,room)
+      self.room = Model.findRoom(building,floor,room)
 #      print self.room.number 
   def objectInfo(self):
     return {"mac":self.mac, 
@@ -77,6 +81,40 @@ def getRoom(mac):
   return accesspoints[mac]
 
 def computeLocation(aps):
+  strength = 0.0
+  mac = ""
+
+  apsResult = {}
+  for k,v in aps.iteritems():
+    if abs(float(v)) >= abs(float(strength)):
+      mac = k
+    ap = accessPoints[k]
+    if ap != None:
+      apsResult[k] = {
+          "coords" : ap.room.location,
+          "location" : ap.room.getDetailedInfo()
+        }
+
+  if mac == "":
+    return None
+  room = accessPoints[mac].room
+  postype = "unknown"
+  if type(room) == Room:
+    postype = "room"
+  elif type(room) == Floor:
+    postype = "floor"
+
+  return {
+    "location" : { 
+       "type" : postype,
+       "result" : room.getDetailedInfo(),
+       "coords" : room.location
+      },
+    "aps" : apsResult
+   }
+
+
+"""
   x = float(0)
   y = float(0)
   s = float(0)
@@ -84,10 +122,9 @@ def computeLocation(aps):
   m = None
   mS = 0.0
   print aps
-  for data in aps:
-    if data.has_key("mac") and data.has_key("strength"):
-      mac = data["mac"]
-      strength = float(data["strength"])
+  for k,v in aps.iteritems():
+      mac = k
+      strength = v
       room = accessPoints[mac].room
       if room == None:
         r[mac] = {"error": "Not Found"}
@@ -113,4 +150,7 @@ def computeLocation(aps):
   else:
     r["error"] = "Not data found"
     return r
+"""
 
+if __name__== "__main__":
+  read()

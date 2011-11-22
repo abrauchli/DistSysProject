@@ -17,17 +17,39 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
+/**
+ * Lazily loaded class representing buildings.
+ */
 public class Building extends LazyObject {
+
+	// Lazily generated fields
+	private Address address;
+	private List<Floor> floors;
+
+	// Fields instantiated upon generation
+	private String name;
+
+	/** Hidden constructor, use get */
+	public Building(String ID) {
+		// TODO: make protected again
+		super(ID);
+		this.name = ID;
+	}
 
 	/** Get a list of all buildings */
 	public static List<Building> getBuildings() {
 		RequestHandler req = RequestHandler.getInstance();
 		req.request("/r");
-		return null; // TODO
+		return null;// TODO: list of all buildings
 	}
 
 	/** Get a building by identifier */
@@ -35,7 +57,61 @@ public class Building extends LazyObject {
 		return (Building) get(name, Building.class);
 	}
 
-//	public List<Floor> getFloors() {
-//		// TODO
-//	}
+	@Override
+	protected void load() {
+		RequestHandler req = RequestHandler.getInstance();
+		Object o = req.request(String.format("/r/%s", name));
+		if (o instanceof JSONObject) {
+			try {
+				JSONObject b = (JSONObject) o;
+
+				// TODO: decide if this would make sense or not
+				// parse name of the building (though already set by constructor)
+				// name = b.getString("name");
+
+				// parse address
+				JSONObject addr = b.getJSONObject("address");
+				address = Address.parseAddress(addr);
+
+				// parse floors
+				JSONObject flrs = b.getJSONObject("floors");
+				floors = new LinkedList<Floor>();
+				for (Iterator<?> keys = flrs.keys(); keys.hasNext();) {
+					String key = (String) keys.next();
+					Floor f = Floor.parseFloor(name, key, flrs.getJSONObject(key));
+					floors.add(f);
+				}
+				setLoaded(true);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				address = null;
+				floors = null;
+				setLoaded(false);
+			}
+		} else {
+			// TODO: error handling?
+		}
+	}
+
+	/** Get the list of floors, located in this building. */
+	public List<Floor> getFloors() {
+		if (!isLoaded()) {
+			load();
+		}
+		return floors;
+	}
+
+	/** Get the address of this building. */
+	public Address getAddress() {
+		if (!isLoaded()) {
+			load();
+		}
+		return address;
+	}
+
+	/** Get the name of this building. */
+	public String getName() {
+		return name;
+	}
 }

@@ -17,6 +17,7 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
 public abstract class LazyObject {
@@ -24,7 +25,10 @@ public abstract class LazyObject {
 	private static HashMap<String, LazyObject> instances = new HashMap<String, LazyObject>();
 
 	/** Hidden constructor, use get */
-	protected LazyObject() {}
+	protected LazyObject(String ID) {
+		this.ID = ID;
+		loaded = false;
+	}
 
 	/** Get instance by name */
 	public static LazyObject get(String name, Class<? extends LazyObject> type) {
@@ -33,11 +37,32 @@ public abstract class LazyObject {
 			return o;
 
 		try {
-			o = type.newInstance();
+			// TODO: getConstructor only returns public constructors, need other solution
+			Constructor<? extends LazyObject> c = type.getConstructor(new Class[] { String.class });
+			o = c.newInstance(new Object[] { name });
 			instances.put(name, o);
 			return o;
 		} catch (Exception e) {
 			return null;
 		}
 	}
+
+	protected String ID;
+
+	/** Get the unique ID of this LazyObject. */
+	public String getID() {
+		return ID;
+	}
+
+	private boolean loaded;
+
+	protected boolean isLoaded() {
+		return loaded;
+	}
+
+	protected void setLoaded(boolean loaded) {
+		this.loaded = loaded;
+	}
+
+	protected abstract void load();
 }

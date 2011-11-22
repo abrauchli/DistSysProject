@@ -232,11 +232,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			} else if (!location.isValid()) {
 				showToast("no position found");
 			} else {
-				String building = location.getBuilding().toString();
-				// TODO: might not have a floor or room set
-				String floor = "TODO"; // location.getFloor().toString();
-				String room = "TODO"; // position.getString("number");
-				txt_room.setText(String.format("%s %s %s", building, floor, room));
+				String buildingID = location.getNearestRoom().getID();
+				txt_room.setText(buildingID);
 				txt_ap.setText("");
 			}
 			break;
