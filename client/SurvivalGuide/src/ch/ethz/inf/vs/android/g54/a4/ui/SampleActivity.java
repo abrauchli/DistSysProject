@@ -60,7 +60,7 @@ public class SampleActivity extends Activity {
 			scrollRect = new Rect(0, 0, displayWidth, displayHeight);
 
 			// Load a large bitmap into an offscreen area of memory.
-			bmLargeImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+			bmLargeImage = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 		}
 		
 		@Override
