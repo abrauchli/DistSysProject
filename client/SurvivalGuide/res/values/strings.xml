@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="buildings">Buildings</string>
+    <string name="rooms">Rooms</string>
     <string name="app_name">SurvivalGuide</string>
     <string name="dummy_data">Load Dummy Data</string>
+    <string name="eth_center">Center</string>
+    <string name="eth_hoengg">Hönggerberg</string>
+    <string name="room_dialog_title">Choose a Room</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
 
 </resources>

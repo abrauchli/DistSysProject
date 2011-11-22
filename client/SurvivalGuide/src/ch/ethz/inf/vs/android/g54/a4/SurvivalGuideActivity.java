@@ -18,17 +18,15 @@
 package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
@@ -40,28 +38,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import ch.ethz.inf.vs.android.g54.a4.net.*;
-import ch.ethz.inf.vs.android.g54.a4.types.*;
+import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
+import ch.ethz.inf.vs.android.g54.a4.types.Location;
+import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
+import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	private static final String TAG = "SurvivalGuideActivity";
+	private static final int ROOMS_DIALOG = 1;
+
+	// temp dummy data
+	private static final String[] buildings = { "CAB", "HG", "IFW" };
+	private static final String[] floors = { "C", "D", "E" };
+	private static final String[] rooms = { "1", "2", "3.1", "3.2", "4", "5", "6.1", "6.2", "6.3", "6.5", "7", "8" };
 
 	Handler handler;
 
 	WifiManager wifi;
-	WifiScanReceiver receiver;
+	WifiScanReceiver scanReceiver;
 
-	ArrayAdapter<WifiReading> adapter;
+	ArrayAdapter<WifiReading> readingAdapter;
 	TextView txt_room, txt_ap;
 	ListView lst_networks;
 
 	// List<WifiConfiguration> configuredNetworks;
 	List<WifiReading> visibleNetworks;
+
+	// TODO find a better way to save spinner selection
+	String selectedBuilding, selectedFloor, selectedRoom;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -90,9 +101,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
-			adapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
-			lst_networks.setAdapter(adapter);
-			receiver = new WifiScanReceiver(this);
+			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
+			lst_networks.setAdapter(readingAdapter);
+			scanReceiver = new WifiScanReceiver(this);
 		} catch (Exception e) {
 			showException(TAG, e);
 		}
@@ -101,13 +112,83 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		registerReceiver(receiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+		registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		unregisterReceiver(receiver);
+		unregisterReceiver(scanReceiver);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		AdapterView.OnItemSelectedListener selectedListener = new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				switch (parent.getId()) {
+				case R.id.spn_building:
+					selectedBuilding = buildings[position];
+					break;
+				case R.id.spn_floor:
+					selectedFloor = floors[position];
+					break;
+				case R.id.spn_room:
+					selectedRoom = rooms[position];
+					break;
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				switch (parent.getId()) {
+				case R.id.spn_building:
+					selectedBuilding = "";
+					break;
+				case R.id.spn_floor:
+					selectedFloor = "";
+					break;
+				case R.id.spn_room:
+					selectedRoom = "";
+					break;
+				}
+			}
+		};
+
+		switch (id) {
+		case ROOMS_DIALOG:
+			View room_dialog = getLayoutInflater().inflate(R.layout.room_dialog, null);
+
+			Spinner spn_building = (Spinner) room_dialog.findViewById(R.id.spn_building);
+			ArrayAdapter<String> buildingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+					buildings);
+			buildingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spn_building.setAdapter(buildingAdapter);
+			spn_building.setOnItemSelectedListener(selectedListener);
+
+			Spinner spn_floor = (Spinner) room_dialog.findViewById(R.id.spn_floor);
+			ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+					floors);
+			floorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spn_floor.setAdapter(floorAdapter);
+			spn_floor.setOnItemSelectedListener(selectedListener);
+
+			Spinner spn_room = (Spinner) room_dialog.findViewById(R.id.spn_room);
+			ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+					rooms);
+			roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spn_room.setAdapter(roomAdapter);
+			spn_room.setOnItemSelectedListener(selectedListener);
+
+			return new AlertDialog.Builder(SurvivalGuideActivity.this)
+					.setTitle(R.string.room_dialog_title)
+					.setView(room_dialog)
+					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor, selectedRoom));
+						}
+					})
+					.create();
+		}
+		return null;
 	}
 
 	@Override
@@ -119,8 +200,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.mni_buildings:
-			showToast("not implemented"); // TODO
+		case R.id.mni_rooms:
+			showDialog(ROOMS_DIALOG);
 			break;
 		case R.id.mni_dummy_data:
 			loadDummyData(false);
@@ -191,8 +272,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			visibleNetworks.clear();
 			visibleNetworks.addAll(readings);
 		}
-		Collections.sort(visibleNetworks, WifiReading.bySignal);
-		adapter.notifyDataSetChanged();
+		// Collections.sort(visibleNetworks, WifiReading.bySignal);
+		readingAdapter.notifyDataSetChanged();
 	}
 
 	private class WifiScanReceiver extends BroadcastReceiver {

@@ -15,14 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ch.ethz.inf.vs.android.g54.a4;
+package ch.ethz.inf.vs.android.g54.a4.ui;
 
 import java.util.List;
 
+import ch.ethz.inf.vs.android.g54.a4.R;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 
 import android.content.Context;
-import android.net.wifi.ScanResult;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
