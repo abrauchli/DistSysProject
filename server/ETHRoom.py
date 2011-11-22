@@ -73,5 +73,6 @@ class Room(Cacheable.Cacheable):
       "room"  : self.number,
       "desc"  : self.desc,
       "map"   : self.getURL(),
+      "mapAvailable" : self.mapAvailable,
       "location" : self.location
     }
