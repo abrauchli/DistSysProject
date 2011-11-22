@@ -27,7 +27,7 @@ class Floor(Cacheable.Cacheable):
     self.building = building
     self.floor = floor
     self.rooms = {}
-    self.mapAvailable = True
+#    self.mapAvailable = False
     self.cached = False
     if type(building) != ETHBuilding.Building:
       print building.name+" "+building.strasse

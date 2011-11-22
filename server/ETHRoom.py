@@ -70,7 +70,9 @@ class Room(Cacheable.Cacheable):
     return {
       "building" : self.building.name,
       "floor" : self.floor.floor,
+      "room"  : self.number,
       "desc"  : self.desc,
       "map"   : self.getURL(),
+      "mapAvailable" : self.mapAvailable,
       "location" : self.location
     }

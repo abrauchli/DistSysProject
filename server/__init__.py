@@ -116,7 +116,7 @@ r/CAB/E/18.1/allocation ## HIGHLY EXPERIMENTAL
       result = {
         location : {
         type = “room” / “floor”        
-        result = { information from either room/floor/building }
+        result = { information from either room/floor (we have some ap's which we can't match to a room) }
         coords = { // Left out, when no coordinate information
           x =
           y =
