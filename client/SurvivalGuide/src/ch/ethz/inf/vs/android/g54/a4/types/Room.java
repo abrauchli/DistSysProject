@@ -26,7 +26,8 @@ public class Room extends LazyObject {
 
 	// lazily generated fields
 	String description;
-	// TODO: map url and map
+	String mapUrl;
+	// TODO: map
 	Coordinate roomCenter;
 
 	// fields instantiated upon initialization
@@ -53,6 +54,29 @@ public class Room extends LazyObject {
 		return String.format("%s %s", Floor.constructID(building, floor), room);
 	}
 
+	protected static Room parseRoom(String building, String floor, String room, JSONObject desc) throws JSONException {
+		Room r = getRoom(building, floor, room);
+		if (!r.isLoaded()) {
+			r.description = desc.getString("desc");
+		}
+		return r;
+	}
+
+	protected static Room parseRoom(JSONObject desc) throws JSONException {
+		String building = desc.getString("building");
+		String floor = desc.getString("floor");
+		String room = desc.getString("room");
+
+		Room r = getRoom(building, floor, room);
+
+		if (!r.isLoaded()) {
+			r.mapUrl = desc.getString("map");
+			r.description = desc.getString("desc");
+			r.roomCenter = Coordinate.parseCoordinate(desc.getJSONObject("location"));
+		}
+		return null;
+	}
+
 	@Override
 	protected boolean isLoaded() {
 		return (description != null) && (roomCenter != null);
@@ -71,11 +95,7 @@ public class Room extends LazyObject {
 				// parse room
 				description = r.getString("desc");
 				// TODO: get map url and map
-				JSONObject loc = r.getJSONObject("location");
-				// TODO: find solution to send floating point gps locations
-				int x = loc.getInt("x");
-				int y = loc.getInt("y");
-				roomCenter = new Coordinate(x, y);
+				roomCenter = Coordinate.parseCoordinate(r.getJSONObject("location"));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

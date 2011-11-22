@@ -27,6 +27,7 @@ public abstract class LazyObject {
 	/** Hidden constructor, use get */
 	protected LazyObject(String ID) {
 		this.ID = ID;
+		loaded = false;
 	}
 
 	/** Get instance by name */
@@ -52,7 +53,15 @@ public abstract class LazyObject {
 		return ID;
 	}
 
-	protected abstract boolean isLoaded();
+	private boolean loaded;
+
+	protected boolean isLoaded() {
+		return loaded;
+	}
+
+	protected void setLoaded(boolean loaded) {
+		this.loaded = loaded;
+	}
 
 	protected abstract void load();
 }

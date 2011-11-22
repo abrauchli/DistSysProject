@@ -17,10 +17,19 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Address {
 
 	private String street;
 	private String city;
+
+	protected static Address parseAddress(JSONObject addr) throws JSONException {
+		String street = addr.getString("street");
+		String city = addr.getString("city");
+		return new Address(street, city);
+	}
 
 	public Address(String street, String city) {
 		this.street = street;

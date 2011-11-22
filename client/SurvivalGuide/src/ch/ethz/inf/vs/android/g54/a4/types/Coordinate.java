@@ -17,11 +17,21 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Class now directly representing pixel data, but later could be adapted to gps data
  */
 public class Coordinate {
 	private float x, y;
+
+	protected static Coordinate parseCoordinate(JSONObject coord) throws JSONException {
+		// TODO: find solution to send floating point gps locations
+		int x = coord.getInt("x");
+		int y = coord.getInt("y");
+		return new Coordinate(x, y);
+	}
 
 	public Coordinate(float x, float y) {
 		this.x = x;

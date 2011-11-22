@@ -38,7 +38,7 @@ import android.widget.Toast;
  */
 public class RequestHandler {
 	private static final String HOST = "http://deserver.moeeeep.com";
-	private static final int PORT = 23032;
+	private static final int PORT = 32123;
 
 	private static final String TAG = "SG_NetLib";
 
