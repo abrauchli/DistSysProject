@@ -36,7 +36,8 @@ public class Room extends LazyObject {
 	String name;
 
 	/** Hidden constructor, use get */
-	protected Room(String ID) {
+	public Room(String ID) {
+		// TODO: make protected again
 		super(ID);
 		// ID should always be something like 'CAB G 11.1'
 		String[] parts = ID.split(" ");

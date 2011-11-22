@@ -39,7 +39,8 @@ public class Building extends LazyObject {
 	private String name;
 
 	/** Hidden constructor, use get */
-	protected Building(String ID) {
+	public Building(String ID) {
+		// TODO: make protected again
 		super(ID);
 		this.name = ID;
 	}

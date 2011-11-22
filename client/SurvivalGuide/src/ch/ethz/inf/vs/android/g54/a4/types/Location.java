@@ -108,6 +108,6 @@ public class Location {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return aps;
+		return req;
 	}
 }

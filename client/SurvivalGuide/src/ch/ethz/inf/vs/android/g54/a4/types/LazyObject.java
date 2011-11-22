@@ -37,6 +37,7 @@ public abstract class LazyObject {
 			return o;
 
 		try {
+			// TODO: getConstructor only returns public constructors, need other solution
 			Constructor<? extends LazyObject> c = type.getConstructor(new Class[] { String.class });
 			o = c.newInstance(new Object[] { name });
 			instances.put(name, o);

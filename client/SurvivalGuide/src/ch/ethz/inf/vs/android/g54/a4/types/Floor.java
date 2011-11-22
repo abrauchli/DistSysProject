@@ -39,7 +39,8 @@ public class Floor extends LazyObject {
 	private String name;
 
 	/** Hidden constructor, use get */
-	protected Floor(String ID) {
+	public Floor(String ID) {
+		// TODO: make protected again
 		super(ID);
 		// ID should always be something like 'CAB E'
 		String[] parts = ID.split(" ");
