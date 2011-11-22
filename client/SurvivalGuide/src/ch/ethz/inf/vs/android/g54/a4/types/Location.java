@@ -25,11 +25,11 @@ import org.json.JSONObject;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Location {
-	private boolean valid = false;
-	private Building building;
+	private boolean valid;
+	private Room nearestRoom;
+	private Coordinate fineGrainedLoc;
 
-	private Location(Building b) {
-		this.building = b;
+	private Location() {
 	}
 
 	/**
@@ -42,19 +42,40 @@ public class Location {
 	public static Location getFromReadings(List<WifiReading> readings) {
 		RequestHandler rh = RequestHandler.getInstance();
 		Object o = rh.post("/json", readingsToJSON(readings).toString());
+		Location location = new Location();
 		if (o instanceof JSONObject) {
 			try {
 				JSONObject res = (JSONObject) o;
-				res.getJSONObject("location");
-				// TODO: parse location
+
+				// parse location
+				JSONObject loc = res.getJSONObject("location");
+
+				// parse location type
+				String type = loc.getString("type");
+				if (type.equals("room")) {
+					location.nearestRoom = Room.parseRoom(loc.getJSONObject("result"));
+				} else if (type.equals("floor")) {
+					// TODO: parse floor
+				} else {
+					location.valid = false;
+				}
+
+				// parse coordinates
+				if (loc.has("coords")) {
+					JSONObject coords = loc.getJSONObject("coords");
+					location.fineGrainedLoc = Coordinate.parseCoordinate(coords);
+				}
+
+				// TODO: parse aps
 			} catch (JSONException e) {
+				location.valid = false;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			// TODO: error handling?
+			location.valid = false;
 		}
-		return new Location(Building.getBuilding("TODO: removeMe"));
+		return location;
 	}
 
 	/** Whether there is an actual location associated with this request */
@@ -62,9 +83,13 @@ public class Location {
 		return this.valid;
 	}
 
-	/** Get the building this location is associated with. Null if none */
-	public Building getBuilding() {
-		return this.building;
+	/** Get the nearest room this location is associated with. Null if none */
+	public Room getNearestRoom() {
+		return this.nearestRoom;
+	}
+
+	public Coordinate getLocation() {
+		return this.fineGrainedLoc;
 	}
 
 	private static JSONObject readingsToJSON(List<WifiReading> readings) {
@@ -83,6 +108,6 @@ public class Location {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return aps;
+		return req;
 	}
 }

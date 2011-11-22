@@ -30,14 +30,17 @@ public class Floor extends LazyObject {
 
 	// lazily generated fields
 	private List<Room> rooms;
-	// TODO: map url and map
+	private String mapUrl;
+	private boolean mapAvailable;
+	// TODO: map
 
 	// fields instantiated upon initialization
 	private String building;
 	private String name;
 
 	/** Hidden constructor, use get */
-	protected Floor(String ID) {
+	public Floor(String ID) {
+		// TODO: make protected again
 		super(ID);
 		// ID should always be something like 'CAB E'
 		String[] parts = ID.split(" ");
@@ -52,6 +55,17 @@ public class Floor extends LazyObject {
 
 	protected static String constructID(String building, String floor) {
 		return String.format("%s %s", building, floor);
+	}
+
+	protected static Floor parseFloor(String building, String floor, JSONObject desc) throws JSONException {
+		Floor f = getFloor(building, floor);
+		if (!f.isLoaded()) {
+			f.mapAvailable = desc.getBoolean("mapAvailable");
+			if (f.mapAvailable) {
+				f.mapUrl = desc.getString("map");
+			}
+		}
+		return f;
 	}
 
 	@Override
@@ -74,9 +88,8 @@ public class Floor extends LazyObject {
 				rooms = new LinkedList<Room>();
 				for (Iterator<?> keys = rms.keys(); keys.hasNext();) {
 					String key = (String) keys.next();
-					Room.getRoom(building, name, key);
-					// TODO: set map url
-					// TODO: set description
+					Room r = Room.parseRoom(building, name, key, rms.getJSONObject(key));
+					rooms.add(r);
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

@@ -39,7 +39,8 @@ public class Building extends LazyObject {
 	private String name;
 
 	/** Hidden constructor, use get */
-	protected Building(String ID) {
+	public Building(String ID) {
+		// TODO: make protected again
 		super(ID);
 		this.name = ID;
 	}
@@ -57,41 +58,36 @@ public class Building extends LazyObject {
 	}
 
 	@Override
-	protected boolean isLoaded() {
-		return (address != null) && (floors != null);
-	}
-
-	@Override
 	protected void load() {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s", name));
 		if (o instanceof JSONObject) {
 			try {
 				JSONObject b = (JSONObject) o;
-				
+
 				// TODO: decide if this would make sense or not
 				// parse name of the building (though already set by constructor)
 				// name = b.getString("name");
-				
+
 				// parse address
 				JSONObject addr = b.getJSONObject("address");
-				String street = addr.getString("street");
-				String city = addr.getString("city");
-				address = new Address(street, city);
-				
+				address = Address.parseAddress(addr);
+
 				// parse floors
 				JSONObject flrs = b.getJSONObject("floors");
 				floors = new LinkedList<Floor>();
 				for (Iterator<?> keys = flrs.keys(); keys.hasNext();) {
 					String key = (String) keys.next();
-					Floor.getFloor(name, key);
-					// TODO: set map url
+					Floor f = Floor.parseFloor(name, key, flrs.getJSONObject(key));
+					floors.add(f);
 				}
+				setLoaded(true);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				address = null;
 				floors = null;
+				setLoaded(false);
 			}
 		} else {
 			// TODO: error handling?
@@ -111,7 +107,7 @@ public class Building extends LazyObject {
 		if (!isLoaded()) {
 			load();
 		}
-		return null;
+		return address;
 	}
 
 	/** Get the name of this building. */

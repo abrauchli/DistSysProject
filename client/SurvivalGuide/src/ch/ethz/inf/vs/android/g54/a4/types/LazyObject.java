@@ -27,6 +27,7 @@ public abstract class LazyObject {
 	/** Hidden constructor, use get */
 	protected LazyObject(String ID) {
 		this.ID = ID;
+		loaded = false;
 	}
 
 	/** Get instance by name */
@@ -36,6 +37,7 @@ public abstract class LazyObject {
 			return o;
 
 		try {
+			// TODO: getConstructor only returns public constructors, need other solution
 			Constructor<? extends LazyObject> c = type.getConstructor(new Class[] { String.class });
 			o = c.newInstance(new Object[] { name });
 			instances.put(name, o);
@@ -52,7 +54,15 @@ public abstract class LazyObject {
 		return ID;
 	}
 
-	protected abstract boolean isLoaded();
+	private boolean loaded;
+
+	protected boolean isLoaded() {
+		return loaded;
+	}
+
+	protected void setLoaded(boolean loaded) {
+		this.loaded = loaded;
+	}
 
 	protected abstract void load();
 }
