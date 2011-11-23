@@ -52,7 +52,10 @@ class Floor(Cacheable.Cacheable):
     if room in self.rooms:
       return self.rooms[room]
     print "Couldn't find room: "+room
-    return None
+    return RoomNotFoundException("Couldn't find room {room} on {floor} in {building}".format(
+          room = room,
+          floor = self.floor,
+          building = self.building.name)
 
   def room(self,room):
     if room in self.rooms:

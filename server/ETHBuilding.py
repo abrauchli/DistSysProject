@@ -19,7 +19,7 @@
 
 import ETHFloor 
 import ETHRoom 
-
+from exception import *
 class Building(object):  
   def __init__(self,name,city=u"Zürich",street=""):
     if street =="noname":
@@ -38,13 +38,18 @@ class Building(object):
   def findRoom(self,floor,room):
     if floor in self.floors:
       return self.floors[floor].findRoom(room)
-    return None
+    return RoomNotFoundException("Couldn't find room {room} on {floor} in {building}".format(
+          room = room,
+          floor = floor,
+          building = self.name)
 
   def findFloor(self,floor):
     if floor in self.floors:
       return self.floors[floor]
     print "Couldn't find floor:" + floor
-    return None
+    return FloorNotFoundException("Couldn't find floor {floor} in {building}".format(
+        floor = floor,
+        building = self.name)
 
   def addFloor(self,floor):
     floor.upper()

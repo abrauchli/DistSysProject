@@ -24,7 +24,7 @@ from ETHRoom import Room
 import codecs
 import re
 import csv
-
+from exception import *
 ETHBUILDINGS = 'data/ethgeb.txt'
 ETHROOMS = 'data/ethuint.txt'
 
@@ -38,11 +38,13 @@ def findRoom(bldname,flname,rmname):
   if bldname in buildings:
     b = buildings[bldname]
     return b.findRoom(flname,rmname)
-
+  raise BuildingNotFoundException("Didn't find building: {bld}".format(
+        bld=bldname)
 def findBuilding(bldname):
   if bldname in buildings:
     return buildings[bldname]
-
+  raise BuildingNotFoundException("Didn't find building: {bld}".format(
+        bld=bldname)
 
 def findFloor(bldname,floor):
   if bldname in buildings:
