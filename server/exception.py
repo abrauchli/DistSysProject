@@ -27,7 +27,12 @@ class NotFoundException(Exception):
       "msg": msg}
 
 class BuildingNotFoundException(NotFoundException):
+  pass
 class FloorNotFoundException(NotFoundException):
+  pass
 class RoomNotFoundException(NotFoundException):
+  pass
 class MacAdressNotFoundException(NotFoundException):
+  pass
 class LocationNotFoundException(NotFoundException):
+  pass
