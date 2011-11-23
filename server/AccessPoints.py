@@ -88,12 +88,13 @@ def computeLocation(aps):
   for k,v in aps.iteritems():
     if abs(float(v)) >= abs(float(strength)):
       mac = k
-    ap = accessPoints[k]
-    if ap != None:
-      apsResult[k] = {
-          "coords" : ap.room.location,
-          "location" : ap.room.getDetailedInfo()
-        }
+    ap = accessPoints.get(k, None)
+    if ap == None:
+       return None
+    apsResult[k] = {
+        "coords" : ap.room.location,
+        "location" : ap.room.getDetailedInfo()
+      }
 
   if mac == "":
     return None
