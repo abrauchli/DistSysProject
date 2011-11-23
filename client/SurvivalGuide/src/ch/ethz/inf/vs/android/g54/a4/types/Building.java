@@ -30,6 +30,8 @@ import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
  * Lazily loaded class representing buildings.
  */
 public class Building extends LazyObject {
+	/** Caching of list of all buildings. */
+	private static List<Building> allBuildings = null;
 
 	// Lazily generated fields
 	private Address address;
@@ -48,9 +50,40 @@ public class Building extends LazyObject {
 
 	/** Get a list of all buildings */
 	public static List<Building> getBuildings() {
-		RequestHandler req = RequestHandler.getInstance();
-		req.request("/r");
-		return null;// TODO: list of all buildings
+		if (allBuildings == null) {
+			RequestHandler req = RequestHandler.getInstance();
+			Object o = req.request("/r");
+			if (o instanceof JSONObject) {
+				try {
+					JSONObject buildingsList = (JSONObject) o;
+					allBuildings = new LinkedList<Building>();
+					for (Iterator<?> keys = buildingsList.keys(); keys.hasNext();) {
+						String key = (String) keys.next();
+						Building b = Building.parseBuilding(buildingsList.getJSONObject(key));
+						allBuildings.add(b);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					allBuildings = null;
+				}
+			} else {
+				// TODO: error handling?
+			}
+			
+		}
+		return allBuildings;
+	}
+
+	private static Building parseBuilding(JSONObject desc) throws JSONException {
+		String bName = desc.getString("name");
+		Building b = getBuilding(bName);
+		if (!b.isLoaded()) {
+			JSONObject addr = desc.getJSONObject("address");
+			Address a = Address.parseAddress(addr);
+			b.address = a;
+		}
+		return b;
 	}
 
 	/** Get a building by identifier */
