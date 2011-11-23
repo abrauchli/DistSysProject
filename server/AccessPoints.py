@@ -81,7 +81,7 @@ def getRoom(mac):
   if mac in accesspoints:
     return accesspoints[mac]
   return MacAdressNotFoundException("Mac address {mac} not found".format(
-        mac=mac)
+        mac=mac))
 
 def computeLocation(aps):
   strength = 0.0
