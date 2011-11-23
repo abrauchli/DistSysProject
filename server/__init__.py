@@ -26,6 +26,8 @@ import Controller
 import config
 import AccessPoints
 import ETHReadRoomAllocation
+
+from exception import *
 app = Flask(__name__)
 
 def resultOkay(obj):
@@ -143,48 +145,50 @@ def all():
   return resultOkay(Model.getBuildings())
 @app.route("/r/<building>")
 def getBuilding(building):
-  r = Model.getBuilding(building)
-  if r != None:
+  try: 
+    r = Model.getBuilding(building)
     return resultOkay(r)
-  else:
-    return resultError("Could not find building")
+  except NotFoundException as e:
+    return resultError(e.getError())
 
 @app.route("/r/<building>/<room>")
 def getFloor(building,room):
-  r = Model.getFloor(building,room)
-  if r != None:
+  try:
+    r = Model.getFloor(building,room)
     return resultOkay(r)
-  else:
-    return resultError("Could not find floor or building")
+  except NotFoundException e:
+    return resultError(e.getError())
 
 @app.route("/r/<building>/<room>/<floor>")
 def getRoom(building,room,floor):
-  r = Model.getRoom(building,room,floor)
-  if r!= None:
+  try:
+    r = Model.getRoom(building,room,floor)
     return resultOkay(r)
-  else:
-    return resultError("Could not find room, floor or building")
+  except NotFoundException as e:
+    return resultError(e.getError())
 
 
 @app.route("/r/<building>/<room>/<floor>/allocation")
 def getRoomAllocation(building,room,floor):
-  r = Model.findRoom(building,room,floor)
-  if r!= None:
+  try:
+    r = Model.findRoom(building,room,floor)
     timetable = ETHReadRoomAllocation.getRoomAllocation(r)
     return resultOkay(timetable)
-  else:
-    return resultError("Could not find room, floor or building")
+  except NotFoundException as e:
+    return resultError(e.getError())
 
 @app.route("/json",methods=['GET', 'POST'])
 def jsonRequest():
   if request.method == "POST":
     if request.json != None:
-      req = Controller.parseJSONRequest(request.json)
-      if req != None:      
+      try: 
+        req = Controller.parseJSONRequest(request.json)
         return resultOkay(req)
-      else:
+      except NotFoundException as e:
+        return resultError(e.getError())
+      except:
         return resultError("Either Input or output malformed")
-    else:
+   else:
       return resultError("Input malformed: You didn't send the request with application/json")
   else: 
     return """<pre>Expecting application/json via HTTP POST</pre>"""
