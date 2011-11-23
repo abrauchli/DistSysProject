@@ -54,6 +54,7 @@ public class Location {
 				String type = loc.getString("type");
 				if (type.equals("room")) {
 					location.nearestRoom = Room.parseRoom(loc.getJSONObject("result"));
+					location.valid = true;
 				} else if (type.equals("floor")) {
 					// TODO: parse floor
 				} else {

@@ -75,7 +75,7 @@ public class Room extends LazyObject {
 			r.description = desc.getString("desc");
 			r.roomCenter = Coordinate.parseCoordinate(desc.getJSONObject("location"));
 		}
-		return null;
+		return r;
 	}
 
 	@Override

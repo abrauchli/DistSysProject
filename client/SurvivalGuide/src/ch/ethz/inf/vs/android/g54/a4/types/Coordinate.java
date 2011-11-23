@@ -21,13 +21,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Class now directly representing pixel data, but later could be adapted to gps data
+ * Class now directly represents pixel coordinates, but later could be adapted to geographical coordinates
  */
 public class Coordinate {
 	private float x, y;
 
 	protected static Coordinate parseCoordinate(JSONObject coord) throws JSONException {
-		// TODO: find solution to send floating point gps locations
+		// TODO: find solution to send floating point geographical coordinates
 		int x = coord.getInt("x");
 		int y = coord.getInt("y");
 		return new Coordinate(x, y);

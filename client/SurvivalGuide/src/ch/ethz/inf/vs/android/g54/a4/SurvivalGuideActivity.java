@@ -18,6 +18,7 @@
 package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -269,7 +270,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			visibleNetworks.clear();
 			visibleNetworks.addAll(readings);
 		}
-		// Collections.sort(visibleNetworks, WifiReading.bySignal);
+		Collections.sort(visibleNetworks, WifiReading.bySignal);
 		readingAdapter.notifyDataSetChanged();
 	}
 
