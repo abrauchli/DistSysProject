@@ -38,18 +38,19 @@ def findRoom(bldname,flname,rmname):
   if bldname in buildings:
     b = buildings[bldname]
     return b.findRoom(flname,rmname)
-  raise BuildingNotFoundException("Didn't find building: {bld}".format(
+  raise BuildingNotFoundException("Couldn't find building: {bld}".format(
         bld=bldname))
 def findBuilding(bldname):
   if bldname in buildings:
     return buildings[bldname]
-  raise BuildingNotFoundException("Didn't find building: {bld}".format(
+  raise BuildingNotFoundException("Couldn't find building: {bld}".format(
         bld=bldname))
 
 def findFloor(bldname,floor):
   if bldname in buildings:
     return buildings[bldname].findFloor(floor)
-  print "Couldn't find building: "+bldname
+  raise FloorNotFoundException("Couldn't find floor: {bld} {floor}".format(
+        bld=bldname,floor=floor))
 
 ## Add operations
 def addBuilding(name,city,street):
