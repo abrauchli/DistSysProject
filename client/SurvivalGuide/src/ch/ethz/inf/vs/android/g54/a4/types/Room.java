@@ -25,20 +25,20 @@ import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 public class Room extends LazyObject {
 
 	// lazily generated fields
-	String description;
-	String mapUrl;
+	private String description;
+	private String mapUrl;
 	// TODO: map
 	Coordinate roomCenter;
 
 	// fields instantiated upon initialization
-	String building;
-	String floor;
-	String name;
+	private String building;
+	private String floor;
+	private String name;
 
-	/** Hidden constructor, use get */
-	public Room(String ID) {
-		// TODO: make protected again
-		super(ID);
+	/** Hidden initialize function, use get */
+	@Override
+	protected void initialize(String ID) {
+		super.initialize(ID);
 		// ID should always be something like 'CAB G 11.1'
 		String[] parts = ID.split(" ");
 		building = parts[0];

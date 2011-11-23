@@ -25,28 +25,31 @@ public abstract class LazyObject {
 	private static HashMap<String, LazyObject> instances = new HashMap<String, LazyObject>();
 
 	/** Hidden constructor, use get */
-	protected LazyObject(String ID) {
-		this.ID = ID;
+	protected LazyObject() {
 		loaded = false;
 	}
 
+	/** Hidden initialize function, use get */
+	protected void initialize(String ID) {
+		this.ID = ID;
+	}
+
 	/** Get instance by name */
-	public static LazyObject get(String name, Class<? extends LazyObject> type) {
-		LazyObject o = instances.get(name);
+	public static LazyObject get(String id, Class<? extends LazyObject> type) {
+		LazyObject o = instances.get(id);
 		if (o != null)
 			return o;
 
 		try {
-			// TODO: getConstructor only returns public constructors, need other solution
-			Constructor<? extends LazyObject> c = type.getConstructor(new Class[] { String.class });
-			o = c.newInstance(new Object[] { name });
-			instances.put(name, o);
+			o = type.newInstance();
+			o.initialize(id);
+			instances.put(id, o);
 			return o;
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	/** Unique ID of this LazyObject. */
 	protected String ID;
 
