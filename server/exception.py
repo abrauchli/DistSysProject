@@ -26,8 +26,8 @@ class NotFoundException(Exception):
     return {"error": self.__class__.__name__,
       "msg": msg}
 
-class BuildingNotFoundException(NotFoundException)
-class FloorNotFoundException(NotFoundException)
-class RoomNotFoundException(NotFoundException)
-class MacAdressNotFoundException(NotFoundException)
-class LocationNotFoundException(NotFoundException)
+class BuildingNotFoundException(NotFoundException):
+class FloorNotFoundException(NotFoundException):
+class RoomNotFoundException(NotFoundException):
+class MacAdressNotFoundException(NotFoundException):
+class LocationNotFoundException(NotFoundException):
