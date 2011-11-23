@@ -46,7 +46,8 @@ public abstract class LazyObject {
 			return null;
 		}
 	}
-
+	
+	/** Unique ID of this LazyObject. */
 	protected String ID;
 
 	/** Get the unique ID of this LazyObject. */
@@ -54,15 +55,19 @@ public abstract class LazyObject {
 		return ID;
 	}
 
+	/** Indicates, whether this LazyObject is fully loaded */
 	private boolean loaded;
 
-	protected boolean isLoaded() {
+	/** Indicates, whether this LazyObject is fully loaded */
+	protected final boolean isLoaded() {
 		return loaded;
 	}
 
-	protected void setLoaded(boolean loaded) {
+	/** Overwrites the loaded flag */
+	protected final void setLoaded(boolean loaded) {
 		this.loaded = loaded;
 	}
 
+	/** Load the LazyObject */
 	protected abstract void load();
 }

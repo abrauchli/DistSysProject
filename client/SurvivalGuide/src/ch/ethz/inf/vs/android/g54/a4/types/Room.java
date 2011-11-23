@@ -79,11 +79,6 @@ public class Room extends LazyObject {
 	}
 
 	@Override
-	protected boolean isLoaded() {
-		return (description != null) && (roomCenter != null);
-	}
-
-	@Override
 	protected void load() {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s/%s/%s", building, floor, name));
@@ -97,11 +92,13 @@ public class Room extends LazyObject {
 				description = r.getString("desc");
 				// TODO: get map url and map
 				roomCenter = Coordinate.parseCoordinate(r.getJSONObject("location"));
+				setLoaded(true);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				description = null;
 				roomCenter = null;
+				setLoaded(false);
 			}
 		} else {
 			// TODO: error handling?
