@@ -50,6 +50,7 @@ import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
+import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	private static final String TAG = "SurvivalGuideActivity";
@@ -80,6 +81,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		U.initContext(this);
 
 		if (getLastNonConfigurationInstance() != null)
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
@@ -106,7 +109,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			lst_networks.setAdapter(readingAdapter);
 			scanReceiver = new WifiScanReceiver(this);
 		} catch (Exception e) {
-			showException(TAG, e);
+			U.showException(TAG, e);
 		}
 	}
 
@@ -184,7 +187,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 					.setView(room_dialog)
 					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor, selectedRoom));
+							U.showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor, selectedRoom));
 						}
 					})
 					.create();
@@ -229,9 +232,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 		case R.id.btn_location:
 			Location location = Location.getFromReadings(visibleNetworks);
 			if (location == null) {
-				showToast("getting location failed");
+				U.showToast("getting location failed");
 			} else if (!location.isValid()) {
-				showToast("no position found");
+				U.showToast("no position found");
 			} else {
 				String buildingID = location.getNearestRoom().getID();
 				txt_room.setText(buildingID);
@@ -291,56 +294,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			}
 			scanner.showReadings(readings);
 		}
-	}
-
-	/*
-	 * Methods for displaying errors
-	 */
-
-	private String formatException(Exception e) {
-		return e.getClass().getSimpleName() + ": " + e.getMessage();
-	}
-
-	private void showException(String tag, Exception e) {
-		String exDesc = formatException(e);
-		Log.e(tag, exDesc);
-		Log.e(tag, Log.getStackTraceString(e));
-		showToastLong(exDesc);
-	}
-
-	private void postException(String tag, Exception e) {
-		String exDesc = formatException(e);
-		Log.e(tag, exDesc);
-		Log.e(tag, Log.getStackTraceString(e));
-		postToastLong(exDesc);
-	}
-
-	/*
-	 * Logic for showing general information
-	 */
-
-	private void postToast(final String text) {
-		handler.post(new Runnable() {
-			public void run() {
-				showToast(text);
-			}
-		});
-	}
-
-	private void postToastLong(final String text) {
-		handler.post(new Runnable() {
-			public void run() {
-				showToastLong(text);
-			}
-		});
-	}
-
-	private void showToast(String text) {
-		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-	}
-
-	private void showToastLong(String text) {
-		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 	}
 
 }

@@ -6,3 +6,5 @@ thumbs.db
 *.log
 *.pdf
 .metadata
+*.pyc
+server/static/cache/*.gif

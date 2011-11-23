@@ -129,7 +129,7 @@ public class RequestHandler {
 			assert (jso.has("result"));
 			return jso.get("result");
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
