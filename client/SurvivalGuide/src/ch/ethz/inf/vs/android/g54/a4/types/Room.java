@@ -25,20 +25,20 @@ import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 public class Room extends LazyObject {
 
 	// lazily generated fields
-	String description;
-	String mapUrl;
+	private String description;
+	private String mapUrl;
 	// TODO: map
 	Coordinate roomCenter;
 
 	// fields instantiated upon initialization
-	String building;
-	String floor;
-	String name;
+	private String building;
+	private String floor;
+	private String name;
 
-	/** Hidden constructor, use get */
-	public Room(String ID) {
-		// TODO: make protected again
-		super(ID);
+	/** Hidden initialize function, use get */
+	@Override
+	protected void initialize(String ID) {
+		super.initialize(ID);
 		// ID should always be something like 'CAB G 11.1'
 		String[] parts = ID.split(" ");
 		building = parts[0];
@@ -79,11 +79,6 @@ public class Room extends LazyObject {
 	}
 
 	@Override
-	protected boolean isLoaded() {
-		return (description != null) && (roomCenter != null);
-	}
-
-	@Override
 	protected void load() {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s/%s/%s", building, floor, name));
@@ -97,11 +92,13 @@ public class Room extends LazyObject {
 				description = r.getString("desc");
 				// TODO: get map url and map
 				roomCenter = Coordinate.parseCoordinate(r.getJSONObject("location"));
+				setLoaded(true);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				description = null;
 				roomCenter = null;
+				setLoaded(false);
 			}
 		} else {
 			// TODO: error handling?

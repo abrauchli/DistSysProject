@@ -35,14 +35,15 @@ public class Building extends LazyObject {
 	private Address address;
 	private List<Floor> floors;
 
-	// Fields instantiated upon generation
+	// Fields instantiated upon initialization
 	private String name;
 
-	/** Hidden constructor, use get */
-	public Building(String ID) {
-		// TODO: make protected again
-		super(ID);
-		this.name = ID;
+	/** Hidden initialize function, use get */
+	@Override
+	protected void initialize(String ID) {
+		super.initialize(ID);
+		// ID should always be something like 'CAB'
+		name = ID;
 	}
 
 	/** Get a list of all buildings */

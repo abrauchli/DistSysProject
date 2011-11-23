@@ -38,10 +38,10 @@ public class Floor extends LazyObject {
 	private String building;
 	private String name;
 
-	/** Hidden constructor, use get */
-	public Floor(String ID) {
-		// TODO: make protected again
-		super(ID);
+	/** Hidden initialize function, use get */
+	@Override
+	protected void initialize(String ID) {
+		super.initialize(ID);
 		// ID should always be something like 'CAB E'
 		String[] parts = ID.split(" ");
 		building = parts[0];
@@ -69,11 +69,6 @@ public class Floor extends LazyObject {
 	}
 
 	@Override
-	protected boolean isLoaded() {
-		return rooms != null;
-	}
-
-	@Override
 	protected void load() {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s/%s", building, name));
@@ -82,6 +77,7 @@ public class Floor extends LazyObject {
 				JSONObject f = (JSONObject) o;
 
 				// TODO: parse building and initialize it if necessary
+				// TODO: parse map
 
 				// parse rooms
 				JSONObject rms = f.getJSONObject("rooms");
@@ -91,10 +87,12 @@ public class Floor extends LazyObject {
 					Room r = Room.parseRoom(building, name, key, rms.getJSONObject(key));
 					rooms.add(r);
 				}
+				setLoaded(true);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				rooms = null;
+				setLoaded(false);
 			}
 		} else {
 			// TODO: error handling?
