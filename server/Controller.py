@@ -24,15 +24,25 @@ import ETHReadRoomAllocation
 import config
 import AccessPoints
 
+from exception import *
+
 def parseJSONRequest(req):
   request = req["request"]
   if request == "location":
     aps = req["aps"]
-    return AccessPoints.computeLocation(aps)
+    try:
+      return AccessPoints.computeLocation(aps)
+    except NotFoundException as e: 
+      return e.getError()
+
   if request == "freeroom":
     building = req["building"]
     floor = req.get("floor")
-    return findFreeRoom(building,floor)
+    try:
+      return findFreeRoom(building,floor)
+    except NotFoundException as e:
+      return e.getError()
+
 def isAllocateableRoom(room):
   if room.desc in config.ROOMTYPE_LEARNING:
     return True

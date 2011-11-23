@@ -78,7 +78,10 @@ def getInfo():
   return r
 
 def getRoom(mac):
-  return accesspoints[mac]
+  if mac in accesspoints:
+    return accesspoints[mac]
+  return MacAdressNotFoundException("Mac address {mac} not found".format(
+        mac=mac)
 
 def computeLocation(aps):
   strength = 0.0
@@ -88,16 +91,16 @@ def computeLocation(aps):
   for k,v in aps.iteritems():
     if abs(float(v)) >= abs(float(strength)):
       mac = k
+
     ap = accessPoints.get(k, None)
-    if ap == None:
-       return None
-    apsResult[k] = {
-        "coords" : ap.room.location,
-        "location" : ap.room.getDetailedInfo()
-      }
+    if ap != None:
+      apsResult[k] = {
+          "coords" : ap.room.location,
+          "location" : ap.room.getDetailedInfo()
+        }
 
   if mac == "":
-    return None
+    return LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
   room = accessPoints[mac].room
   postype = "unknown"
   if type(room) == Room:
