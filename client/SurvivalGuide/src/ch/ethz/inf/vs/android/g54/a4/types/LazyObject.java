@@ -53,8 +53,8 @@ public abstract class LazyObject {
 	/** Unique ID of this LazyObject. */
 	protected String ID;
 
-	/** Get the unique ID of this LazyObject. */
-	public String getID() {
+	@Override
+	public String toString() {
 		return ID;
 	}
 

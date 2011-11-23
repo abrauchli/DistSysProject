@@ -182,13 +182,16 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			spn_room.setAdapter(roomAdapter);
 			spn_room.setOnItemSelectedListener(selectedListener);
 
-			return new AlertDialog.Builder(SurvivalGuideActivity.this).setTitle(R.string.room_dialog_title)
-					.setView(room_dialog).setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+			return new AlertDialog.Builder(SurvivalGuideActivity.this)
+					.setTitle(R.string.room_dialog_title)
+					.setView(room_dialog)
+					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							U.showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor,
 									selectedRoom));
 						}
-					}).create();
+					})
+					.create();
 		}
 		return null;
 	}
@@ -234,7 +237,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			} else if (!location.isValid()) {
 				U.showToast("no position found");
 			} else {
-				String buildingID = location.getNearestRoom().getID();
+				String buildingID = location.getNearestRoom().toString();
 				txt_room.setText(buildingID);
 				txt_ap.setText("");
 			}
