@@ -81,7 +81,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		U.initContext(this);
 
 		if (getLastNonConfigurationInstance() != null)
@@ -182,15 +182,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			spn_room.setAdapter(roomAdapter);
 			spn_room.setOnItemSelectedListener(selectedListener);
 
-			return new AlertDialog.Builder(SurvivalGuideActivity.this)
-					.setTitle(R.string.room_dialog_title)
-					.setView(room_dialog)
-					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+			return new AlertDialog.Builder(SurvivalGuideActivity.this).setTitle(R.string.room_dialog_title)
+					.setView(room_dialog).setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							U.showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor, selectedRoom));
+							U.showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor,
+									selectedRoom));
 						}
-					})
-					.create();
+					}).create();
 		}
 		return null;
 	}
@@ -246,21 +244,36 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 
 	private void loadDummyData(boolean allowNonexistant) {
 		int mincount = 3, maxcount = 8;
-		String[] macs = { "00:0f:61:1a:18:4", // air-cab-e32-a
-				"00:03:52:1c:34:5", // air-cab-e16-a
-				"00:03:52:29:ae:4", // air-cab-e45-a
-				"00:03:52:1b:f6:5", // air-cab-g11-a
-				"00:03:52:1b:f4:f", // air-cab-g11-b
+		String[] macs = {
+				//
+				"00:0f:61:1a:0c:5", // air-cab-e10-4-a
 				"00:03:52:1c:14:b", // air-cab-e11-a
 				"00:03:52:1c:14:d", // air-cab-e12-a
-				// "00:0f:61:1a:20:8", // air-cab-e22-2-a
-				"ff:ff:ff:ff:ff:f" }; // NON-EXISTANT
+				"00:03:52:1c:34:5", // air-cab-e16-a
+				"00:0f:61:1a:20:8", // air-cab-e22-2-a
+				"00:0f:61:5d:dd:5", // air-cab-e27-1-a
+				"00:0f:61:1a:18:4", // air-cab-e32-a
+				"00:03:52:29:ae:4", // air-cab-e45-a
+				"00:03:52:1c:11:b", // air-cab-f42-1-a
+				"00:03:52:1c:32:9", // air-cab-f63-1-a
+				"00:03:52:1b:f6:5", // air-cab-g11-a
+				"00:03:52:1b:f4:f", // air-cab-g11-b
+				"00:03:52:1c:31:c", // air-cab-g20-1-a
+				"00:03:52:5c:34:f", // air-hg-g5-b
+				"00:03:52:d8:2d:a", // air-hg-f3-a
+				"ff:ff:ff:ff:ff:a", // NON-EXISTANT
+				"ff:ff:ff:ff:ff:b", // NON-EXISTANT
+				"ff:ff:ff:ff:ff:c", // NON-EXISTANT
+				"ff:ff:ff:ff:ff:d", // NON-EXISTANT
+				"ff:ff:ff:ff:ff:e", // NON-EXISTANT
+				"ff:ff:ff:ff:ff:f", // NON-EXISTANT
+		};
 		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
 		Random rand = new Random();
 		int count = rand.nextInt(maxcount - mincount) + mincount;
 		visibleNetworks.clear();
 		for (int i = 0; i < count; i++) {
-			int macidx = rand.nextInt(allowNonexistant ? macs.length : macs.length - 1);
+			int macidx = rand.nextInt(allowNonexistant ? macs.length : macs.length - 6);
 			int mactype = rand.nextInt(4);
 			int signal = rand.nextInt(70) - 90; // -21 to -90
 			visibleNetworks.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
