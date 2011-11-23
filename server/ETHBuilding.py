@@ -41,7 +41,7 @@ class Building(object):
     return RoomNotFoundException("Couldn't find room {room} on {floor} in {building}".format(
           room = room,
           floor = floor,
-          building = self.name)
+          building = self.name))
 
   def findFloor(self,floor):
     if floor in self.floors:
@@ -49,7 +49,7 @@ class Building(object):
     print "Couldn't find floor:" + floor
     return FloorNotFoundException("Couldn't find floor {floor} in {building}".format(
         floor = floor,
-        building = self.name)
+        building = self.name))
 
   def addFloor(self,floor):
     floor.upper()

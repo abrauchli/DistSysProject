@@ -28,6 +28,7 @@ import AccessPoints
 import ETHReadRoomAllocation
 
 from exception import *
+
 app = Flask(__name__)
 
 def resultOkay(obj):
@@ -156,7 +157,7 @@ def getFloor(building,room):
   try:
     r = Model.getFloor(building,room)
     return resultOkay(r)
-  except NotFoundException e:
+  except NotFoundException as e:
     return resultError(e.getError())
 
 @app.route("/r/<building>/<room>/<floor>")
@@ -188,7 +189,7 @@ def jsonRequest():
         return resultError(e.getError())
       except:
         return resultError("Either Input or output malformed")
-   else:
+    else:
       return resultError("Input malformed: You didn't send the request with application/json")
   else: 
     return """<pre>Expecting application/json via HTTP POST</pre>"""
