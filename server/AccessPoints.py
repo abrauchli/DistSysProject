@@ -32,9 +32,9 @@ class AccessPoint:
       room = ""+m.group(3)+"."+m.group(4)
    
     print idstring +" -> "+building+" "+floor+" "+room
-    
-    self.room = Model.findRoom(building,floor,room)
-    if self.room is None:
+    try: 
+      self.room = Model.findRoom(building,floor,room)
+    except RoomNotFoundException:
       print "Adding Room"
       Model.addRoom(building,floor,room)
       self.room = Model.findRoom(building,floor,room)

@@ -21,8 +21,8 @@ import Cacheable
 import ETHBuilding
 import ETHRoom
 import ETHMap
-
 from exception import *
+
 class Floor(Cacheable.Cacheable):
   def __init__(self,floor,building):
     self.building = building
