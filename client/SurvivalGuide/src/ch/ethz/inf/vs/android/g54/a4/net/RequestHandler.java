@@ -17,6 +17,9 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.net;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -28,9 +31,9 @@ import org.apache.http.message.BasicHeader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 
 /**
  * Singleton class in charge of http connections to the server
@@ -40,12 +43,9 @@ public class RequestHandler {
 	private static final String HOST = "http://deserver.moeeeep.com";
 	private static final int PORT = 32123;
 
-	private static final String TAG = "SG_NetLib";
-
-	private Context context = null;
 	private static RequestHandler instance = null;
 
-	/** Singleton ctor */
+	/** Singleton constructor */
 	private RequestHandler() { }
 
 	/** Get the RequestHandler singleton */
@@ -56,17 +56,15 @@ public class RequestHandler {
 		return RequestHandler.instance;
 	}
 
-	/** Initialize the instance's context for toasty error messages */
-	public void setContext(Context context) {
-		this.context = context;
-	}
-
 	/**
 	 * Execute an HTTP get on a given resource on the configured server
 	 * @param res The resource URL without host
 	 * @return a JSONObject / JSONArray
+	 * @throws ServerException 
+	 * @throws ConnectionException 
+	 * @throws UnrecognizedResponseException 
 	 */
-	public Object request(String res) {
+	public Object request(String res) throws ServerException, ConnectionException, UnrecognizedResponseException {
 		HttpClient client = new DefaultHttpClient();
 		String responseBody = null;
 		try {
@@ -75,13 +73,10 @@ public class RequestHandler {
 			htget.addHeader(header);
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			responseBody = client.execute(htget, responseHandler);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(context, "Request failed", Toast.LENGTH_LONG).show();
-			Log.e(TAG, e.toString());
-			return null;
-
+		} catch (ClientProtocolException e) {
+			throw new ServerException("Server returned an error.", e);
+		} catch (IOException e) {
+			throw new ConnectionException("Could not connect to server.", e);
 		} finally {
 			client.getConnectionManager().shutdown();
 		}
@@ -93,8 +88,11 @@ public class RequestHandler {
 	 * @param res The resource URL without host
 	 * @param data The data to post
 	 * @return a JSONObject / JSONArray
+	 * @throws ServerException 
+	 * @throws ConnectionException 
+	 * @throws UnrecognizedResponseException 
 	 */
-	public Object post(String res, String data) {
+	public Object post(String res, String data) throws ServerException, ConnectionException, UnrecognizedResponseException {
 		HttpClient client = new DefaultHttpClient();
 		String responseBody = null;
 
@@ -106,32 +104,40 @@ public class RequestHandler {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			responseBody = client.execute(post, responseHandler);
 
-		} catch (Exception e) {
-			Toast.makeText(context, "POST request failed", Toast.LENGTH_LONG).show();
-			Log.e(TAG, e.toString());
+		} catch (ClientProtocolException e) {
+			throw new ServerException("Server returned an error.", e);
+		} catch (IOException e) {
+			throw new ConnectionException("Could not connect to server.", e);
+		} finally {
+			client.getConnectionManager().shutdown();
 		}
 		return parseResponse(responseBody);
 	}
 
-	/** Do the actual JSON parsing and ensure a correct server response */
-	private Object parseResponse(String response) {
+	/**
+	 * Do the actual JSON parsing and ensure a correct server response 
+	 * @throws UnrecognizedResponseException
+	 * @throws ServerException 
+	 */
+	private Object parseResponse(String response) throws UnrecognizedResponseException, ServerException {
 		try {
 			JSONObject jso = new JSONObject(response);
 			if (!jso.getBoolean("ok")) {
-				String msg = "Request failed";
 				if (jso.has("message")) {
-					msg += jso.getString("message");
+					String msg = jso.getString("message");
+					throw new ServerException(msg);
+				} else {
+					throw new ServerException("Server returned ok=false, without giving any further information.");
 				}
-				Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-				Log.e(TAG, msg);
+			}
+			if (jso.has("result")) {
+				return jso.get("result");				
+			} else {
+				throw new UnrecognizedResponseException("Answer of the server doesn't have a result field.");
 			}
 
-			assert (jso.has("result"));
-			return jso.get("result");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		} catch (JSONException e) {
+			throw new UnrecognizedResponseException("Answer of the server doesn't have the expected form.", e);
 		}
 	}
 }

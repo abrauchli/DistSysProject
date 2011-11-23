@@ -32,4 +32,20 @@ public class UnrecognizedResponseException extends Exception {
 	 */
 	private static final long serialVersionUID = 7159957197467533748L;
 
+	public UnrecognizedResponseException() {
+		super();
+	}
+
+	public UnrecognizedResponseException(String detailMessage, Throwable throwable) {
+		super(detailMessage, throwable);
+	}
+
+	public UnrecognizedResponseException(String detailMessage) {
+		super(detailMessage);
+	}
+
+	public UnrecognizedResponseException(Throwable throwable) {
+		super(throwable);
+	}
+
 }
