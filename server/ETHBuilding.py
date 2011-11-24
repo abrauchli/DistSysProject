@@ -20,6 +20,13 @@
 import ETHFloor 
 import ETHRoom 
 from exception import *
+
+ZENTRUM = ['IFW','RZ','NO','NW','ML','CLA','CHN','CAB','CNB','LFW',
+        'ETF','ETZ','ETA','ETL',
+        'HG','MM','GEP']
+HOENGG = ['HEZ','HDB','HKK','HIT','HIF','HIL','HIK','HIR','HIQ','HIP',
+       'HPF','HPM','HPK','HPL','HPW','HPT','HPI','HPZ','HPR','HPH',
+       'HPV','HPP','HPS','HXE','HXD','HCI','HXA','HXC']
 class Building(object):  
   def __init__(self,name,city=u"Zürich",street=""):
     if street =="noname":
@@ -31,7 +38,12 @@ class Building(object):
     self.street = street
     self.city = city
     self.floors = {}
-
+    if name.upper() in ZENTRUM:
+      self.location=u"Zentrum"
+    elif name.upper() in HOENGG:
+      self.location=u"Höngg"
+    else:
+      self.location=u"Other"
   def __str__(self):
     return self.name
   
@@ -70,7 +82,8 @@ class Building(object):
   def getAddress(self):
     return { 
             "city"    : self.city,
-            "address" : self.street
+            "address" : self.street,
+            "location": self.location
            }
 
   def getFloors(self):
@@ -83,7 +96,8 @@ class Building(object):
   def getInfo(self):
     return {
             "name" : self.name,
-            "address" : self.getAddress()
+            "address" : self.getAddress(),
+            "location": self.location
            }
 
   def getDetailedInfo(self):
