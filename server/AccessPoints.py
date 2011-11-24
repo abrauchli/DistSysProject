@@ -100,7 +100,7 @@ def computeLocation(aps):
         }
 
   if mac == "":
-    return LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
+    raise LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
   room = accessPoints[mac].room
   postype = "unknown"
   if type(room) == Room:
