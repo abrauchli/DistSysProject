@@ -22,6 +22,9 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Location {
@@ -38,8 +41,11 @@ public class Location {
 	 * @param readings
 	 *            A list of wifi readings
 	 * @return a location instance
+	 * @throws UnrecognizedResponseException 
+	 * @throws ConnectionException 
+	 * @throws ServerException 
 	 */
-	public static Location getFromReadings(List<WifiReading> readings) {
+	public static Location getFromReadings(List<WifiReading> readings) throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler rh = RequestHandler.getInstance();
 		Object o = rh.post("/json", readingsToJSON(readings).toString());
 		Location location = new Location();
@@ -70,8 +76,9 @@ public class Location {
 				// TODO: parse aps
 			} catch (JSONException e) {
 				location.valid = false;
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String info = String.format(
+						"Result part of the servers response wasn't of the expected form. Post was \"/json\", with \"request\"=\"location\".");
+				throw new UnrecognizedResponseException(info);
 			}
 		} else {
 			location.valid = false;
