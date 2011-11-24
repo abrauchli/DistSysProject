@@ -37,18 +37,27 @@ def findRoom(bldname,flname,rmname):
   rmname.upper()
   if bldname in buildings:
     b = buildings[bldname]
-    return b.findRoom(flname,rmname)
+    try: 
+      return b.findRoom(flname,rmname)
+    except:
+      pass
   raise BuildingNotFoundException("Couldn't find building: {bld}".format(
         bld=bldname))
 def findBuilding(bldname):
   if bldname in buildings:
-    return buildings[bldname]
+    try:
+      return buildings[bldname]
+    except:
+      pass
   raise BuildingNotFoundException("Couldn't find building: {bld}".format(
         bld=bldname))
 
 def findFloor(bldname,floor):
   if bldname in buildings:
-    return buildings[bldname].findFloor(floor)
+    try:
+      return buildings[bldname].findFloor(floor)
+    except:
+      pass
   raise FloorNotFoundException("Couldn't find floor: {bld} {floor}".format(
         bld=bldname,floor=floor))
 
