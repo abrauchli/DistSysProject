@@ -47,13 +47,19 @@ def isAllocateableRoom(room):
     return True
   return False
 
-def findFreeRoom(building,floor=None,stime=7.0,etime=8.0):
+def findFreeRoom(building,floor=None,stime=7.0,etime=22.0):
   if floor == None:
-    b = Model.findBuilding(building)
-    r = b.getAllRooms()
+    try:
+      b = Model.findBuilding(building)
+      r = b.getAllRooms()
+    except:
+      raise
   else:
-    f = Model.findFloor(building,floor)
-    r = f.getAllRooms()
+    try:
+      f = Model.findFloor(building,floor)
+      r = f.getAllRooms()
+    except:
+      raise
   rooms = filter(lambda x: isAllocateableRoom(x),r)
   ret = []
   for room in rooms:

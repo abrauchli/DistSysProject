@@ -38,7 +38,7 @@ class Building(object):
   def findRoom(self,floor,room):
     if floor in self.floors:
       return self.floors[floor].findRoom(room)
-    return RoomNotFoundException("Couldn't find room {room} on {floor} in {building}".format(
+    raise RoomNotFoundException("Couldn't find room {room} on {floor} in {building}".format(
           room = room,
           floor = floor,
           building = self.name))
@@ -47,7 +47,7 @@ class Building(object):
     if floor in self.floors:
       return self.floors[floor]
     print "Couldn't find floor:" + floor
-    return FloorNotFoundException("Couldn't find floor {floor} in {building}".format(
+    raise FloorNotFoundException("Couldn't find floor {floor} in {building}".format(
         floor = floor,
         building = self.name))
 

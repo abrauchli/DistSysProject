@@ -35,7 +35,7 @@ class AccessPoint:
     print idstring +" -> "+building+" "+floor+" "+room
     try: 
       self.room = Model.findRoom(building,floor,room)
-    except RoomNotFoundException:
+    except NotFoundException:
       print "Adding Room"
       Model.addRoom(building,floor,room)
       self.room = Model.findRoom(building,floor,room)
