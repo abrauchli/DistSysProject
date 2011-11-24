@@ -58,7 +58,7 @@ def findFloor(bldname,floor):
       return buildings[bldname].findFloor(floor)
     except:
       raise
-  raise FloorNotFoundException("Couldn't find floor: {bld} {floor}".format(
+  raise BuildingNotFoundException("Couldn't find Building: {bld}".format(
         bld=bldname,floor=floor))
 
 ## Add operations
