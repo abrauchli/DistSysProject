@@ -24,6 +24,9 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 /**
@@ -48,8 +51,15 @@ public class Building extends LazyObject {
 		name = ID;
 	}
 
-	/** Get a list of all buildings */
-	public static List<Building> getBuildings() {
+	/**
+	 * Get a list of all buildings
+	 * 
+	 * @throws UnrecognizedResponseException
+	 * @throws ConnectionException
+	 * @throws ServerException
+	 */
+	public static List<Building> getBuildings() throws ServerException, ConnectionException,
+			UnrecognizedResponseException {
 		if (allBuildings == null) {
 			RequestHandler req = RequestHandler.getInstance();
 			Object o = req.request("/r");
@@ -63,14 +73,17 @@ public class Building extends LazyObject {
 						allBuildings.add(b);
 					}
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 					allBuildings = null;
+					String info = String
+							.format("Result part of the servers response wasn't of the expected form. Request was \"/r\".");
+					throw new UnrecognizedResponseException(info);
 				}
 			} else {
-				// TODO: error handling?
+				String info = String
+						.format("Result part of the servers response doesn't have the expected type. Request was \"/r\".");
+				throw new UnrecognizedResponseException(info);
 			}
-			
+
 		}
 		return allBuildings;
 	}
@@ -91,8 +104,15 @@ public class Building extends LazyObject {
 		return (Building) get(name, Building.class);
 	}
 
+	/**
+	 * Loads the building.
+	 * 
+	 * @throws UnrecognizedResponseException
+	 * @throws ConnectionException
+	 * @throws ServerException
+	 */
 	@Override
-	protected void load() {
+	protected void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s", name));
 		if (o instanceof JSONObject) {
@@ -117,28 +137,46 @@ public class Building extends LazyObject {
 				}
 				setLoaded(true);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// TODO Don't throw away things, that were there before loading.
 				address = null;
 				floors = null;
 				setLoaded(false);
+				String info = String
+						.format("Result part of the servers response wasn't of the expected form. Request was \"/r/%s\".",
+								name);
+				throw new UnrecognizedResponseException(info, e);
 			}
 		} else {
-			// TODO: error handling?
+			String info = String.format(
+					"Result part of the servers response doesn't have the expected type. Request was \"/r/%s\".", name);
+			throw new UnrecognizedResponseException(info);
 		}
 	}
 
-	/** Get the list of floors, located in this building. */
-	public List<Floor> getFloors() {
+	/**
+	 * Get the list of floors, located in this building.
+	 * 
+	 * @throws UnrecognizedResponseException
+	 * @throws ConnectionException
+	 * @throws ServerException
+	 */
+	public List<Floor> getFloors() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		if (!isLoaded()) {
 			load();
 		}
 		return floors;
 	}
 
-	/** Get the address of this building. */
-	public Address getAddress() {
-		if (!isLoaded()) {
+	/**
+	 * Get the address of this building.
+	 * 
+	 * @throws UnrecognizedResponseException
+	 * @throws ConnectionException
+	 * @throws ServerException
+	 */
+	public Address getAddress() throws ServerException, ConnectionException, UnrecognizedResponseException {
+		// address can be loaded, even though the rest may not be loaded
+		if (address == null) {
 			load();
 		}
 		return address;

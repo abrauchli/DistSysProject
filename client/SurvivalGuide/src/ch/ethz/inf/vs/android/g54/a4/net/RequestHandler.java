@@ -36,8 +36,7 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 
 /**
- * Singleton class in charge of http connections to the server
- * Also does basic JSON parsing and displays toast on errors
+ * Singleton class in charge of http connections to the server Also does basic JSON parsing and displays toast on errors
  */
 public class RequestHandler {
 	private static final String HOST = "http://deserver.moeeeep.com";
@@ -46,7 +45,8 @@ public class RequestHandler {
 	private static RequestHandler instance = null;
 
 	/** Singleton constructor */
-	private RequestHandler() { }
+	private RequestHandler() {
+	}
 
 	/** Get the RequestHandler singleton */
 	public static RequestHandler getInstance() {
@@ -58,11 +58,13 @@ public class RequestHandler {
 
 	/**
 	 * Execute an HTTP get on a given resource on the configured server
-	 * @param res The resource URL without host
+	 * 
+	 * @param res
+	 *            The resource URL without host
 	 * @return a JSONObject / JSONArray
-	 * @throws ServerException 
-	 * @throws ConnectionException 
-	 * @throws UnrecognizedResponseException 
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
 	 */
 	public Object request(String res) throws ServerException, ConnectionException, UnrecognizedResponseException {
 		HttpClient client = new DefaultHttpClient();
@@ -85,14 +87,18 @@ public class RequestHandler {
 
 	/**
 	 * Execute an HTTP post on a given resource on the configured server
-	 * @param res The resource URL without host
-	 * @param data The data to post
+	 * 
+	 * @param res
+	 *            The resource URL without host
+	 * @param data
+	 *            The data to post
 	 * @return a JSONObject / JSONArray
-	 * @throws ServerException 
-	 * @throws ConnectionException 
-	 * @throws UnrecognizedResponseException 
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
 	 */
-	public Object post(String res, String data) throws ServerException, ConnectionException, UnrecognizedResponseException {
+	public Object post(String res, String data) throws ServerException, ConnectionException,
+			UnrecognizedResponseException {
 		HttpClient client = new DefaultHttpClient();
 		String responseBody = null;
 
@@ -115,9 +121,10 @@ public class RequestHandler {
 	}
 
 	/**
-	 * Do the actual JSON parsing and ensure a correct server response 
+	 * Do the actual JSON parsing and ensure a correct server response
+	 * 
 	 * @throws UnrecognizedResponseException
-	 * @throws ServerException 
+	 * @throws ServerException
 	 */
 	private Object parseResponse(String response) throws UnrecognizedResponseException, ServerException {
 		try {
@@ -131,7 +138,7 @@ public class RequestHandler {
 				}
 			}
 			if (jso.has("result")) {
-				return jso.get("result");				
+				return jso.get("result");
 			} else {
 				throw new UnrecognizedResponseException("Answer of the server doesn't have a result field.");
 			}
