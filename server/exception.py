@@ -27,7 +27,7 @@ class NotFoundException(Exception):
     
   def getError(self):
     return {"error": self.__class__.__name__,
-      "msg": msg}
+      "msg": self.msg}
 
 class BuildingNotFoundException(NotFoundException):
   pass
