@@ -40,7 +40,7 @@ def findRoom(bldname,flname,rmname):
     try: 
       return b.findRoom(flname,rmname)
     except:
-      pass
+      raise 
   raise BuildingNotFoundException("Couldn't find building: {bld}".format(
         bld=bldname))
 def findBuilding(bldname):
@@ -48,7 +48,7 @@ def findBuilding(bldname):
     try:
       return buildings[bldname]
     except:
-      pass
+      raise
   raise BuildingNotFoundException("Couldn't find building: {bld}".format(
         bld=bldname))
 
@@ -57,7 +57,7 @@ def findFloor(bldname,floor):
     try:
       return buildings[bldname].findFloor(floor)
     except:
-      pass
+      raise
   raise FloorNotFoundException("Couldn't find floor: {bld} {floor}".format(
         bld=bldname,floor=floor))
 
