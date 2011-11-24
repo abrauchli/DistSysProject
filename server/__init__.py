@@ -188,6 +188,8 @@ def jsonRequest():
         return resultOkay(req)
       except NotFoundException as e:
         return resultError(e.getError())
+      except ValueError as e:
+        return resultError("Input malformed:"+str(e))
       except:
         return resultError("Either Input or output malformed")
     else:
