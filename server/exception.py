@@ -20,6 +20,9 @@
 
 class NotFoundException(Exception):
   def __init__(self,msg):
+    print "Returning a {excp} with {msg}".format(
+        excp= self.__class__.__name__,
+        msg = msg)
     self.msg = msg
     
   def getError(self):
