@@ -62,6 +62,7 @@ r/
     address: {
       city:
       street:
+      location: Zentrum/Höngg/Other
 : {
 
 r/CAB
