@@ -46,6 +46,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -88,7 +91,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
 
 		handler = new Handler();
-		RequestHandler.getInstance().setContext(this);
 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
@@ -231,15 +233,24 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			wifi.startScan();
 			break;
 		case R.id.btn_location:
-			Location location = Location.getFromReadings(visibleNetworks);
-			if (location == null) {
-				U.showToast("getting location failed");
-			} else if (!location.isValid()) {
-				U.showToast("no position found");
-			} else {
-				String buildingID = location.getNearestRoom().toString();
-				txt_room.setText(buildingID);
-				txt_ap.setText("");
+			Location location;
+			try {
+				location = Location.getFromReadings(visibleNetworks);
+				if (location == null) {
+					U.showToast("getting location failed");
+				} else if (!location.isValid()) {
+					U.showToast("no position found");
+				} else {
+					String buildingID = location.getNearestRoom().toString();
+					txt_room.setText(buildingID);
+					txt_ap.setText("");
+				}
+			} catch (ServerException e) {
+				U.showException(TAG, e);
+			} catch (ConnectionException e) {
+				U.showException(TAG, e);
+			} catch (UnrecognizedResponseException e) {
+				U.showException(TAG, e);
 			}
 			break;
 		}
