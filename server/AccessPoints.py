@@ -7,6 +7,7 @@ import Model
 from ETHRoom import Room
 from ETHFloor import Floor
 from ETHBuilding import Building
+from exception import *
 #data = "data/wlan.csv"
 data = ["data/wlan_honegg.csv", "data/wlan_zentrum.csv"]
 

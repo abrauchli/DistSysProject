@@ -41,8 +41,7 @@ def parseJSONRequest(req):
     try:
       return findFreeRoom(building,floor)
     except NotFoundException as e:
-      return e.getError()
-
+      pass
 def isAllocateableRoom(room):
   if room.desc in config.ROOMTYPE_LEARNING:
     return True
