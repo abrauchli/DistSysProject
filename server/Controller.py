@@ -32,16 +32,16 @@ def parseJSONRequest(req):
     aps = req["aps"]
     try:
       return AccessPoints.computeLocation(aps)
-    except NotFoundException as e: 
-      return e.getError()
+    except NotFoundException: 
+      raise 
 
   if request == "freeroom":
     building = req["building"]
     floor = req.get("floor")
     try:
       return findFreeRoom(building,floor)
-    except NotFoundException as e:
-      pass
+    except NotFoundException:
+      raise
 def isAllocateableRoom(room):
   if room.desc in config.ROOMTYPE_LEARNING:
     return True
