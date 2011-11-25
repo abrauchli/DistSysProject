@@ -42,7 +42,7 @@ def resultError(message):
   return json.dumps(
       {
         "ok": False,
-        "result": message 
+        "msg": message 
       }
         )
 
