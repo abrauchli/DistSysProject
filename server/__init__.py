@@ -71,6 +71,8 @@ r/CAB
     address: {
         city:
         street:
+        location: Zentrum/Höngg/Other
+      
     floors: {
         A : {
           map = “....”
@@ -190,8 +192,8 @@ def jsonRequest():
         return resultError(e.getError())
       except ValueError as e:
         return resultError("Input malformed:"+str(e))
-      except:
-        return resultError("Either Input or output malformed")
+#except:
+#        return resultError("Either Input or output malformed")
     else:
       return resultError("Input malformed: You didn't send the request with application/json")
   else: 
