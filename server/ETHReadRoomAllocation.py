@@ -194,15 +194,20 @@ def isRoomFree(room,stime=7.0,etime=22.0,date=datetime.date.today()):
   table = rdata["timetable"]
   datestring = "{day}.{month}".format(day=date.day,month=date.month)
   column = rdata["header"].index(datestring)
-  for i in range(0,len(rtime)):
+  rowstart = None
+  for i in range(0,len(rtime)-1):
     if stime >= rtime[i]:
       rowstart = i
       break
-  
-  for i in range(0,len(rtime)):
+  if rowstart == None:
+    rowstart = 0
+  rowend = None
+  for i in range(0,len(rtime)-1):
     if etime <= rtime[i]:
       rowend = i
       break
+  if rowend == None:
+    rowend = len(rtime)-1
   for r in range(rowstart,rowend):
     if table[r][column] != ROOM_OPEN:
       return False
