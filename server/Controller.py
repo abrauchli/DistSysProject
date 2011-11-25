@@ -38,8 +38,10 @@ def parseJSONRequest(req):
   if request == "freeroom":
     building = req["building"]
     floor = req.get("floor")
+    stime = req.get("starttime")
+    etime = req.get("endtime")
     try:
-      return findFreeRoom(building,floor)
+      return findFreeRoom(building,floor,stime,etime)
     except NotFoundException:
       raise
 def isAllocateableRoom(room):
@@ -47,7 +49,11 @@ def isAllocateableRoom(room):
     return True
   return False
 
-def findFreeRoom(building,floor=None,stime=7.0,etime=22.0):
+def findFreeRoom(building,floor=None,stime=None,etime=None):
+  if stime == None:
+    stime = 7.0
+  if etime == None:
+    etime = 22.0
   if floor == None:
     try:
       b = Model.findBuilding(building)
