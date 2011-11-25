@@ -34,7 +34,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,9 +44,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
-import ch.ethz.inf.vs.android.g54.a4.types.Location;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
+import ch.ethz.inf.vs.android.g54.a4.types.LocationResult;
+import ch.ethz.inf.vs.android.g54.a4.types.LocationResultWithRoom;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
@@ -88,7 +89,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
 
 		handler = new Handler();
-		RequestHandler.getInstance().setContext(this);
 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
@@ -182,16 +182,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			spn_room.setAdapter(roomAdapter);
 			spn_room.setOnItemSelectedListener(selectedListener);
 
-			return new AlertDialog.Builder(SurvivalGuideActivity.this)
-					.setTitle(R.string.room_dialog_title)
-					.setView(room_dialog)
-					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+			return new AlertDialog.Builder(SurvivalGuideActivity.this).setTitle(R.string.room_dialog_title)
+					.setView(room_dialog).setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							U.showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor,
 									selectedRoom));
 						}
-					})
-					.create();
+					}).create();
 		}
 		return null;
 	}
@@ -231,15 +228,23 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			wifi.startScan();
 			break;
 		case R.id.btn_location:
-			Location location = Location.getFromReadings(visibleNetworks);
-			if (location == null) {
-				U.showToast("getting location failed");
-			} else if (!location.isValid()) {
-				U.showToast("no position found");
-			} else {
-				String buildingID = location.getNearestRoom().toString();
-				txt_room.setText(buildingID);
-				txt_ap.setText("");
+			LocationResult locRes;
+			try {
+				locRes = LocationResult.getFromReadings(visibleNetworks);
+				if (locRes instanceof LocationResultWithRoom) {
+					LocationResultWithRoom locResRoom = (LocationResultWithRoom) locRes;
+					String roomID = locResRoom.room.toString();
+					txt_room.setText(roomID);
+					txt_ap.setText("");
+				} else {
+					U.showToast("no position found");
+				}
+			} catch (ServerException e) {
+				U.showException(TAG, e);
+			} catch (ConnectionException e) {
+				U.showException(TAG, e);
+			} catch (UnrecognizedResponseException e) {
+				U.showException(TAG, e);
 			}
 			break;
 		}

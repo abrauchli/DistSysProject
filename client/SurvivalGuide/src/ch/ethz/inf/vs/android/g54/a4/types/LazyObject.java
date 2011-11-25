@@ -17,8 +17,11 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
+
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
+import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 
 public abstract class LazyObject {
 	/** Instance caching */
@@ -72,5 +75,5 @@ public abstract class LazyObject {
 	}
 
 	/** Load the LazyObject */
-	protected abstract void load();
+	protected abstract void load() throws ServerException, ConnectionException, UnrecognizedResponseException;
 }
