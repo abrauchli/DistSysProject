@@ -106,7 +106,9 @@ r/CAB/E/18.1/allocation ## HIGHLY EXPERIMENTAL
 
 
 /json
-  Send with:
+  Free Room search:
+  curl -v -H "Content-Type:application/json" -X POST -d '{"request":"freeroom","building":"HG","floor":"E","starttime":12.0,"endtime":18.0}' http://deserver.moeeeep.com:32123/json
+  AP Location search:
   curl -v -H "Content-Type:application/json" -X POST -d '{"request":"location","aps":{"00:03:52:2b:e9:01":75, "00:0f:61:be:63:13":12}}' http://deserver.moeeeep.com:32123/json
   Input from client:
     {
