@@ -37,7 +37,7 @@ public class Building extends LazyObject {
 	private static List<Building> allBuildings = null;
 
 	// Lazily generated fields
-	private Address address;
+	private Address address = null;
 	private List<Floor> floors;
 
 	// Fields instantiated upon initialization
@@ -47,7 +47,7 @@ public class Building extends LazyObject {
 	@Override
 	protected void initialize(String ID) {
 		super.initialize(ID);
-		// ID should always be something like 'CAB'
+		// ID is of form 'CAB'
 		name = ID;
 	}
 
@@ -63,38 +63,30 @@ public class Building extends LazyObject {
 		if (allBuildings == null) {
 			RequestHandler req = RequestHandler.getInstance();
 			Object o = req.request("/r");
-			if (o instanceof JSONObject) {
-				try {
-					JSONObject buildingsList = (JSONObject) o;
-					allBuildings = new LinkedList<Building>();
-					for (Iterator<?> keys = buildingsList.keys(); keys.hasNext();) {
-						String key = (String) keys.next();
-						Building b = Building.parseBuilding(buildingsList.getJSONObject(key));
-						allBuildings.add(b);
-					}
-				} catch (JSONException e) {
-					allBuildings = null;
-					String info = String
-							.format("Result part of the servers response wasn't of the expected form. Request was \"/r\".");
-					throw new UnrecognizedResponseException(info);
+			try {
+				JSONObject buildingsList = (JSONObject) o;
+				allBuildings = new LinkedList<Building>();
+				for (Iterator<?> keys = buildingsList.keys(); keys.hasNext();) {
+					String key = (String) keys.next();
+					Building b = Building.parseBuilding(buildingsList.getJSONObject(key));
+					allBuildings.add(b);
 				}
-			} else {
+			} catch (Exception e) {
+				allBuildings = null;
 				String info = String
-						.format("Result part of the servers response doesn't have the expected type. Request was \"/r\".");
+						.format("Result part of the servers response wasn't of the expected form. Request was \"/r\".");
 				throw new UnrecognizedResponseException(info);
 			}
-
 		}
 		return allBuildings;
 	}
 
-	private static Building parseBuilding(JSONObject desc) throws JSONException {
+	public static Building parseBuilding(JSONObject desc) throws JSONException {
 		String bName = desc.getString("name");
 		Building b = getBuilding(bName);
 		if (!b.isLoaded()) {
 			JSONObject addr = desc.getJSONObject("address");
-			Address a = Address.parseAddress(addr);
-			b.address = a;
+			b.address = new Address(addr);
 		}
 		return b;
 	}
@@ -125,14 +117,14 @@ public class Building extends LazyObject {
 
 				// parse address
 				JSONObject addr = b.getJSONObject("address");
-				address = Address.parseAddress(addr);
+				address = new Address(addr);
 
 				// parse floors
 				JSONObject flrs = b.getJSONObject("floors");
 				floors = new LinkedList<Floor>();
 				for (Iterator<?> keys = flrs.keys(); keys.hasNext();) {
 					String key = (String) keys.next();
-					Floor f = Floor.parseFloor(name, key, flrs.getJSONObject(key));
+					Floor f = Floor.parseFloor(this, key, flrs.getJSONObject(key));
 					floors.add(f);
 				}
 				setLoaded(true);
