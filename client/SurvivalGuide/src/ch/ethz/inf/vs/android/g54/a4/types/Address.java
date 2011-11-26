@@ -25,15 +25,9 @@ public class Address {
 	private String street;
 	private String city;
 
-	protected static Address parseAddress(JSONObject addr) throws JSONException {
-		String street = addr.getString("street");
-		String city = addr.getString("city");
-		return new Address(street, city);
-	}
-
-	public Address(String street, String city) {
-		this.street = street;
-		this.city = city;
+	public Address(JSONObject addr) throws JSONException {
+		this.street = addr.getString("street");
+		this.city = addr.getString("city");
 	}
 
 	public String getStreet() {
