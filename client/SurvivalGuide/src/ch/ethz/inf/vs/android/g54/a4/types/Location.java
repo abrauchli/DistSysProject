@@ -103,8 +103,7 @@ public class Location {
 				// parse location
 				JSONObject loc = res.getJSONObject("location");
 
-				// TODO: parse aps
-
+				// parse APs
 				List<AccessPoint> aps = new LinkedList<AccessPoint>();
 				JSONObject japs = loc.getJSONObject("aps"); // politically wrong, i know..
 				@SuppressWarnings("unchecked")

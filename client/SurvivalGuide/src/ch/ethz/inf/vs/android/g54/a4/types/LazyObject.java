@@ -79,5 +79,5 @@ public abstract class LazyObject {
 	}
 
 	/** Load the LazyObject */
-	protected abstract void load() throws ServerException, ConnectionException, UnrecognizedResponseException;
+	public abstract void load() throws ServerException, ConnectionException, UnrecognizedResponseException;
 }

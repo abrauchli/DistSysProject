@@ -79,7 +79,7 @@ public class Room extends LazyObject {
 	}
 
 	@Override
-	protected void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
+	public void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s/%s/%s", floor.getBuilding(), floor, name));
 		try {

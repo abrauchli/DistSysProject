@@ -104,7 +104,7 @@ public class Building extends LazyObject {
 	 * @throws ServerException
 	 */
 	@Override
-	protected void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
+	public void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
 		Object o = req.request(String.format("/r/%s", name));
 		if (o instanceof JSONObject) {
