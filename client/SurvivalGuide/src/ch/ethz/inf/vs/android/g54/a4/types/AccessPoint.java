@@ -17,6 +17,35 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AccessPoint {
-	// TODO: implement AccessPoint class (incl. parsing method)
+	private String bssid;
+	private Coordinate coord;
+	private String building = null;
+	private String floor = null;
+	private String room = null;
+
+	public AccessPoint(String bssid, JSONObject jo) throws JSONException {
+		this.bssid = bssid;
+		this.coord = new Coordinate(jo.getJSONObject("coords"));
+		JSONObject l = jo.getJSONObject("location");
+		if (l.has("building"))
+			this.building = l.getString("building");
+		if (l.has("floor"))
+			this.floor = l.getString("floor");
+		if (l.has("room"))
+			this.room = l.getString("room");
+	}
+
+	/** Get this APs bssid (mac address) */
+	public String getBssid() {
+		return this.bssid;
+	}
+
+	/** Gets this APs coordinates */
+	public Coordinate getCoordinate() {
+		return this.coord;
+	}
 }
