@@ -27,6 +27,9 @@ public abstract class LazyObject {
 	/** Instance caching */
 	private static HashMap<String, LazyObject> instances = new HashMap<String, LazyObject>();
 
+	/** Unique ID of this LazyObject. */
+	protected String ID;
+
 	/** Hidden constructor, use get */
 	protected LazyObject() {
 		loaded = false;
@@ -53,12 +56,13 @@ public abstract class LazyObject {
 		}
 	}
 
-	/** Unique ID of this LazyObject. */
-	protected String ID;
-
 	@Override
 	public String toString() {
-		return ID;
+		return this.ID;
+	}
+
+	public String getId() {
+		return this.ID;
 	}
 
 	/** Indicates, whether this LazyObject is fully loaded */
