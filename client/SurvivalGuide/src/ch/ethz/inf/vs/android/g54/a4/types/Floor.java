@@ -115,19 +115,22 @@ public class Floor extends LazyObject {
 		}
 	}
 
-	public List<Room> getRooms() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		if (!isLoaded()) {
-			load();
-		}
+	/**
+	 * Gets a list of all rooms on this floor
+	 * Make sure the object is loaded with isLoaded() before calling
+	 */
+	public List<Room> getRooms() {
+		assert (isLoaded());
 		return rooms;
 	}
 
+	/** Gets the building associated with this floor */
 	public Building getBuilding() {
-		return Building.getBuilding(building);
+		return this.building;
 	}
 
+	/** Gets the floor name (e.g. 'F') */
 	public String getName() {
-		return name;
+		return this.name;
 	}
-
 }

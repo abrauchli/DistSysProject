@@ -114,30 +114,32 @@ public class Room extends LazyObject {
 		}
 	}
 
-	public String getDescription() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		if (!isLoaded()) {
-			load();
-		}
-		return description;
+	/**
+	 * Gets the room description
+	 * Make sure the object is preloaded with load() before calling
+	 */
+	public String getDescription() {
+		assert (isLoaded());
+		return this.description;
 	}
 
-	public Coordinate getRoomCenter() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		if (!isLoaded()) {
-			load();
-		}
-		return roomCenter;
+	/**
+	 * Gets the room center
+	 * Make sure the object is preloaded with load() before calling
+	 */
+	public Coordinate getRoomCenter() {
+		assert (isLoaded());
+		return this.roomCenter;
 	}
 
-	public Building getBuilding() {
-		return Building.getBuilding(building);
-	}
-
+	/** Gets the floor associated with this room */
 	public Floor getFloor() {
-		return Floor.getFloor(building, floor);
+		return this.floor;
 	}
 
+	/** Gets the room name/number (e.g. 21.5) */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 }
