@@ -47,8 +47,8 @@ import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
-import ch.ethz.inf.vs.android.g54.a4.types.LocationResult;
-import ch.ethz.inf.vs.android.g54.a4.types.LocationResultWithRoom;
+import ch.ethz.inf.vs.android.g54.a4.types.Location;
+import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
@@ -228,12 +228,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			wifi.startScan();
 			break;
 		case R.id.btn_location:
-			LocationResult locRes;
+			Location locRes;
 			try {
-				locRes = LocationResult.getFromReadings(visibleNetworks);
-				if (locRes instanceof LocationResultWithRoom) {
-					LocationResultWithRoom locResRoom = (LocationResultWithRoom) locRes;
-					String roomID = locResRoom.room.toString();
+				locRes = Location.getFromReadings(visibleNetworks);
+				Room r = locRes.getRoom();
+				if (r != null) {
+					String roomID = r.toString();
 					txt_room.setText(roomID);
 					txt_ap.setText("");
 				} else {

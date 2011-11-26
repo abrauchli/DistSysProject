@@ -17,6 +17,8 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -27,18 +29,57 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
-public class LocationResult {
+public class Location {
+
+	private Room room = null;
+	private Floor floor = null;
 
 	/** Information concerning the access points, associated with the originally sent mac addresses. */
-	public final List<AccessPoint> aps;
+	private final List<AccessPoint> aps;
 
 	/** Interpolated location, computed from the sent wifi readings. Is null if no interpolation could be done. */
-	public final Coordinate location;
+	private final Coordinate location;
 
 	/** Hidden constructor, use getFromReadings */
-	protected LocationResult(Coordinate location, List<AccessPoint> aps) {
+	protected Location(Coordinate location, Floor floor, List<AccessPoint> aps) {
+		this(location, aps);
+		this.floor = floor;
+	}
+
+	/** Hidden constructor, use getFromReadings */
+	protected Location(Coordinate location, Room room, List<AccessPoint> aps) {
+		this(location, aps);
+		this.room = room;
+	}
+
+	/** Hidden constructor, use getFromReadings */
+	protected Location(Coordinate location, List<AccessPoint> aps) {
 		this.location = location;
 		this.aps = aps;
+	}
+
+	/**
+	 * Gets the coordinates associated with this location
+	 * @return a Coordinate object
+	 */
+	public Coordinate getLocation() {
+		return this.location;
+	}
+
+	/**
+	 * Gets the floor associated with this location
+	 * @return The associated floor or null if none
+	 */
+	public Floor getFloor() {
+		return this.floor;
+	}
+
+	/**
+	 * Gets the room associated with this location
+	 * @return The associated room or null if none
+	 */
+	public Room getRoom() {
+		return this.room;
 	}
 
 	/**
@@ -51,7 +92,7 @@ public class LocationResult {
 	 * @throws ConnectionException
 	 * @throws ServerException
 	 */
-	public static LocationResult getFromReadings(List<WifiReading> readings) throws ServerException,
+	public static Location getFromReadings(List<WifiReading> readings) throws ServerException,
 			ConnectionException, UnrecognizedResponseException {
 		RequestHandler rh = RequestHandler.getInstance();
 		Object o = rh.post("/json", readingsToJSON(readings).toString());
@@ -63,24 +104,36 @@ public class LocationResult {
 				JSONObject loc = res.getJSONObject("location");
 
 				// TODO: parse aps
-				List<AccessPoint> aps = null;
+
+				List<AccessPoint> aps = new LinkedList<AccessPoint>();
+				JSONObject japs = loc.getJSONObject("aps"); // politically wrong, i know..
+				@SuppressWarnings("unchecked")
+				Iterator<String> k = japs.keys(); 			// ..but we're not in politics here
+				while (k.hasNext()) {
+					try {
+						String n = k.next();
+						aps.add(new AccessPoint(n, japs.getJSONObject(n)));
+					} catch (JSONException e) {
+						// Error in ap, skip it
+					}
+				}
 
 				// parse coordinates
 				Coordinate location = null;
 				if (loc.has("coords")) {
-					JSONObject coords = loc.getJSONObject("coords");
-					location = Coordinate.parseCoordinate(coords);
+					location = new Coordinate(loc.getJSONObject("coords"));
 				}
 
 				// parse location type
 				String type = loc.getString("type");
 				if (type.equals("room")) {
 					Room room = Room.parseRoom(loc.getJSONObject("result"));
-					return new LocationResultWithRoom(location, room, aps);
+					return new Location(location, room, aps);
 				} else if (type.equals("floor")) {
-					return new LocationResult(location, aps);
+					Floor floor = null; // TODO: Floor.parseFloor(loc.getJSONObject("result"));
+					return new Location(location, floor, aps);
 				} else {
-					return new LocationResult(location, aps);
+					return new Location(location, aps);
 				}
 
 			} catch (JSONException e) {
