@@ -71,7 +71,9 @@ public class Room extends LazyObject {
 		Room room = getRoom(floor, desc.getString("room"));
 
 		if (!room.isLoaded()) {
-			room.mapUrl = desc.getString("map");
+			if (desc.getBoolean("mapAvailable")) {
+				room.mapUrl = desc.getString("map");
+			}
 			room.description = desc.getString("desc");
 			room.roomCenter = new Coordinate(desc.getJSONObject("location"));
 		}
@@ -86,8 +88,7 @@ public class Room extends LazyObject {
 			JSONObject r = (JSONObject) o;
 
 			// TODO: decide if parsing identifier tags is a good idea
-			boolean mapAvailable = r.getBoolean("mapAvailable");
-			if (mapAvailable) {
+			if (r.getBoolean("mapAvailable")) {
 				mapUrl = r.getString("map");
 			}
 			

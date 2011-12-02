@@ -19,7 +19,6 @@ package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -42,6 +41,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -51,13 +51,13 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
-import ch.ethz.inf.vs.android.g54.a4.ui.SampleActivity;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
@@ -115,6 +115,18 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 				visibleNetworks = new ArrayList<WifiReading>();
 			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
 			lst_networks.setAdapter(readingAdapter);
+			lst_networks.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					try {
+						Room r = (Room) LazyObject.get(visibleNetworks.get(position).ap.getQualifiedRoom(), Room.class);
+						r.load(); // TODO remove once map url is there automatically
+						startActivity(new Intent(SurvivalGuideActivity.this, MapTest.class)
+								.putExtra(getPackageName() + ".ImageUrl", r.getMapUrl()));
+					} catch (Exception e) {
+						U.showException(TAG, e);
+					}
+				}
+			});
 			scanReceiver = new WifiScanReceiver(this);
 		} catch (Exception e) {
 			U.showException(TAG, e);
@@ -217,7 +229,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			loadDummyData(false);
 			break;
 		case R.id.mni_map:
-			startActivity(new Intent(this, MapTest.class));
+			Intent foo = new Intent(this, MapTest.class);
+			foo.putExtra(getPackageName() + ".ImageUrl", "http://deserver.moeeeep.com:32123/static/cache/CAB_G_11.gif");
+			startActivity(foo);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -252,10 +266,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 								txt_ap.setText(b.getAddress().getCampus());
 							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
 								// post failure
-								//txt_ap.setText(msg.getData().getString("message"));
+								// txt_ap.setText(msg.getData().getString("message"));
 							} else {
 								// post failure
-								//txt_ap.setText("something weird happened");
+								// txt_ap.setText("something weird happened");
 							}
 						}
 					});
