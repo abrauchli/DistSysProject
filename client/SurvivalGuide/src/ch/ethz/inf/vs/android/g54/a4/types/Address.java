@@ -24,10 +24,12 @@ public class Address {
 
 	private String street;
 	private String city;
+	private String campus;
 
 	public Address(JSONObject addr) throws JSONException {
-		this.street = addr.getString("street");
+		this.street = addr.getString("address");
 		this.city = addr.getString("city");
+		this.campus = addr.getString("location"); // TODO: maybe change protocol to reflect different name
 	}
 
 	public String getStreet() {
@@ -36,5 +38,9 @@ public class Address {
 
 	public String getCity() {
 		return city;
+	}
+
+	public String getCampus() {
+		return campus;
 	}
 }

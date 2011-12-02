@@ -161,7 +161,7 @@ public class Location {
 			req.put("request", "location");
 			req.put("aps", aps);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		return req;
 	}

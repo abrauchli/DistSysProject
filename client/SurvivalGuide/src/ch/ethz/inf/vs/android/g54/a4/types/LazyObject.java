@@ -113,6 +113,6 @@ public abstract class LazyObject {
 					handler.sendMessage(m);
 				}
 			}
-		});
+		}).run();
 	}
 }
