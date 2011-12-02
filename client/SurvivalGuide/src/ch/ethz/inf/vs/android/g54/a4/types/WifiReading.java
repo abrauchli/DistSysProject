@@ -18,6 +18,7 @@
 package ch.ethz.inf.vs.android.g54.a4.types;
 
 import java.util.Comparator;
+import java.util.List;
 
 import android.net.wifi.ScanResult;
 
@@ -26,6 +27,7 @@ public class WifiReading {
 	final public String mac;
 	final public String ssid;
 	final public int signal;
+	public AccessPoint ap = null;
 	
 	public WifiReading(String mac, String ssid, int signal) {
 		this.mac = mac;

@@ -17,9 +17,11 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,25 +37,25 @@ public class Location {
 	private Floor floor = null;
 
 	/** Information concerning the access points, associated with the originally sent mac addresses. */
-	private final List<AccessPoint> aps;
+	private final Map<String, AccessPoint> aps;
 
 	/** Interpolated location, computed from the sent wifi readings. Is null if no interpolation could be done. */
 	private final Coordinate location;
 
 	/** Hidden constructor, use getFromReadings */
-	protected Location(Coordinate location, Floor floor, List<AccessPoint> aps) {
+	protected Location(Coordinate location, Floor floor, Map<String, AccessPoint> aps) {
 		this(location, aps);
 		this.floor = floor;
 	}
 
 	/** Hidden constructor, use getFromReadings */
-	protected Location(Coordinate location, Room room, List<AccessPoint> aps) {
+	protected Location(Coordinate location, Room room, Map<String, AccessPoint> aps) {
 		this(location, aps);
 		this.room = room;
 	}
 
 	/** Hidden constructor, use getFromReadings */
-	protected Location(Coordinate location, List<AccessPoint> aps) {
+	protected Location(Coordinate location, Map<String, AccessPoint> aps) {
 		this.location = location;
 		this.aps = aps;
 	}
@@ -82,6 +84,10 @@ public class Location {
 		return this.room;
 	}
 
+	public Map<String, AccessPoint> getAps() {
+		return aps;
+	}
+
 	/**
 	 * Get the location from a list of wifi readings.
 	 * 
@@ -104,14 +110,14 @@ public class Location {
 				JSONObject loc = res.getJSONObject("location");
 
 				// parse APs
-				List<AccessPoint> aps = new LinkedList<AccessPoint>();
+				Map<String, AccessPoint> aps = new HashMap<String, AccessPoint>();
 				JSONObject japs = res.getJSONObject("aps"); // politically wrong, i know..
 				@SuppressWarnings("unchecked")
 				Iterator<String> k = japs.keys(); 			// ..but we're not in politics here
 				while (k.hasNext()) {
 					try {
-						String n = k.next();
-						aps.add(new AccessPoint(n, japs.getJSONObject(n)));
+						String bssid = k.next();
+						aps.put(bssid, new AccessPoint(bssid, japs.getJSONObject(bssid)));
 					} catch (JSONException e) {
 						// Error in ap, skip it
 					}

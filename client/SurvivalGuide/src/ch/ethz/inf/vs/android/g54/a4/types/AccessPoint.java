@@ -48,4 +48,20 @@ public class AccessPoint {
 	public Coordinate getCoordinate() {
 		return this.coord;
 	}
+
+	public String getBuilding() {
+		return building;
+	}
+
+	public String getFloor() {
+		return floor;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+	
+	public String getQualifiedRoom() {
+		return String.format("%s %s %s", building, floor == null ? "" : floor, room == null ? "": room).trim();
+	}
 }

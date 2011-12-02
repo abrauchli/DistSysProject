@@ -20,6 +20,7 @@ package ch.ethz.inf.vs.android.g54.a4.ui;
 import java.util.List;
 
 import ch.ethz.inf.vs.android.g54.a4.R;
+import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 
 import android.content.Context;
@@ -53,6 +54,8 @@ public class WifiReadingArrayAdapter extends ArrayAdapter<WifiReading> {
 		((TextView) v.findViewById(R.id.txt_bssid)).setText(reading.mac);
 		((TextView) v.findViewById(R.id.txt_level)).setText(Integer.toString(reading.signal));
 		((TextView) v.findViewById(R.id.txt_ssid)).setText(reading.ssid);
+		AccessPoint ap = reading.ap;
+		((TextView) v.findViewById(R.id.txt_room)).setText(ap == null ? "" : ap.getQualifiedRoom());
 		return v;
 	}
 
