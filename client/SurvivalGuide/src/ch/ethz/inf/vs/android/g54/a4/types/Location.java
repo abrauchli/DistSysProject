@@ -105,7 +105,7 @@ public class Location {
 
 				// parse APs
 				List<AccessPoint> aps = new LinkedList<AccessPoint>();
-				JSONObject japs = loc.getJSONObject("aps"); // politically wrong, i know..
+				JSONObject japs = res.getJSONObject("aps"); // politically wrong, i know..
 				@SuppressWarnings("unchecked")
 				Iterator<String> k = japs.keys(); 			// ..but we're not in politics here
 				while (k.hasNext()) {
@@ -138,7 +138,7 @@ public class Location {
 			} catch (JSONException e) {
 				String info = String
 						.format("Result part of the servers response wasn't of the expected form. Post was \"/json\", with \"request\"=\"location\".");
-				throw new UnrecognizedResponseException(info);
+				throw new UnrecognizedResponseException(info, e);
 			}
 		} else {
 			String info = String
