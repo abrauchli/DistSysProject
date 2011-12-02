@@ -81,15 +81,20 @@ public class Room extends LazyObject {
 	@Override
 	public void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
-		Object o = req.request(String.format("/r/%s/%s/%s", floor.getBuilding(), floor, name));
+		Object o = req.request(String.format("/r/%s/%s/%s", floor.getBuilding().getName(), floor.getName(), this.name));
 		try {
 			JSONObject r = (JSONObject) o;
 
 			// TODO: decide if parsing identifier tags is a good idea
+			boolean mapAvailable = r.getBoolean("mapAvailable");
+			if (mapAvailable) {
+				mapUrl = r.getString("map");
+			}
+			
+			// TODO load map
 
 			// parse room
 			description = r.getString("desc");
-			// TODO: get map url and map
 			roomCenter = new Coordinate(r.getJSONObject("location"));
 			setLoaded(true);
 		} catch (Exception e) {
@@ -105,8 +110,7 @@ public class Room extends LazyObject {
 	}
 
 	/**
-	 * Gets the room description
-	 * Make sure the object is preloaded with load() before calling
+	 * Gets the room description Make sure the object is preloaded with load() before calling
 	 */
 	public String getDescription() {
 		assert (isLoaded());
@@ -114,8 +118,7 @@ public class Room extends LazyObject {
 	}
 
 	/**
-	 * Gets the room center
-	 * Make sure the object is preloaded with load() before calling
+	 * Gets the room center Make sure the object is preloaded with load() before calling
 	 */
 	public Coordinate getRoomCenter() {
 		assert (isLoaded());
@@ -130,6 +133,11 @@ public class Room extends LazyObject {
 	/** Gets the room name/number (e.g. 21.5) */
 	public String getName() {
 		return this.name;
+	}
+
+	/** Gets the URL of the map associated with this room, null if not available */
+	public String getMapUrl() {
+		return mapUrl;
 	}
 
 }

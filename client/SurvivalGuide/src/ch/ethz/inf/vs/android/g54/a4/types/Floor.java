@@ -33,8 +33,7 @@ public class Floor extends LazyObject {
 
 	// lazily generated fields
 	private List<Room> rooms;
-	private String mapUrl;
-	private boolean mapAvailable;
+	private String mapUrl = null;
 	// TODO: map
 
 	// fields instantiated upon initialization
@@ -63,8 +62,8 @@ public class Floor extends LazyObject {
 	public static Floor parseFloor(Building building, String floor, JSONObject desc) throws JSONException {
 		Floor f = getFloor(building, floor);
 		if (!f.isLoaded()) {
-			f.mapAvailable = desc.getBoolean("mapAvailable");
-			if (f.mapAvailable) {
+			boolean mapAvailable = desc.getBoolean("mapAvailable");
+			if (mapAvailable) {
 				f.mapUrl = desc.getString("map");
 			}
 		}
@@ -80,12 +79,16 @@ public class Floor extends LazyObject {
 	@Override
 	public void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
-		Object o = req.request(String.format("/r/%s/%s", this.building.getId(), this.name));
+		Object o = req.request(String.format("/r/%s/%s", this.building.getName(), this.name));
 		try {
 			JSONObject f = (JSONObject) o;
 
-			// TODO: parse building and initialize it if necessary
-			// TODO: parse map
+			boolean mapAvailable = f.getBoolean("mapAvailable");
+			if (mapAvailable) {
+				mapUrl = f.getString("map");
+			}
+			
+			// TODO load map
 
 			// parse rooms
 			JSONObject rms = f.getJSONObject("rooms");
@@ -96,7 +99,6 @@ public class Floor extends LazyObject {
 				rooms.add(r);
 			}
 			setLoaded(true);
-
 		} catch (Exception e) {
 			String info = String.format(
 					"Result part of the servers response wasn't of the expected form. Request was \"/r/%s/%s\".",
@@ -122,5 +124,10 @@ public class Floor extends LazyObject {
 	/** Gets the floor name (e.g. 'F') */
 	public String getName() {
 		return this.name;
+	}
+
+	/** Gets the URL of the map associated with this floor, null if not available */
+	public String getMapUrl() {
+		return mapUrl;
 	}
 }
