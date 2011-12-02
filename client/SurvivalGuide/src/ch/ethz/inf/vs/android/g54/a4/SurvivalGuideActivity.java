@@ -34,6 +34,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,8 @@ import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
+import ch.ethz.inf.vs.android.g54.a4.types.Building;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -235,7 +238,21 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 				if (r != null) {
 					String roomID = r.toString();
 					txt_room.setText(roomID);
-					txt_ap.setText("");
+					final Building b = r.getFloor().getBuilding();
+					b.loadAsync(new Handler() {
+						public void handleMessage(Message msg) {
+							if (msg.what == MessageStatus.SUCCESS.ordinal()) {
+								// post success
+								txt_ap.setText(b.getAddress().getCampus());
+							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
+								// post failure
+								//txt_ap.setText(msg.getData().getString("message"));
+							} else {
+								// post failure
+								//txt_ap.setText("something weird happened");
+							}
+						}
+					});
 				} else {
 					U.showToast("no position found");
 				}
