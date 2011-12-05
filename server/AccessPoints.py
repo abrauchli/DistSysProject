@@ -96,7 +96,7 @@ def computeLocation(aps):
       if float(v) >= float(strength):
         mac = k
       if ap.room.location == None:
-        apsResult[k] {
+        apsResult[k] = {
           "location" : ap.room.getDetailedInfo()
         }
       else:
