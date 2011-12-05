@@ -100,7 +100,7 @@ public class RequestHandler {
 	 * @throws ConnectionException
 	 * @throws UnrecognizedResponseException
 	 */
-	public static Bitmap getBitmap(String imageURL) throws ConnectionException, UnrecognizedResponseException {
+	public Bitmap getBitmap(String imageURL) throws ConnectionException, UnrecognizedResponseException {
 		try {
 			URL url = new URL(imageURL);
 			Log.d("ImageManager", "download url:" + url);

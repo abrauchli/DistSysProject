@@ -38,7 +38,7 @@ public class Pin extends Button implements OnClickListener {
 		super(context);
 		// TODO Auto-generated constructor stub
 		setText("");
-		setBackgroundResource(R.drawable.ic_launcher);
+		setBackgroundResource(R.drawable.target);
 		setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, Gravity.NO_GRAVITY));
 		layout = (android.widget.FrameLayout.LayoutParams) getLayoutParams();
@@ -50,7 +50,7 @@ public class Pin extends Button implements OnClickListener {
 		super(context);
 		// TODO Auto-generated constructor stub
 		setText("");
-		setBackgroundResource(R.drawable.ic_launcher);
+		setBackgroundResource(R.drawable.target);
 		setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, Gravity.NO_GRAVITY));
 		layout = (android.widget.FrameLayout.LayoutParams) getLayoutParams();

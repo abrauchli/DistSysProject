@@ -67,8 +67,8 @@ public class MapView extends FrameLayout implements ScrollMapViewListener {
 		contentView.removeAllViews();
 		for (int i = 0; i < listPins.size(); i++) {
 			Pin pin = listPins.get(i);
-			int x = pin.getXCoord();
-			int y = pin.getYCoord();
+			int x = pin.getXCoord() - pin.getWidth() / 2;
+			int y = pin.getYCoord() - pin.getHeight() / 2;
 			if (x > xCoord && x < (xCoord + displayWidth) && y > yCoord && y < (yCoord + displayHeight)) {
 				pin.setMargins(x - xCoord, y - yCoord);
 				contentView.addView(pin);
