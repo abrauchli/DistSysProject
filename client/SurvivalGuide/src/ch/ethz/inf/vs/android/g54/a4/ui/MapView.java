@@ -17,28 +17,48 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.ui;
 
-import java.util.List;
+import java.util.ArrayList;
 
+import ch.ethz.inf.vs.android.g54.a4.R;
+import ch.ethz.inf.vs.android.g54.a4.ui.ScrollMapView.ScrollMapViewListener;
 import android.content.Context;
-import android.view.View;
+import android.graphics.BitmapFactory;
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
-public class MapView extends View {
+public class MapView extends FrameLayout implements ScrollMapViewListener {
+
+	public ScrollMapView scollMapView;
+	public FrameLayout contentView;
+	public ArrayList<Pin> listPins;
+	public int displayWidth;
+	public int displayHeight;
 	
-	/**
-	 * A list of pins to be shown on the map.
-	 * @see #updatePins
-	 */
-	public List<Pin> pins;
-
 	public MapView(Context context) {
 		super(context);
-	}
-	
-	/**
-	 * This should be called after manipulating pins, to reflect those changes in the View.
-	 */
-	public void updatePins() {
-				
+		
+		Display display = ((WindowManager) 
+				context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		
+		displayWidth = display.getWidth();
+		displayHeight = display.getHeight();
+		
+		// TODO Auto-generated constructor stub
+		listPins = new ArrayList<Pin>();
+		
+		scollMapView = new ScrollMapView(context);
+		scollMapView.setMap(BitmapFactory.decodeResource(getResources(), R.drawable.hg_e));
+		addView(scollMapView);
+		scollMapView.setListener(this);
+		
+		contentView = new FrameLayout(context);
+		addView(contentView);
+		scollMapView.setContentView(contentView);		
 	}
 
+	public void onPinAdded(Pin button) {
+		// TODO Auto-generated method stub
+		listPins.add(button);
+	}
 }
