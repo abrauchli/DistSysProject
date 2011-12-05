@@ -1,6 +1,7 @@
 # -*- coding: <utf-8> -*-
 import codecs
 import json
+import sys
 import csv
 import re
 import Model 
@@ -85,19 +86,24 @@ def getRoom(mac):
         mac=mac))
 
 def computeLocation(aps):
-  strength = 0.0
+  strength = -sys.minfloat)
   mac = ""
 
   apsResult = {}
   for k,v in aps.iteritems():
     ap = accessPoints.get(k, None)
     if ap != None:
-      if abs(float(v)) >= abs(float(strength)):
+      if float(v) >= float(strength):
         mac = k
-      apsResult[k] = {
-          "coords" : ap.room.location,
+      if ap.room.location == None:
+        apsResult[k] {
           "location" : ap.room.getDetailedInfo()
         }
+      else:
+          apsResult[k] = {
+              "coords" : ap.room.location,
+              "location" : ap.room.getDetailedInfo()
+          }
 
   if mac == "":
     raise LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
