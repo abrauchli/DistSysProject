@@ -96,13 +96,13 @@ class Building(object):
   def getInfo(self):
     return {
             "name" : self.name,
-            "street" : self.getAddress(),
+            "address" : self.getAddress(),
             "campus": self.campus
            }
 
   def getDetailedInfo(self):
     return {"name" : self.name,
-      "street" : self.getAddress(),
+      "address" : self.getAddress(),
       "floors" : self.getFloors()
      }
 
