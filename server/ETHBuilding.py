@@ -39,11 +39,11 @@ class Building(object):
     self.city = city
     self.floors = {}
     if name.upper() in ZENTRUM:
-      self.location=u"Zentrum"
+      self.campus=u"Zentrum"
     elif name.upper() in HOENGG:
-      self.location=u"Höngg"
+      self.campus=u"Höngg"
     else:
-      self.location=u"Other"
+      self.campus=u"Other"
   def __str__(self):
     return self.name
   
@@ -83,7 +83,7 @@ class Building(object):
     return { 
             "city"    : self.city,
             "street" : self.street,
-            "location": self.location
+            "campus": self.campus
            }
 
   def getFloors(self):
@@ -97,7 +97,7 @@ class Building(object):
     return {
             "name" : self.name,
             "street" : self.getAddress(),
-            "location": self.location
+            "campus": self.campus
            }
 
   def getDetailedInfo(self):
