@@ -18,6 +18,10 @@
 package ch.ethz.inf.vs.android.g54.a4.net;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -31,6 +35,10 @@ import org.apache.http.message.BasicHeader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
@@ -40,7 +48,7 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
  */
 public class RequestHandler {
 	private static final String HOST = "http://deserver.moeeeep.com";
-	//private static final String HOST = "http://129.132.185.110";
+	// private static final String HOST = "http://129.132.185.110";
 	private static final int PORT = 32123;
 
 	private static RequestHandler instance = null;
@@ -84,6 +92,34 @@ public class RequestHandler {
 			client.getConnectionManager().shutdown();
 		}
 		return parseResponse(responseBody);
+	}
+
+	/**
+	 * Downloads image from given URL and converts it to a Bitmap
+	 * 
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
+	 */
+	public static Bitmap getBitmap(String imageURL) throws ConnectionException, UnrecognizedResponseException {
+		try {
+			URL url = new URL(imageURL);
+			Log.d("ImageManager", "download url:" + url);
+
+			// Open a connection to URL
+			URLConnection ucon = url.openConnection();
+
+			// Define InputStreams to read from the URLConnection.
+			InputStream is = ucon.getInputStream();
+
+			// Read stream into a bitmap
+			return BitmapFactory.decodeStream(is);
+		} catch (MalformedURLException e) {
+			String msg = String.format("Could not resolve url %s.", imageURL);
+			throw new ConnectionException(msg, e);
+		} catch (IOException e) {
+			String msg = String.format("Could not download image from %s.", imageURL);
+			throw new UnrecognizedResponseException(msg, e);
+		}
 	}
 
 	/**
