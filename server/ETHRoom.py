@@ -76,7 +76,7 @@ class Room(Cacheable.Cacheable):
 #      "mapAvailable" : self.mapAvailable,
 #      "location" : self.location
     }
-    if self.mapAvailable():
+    if self.mapAvailable:
         r["map"] = self.getURL()
     if self.location != None:
         r["location"] = self.location

@@ -74,15 +74,15 @@ def objectInfo(mac):
   return accessPoints[mac].objectInfo()
 
 def getInfo():
-  r = []
-  for m,v in accessPoints.iteritems():
-    r.append(v.getInfo())
-  return r
+    r = []
+    for m,v in accessPoints.iteritems():
+        r.append(v.getInfo())
+    return r
 
 def getRoom(mac):
-  if mac in accesspoints:
-    return accesspoints[mac]
-  return MacAdressNotFoundException("Mac address {mac} not found".format(
+    if mac in accesspoints:
+        return accesspoints[mac]
+    return MacAdressNotFoundException("Mac address {mac} not found".format(
         mac=mac))
 
 def computeLocation(aps):
