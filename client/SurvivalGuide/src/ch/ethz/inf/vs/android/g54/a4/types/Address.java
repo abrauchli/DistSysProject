@@ -24,12 +24,19 @@ public class Address {
 
 	private String street;
 	private String city;
-	private String campus;
+	private Campus campus;
 
 	public Address(JSONObject addr) throws JSONException {
-		this.street = addr.getString("address");
+		this.street = addr.getString("address"); // TODO: change back to street, once server is fixed
 		this.city = addr.getString("city");
-		this.campus = addr.getString("location"); // TODO: maybe change protocol to reflect different name
+		String c = addr.getString("location"); // TODO: maybe change protocol to reflect different name
+		if (c.equals(Campus.HOENGG.name)) {
+			this.campus = Campus.HOENGG;
+		} else if (c.equals(Campus.ZENTRUM.name)) {
+			this.campus = Campus.ZENTRUM;
+		} else {
+			this.campus = Campus.OTHER;
+		}
 	}
 
 	public String getStreet() {
@@ -40,7 +47,18 @@ public class Address {
 		return city;
 	}
 
-	public String getCampus() {
+	public Campus getCampus() {
 		return campus;
+	}
+	
+	public enum Campus {
+		HOENGG("Höngg"),
+		ZENTRUM("Zentrum"),
+		OTHER("Other");
+		
+	    public final String name;
+	    Campus(String name) {
+	        this.name = name;
+	    }
 	}
 }
