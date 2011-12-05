@@ -82,7 +82,7 @@ class Building(object):
   def getAddress(self):
     return { 
             "city"    : self.city,
-            "address" : self.street,
+            "street" : self.street,
             "location": self.location
            }
 
@@ -96,13 +96,13 @@ class Building(object):
   def getInfo(self):
     return {
             "name" : self.name,
-            "address" : self.getAddress(),
+            "street" : self.getAddress(),
             "location": self.location
            }
 
   def getDetailedInfo(self):
     return {"name" : self.name,
-      "address" : self.getAddress(),
+      "street" : self.getAddress(),
       "floors" : self.getFloors()
      }
 
