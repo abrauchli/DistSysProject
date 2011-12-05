@@ -128,7 +128,7 @@ def computeLocation(aps):
     if room.location != None:
         r["location"]["coords"] = room.location
 
-
+    return r
 
 """
   x = float(0)
