@@ -17,6 +17,7 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,7 @@ import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 public class Building extends LazyObject {
 	/** Caching of list of all buildings. */
 	private static List<Building> allBuildings = null;
+	private static List<List<Building>> buildingGroups = null;
 
 	// Lazily generated fields
 	private Address address = null;
@@ -58,7 +60,7 @@ public class Building extends LazyObject {
 	 * @throws ConnectionException
 	 * @throws ServerException
 	 */
-	public static List<Building> getBuildings() throws ServerException, ConnectionException,
+	private static List<Building> getBuildings() throws ServerException, ConnectionException,
 			UnrecognizedResponseException {
 		if (allBuildings == null) {
 			RequestHandler req = RequestHandler.getInstance();
@@ -79,6 +81,47 @@ public class Building extends LazyObject {
 			}
 		}
 		return allBuildings;
+	}
+
+	/**
+	 * Get a list of buildings, filtered by campus
+	 * 
+	 * @param campus
+	 *            Specify the campus where the returned buildings need to be. If null, all the buildings will be
+	 *            returned.
+	 * 
+	 * @throws UnrecognizedResponseException
+	 * @throws ConnectionException
+	 * @throws ServerException
+	 */
+	public static List<Building> getBuildings(Address.Campus campus) throws ServerException, ConnectionException,
+			UnrecognizedResponseException {
+		// TODO: rewrite as soon as filtered lists directly available from server
+		if (buildingGroups == null) {
+			// initialization of the list (individual lists are set to null)
+			buildingGroups = new ArrayList<List<Building>>(Address.Campus.values().length);
+		}
+		if (campus != null) {
+			List<Building> filteredBuildings = buildingGroups.get(campus.ordinal);
+			if (filteredBuildings == null) {
+				if (allBuildings == null) {
+					// get the list of all buildings
+					getBuildings();
+				}
+				// filter the list by campus
+				filteredBuildings = new LinkedList<Building>();
+				for (Building building : allBuildings) {
+					if (building.address.getCampus().equals(campus)) {
+						filteredBuildings.add(building);
+					}
+				}
+				// cache the list for later use
+				buildingGroups.set(campus.ordinal, filteredBuildings);
+			}
+			return filteredBuildings;
+		} else {
+			return getBuildings();
+		}
 	}
 
 	public static Building parseBuilding(JSONObject desc) throws JSONException {
@@ -147,6 +190,7 @@ public class Building extends LazyObject {
 
 	/**
 	 * Get the list of floors, located in this building.
+	 * 
 	 * Make sure the object is loaded by checking isLoaded() before calling this
 	 */
 	public List<Floor> getFloors() {
@@ -156,7 +200,8 @@ public class Building extends LazyObject {
 
 	/**
 	 * Get the address of this building.
-	 * The address may (but is not guaranteed) be set even if the object is not loaded 
+	 * 
+	 * The address may (but is not guaranteed) be set even if the object is not loaded
 	 */
 	public Address getAddress() {
 		return this.address;
