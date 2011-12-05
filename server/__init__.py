@@ -186,18 +186,21 @@ def getRoomAllocation(building,room,floor):
 @app.route("/json",methods=['GET', 'POST'])
 def jsonRequest():
   if request.method == "POST":
-    if request.json != None:
-      try: 
-        req = Controller.parseJSONRequest(request.json)
-        return resultOkay(req)
-      except NotFoundException as e:
-        return resultError(e.getError())
-      except ValueError as e:
-        return resultError("Input malformed:"+str(e))
+    try: 
+        if request.json != None:
+          try: 
+            req = Controller.parseJSONRequest(request.json)
+            return resultOkay(req)
+          except NotFoundException as e:
+            return resultError(e.getError())
+          except ValueError as e:
+            return resultError("Input malformed:"+str(e))
 #except:
 #        return resultError("Either Input or output malformed")
-    else:
-      return resultError("Input malformed: You didn't send the request with application/json")
+        else:
+          return resultError("Input malformed: You didn't send the request with application/json")
+    except:
+        return resultError("JSON malformed...")
   else: 
     return """<pre>Expecting application/json via HTTP POST</pre>"""
 
