@@ -34,8 +34,7 @@ public class Room extends LazyObject {
 	Coordinate roomCenter;
 
 	// fields instantiated upon initialization
-	private String building;
-	private String floor;
+	private Floor floor;
 	private String name;
 
 	/** Hidden initialize function, use get */
@@ -44,22 +43,22 @@ public class Room extends LazyObject {
 		super.initialize(ID);
 		// ID should always be something like 'CAB G 11.1'
 		String[] parts = ID.split(" ");
-		building = parts[0];
-		floor = parts[1];
+		Building building = Building.getBuilding(parts[0]);
+		floor = Floor.getFloor(building, parts[1]);
 		name = parts[2];
 	}
 
 	/** Get a room by identifier */
-	public static Room getRoom(String building, String floor, String room) {
-		return (Room) get(constructID(building, floor, room), Room.class);
+	public static Room getRoom(Floor floor, String room) {
+		return (Room) get(constructID(floor, room), Room.class);
 	}
 
-	public static String constructID(String building, String floor, String room) {
-		return String.format("%s %s", Floor.constructID(building, floor), room);
+	private static String constructID(Floor floor, String room) {
+		return String.format("%s %s", floor.getId(), room);
 	}
 
-	protected static Room parseRoom(String building, String floor, String room, JSONObject desc) throws JSONException {
-		Room r = getRoom(building, floor, room);
+	protected static Room parseRoom(Floor floor, String room, JSONObject desc) throws JSONException {
+		Room r = getRoom(floor, room);
 		if (!r.isLoaded()) {
 			r.description = desc.getString("desc");
 		}
@@ -67,77 +66,79 @@ public class Room extends LazyObject {
 	}
 
 	protected static Room parseRoom(JSONObject desc) throws JSONException {
-		String building = desc.getString("building");
-		String floor = desc.getString("floor");
-		String room = desc.getString("room");
+		Building building = Building.getBuilding(desc.getString("building"));
+		Floor floor = Floor.getFloor(building, desc.getString("floor"));
+		Room room = getRoom(floor, desc.getString("room"));
 
-		Room r = getRoom(building, floor, room);
-
-		if (!r.isLoaded()) {
-			r.mapUrl = desc.getString("map");
-			r.description = desc.getString("desc");
-			r.roomCenter = Coordinate.parseCoordinate(desc.getJSONObject("location"));
+		if (!room.isLoaded()) {
+			if (desc.getBoolean("mapAvailable")) {
+				room.mapUrl = desc.getString("map");
+			}
+			room.description = desc.getString("desc");
+			room.roomCenter = new Coordinate(desc.getJSONObject("location"));
 		}
-		return r;
+		return room;
 	}
 
 	@Override
-	protected void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
+	public void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
-		Object o = req.request(String.format("/r/%s/%s/%s", building, floor, name));
-		if (o instanceof JSONObject) {
-			try {
-				JSONObject r = (JSONObject) o;
+		Object o = req.request(String.format("/r/%s/%s/%s", floor.getBuilding().getName(), floor.getName(), this.name));
+		try {
+			JSONObject r = (JSONObject) o;
 
-				// TODO: decide if parsing identifier tags is a good idea
-
-				// parse room
-				description = r.getString("desc");
-				// TODO: get map url and map
-				roomCenter = Coordinate.parseCoordinate(r.getJSONObject("location"));
-				setLoaded(true);
-			} catch (JSONException e) {
-				// TODO Don't throw away things, that were there before loading.
-				description = null;
-				roomCenter = null;
-				setLoaded(false);
-				String info = String.format(
-						"Result part of the servers response wasn't of the expected form. Request was \"/r/%s/%s/%s\".",
-						building, floor, name);
-				throw new UnrecognizedResponseException(info);
+			// TODO: decide if parsing identifier tags is a good idea
+			if (r.getBoolean("mapAvailable")) {
+				mapUrl = r.getString("map");
 			}
-		} else {
+			
+			// TODO load map
+
+			// parse room
+			description = r.getString("desc");
+			roomCenter = new Coordinate(r.getJSONObject("location"));
+			setLoaded(true);
+		} catch (Exception e) {
+			// TODO Don't throw away things, that were there before loading.
+			description = null;
+			roomCenter = null;
+			setLoaded(false);
 			String info = String.format(
-					"Result part of the servers response doesn't have the expected type. Request was \"/r/%s/%s/%s\".",
-					building, floor, name);
+					"Result part of the servers response wasn't of the expected form. Request was \"/r/%s/%s/%s\".",
+					floor.getBuilding(), floor, name);
 			throw new UnrecognizedResponseException(info);
 		}
 	}
 
-	public String getDescription() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		if (!isLoaded()) {
-			load();
-		}
-		return description;
+	/**
+	 * Gets the room description Make sure the object is preloaded with load() before calling
+	 */
+	public String getDescription() {
+		assert (isLoaded());
+		return this.description;
 	}
 
-	public Coordinate getRoomCenter() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		if (!isLoaded()) {
-			load();
-		}
-		return roomCenter;
+	/**
+	 * Gets the room center Make sure the object is preloaded with load() before calling
+	 */
+	public Coordinate getRoomCenter() {
+		assert (isLoaded());
+		return this.roomCenter;
 	}
 
-	public Building getBuilding() {
-		return Building.getBuilding(building);
-	}
-
+	/** Gets the floor associated with this room */
 	public Floor getFloor() {
-		return Floor.getFloor(building, floor);
+		return this.floor;
 	}
 
+	/** Gets the room name/number (e.g. 21.5) */
 	public String getName() {
-		return name;
+		return this.name;
+	}
+
+	/** Gets the URL of the map associated with this room, null if not available */
+	public String getMapUrl() {
+		return mapUrl;
 	}
 
 }

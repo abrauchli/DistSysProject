@@ -33,38 +33,37 @@ public class Floor extends LazyObject {
 
 	// lazily generated fields
 	private List<Room> rooms;
-	private String mapUrl;
-	private boolean mapAvailable;
+	private String mapUrl = null;
 	// TODO: map
 
 	// fields instantiated upon initialization
-	private String building;
+	private Building building;
 	private String name;
 
 	/** Hidden initialize function, use get */
 	@Override
 	protected void initialize(String ID) {
 		super.initialize(ID);
-		// ID should always be something like 'CAB E'
+		// ID is of form 'CAB E'
 		String[] parts = ID.split(" ");
-		building = parts[0];
-		name = parts[1];
+		this.building = Building.getBuilding(parts[0]);
+		this.name = parts[1];
 	}
 
 	/** Get a floor by identifier */
-	public static Floor getFloor(String building, String floor) {
+	public static Floor getFloor(Building building, String floor) {
 		return (Floor) get(constructID(building, floor), Floor.class);
 	}
 
-	protected static String constructID(String building, String floor) {
-		return String.format("%s %s", building, floor);
+	protected static String constructID(Building building, String floor) {
+		return String.format("%s %s", building.getId(), floor);
 	}
 
-	protected static Floor parseFloor(String building, String floor, JSONObject desc) throws JSONException {
+	public static Floor parseFloor(Building building, String floor, JSONObject desc) throws JSONException {
 		Floor f = getFloor(building, floor);
 		if (!f.isLoaded()) {
-			f.mapAvailable = desc.getBoolean("mapAvailable");
-			if (f.mapAvailable) {
+			boolean mapAvailable = desc.getBoolean("mapAvailable");
+			if (mapAvailable) {
 				f.mapUrl = desc.getString("map");
 			}
 		}
@@ -72,62 +71,63 @@ public class Floor extends LazyObject {
 	}
 
 	/**
-	 * Loads the floor.
-	 * 
+	 * Loads the floor with all rooms on this floor
 	 * @throws UnrecognizedResponseException
 	 * @throws ConnectionException
 	 * @throws ServerException
 	 */
 	@Override
-	protected void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
+	public void load() throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
-		Object o = req.request(String.format("/r/%s/%s", building, name));
-		if (o instanceof JSONObject) {
-			try {
-				JSONObject f = (JSONObject) o;
+		Object o = req.request(String.format("/r/%s/%s", this.building.getName(), this.name));
+		try {
+			JSONObject f = (JSONObject) o;
 
-				// TODO: parse building and initialize it if necessary
-				// TODO: parse map
-
-				// parse rooms
-				JSONObject rms = f.getJSONObject("rooms");
-				rooms = new LinkedList<Room>();
-				for (Iterator<?> keys = rms.keys(); keys.hasNext();) {
-					String key = (String) keys.next();
-					Room r = Room.parseRoom(building, name, key, rms.getJSONObject(key));
-					rooms.add(r);
-				}
-				setLoaded(true);
-			} catch (JSONException e) {
-				// TODO Don't throw away things, that were there before loading.
-				rooms = null;
-				setLoaded(false);
-				String info = String.format(
-						"Result part of the servers response wasn't of the expected form. Request was \"/r/%s/%s\".",
-						building, name);
-				throw new UnrecognizedResponseException(info);
+			boolean mapAvailable = f.getBoolean("mapAvailable");
+			if (mapAvailable) {
+				mapUrl = f.getString("map");
 			}
-		} else {
+			
+			// TODO load map
+
+			// parse rooms
+			JSONObject rms = f.getJSONObject("rooms");
+			rooms = new LinkedList<Room>();
+			for (Iterator<?> keys = rms.keys(); keys.hasNext();) {
+				String key = (String) keys.next();
+				Room r = Room.parseRoom(this, key, rms.getJSONObject(key));
+				rooms.add(r);
+			}
+			setLoaded(true);
+		} catch (Exception e) {
 			String info = String.format(
-					"Result part of the servers response doesn't have the expected type. Request was \"/r/%s/%s\".",
+					"Result part of the servers response wasn't of the expected form. Request was \"/r/%s/%s\".",
 					building, name);
 			throw new UnrecognizedResponseException(info);
 		}
 	}
 
-	public List<Room> getRooms() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		if (!isLoaded()) {
-			load();
-		}
+	/**
+	 * Gets a list of all rooms on this floor
+	 * Make sure the object is loaded with isLoaded() before calling
+	 */
+	public List<Room> getRooms() {
+		assert (isLoaded());
 		return rooms;
 	}
 
+	/** Gets the building associated with this floor */
 	public Building getBuilding() {
-		return Building.getBuilding(building);
+		return this.building;
 	}
 
+	/** Gets the floor name (e.g. 'F') */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
+	/** Gets the URL of the map associated with this floor, null if not available */
+	public String getMapUrl() {
+		return mapUrl;
+	}
 }

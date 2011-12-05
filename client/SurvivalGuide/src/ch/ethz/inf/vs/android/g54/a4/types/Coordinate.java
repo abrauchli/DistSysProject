@@ -26,21 +26,9 @@ import org.json.JSONObject;
 public class Coordinate {
 	private float x, y;
 
-	protected static Coordinate parseCoordinate(JSONObject coord) throws JSONException {
-		// TODO: find solution to send floating point geographical coordinates
-		int x = coord.getInt("x");
-		int y = coord.getInt("y");
-		return new Coordinate(x, y);
-	}
-
-	public Coordinate(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	public Coordinate(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Coordinate (JSONObject coord) throws JSONException {
+		this.x = (float) coord.getDouble("x");
+		this.y = (float) coord.getDouble("y");
 	}
 
 	public float getX() {
@@ -50,5 +38,4 @@ public class Coordinate {
 	public float getY() {
 		return y;
 	}
-
 }

@@ -40,6 +40,7 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
  */
 public class RequestHandler {
 	private static final String HOST = "http://deserver.moeeeep.com";
+	//private static final String HOST = "http://129.132.185.110";
 	private static final int PORT = 32123;
 
 	private static RequestHandler instance = null;
@@ -130,8 +131,8 @@ public class RequestHandler {
 		try {
 			JSONObject jso = new JSONObject(response);
 			if (!jso.getBoolean("ok")) {
-				if (jso.has("message")) {
-					String msg = jso.getString("message");
+				if (jso.has("msg")) {
+					String msg = jso.getString("msg");
 					throw new ServerException(msg);
 				} else {
 					throw new ServerException("Server returned ok=false, without giving any further information.");

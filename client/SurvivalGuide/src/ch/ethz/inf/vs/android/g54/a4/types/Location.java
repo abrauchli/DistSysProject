@@ -17,7 +17,10 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,18 +30,61 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
-public class LocationResult {
+public class Location {
+
+	private Room room = null;
+	private Floor floor = null;
 
 	/** Information concerning the access points, associated with the originally sent mac addresses. */
-	public final List<AccessPoint> aps;
+	private final Map<String, AccessPoint> aps;
 
 	/** Interpolated location, computed from the sent wifi readings. Is null if no interpolation could be done. */
-	public final Coordinate location;
+	private final Coordinate location;
 
 	/** Hidden constructor, use getFromReadings */
-	protected LocationResult(Coordinate location, List<AccessPoint> aps) {
+	protected Location(Coordinate location, Floor floor, Map<String, AccessPoint> aps) {
+		this(location, aps);
+		this.floor = floor;
+	}
+
+	/** Hidden constructor, use getFromReadings */
+	protected Location(Coordinate location, Room room, Map<String, AccessPoint> aps) {
+		this(location, aps);
+		this.room = room;
+	}
+
+	/** Hidden constructor, use getFromReadings */
+	protected Location(Coordinate location, Map<String, AccessPoint> aps) {
 		this.location = location;
 		this.aps = aps;
+	}
+
+	/**
+	 * Gets the coordinates associated with this location
+	 * @return a Coordinate object
+	 */
+	public Coordinate getLocation() {
+		return this.location;
+	}
+
+	/**
+	 * Gets the floor associated with this location
+	 * @return The associated floor or null if none
+	 */
+	public Floor getFloor() {
+		return this.floor;
+	}
+
+	/**
+	 * Gets the room associated with this location
+	 * @return The associated room or null if none
+	 */
+	public Room getRoom() {
+		return this.room;
+	}
+
+	public Map<String, AccessPoint> getAps() {
+		return aps;
 	}
 
 	/**
@@ -51,7 +97,7 @@ public class LocationResult {
 	 * @throws ConnectionException
 	 * @throws ServerException
 	 */
-	public static LocationResult getFromReadings(List<WifiReading> readings) throws ServerException,
+	public static Location getFromReadings(List<WifiReading> readings) throws ServerException,
 			ConnectionException, UnrecognizedResponseException {
 		RequestHandler rh = RequestHandler.getInstance();
 		Object o = rh.post("/json", readingsToJSON(readings).toString());
@@ -62,31 +108,42 @@ public class LocationResult {
 				// parse location
 				JSONObject loc = res.getJSONObject("location");
 
-				// TODO: parse aps
-				List<AccessPoint> aps = null;
+				// parse APs
+				Map<String, AccessPoint> aps = new HashMap<String, AccessPoint>();
+				JSONObject japs = res.getJSONObject("aps"); // politically wrong, i know..
+				@SuppressWarnings("unchecked")
+				Iterator<String> k = japs.keys(); 			// ..but we're not in politics here
+				while (k.hasNext()) {
+					try {
+						String bssid = k.next();
+						aps.put(bssid, new AccessPoint(bssid, japs.getJSONObject(bssid)));
+					} catch (JSONException e) {
+						// Error in ap, skip it
+					}
+				}
 
 				// parse coordinates
 				Coordinate location = null;
 				if (loc.has("coords")) {
-					JSONObject coords = loc.getJSONObject("coords");
-					location = Coordinate.parseCoordinate(coords);
+					location = new Coordinate(loc.getJSONObject("coords"));
 				}
 
 				// parse location type
 				String type = loc.getString("type");
 				if (type.equals("room")) {
 					Room room = Room.parseRoom(loc.getJSONObject("result"));
-					return new LocationResultWithRoom(location, room, aps);
+					return new Location(location, room, aps);
 				} else if (type.equals("floor")) {
-					return new LocationResult(location, aps);
+					Floor floor = null; // TODO: Floor.parseFloor(loc.getJSONObject("result"));
+					return new Location(location, floor, aps);
 				} else {
-					return new LocationResult(location, aps);
+					return new Location(location, aps);
 				}
 
 			} catch (JSONException e) {
 				String info = String
 						.format("Result part of the servers response wasn't of the expected form. Post was \"/json\", with \"request\"=\"location\".");
-				throw new UnrecognizedResponseException(info);
+				throw new UnrecognizedResponseException(info, e);
 			}
 		} else {
 			String info = String
@@ -109,7 +166,7 @@ public class LocationResult {
 			req.put("request", "location");
 			req.put("aps", aps);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		return req;
 	}

@@ -20,6 +20,7 @@ package ch.ethz.inf.vs.android.g54.a4;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import android.app.Activity;
@@ -34,11 +35,13 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -47,9 +50,14 @@ import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
-import ch.ethz.inf.vs.android.g54.a4.types.LocationResult;
-import ch.ethz.inf.vs.android.g54.a4.types.LocationResultWithRoom;
+import ch.ethz.inf.vs.android.g54.a4.types.Building;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
+import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
+import ch.ethz.inf.vs.android.g54.a4.types.Location;
+import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
+import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
@@ -107,6 +115,18 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 				visibleNetworks = new ArrayList<WifiReading>();
 			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
 			lst_networks.setAdapter(readingAdapter);
+			lst_networks.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					try {
+						Room r = (Room) LazyObject.get(visibleNetworks.get(position).ap.getQualifiedRoom(), Room.class);
+						r.load(); // TODO remove once map url is there automatically
+						startActivity(new Intent(SurvivalGuideActivity.this, MapTest.class)
+								.putExtra(getPackageName() + ".ImageUrl", r.getMapUrl()));
+					} catch (Exception e) {
+						U.showException(TAG, e);
+					}
+				}
+			});
 			scanReceiver = new WifiScanReceiver(this);
 		} catch (Exception e) {
 			U.showException(TAG, e);
@@ -208,8 +228,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 		case R.id.mni_dummy_data:
 			loadDummyData(false);
 			break;
-		case R.id.mni_dummy_data_2:
-			loadDummyData(true);
+		case R.id.mni_map:
+			Intent foo = new Intent(this, MapTest.class);
+			foo.putExtra(getPackageName() + ".ImageUrl", "http://deserver.moeeeep.com:32123/static/cache/CAB_G_11.gif");
+			startActivity(foo);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -228,16 +250,39 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			wifi.startScan();
 			break;
 		case R.id.btn_location:
-			LocationResult locRes;
+			Location locRes;
 			try {
-				locRes = LocationResult.getFromReadings(visibleNetworks);
-				if (locRes instanceof LocationResultWithRoom) {
-					LocationResultWithRoom locResRoom = (LocationResultWithRoom) locRes;
-					String roomID = locResRoom.room.toString();
+				locRes = Location.getFromReadings(visibleNetworks);
+				Room r = locRes.getRoom();
+				Map<String, AccessPoint> aps = locRes.getAps();
+				if (r != null) {
+					String roomID = r.toString();
 					txt_room.setText(roomID);
-					txt_ap.setText("");
+					final Building b = r.getFloor().getBuilding();
+					b.loadAsync(new Handler() {
+						public void handleMessage(Message msg) {
+							if (msg.what == MessageStatus.SUCCESS.ordinal()) {
+								// post success
+								txt_ap.setText(b.getAddress().getCampus());
+							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
+								// post failure
+								// txt_ap.setText(msg.getData().getString("message"));
+							} else {
+								// post failure
+								// txt_ap.setText("something weird happened");
+							}
+						}
+					});
 				} else {
 					U.showToast("no position found");
+				}
+				if (aps != null) {
+					for (WifiReading reading : visibleNetworks) {
+						reading.ap = aps.get(reading.mac);
+					}
+					readingAdapter.notifyDataSetChanged();
+				} else {
+					U.showToast("no info about aps");
 				}
 			} catch (ServerException e) {
 				U.showException(TAG, e);

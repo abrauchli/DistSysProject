@@ -32,6 +32,13 @@
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:paddingLeft="2dip" />
+		<TextView
+			android:text="TextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/txt_room"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:paddingLeft="10dip" />
 	</LinearLayout>
 
 

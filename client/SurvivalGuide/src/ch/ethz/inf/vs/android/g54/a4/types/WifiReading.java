@@ -26,6 +26,7 @@ public class WifiReading {
 	final public String mac;
 	final public String ssid;
 	final public int signal;
+	public AccessPoint ap = null;
 	
 	public WifiReading(String mac, String ssid, int signal) {
 		this.mac = mac;
