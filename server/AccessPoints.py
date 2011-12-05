@@ -86,7 +86,7 @@ def getRoom(mac):
         mac=mac))
 
 def computeLocation(aps):
-  strength = -sys.minfloat
+  strength = -10000.0 # Hack hack 
   mac = ""
 
   apsResult = {}
