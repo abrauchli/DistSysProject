@@ -25,6 +25,8 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
@@ -125,7 +127,11 @@ public class Location {
 				// parse coordinates
 				Coordinate location = null;
 				if (loc.has("coords")) {
-					location = new Coordinate(loc.getJSONObject("coords"));
+					// FIXME: need to remove that statement...
+					Log.d(loc.get("coords").toString());
+					if (loc.get("coords") != null) {
+						location = new Coordinate(loc.getJSONObject("coords"));
+					}
 				}
 
 				// parse location type
