@@ -57,6 +57,7 @@ import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
+import ch.ethz.inf.vs.android.g54.a4.ui.MapActivity;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
@@ -118,10 +119,18 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			lst_networks.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					try {
-						Room r = (Room) LazyObject.get(visibleNetworks.get(position).ap.getQualifiedRoom(), Room.class);
-						r.load(); // TODO remove once map url is there automatically
-						startActivity(new Intent(SurvivalGuideActivity.this, MapTest.class)
-								.putExtra(getPackageName() + ".ImageUrl", r.getMapUrl()));
+						AccessPoint ap = visibleNetworks.get(position).ap;
+						if (ap == null) {
+							U.showToast("no further AP info available");
+						} else {
+							Room r = (Room) LazyObject.get(ap.getQualifiedRoom(), Room.class);
+							r.load(); // TODO remove once map url is there automatically
+							startActivity(new Intent(SurvivalGuideActivity.this, MapActivity.class)
+									.putExtra(getPackageName() + ".ImageUrl", r.getMapUrl())
+									.putExtra(getPackageName() + ".PosX", (int) ap.getCoordinate().getX())
+									.putExtra(getPackageName() + ".PosY", (int) ap.getCoordinate().getY()));
+						}
+
 					} catch (Exception e) {
 						U.showException(TAG, e);
 					}
@@ -263,7 +272,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 						public void handleMessage(Message msg) {
 							if (msg.what == MessageStatus.SUCCESS.ordinal()) {
 								// post success
-								txt_ap.setText(b.getAddress().getCampus());
+								txt_ap.setText(b.getAddress().getCampus().name);
 							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
 								// post failure
 								// txt_ap.setText(msg.getData().getString("message"));

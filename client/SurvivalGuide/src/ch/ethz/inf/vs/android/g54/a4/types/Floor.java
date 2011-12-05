@@ -34,7 +34,6 @@ public class Floor extends LazyObject {
 	// lazily generated fields
 	private List<Room> rooms;
 	private String mapUrl = null;
-	// TODO: map
 
 	// fields instantiated upon initialization
 	private Building building;
@@ -62,16 +61,15 @@ public class Floor extends LazyObject {
 	public static Floor parseFloor(Building building, String floor, JSONObject desc) throws JSONException {
 		Floor f = getFloor(building, floor);
 		if (!f.isLoaded()) {
-			boolean mapAvailable = desc.getBoolean("mapAvailable");
-			if (mapAvailable) {
-				f.mapUrl = desc.getString("map");
-			}
+			// parse map URL
+			f.mapUrl = desc.optString("map", null);
 		}
 		return f;
 	}
 
 	/**
 	 * Loads the floor with all rooms on this floor
+	 * 
 	 * @throws UnrecognizedResponseException
 	 * @throws ConnectionException
 	 * @throws ServerException
@@ -83,12 +81,8 @@ public class Floor extends LazyObject {
 		try {
 			JSONObject f = (JSONObject) o;
 
-			boolean mapAvailable = f.getBoolean("mapAvailable");
-			if (mapAvailable) {
-				mapUrl = f.getString("map");
-			}
-			
-			// TODO load map
+			// parse map URL
+			mapUrl = f.optString("map", null);
 
 			// parse rooms
 			JSONObject rms = f.getJSONObject("rooms");
@@ -98,6 +92,7 @@ public class Floor extends LazyObject {
 				Room r = Room.parseRoom(this, key, rms.getJSONObject(key));
 				rooms.add(r);
 			}
+
 			setLoaded(true);
 		} catch (Exception e) {
 			String info = String.format(
@@ -108,8 +103,7 @@ public class Floor extends LazyObject {
 	}
 
 	/**
-	 * Gets a list of all rooms on this floor
-	 * Make sure the object is loaded with isLoaded() before calling
+	 * Gets a list of all rooms on this floor Make sure the object is loaded with isLoaded() before calling
 	 */
 	public List<Room> getRooms() {
 		assert (isLoaded());

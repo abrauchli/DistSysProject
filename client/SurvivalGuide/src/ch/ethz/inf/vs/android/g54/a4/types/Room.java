@@ -30,7 +30,6 @@ public class Room extends LazyObject {
 	// lazily generated fields
 	private String description;
 	private String mapUrl;
-	// TODO: map
 	Coordinate roomCenter;
 
 	// fields instantiated upon initialization
@@ -71,9 +70,10 @@ public class Room extends LazyObject {
 		Room room = getRoom(floor, desc.getString("room"));
 
 		if (!room.isLoaded()) {
-			if (desc.getBoolean("mapAvailable")) {
-				room.mapUrl = desc.getString("map");
-			}
+			// parse map URL
+			room.mapUrl = desc.optString("map", null);
+
+			// parse room
 			room.description = desc.getString("desc");
 			room.roomCenter = new Coordinate(desc.getJSONObject("location"));
 		}
@@ -88,15 +88,14 @@ public class Room extends LazyObject {
 			JSONObject r = (JSONObject) o;
 
 			// TODO: decide if parsing identifier tags is a good idea
-			if (r.getBoolean("mapAvailable")) {
-				mapUrl = r.getString("map");
-			}
-			
-			// TODO load map
+
+			// parse map URL
+			mapUrl = r.optString("map", null);
 
 			// parse room
 			description = r.getString("desc");
 			roomCenter = new Coordinate(r.getJSONObject("location"));
+
 			setLoaded(true);
 		} catch (Exception e) {
 			// TODO Don't throw away things, that were there before loading.
