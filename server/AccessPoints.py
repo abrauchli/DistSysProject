@@ -93,6 +93,7 @@ def computeLocation(aps):
   for k,v in aps.iteritems():
     ap = accessPoints.get(k, None)
     if ap != None:
+      print "Found ap: with mac ", k," and strength ", v
       if float(v) >= float(strength):
         mac = k
       if ap.room.location == None:
