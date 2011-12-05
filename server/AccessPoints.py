@@ -96,6 +96,7 @@ def computeLocation(aps):
       print "Found ap: with mac ", k," and strength ", v
       if float(v) >= float(strength):
         mac = k
+        strength = v
       if ap.room.location == None:
         apsResult[k] = {
           "location" : ap.room.getDetailedInfo()
@@ -105,7 +106,7 @@ def computeLocation(aps):
               "coords" : ap.room.location,
               "location" : ap.room.getDetailedInfo()
           }
-
+    
   if mac == "":
     raise LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
   room = accessPoints[mac].room
