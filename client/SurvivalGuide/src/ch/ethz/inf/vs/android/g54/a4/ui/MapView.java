@@ -61,4 +61,18 @@ public class MapView extends FrameLayout implements ScrollMapViewListener {
 		// TODO Auto-generated method stub
 		listPins.add(button);
 	}
+
+	public void onCoordsChanged(int xCoord, int yCoord) {
+		// TODO Auto-generated method stub
+		contentView.removeAllViews();
+		for (int i = 0; i < listPins.size(); i++) {
+			Pin pin = listPins.get(i);
+			int x = pin.getXCoord();
+			int y = pin.getYCoord();
+			if (x > xCoord && x < (xCoord + displayWidth) && y > yCoord && y < (yCoord + displayHeight)) {
+				pin.setMargins(x - xCoord, y - yCoord);
+				contentView.addView(pin);
+			}
+		}
+	}
 }

@@ -165,6 +165,7 @@ public class ScrollMapView extends View {
 			case MotionEvent.ACTION_UP:
 				isLongPress = false;
 				hasNotMoved = true;
+				listener.onCoordsChanged(scrollRectX, scrollRectY);
 				messageHandler.removeMessages(0, null);
 				break;
 
@@ -230,5 +231,7 @@ public class ScrollMapView extends View {
 	public interface ScrollMapViewListener {
 		
 		public void onPinAdded(Pin button);
+		
+		public void onCoordsChanged(int xCoord, int yCoord);
 	}
 }
