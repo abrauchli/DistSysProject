@@ -263,7 +263,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 						public void handleMessage(Message msg) {
 							if (msg.what == MessageStatus.SUCCESS.ordinal()) {
 								// post success
-								txt_ap.setText(b.getAddress().getCampus());
+								txt_ap.setText(b.getAddress().getCampus().name);
 							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
 								// post failure
 								// txt_ap.setText(msg.getData().getString("message"));
