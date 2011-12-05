@@ -67,12 +67,17 @@ class Room(Cacheable.Cacheable):
       "desc" : self.desc
     }
   def getDetailedInfo(self):
-    return {
+    r = {
       "building" : self.building.name,
       "floor" : self.floor.floor,
       "room"  : self.number,
       "desc"  : self.desc,
-      "map"   : self.getURL(),
-      "mapAvailable" : self.mapAvailable,
-      "location" : self.location
+#      "map"   : self.getURL(),
+#      "mapAvailable" : self.mapAvailable,
+#      "location" : self.location
     }
+    if self.mapAvailable():
+        r["map"] = self.getURL()
+    if self.location != None:
+        r["location"] = self.location
+    return r

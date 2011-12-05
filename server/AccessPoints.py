@@ -86,44 +86,48 @@ def getRoom(mac):
         mac=mac))
 
 def computeLocation(aps):
-  strength = -10000.0 # Hack hack 
-  mac = ""
+    strength = -10000.0 # Hack hack 
+    mac = ""
 
-  apsResult = {}
-  for k,v in aps.iteritems():
-    ap = accessPoints.get(k, None)
-    if ap != None:
-      print "Found ap: with mac ", k," and strength ", v
-      if float(v) >= float(strength):
-        mac = k
-        strength = v
-      if ap.room.location == None:
-        apsResult[k] = {
-          "location" : ap.room.getDetailedInfo()
-        }
-      else:
-          apsResult[k] = {
-              "coords" : ap.room.location,
-              "location" : ap.room.getDetailedInfo()
-          }
-    
-  if mac == "":
-    raise LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
-  room = accessPoints[mac].room
-  postype = "unknown"
-  if type(room) == Room:
-    postype = "room"
-  elif type(room) == Floor:
-    postype = "floor"
+    apsResult = {}
+    for k,v in aps.iteritems():
+        ap = accessPoints.get(k, None)
+        if ap != None:
+            print "Found ap: with mac ", k," and strength ", v
+            if float(v) >= float(strength):
+                mac = k
+                strength = v
+            if ap.room.location == None:
+                apsResult[k] = {
+                  "location" : ap.room.getDetailedInfo()
+                }
+            else:
+                apsResult[k] = {
+                    "coords" : ap.room.location,
+                    "location" : ap.room.getDetailedInfo()
+                }
 
-  return {
-    "location" : { 
-       "type" : postype,
-       "result" : room.getDetailedInfo(),
-       "coords" : room.location
-      },
-    "aps" : apsResult
-   }
+    if mac == "":
+        raise LocationNotFoundException("Couldn't find any location in the Mac Address Database") 
+
+    room = accessPoints[mac].room
+    postype = "unknown"
+    if type(room) == Room:
+        postype = "room"
+    elif type(room) == Floor:
+        postype = "floor"
+
+    r =  {
+        "location" : { 
+            "type" : postype,
+            "result" : room.getDetailedInfo(),
+#           "coords" : room.location
+        },
+        "aps" : apsResult
+    }
+    if room.location != None:
+        r["location"]["coords"] = room.location
+
 
 
 """
