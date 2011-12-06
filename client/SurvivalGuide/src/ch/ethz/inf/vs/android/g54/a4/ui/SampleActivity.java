@@ -21,14 +21,11 @@ import java.util.ArrayList;
 
 import ch.ethz.inf.vs.android.g54.a4.R;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.WindowManager;
 
 public class SampleActivity extends Activity {
 	
@@ -36,27 +33,32 @@ public class SampleActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(new MapView(this));
 		TouchImageView im = new TouchImageView(this);
-		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		
-		int displayWidth = display.getWidth();
-		int displayHeight = display.getHeight();
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 		
 		ArrayList<Pin2> pins = new ArrayList<Pin2>();
-		Pin2 pin = new Pin2(new Point(150,150), 25, Color.RED, "Pin1");
+		Pin2 pin = new Pin2(new Point(0,0), 25, Color.RED, "Pin1");
 		pins.add(pin);
-		pin = new Pin2(new Point(150,175), 25, Color.RED, "Pin2");
+		pin = new Pin2(new Point(0,bm.getHeight()), 25, Color.RED, "Pin2");
 		pins.add(pin);
-		pin = new Pin2(new Point(175,150), 25, Color.RED, "Pin3");
+		pin = new Pin2(new Point(bm.getWidth(),0), 25, Color.RED, "Pin3");
+		pins.add(pin);
+		pin = new Pin2(new Point(bm.getWidth(),bm.getHeight()), 25, Color.RED, "Pin4");
+		pins.add(pin);
+		pin = new Pin2(new Point(bm.getWidth()/2,bm.getHeight()/2), 25, Color.RED, "Pin4");
 		pins.add(pin);
 		pin = new Pin2(new Point(175,175), 25, Color.RED, "Pin4");
 		pins.add(pin);
 		
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
-		im.setImage(bm, displayWidth, displayHeight);
+		im.setImage(bm);
 		im.setPins(pins);
 		im.updatePins();
+		//im.centerImage();
+		//im.centerZoomImage();
+		//im.centerPoint(bm.getWidth(), bm.getHeight());
+		im.centerZoomPoint(175, 175);
 		setContentView(im);
+		
 	}	
 }

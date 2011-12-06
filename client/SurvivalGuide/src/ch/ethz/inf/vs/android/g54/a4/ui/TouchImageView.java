@@ -22,15 +22,16 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Paint.Style;
 import android.util.FloatMath;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 public class TouchImageView extends ImageView {
@@ -42,6 +43,8 @@ public class TouchImageView extends ImageView {
     Bitmap bm;
     Paint paint = new Paint();
     List<Pin2> pins;
+    int displayWidth;
+    int displayHeight;
 
     // We can be in one of these 3 states
     static final int NONE = 0;
@@ -62,6 +65,11 @@ public class TouchImageView extends ImageView {
         super.setClickable(true);
         this.context = context;
         
+    	Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		
+		displayWidth = display.getWidth();
+		displayHeight = display.getHeight();
+        
         paint.setAntiAlias(true);
         
         matrix.setTranslate(1f, 1f);
@@ -74,7 +82,7 @@ public class TouchImageView extends ImageView {
                 WrapMotionEvent event = WrapMotionEvent.wrap(rawEvent);
 
             	dumpEvent(event);
-                
+
                 // Handle touch events here...
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
@@ -124,8 +132,8 @@ public class TouchImageView extends ImageView {
             }
         });
     }
-
-    public void setImage(Bitmap bm, int displayWidth, int displayHeight) { 
+    
+    public void setImage(Bitmap bm) { 
         super.setImageBitmap(bm);
         this.bm = bm;
 
@@ -157,6 +165,124 @@ public class TouchImageView extends ImageView {
     
     public void setPins(List<Pin2> pins) {
     	this.pins = pins;
+    }
+    
+    public void centerImage() {
+    	matrix = new Matrix();
+    	savedMatrix = new Matrix();
+    	
+    	matrix.setTranslate(1f, 1f);
+        setImageMatrix(matrix);
+    	
+    	//Fit to screen.
+        float scale;
+        if ((displayHeight / bm.getHeight()) >= (displayWidth / bm.getWidth())){
+            scale =  (float)displayWidth / (float)bm.getWidth();
+        } else {
+            scale = (float)displayHeight / (float)bm.getHeight();
+        }
+
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postScale(scale, scale, 0, 0);
+        setImageMatrix(matrix);
+
+        // Center the image
+        float redundantYSpace = (float)displayHeight - (scale * (float)bm.getHeight()) ;
+        float redundantXSpace = (float)displayWidth - (scale * (float)bm.getWidth());
+
+        redundantYSpace /= (float)2;
+        redundantXSpace /= (float)2;
+
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postTranslate(redundantXSpace, redundantYSpace);
+        setImageMatrix(matrix);
+    }
+    
+    public void centerZoomImage() {
+    	matrix = new Matrix();
+    	savedMatrix = new Matrix();
+    	
+    	matrix.setTranslate(1f, 1f);
+        setImageMatrix(matrix);
+    	
+    	//Fit to screen.
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postScale(1, 1, 0, 0);
+        setImageMatrix(matrix);
+
+        // Center the image
+        float redundantYSpace = (float)displayHeight - ((float)bm.getHeight()) ;
+        float redundantXSpace = (float)displayWidth - ((float)bm.getWidth());
+
+        redundantYSpace /= (float)2;
+        redundantXSpace /= (float)2;
+
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postTranslate(redundantXSpace, redundantYSpace);
+        setImageMatrix(matrix);
+    }
+    
+    public void centerPoint(int x, int y) {
+    	matrix = new Matrix();
+    	savedMatrix = new Matrix();
+    	
+    	matrix.setTranslate(1f, 1f);
+        setImageMatrix(matrix);
+    	
+    	//Fit to screen.
+        float scale;
+        if ((displayHeight / bm.getHeight()) >= (displayWidth / bm.getWidth())){
+            scale =  (float)displayWidth / (float)bm.getWidth();
+        } else {
+            scale = (float)displayHeight / (float)bm.getHeight();
+        }
+
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postScale(scale, scale, 0, 0);
+        setImageMatrix(matrix);
+
+        // Center the image
+        float redundantYSpace = (float)displayHeight - (scale * ((float)2*(float)y)) ;
+        float redundantXSpace = (float)displayWidth - (scale * ((float)2*(float)x));
+
+        redundantYSpace /= (float)2;
+        redundantXSpace /= (float)2;
+
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postTranslate(redundantXSpace, redundantYSpace);
+        setImageMatrix(matrix);
+    }
+    
+    public void centerZoomPoint(int x, int y) {
+    	matrix = new Matrix();
+    	savedMatrix = new Matrix();
+    	
+    	matrix.setTranslate(1f, 1f);
+        setImageMatrix(matrix);
+    	
+    	//Fit to screen.
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postScale(1, 1, 0, 0);
+        setImageMatrix(matrix);
+
+        // Center the image
+        float redundantYSpace = (float)displayHeight - (float)2*(float)y;
+        float redundantXSpace = (float)displayWidth - (float)2*(float)x;
+
+        redundantYSpace /= (float)2;
+        redundantXSpace /= (float)2;
+
+        savedMatrix.set(matrix);
+        matrix.set(savedMatrix);
+        matrix.postTranslate(redundantXSpace, redundantYSpace);
+        setImageMatrix(matrix);
     }
     
     public void updatePins() {
@@ -224,11 +350,5 @@ public class TouchImageView extends ImageView {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
         point.set(x / 2, y / 2);
-    }
-    
-    @Override
-    protected void onDraw(Canvas canvas) {
-    	// TODO Auto-generated method stub
-    	super.onDraw(canvas);    	
     }
 }
