@@ -17,6 +17,8 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.ui;
 
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -39,6 +41,7 @@ public class TouchImageView extends ImageView {
     Matrix savedMatrix = new Matrix();
     Bitmap bm;
     Paint paint = new Paint();
+    List<Pin2> pins;
 
     // We can be in one of these 3 states
     static final int NONE = 0;
@@ -152,19 +155,22 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
     }
     
+    public void setPins(List<Pin2> pins) {
+    	this.pins = pins;
+    }
+    
     public void updatePins() {
     	Bitmap mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), bm.getConfig());
     	Canvas canvas = new Canvas(mbm);
     	super.setImageBitmap(mbm);
     	canvas.drawBitmap(bm, 0, 0, paint);
-    	drawCircle(canvas, 50, 50, 25, Color.RED);
-		drawCircle(canvas, 50, 75, 25, Color.RED);
-		drawCircle(canvas, 75, 50, 25, Color.RED);
-		drawCircle(canvas, 75, 75, 25, Color.RED);
-		//super.setImageBitmap(mbm);
+    	for (int i = 0; i < pins.size(); i++) {
+    		Pin2 pin = pins.get(i);
+    		drawPin(canvas, pin.getPosition().x, pin.getPosition().y, pin.getRadius(), pin.getColour());
+    	}
     }
     
-    public void drawCircle(Canvas canvas, int x, int y, int radius, int colour) {
+    public void drawPin(Canvas canvas, int x, int y, int radius, int colour) {
 		paint.setColor(colour);
 		
 		//Draw location of access point

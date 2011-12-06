@@ -17,11 +17,15 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.ui;
 
+import java.util.ArrayList;
+
 import ch.ethz.inf.vs.android.g54.a4.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
@@ -38,9 +42,21 @@ public class SampleActivity extends Activity {
 		
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
+		
+		ArrayList<Pin2> pins = new ArrayList<Pin2>();
+		Pin2 pin = new Pin2(new Point(150,150), 25, Color.RED, "Pin1");
+		pins.add(pin);
+		pin = new Pin2(new Point(150,175), 25, Color.RED, "Pin2");
+		pins.add(pin);
+		pin = new Pin2(new Point(175,150), 25, Color.RED, "Pin3");
+		pins.add(pin);
+		pin = new Pin2(new Point(175,175), 25, Color.RED, "Pin4");
+		pins.add(pin);
+		
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 		im.setImage(bm, displayWidth, displayHeight);
-		setContentView(im);
+		im.setPins(pins);
 		im.updatePins();
+		setContentView(im);
 	}	
 }
