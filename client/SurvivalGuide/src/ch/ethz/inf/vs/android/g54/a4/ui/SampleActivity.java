@@ -36,7 +36,6 @@ public class SampleActivity extends Activity {
 		TouchImageView im = new TouchImageView(this);
 		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		
-		
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);

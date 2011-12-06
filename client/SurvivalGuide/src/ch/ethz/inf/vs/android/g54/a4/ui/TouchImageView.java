@@ -45,7 +45,7 @@ public class TouchImageView extends ImageView {
     static final int DRAG = 1;
     static final int ZOOM = 2;
     int mode = NONE;
-
+    
     // Remember some things for zooming
     PointF start = new PointF();
     PointF mid = new PointF();
@@ -58,7 +58,7 @@ public class TouchImageView extends ImageView {
         super(context);
         super.setClickable(true);
         this.context = context;
-
+        
         paint.setAntiAlias(true);
         
         matrix.setTranslate(1f, 1f);
@@ -116,14 +116,11 @@ public class TouchImageView extends ImageView {
                     }
                     break;
                 }
-
                 setImageMatrix(matrix);
                 return true; // indicate event was handled
             }
-
         });
     }
-
 
     public void setImage(Bitmap bm, int displayWidth, int displayHeight) { 
         super.setImageBitmap(bm);
@@ -142,14 +139,12 @@ public class TouchImageView extends ImageView {
         matrix.postScale(scale, scale, mid.x, mid.y);
         setImageMatrix(matrix);
 
-
         // Center the image
         float redundantYSpace = (float)displayHeight - (scale * (float)bm.getHeight()) ;
         float redundantXSpace = (float)displayWidth - (scale * (float)bm.getWidth());
 
         redundantYSpace /= (float)2;
         redundantXSpace /= (float)2;
-
 
         savedMatrix.set(matrix);
         matrix.set(savedMatrix);
@@ -158,13 +153,15 @@ public class TouchImageView extends ImageView {
     }
     
     public void updatePins() {
-    	Bitmap mbm = bm.copy(Bitmap.Config.ARGB_8888, true);
+    	Bitmap mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), bm.getConfig());
     	Canvas canvas = new Canvas(mbm);
+    	super.setImageBitmap(mbm);
+    	canvas.drawBitmap(bm, 0, 0, paint);
     	drawCircle(canvas, 50, 50, 25, Color.RED);
 		drawCircle(canvas, 50, 75, 25, Color.RED);
 		drawCircle(canvas, 75, 50, 25, Color.RED);
 		drawCircle(canvas, 75, 75, 25, Color.RED);
-		super.setImageBitmap(mbm);
+		//super.setImageBitmap(mbm);
     }
     
     public void drawCircle(Canvas canvas, int x, int y, int radius, int colour) {
