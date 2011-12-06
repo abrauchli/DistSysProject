@@ -17,8 +17,14 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.ui;
 
+import ch.ethz.inf.vs.android.g54.a4.R;
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class SampleActivity extends Activity {
 	
@@ -26,6 +32,16 @@ public class SampleActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(new MapView(this));
+		//setContentView(new MapView(this));
+		TouchImageView im = new TouchImageView(this);
+		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		
+		
+		int displayWidth = display.getWidth();
+		int displayHeight = display.getHeight();
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
+		im.setImage(bm, displayWidth, displayHeight);
+		setContentView(im);
+		im.updatePins();
 	}	
 }
