@@ -26,14 +26,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 public class SampleActivity extends Activity {
+	
+	TouchImageView im;
 	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TouchImageView im = new TouchImageView(this);
+		im = new TouchImageView(this);
 		
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 		
@@ -59,6 +62,11 @@ public class SampleActivity extends Activity {
 		//im.centerPoint(bm.getWidth(), bm.getHeight());
 		im.centerZoomPoint(175, 175);
 		setContentView(im);
-		
 	}	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		im.recycleBitmaps();
+		return super.onKeyDown(keyCode, event);
+	}
 }

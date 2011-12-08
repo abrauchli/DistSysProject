@@ -33,6 +33,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class TouchImageView extends ImageView {
 
@@ -40,7 +41,7 @@ public class TouchImageView extends ImageView {
     // These matrices will be used to move and zoom image
     Matrix matrix = new Matrix();
     Matrix savedMatrix = new Matrix();
-    Bitmap bm;
+    Bitmap bm, mbm;
     Paint paint = new Paint();
     List<Pin2> pins;
     int displayWidth;
@@ -105,7 +106,7 @@ public class TouchImageView extends ImageView {
                     int xDiff = (int) Math.abs(event.getX() - start.x);
                     int yDiff = (int) Math.abs(event.getY() - start.y);
                     if (xDiff < 8 && yDiff < 8){
-                        performClick();
+                        performClick(event.getX(), event.getY());
                     }
                 case MotionEvent.ACTION_POINTER_UP:
                     mode = NONE;
@@ -282,11 +283,13 @@ public class TouchImageView extends ImageView {
         savedMatrix.set(matrix);
         matrix.set(savedMatrix);
         matrix.postTranslate(redundantXSpace, redundantYSpace);
+        Toast toast = Toast.makeText(getContext(), matrix.toString(), Toast.LENGTH_SHORT);
+		toast.show();
         setImageMatrix(matrix);
     }
     
     public void updatePins() {
-    	Bitmap mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), bm.getConfig());
+    	mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), bm.getConfig());
     	Canvas canvas = new Canvas(mbm);
     	super.setImageBitmap(mbm);
     	canvas.drawBitmap(bm, 0, 0, paint);
@@ -308,6 +311,12 @@ public class TouchImageView extends ImageView {
 		canvas.drawCircle(x, y, radius, paint);
 	}
 
+    public boolean performClick(float x, float y) {
+		Toast toast = Toast.makeText(getContext(), x + " " + y, Toast.LENGTH_SHORT);
+		toast.show();
+    	return true;
+    }
+    
     /** Show an event in the LogCat view, for debugging */
     private void dumpEvent(WrapMotionEvent event) {
         // ...
@@ -336,6 +345,11 @@ public class TouchImageView extends ImageView {
         Log.d(TAG, sb.toString());
     }
 
+    public void recycleBitmaps() {
+    	bm.recycle();
+    	mbm.recycle();
+    }
+    
     /** Determine the space between the first two fingers */
     private float spacing(WrapMotionEvent event) {
         // ...
