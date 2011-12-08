@@ -53,6 +53,14 @@ public class SampleActivity extends Activity {
 		pins.add(pin);
 		pin = new Pin2(new Point(175,175), 25, Color.RED, "Pin (175,175)");
 		pins.add(pin);
+		pin = new Pin2(new Point(175,375), 25, Color.RED, "Pin (175,375)");
+		pins.add(pin);
+		pin = new Pin2(new Point(200,375), 25, Color.RED, "Pin (200,375)");
+		pins.add(pin);
+		pin = new Pin2(new Point(175,400), 25, Color.RED, "Pin (175,400)");
+		pins.add(pin);
+		pin = new Pin2(new Point(200,400), 25, Color.RED, "Pin (200,400)");
+		pins.add(pin);
 		
 		im.setImage(bm);
 		im.setPins(pins);
