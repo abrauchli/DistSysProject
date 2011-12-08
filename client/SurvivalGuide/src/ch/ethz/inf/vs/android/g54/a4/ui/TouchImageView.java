@@ -283,8 +283,6 @@ public class TouchImageView extends ImageView {
         savedMatrix.set(matrix);
         matrix.set(savedMatrix);
         matrix.postTranslate(redundantXSpace, redundantYSpace);
-        Toast toast = Toast.makeText(getContext(), matrix.toString(), Toast.LENGTH_SHORT);
-		toast.show();
         setImageMatrix(matrix);
     }
     
@@ -312,8 +310,26 @@ public class TouchImageView extends ImageView {
 	}
 
     public boolean performClick(float x, float y) {
-		Toast toast = Toast.makeText(getContext(), x + " " + y, Toast.LENGTH_SHORT);
-		toast.show();
+		Matrix inverse = new Matrix();
+		getImageMatrix().invert(inverse);
+		float[] touchPoint = new float[] {x, y};
+		inverse.mapPoints(touchPoint);
+		double distance = 10000;
+		int closestPin = -1;
+		for (int i = 0; i < pins.size(); i++) {
+			float xDist = (float)pins.get(i).getPosition().x - touchPoint[0];
+			float yDist = (float)pins.get(i).getPosition().y - touchPoint[1];
+			double distClickPoint = Math.sqrt(xDist*xDist + yDist*yDist);
+			if (distance > distClickPoint && distClickPoint < 100) {
+				distance = distClickPoint;
+				closestPin = i;
+			}
+		}
+		
+		if (closestPin != -1) {
+			Toast toast = Toast.makeText(getContext(), "Pin " + closestPin + ", Name: " + pins.get(closestPin).getName(), Toast.LENGTH_SHORT);
+			toast.show();
+		}
     	return true;
     }
     

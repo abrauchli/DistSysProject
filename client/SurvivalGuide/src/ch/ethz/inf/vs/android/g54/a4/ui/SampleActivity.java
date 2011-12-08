@@ -41,17 +41,17 @@ public class SampleActivity extends Activity {
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 		
 		ArrayList<Pin2> pins = new ArrayList<Pin2>();
-		Pin2 pin = new Pin2(new Point(0,0), 25, Color.RED, "Pin1");
+		Pin2 pin = new Pin2(new Point(0,0), 25, Color.RED, "Pin (0,0)");
 		pins.add(pin);
-		pin = new Pin2(new Point(0,bm.getHeight()), 25, Color.RED, "Pin2");
+		pin = new Pin2(new Point(0,bm.getHeight()), 25, Color.RED, "Pin (0," + bm.getHeight() + ")");
 		pins.add(pin);
-		pin = new Pin2(new Point(bm.getWidth(),0), 25, Color.RED, "Pin3");
+		pin = new Pin2(new Point(bm.getWidth(),0), 25, Color.RED, "Pin (" + bm.getWidth() + ",0)");
 		pins.add(pin);
-		pin = new Pin2(new Point(bm.getWidth(),bm.getHeight()), 25, Color.RED, "Pin4");
+		pin = new Pin2(new Point(bm.getWidth(),bm.getHeight()), 25, Color.RED, "Pin (" + bm.getWidth() + "," + bm.getHeight() + ")");
 		pins.add(pin);
-		pin = new Pin2(new Point(bm.getWidth()/2,bm.getHeight()/2), 25, Color.RED, "Pin4");
+		pin = new Pin2(new Point(bm.getWidth()/2,bm.getHeight()/2), 25, Color.RED, "Pin (" + (int)(bm.getWidth()/2) + "," + (int)(bm.getHeight()/2) + ")");
 		pins.add(pin);
-		pin = new Pin2(new Point(175,175), 25, Color.RED, "Pin4");
+		pin = new Pin2(new Point(175,175), 25, Color.RED, "Pin (175,175)");
 		pins.add(pin);
 		
 		im.setImage(bm);
