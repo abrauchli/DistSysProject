@@ -30,10 +30,8 @@ import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -70,11 +68,6 @@ public class TouchImageView extends ImageView {
         super(context, attrs);
         super.setClickable(true);
         this.context = context;
-        
-    	Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		
-		displayWidth = display.getWidth();
-		displayHeight = display.getHeight();
         
         paint.setAntiAlias(true);
         
@@ -292,9 +285,6 @@ public class TouchImageView extends ImageView {
     }
     
     public void updatePins() {
-    	int w = bm.getWidth();
-    	int h = bm.getHeight();
-    	Config c = bm.getConfig();
     	mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), Config.RGB_565);
     	Canvas canvas = new Canvas(mbm);
     	super.setImageBitmap(mbm);
@@ -372,6 +362,13 @@ public class TouchImageView extends ImageView {
     public void recycleBitmaps() {
     	bm.recycle();
     	mbm.recycle();
+    }
+    
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    	displayWidth = w;
+    	displayHeight = h;
+    	super.onSizeChanged(w, h, oldw, oldh);
     }
     
     /** Determine the space between the first two fingers */
