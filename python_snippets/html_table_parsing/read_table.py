@@ -88,12 +88,10 @@ for tr in rows[1:]:
   columnid = 0
   for td in cols:
     state = getRoomState(td)
-    if ((rowid)%4) !=0:
-      rowspan = findRowspan(td)
-      print range(rowid,rowid+rowspan)
-      sr = 0
-      for i in range(rowid,rowid+rowspan):
-        for c in range(sr,6):
+    rowspan = findRowspan(td)
+    sr = 0
+    for i in range(rowid,rowid+rowspan):
+        for c in range(0,6):
           if roomtable[i][c] == None:
             roomtable[i][c] = state
             sr = c
