@@ -31,6 +31,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -50,7 +54,9 @@ import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
+import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
+import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
@@ -59,6 +65,8 @@ import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapActivity;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
+import ch.ethz.inf.vs.android.g54.a4.ui.Pin2;
+import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
@@ -78,8 +86,11 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 
 	ArrayAdapter<WifiReading> readingAdapter;
 	TextView txt_room, txt_ap;
-	ListView lst_networks;
+	ListView lst_networks;	
+	TouchImageView tiv_map;
 
+	List<Pin2> pins;
+	
 	// List<WifiConfiguration> configuredNetworks;
 	List<WifiReading> visibleNetworks;
 
@@ -105,13 +116,22 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			txt_room = (TextView) findViewById(R.id.txt_room);
 			txt_ap = (TextView) findViewById(R.id.txt_ap);
 			lst_networks = (ListView) findViewById(R.id.lst_networks);
+			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
-
+			
+			pins = new ArrayList<Pin2>();
+			Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
+			
+			//tiv_map.setImage(bm);
+			tiv_map.setPins(pins);
+			//tiv_map.updatePins();
+			//tiv_map.centerZoomPoint(200, 200);
+			
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
 			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
@@ -265,6 +285,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 				Room r = locRes.getRoom();
 				Map<String, AccessPoint> aps = locRes.getAps();
 				if (r != null) {
+					tiv_map.setImage(RequestHandler.getInstance().getBitmap(r.getMapUrl()));
+					tiv_map.centerZoomPoint((int) r.getRoomCenter().getX(), (int) r.getRoomCenter().getY());
 					String roomID = r.toString();
 					txt_room.setText(roomID);
 					final Building b = r.getFloor().getBuilding();
@@ -286,10 +308,19 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 					U.showToast("no position found");
 				}
 				if (aps != null) {
+					pins.clear();
 					for (WifiReading reading : visibleNetworks) {
 						reading.ap = aps.get(reading.mac);
+						if (reading.ap != null) {
+							Coordinate coords = reading.ap.getCoordinate();
+							Point pos = new Point((int)coords.getX(), (int)coords.getY());
+							pins.add(new Pin2(pos, -reading.signal, Color.BLUE, reading.mac));
+						}
 					}
 					readingAdapter.notifyDataSetChanged();
+
+					tiv_map.setPins(pins);
+					tiv_map.updatePins();
 				} else {
 					U.showToast("no info about aps");
 				}

@@ -48,8 +48,14 @@
 	    android:text="List of Access Points"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
+	<ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView
+	    android:id="@+id/tiv_map"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" />
+
 	<ListView
 		android:id="@+id/lst_networks"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent" />
+
 </LinearLayout>

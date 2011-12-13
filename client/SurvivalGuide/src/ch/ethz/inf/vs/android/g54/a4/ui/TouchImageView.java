@@ -21,11 +21,13 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Paint.Style;
+import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.util.Log;
 import android.view.Display;
@@ -60,9 +62,12 @@ public class TouchImageView extends ImageView {
 
     Context context;
 
-
     public TouchImageView(Context context) {
-        super(context);
+    	this(context, null);
+    }
+
+    public TouchImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         super.setClickable(true);
         this.context = context;
         
@@ -133,8 +138,8 @@ public class TouchImageView extends ImageView {
             }
         });
     }
-    
-    public void setImage(Bitmap bm) { 
+
+	public void setImage(Bitmap bm) { 
         super.setImageBitmap(bm);
         this.bm = bm;
 
@@ -287,7 +292,10 @@ public class TouchImageView extends ImageView {
     }
     
     public void updatePins() {
-    	mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), bm.getConfig());
+    	int w = bm.getWidth();
+    	int h = bm.getHeight();
+    	Config c = bm.getConfig();
+    	mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), Config.RGB_565);
     	Canvas canvas = new Canvas(mbm);
     	super.setImageBitmap(mbm);
     	canvas.drawBitmap(bm, 0, 0, paint);
