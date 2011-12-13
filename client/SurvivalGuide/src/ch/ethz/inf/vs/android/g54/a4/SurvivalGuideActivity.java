@@ -31,8 +31,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.wifi.ScanResult;
@@ -70,6 +68,7 @@ import ch.ethz.inf.vs.android.g54.a4.ui.MapActivity;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
 import ch.ethz.inf.vs.android.g54.a4.ui.Pin2;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
+import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
@@ -107,9 +106,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		setContentView(R.layout.main);
 
 		U.initContext(this);
-		
-		
-		
 
 		if (getLastNonConfigurationInstance() != null)
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
@@ -128,13 +124,21 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
 			tgl_map.setOnCheckedChangeListener(this);
-
+			
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
 			
 			pins = new ArrayList<Pin2>();
-			Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
+			//Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 			
+			OnSizeChangedListener hideOnce = new OnSizeChangedListener() {
+				public void onSizeChanged(int viewWidth, int viewHeight) {
+					tiv_map.setVisibility(View.GONE);
+					tiv_map.setOnSizeChangedListener(null);
+				}
+			};
+			
+			tiv_map.setOnSizeChangedListener(hideOnce);
 			//tiv_map.setImage(bm);
 			tiv_map.setPins(pins);
 			//tiv_map.updatePins();

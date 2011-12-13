@@ -60,7 +60,7 @@ public class TouchImageView extends ImageView {
 
     Context context;
     
-    OnSizeChangeListener listener;
+    OnSizeChangedListener listener;
 
     public TouchImageView(Context context) {
     	this(context, null);
@@ -382,7 +382,7 @@ public class TouchImageView extends ImageView {
     	super.onSizeChanged(w, h, oldw, oldh);
     }
     
-    public void setListener(OnSizeChangeListener listener) {
+    public void setOnSizeChangedListener(OnSizeChangedListener listener) {
     	this.listener = listener;
     }
     
@@ -421,7 +421,7 @@ public class TouchImageView extends ImageView {
         point.set(x / 2, y / 2);
     }
     
-    public interface OnSizeChangeListener {
+    public interface OnSizeChangedListener {
     	void onSizeChanged(int viewWidth, int viewHeight);
     }
 }

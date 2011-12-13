@@ -14,19 +14,19 @@
 			android:text="Scan"
 			android:layout_width="0dp" />
 		<Button
-		    android:id="@+id/btn_location"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:text="Location?" />
+			android:id="@+id/btn_location"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Location?" />
 	</LinearLayout>
 
 	<TextView
-	    android:id="@+id/textView1"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="Guessed Location/Room"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+		android:id="@+id/textView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Guessed Location/Room"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	<TextView
 		android:layout_width="wrap_content"
@@ -42,34 +42,33 @@
 		android:text="" />
 
 	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
 		<TextView
-		    android:id="@+id/textView2"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center_vertical"
-		    android:layout_weight="1"
-		    android:text="List of Access Points"
-		    android:textAppearance="?android:attr/textAppearanceLarge" />
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_weight="1"
+			android:text="List of Access Points"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
 
 		<ToggleButton
-		    android:id="@+id/tgl_map"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center_vertical"
-		    android:text="ToggleButton"
-		    android:textOff="Map"
-		    android:textOn="Map" />
+			android:id="@+id/tgl_map"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:text="ToggleButton"
+			android:textOff="Map"
+			android:textOn="Map" />
 
 	</LinearLayout>
 
 	<ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView
-	    android:id="@+id/tiv_map"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:visibility="gone" />
+		android:id="@+id/tiv_map"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
 
 	<ListView
 		android:id="@+id/lst_networks"
