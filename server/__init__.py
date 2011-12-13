@@ -185,7 +185,7 @@ def getRoomAllocation(building,room,floor):
 
 @app.route("/c/")
 def get_campus_all():
-    resultOkay(Controller.get_campus_all())
+    return resultOkay(Controller.get_campus_all())
 #    return resultOkay({u"Höngg", u"Zentrum", u"Other"})
 
 """   
