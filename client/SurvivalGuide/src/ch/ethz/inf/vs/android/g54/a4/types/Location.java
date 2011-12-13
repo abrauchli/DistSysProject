@@ -25,12 +25,15 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Location {
+	private static String TAG = "SG Location";
 
 	private Room room = null;
 	private Floor floor = null;
@@ -125,7 +128,11 @@ public class Location {
 				// parse coordinates
 				Coordinate location = null;
 				if (loc.has("coords")) {
-					location = new Coordinate(loc.getJSONObject("coords"));
+					// FIXME: need to remove that statement...
+					Log.d(TAG, loc.get("coords").toString());
+					if (loc.get("coords") != null) {
+						location = new Coordinate(loc.getJSONObject("coords"));
+					}
 				}
 
 				// parse location type

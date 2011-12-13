@@ -81,6 +81,8 @@ public class Floor extends LazyObject {
 		try {
 			JSONObject f = (JSONObject) o;
 
+			// TODO: parsing identifier tags and throw exception if they don't match input
+
 			// parse map URL
 			mapUrl = f.optString("map", null);
 

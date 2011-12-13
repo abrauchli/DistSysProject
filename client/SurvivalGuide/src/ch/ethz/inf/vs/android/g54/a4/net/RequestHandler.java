@@ -42,11 +42,14 @@ import android.util.Log;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
+import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 /**
  * Singleton class in charge of http connections to the server Also does basic JSON parsing and displays toast on errors
  */
 public class RequestHandler {
+	private static String TAG = "SG RequestHandler";
+
 	private static final String HOST = "http://deserver.moeeeep.com";
 	// private static final String HOST = "http://129.132.185.110";
 	private static final int PORT = 32123;
@@ -76,6 +79,8 @@ public class RequestHandler {
 	 * @throws UnrecognizedResponseException
 	 */
 	public Object request(String res) throws ServerException, ConnectionException, UnrecognizedResponseException {
+		Log.d(TAG, String.format("Sending request for resource %s.", res));
+
 		HttpClient client = new DefaultHttpClient();
 		String responseBody = null;
 		try {
@@ -100,10 +105,11 @@ public class RequestHandler {
 	 * @throws ConnectionException
 	 * @throws UnrecognizedResponseException
 	 */
-	public Bitmap getBitmap(String imageURL) throws ConnectionException, UnrecognizedResponseException {
+	public static Bitmap getBitmap(String imageURL) throws ConnectionException, UnrecognizedResponseException {
+		Log.d(TAG, "download image from:" + imageURL);
+
 		try {
 			URL url = new URL(imageURL);
-			Log.d("ImageManager", "download url:" + url);
 
 			// Open a connection to URL
 			URLConnection ucon = url.openConnection();
@@ -136,6 +142,8 @@ public class RequestHandler {
 	 */
 	public Object post(String res, String data) throws ServerException, ConnectionException,
 			UnrecognizedResponseException {
+		U.logInPieces(TAG, String.format("Sending request for resource %s with data %s.", res, data));
+
 		HttpClient client = new DefaultHttpClient();
 		String responseBody = null;
 
@@ -164,6 +172,8 @@ public class RequestHandler {
 	 * @throws ServerException
 	 */
 	private Object parseResponse(String response) throws UnrecognizedResponseException, ServerException {
+		U.logInPieces(TAG, "Server responded: " + response);
+
 		try {
 			JSONObject jso = new JSONObject(response);
 			if (!jso.getBoolean("ok")) {

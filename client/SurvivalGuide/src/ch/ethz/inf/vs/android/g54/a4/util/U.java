@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 public class U {
 	private static Context context;
+	private static int LOG_LENGTH = 1000;
 
 	public static void initContext(Context context) {
 		U.context = context;
@@ -80,6 +81,19 @@ public class U {
 				showToast(text, duration);
 			}
 		});
+	}
+	
+	public static void logInPieces(String tag, String message) {
+		int length = message.length();
+		int i = 0;
+		while (i < length) {
+			if (i + LOG_LENGTH < length) {
+				Log.d(tag, message.substring(i, i + LOG_LENGTH));
+			} else {
+				Log.d(tag, message.substring(i, length));
+			}
+			i += LOG_LENGTH;
+		}
 	}
 
 }
