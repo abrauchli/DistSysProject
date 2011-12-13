@@ -34,7 +34,6 @@ def parseJSONRequest(req):
       return AccessPoints.computeLocation(aps)
     except NotFoundException: 
       raise 
-
   if request == "freeroom":
     building = req["building"]
     floor = req.get("floor")
@@ -73,4 +72,10 @@ def findFreeRoom(building,floor=None,stime=None,etime=None):
       ret.append(room.getDetailedInfo())
 
   return ret
+
+def get_campus_all():
+    r = {}
+    for campus, blgs in ETHBuilding.CAMPUS:
+        r[campus] = blgs
+    return r
 

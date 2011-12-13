@@ -30,6 +30,8 @@ class NotFoundException(Exception):
     #return {"error": self.__class__.__name__,
     #  "msg": self.msg}
 
+class CampusNotFoundException(NotFoundException):
+    pass
 class BuildingNotFoundException(NotFoundException):
   pass
 class FloorNotFoundException(NotFoundException):
@@ -40,3 +42,4 @@ class MacAdressNotFoundException(NotFoundException):
   pass
 class LocationNotFoundException(NotFoundException):
   pass
+

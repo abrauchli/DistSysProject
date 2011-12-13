@@ -70,7 +70,7 @@ public class SampleActivity extends Activity {
 		//im.centerPoint(bm.getWidth(), bm.getHeight());
 		im.centerZoomPoint(175, 175);
 		setContentView(im);
-	}	
+	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
