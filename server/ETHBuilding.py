@@ -49,14 +49,7 @@ class Building(object):
 
     if found_campus == False:
         self.campus = OTHER_CAMPUS_NAME
-"""
-    if name.upper() in ZENTRUM:
-      self.campus=u"Zentrum"
-    elif name.upper() in HOENGG:
-      self.campus=u"Höngg"
-    else:
-      self.campus=u"Other"
-"""
+  
   def __str__(self):
     return self.name
   
