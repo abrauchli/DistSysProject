@@ -46,20 +46,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
+import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
+import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
+import ch.ethz.inf.vs.android.g54.a4.types.Floor;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
-import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -70,14 +75,10 @@ import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
-public class SurvivalGuideActivity extends Activity implements OnClickListener {
+public class SurvivalGuideActivity extends Activity implements OnClickListener, OnCheckedChangeListener,
+		OnItemSelectedListener {
 	private static final String TAG = "SurvivalGuideActivity";
 	private static final int ROOMS_DIALOG = 1;
-
-	// temp dummy data
-	private static final String[] buildings = { "CAB", "HG", "IFW" };
-	private static final String[] floors = { "C", "D", "E" };
-	private static final String[] rooms = { "1", "2", "3.1", "3.2", "4", "5", "6.1", "6.2", "6.3", "6.5", "7", "8" };
 
 	Handler handler;
 
@@ -86,11 +87,11 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 
 	ArrayAdapter<WifiReading> readingAdapter;
 	TextView txt_room, txt_ap;
-	ListView lst_networks;	
+	ListView lst_networks;
 	TouchImageView tiv_map;
 
 	List<Pin2> pins;
-	
+
 	// List<WifiConfiguration> configuredNetworks;
 	List<WifiReading> visibleNetworks;
 
@@ -123,15 +124,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
-			
+
 			pins = new ArrayList<Pin2>();
 			Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
-			
-			//tiv_map.setImage(bm);
+
+			// tiv_map.setImage(bm);
 			tiv_map.setPins(pins);
-			//tiv_map.updatePins();
-			//tiv_map.centerZoomPoint(200, 200);
-			
+			// tiv_map.updatePins();
+			// tiv_map.centerZoomPoint(200, 200);
+
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
 			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
@@ -174,63 +175,54 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 		unregisterReceiver(scanReceiver);
 	}
 
+	/**
+	 * From extending Activity
+	 * 
+	 * Creates the rooms dialog
+	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		AdapterView.OnItemSelectedListener selectedListener = new AdapterView.OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				switch (parent.getId()) {
-				case R.id.spn_building:
-					selectedBuilding = buildings[position];
-					break;
-				case R.id.spn_floor:
-					selectedFloor = floors[position];
-					break;
-				case R.id.spn_room:
-					selectedRoom = rooms[position];
-					break;
-				}
-			}
-
-			public void onNothingSelected(AdapterView<?> parent) {
-				switch (parent.getId()) {
-				case R.id.spn_building:
-					selectedBuilding = "";
-					break;
-				case R.id.spn_floor:
-					selectedFloor = "";
-					break;
-				case R.id.spn_room:
-					selectedRoom = "";
-					break;
-				}
-			}
-		};
-
 		switch (id) {
 		case ROOMS_DIALOG:
 			View room_dialog = getLayoutInflater().inflate(R.layout.room_dialog, null);
 
+			// initialize radio buttons
+			RadioGroup grp_campus = (RadioGroup) room_dialog.findViewById(R.id.grp_campus);
+			grp_campus.setOnCheckedChangeListener(this);
+
+			// initialize spinners
+			List<String> buildings = new ArrayList<String>();
+			List<String> floors = new ArrayList<String>();
+			List<String> rooms = new ArrayList<String>();
+
+			// initialize building spinner
 			Spinner spn_building = (Spinner) room_dialog.findViewById(R.id.spn_building);
 			ArrayAdapter<String> buildingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 					buildings);
 			buildingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spn_building.setAdapter(buildingAdapter);
-			spn_building.setOnItemSelectedListener(selectedListener);
+			spn_building.setOnItemSelectedListener(this);
+			spn_building.setClickable(false);
 
+			// initialize floor spinner
 			Spinner spn_floor = (Spinner) room_dialog.findViewById(R.id.spn_floor);
 			ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 					floors);
 			floorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spn_floor.setAdapter(floorAdapter);
-			spn_floor.setOnItemSelectedListener(selectedListener);
+			spn_floor.setOnItemSelectedListener(this);
+			spn_floor.setClickable(false);
 
+			// initialize room spinner
 			Spinner spn_room = (Spinner) room_dialog.findViewById(R.id.spn_room);
 			ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 					rooms);
 			roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spn_room.setAdapter(roomAdapter);
-			spn_room.setOnItemSelectedListener(selectedListener);
+			spn_room.setOnItemSelectedListener(this);
+			spn_room.setClickable(false);
 
+			// TODO: what does this thing?
 			return new AlertDialog.Builder(SurvivalGuideActivity.this).setTitle(R.string.room_dialog_title)
 					.setView(room_dialog).setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -313,7 +305,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 						reading.ap = aps.get(reading.mac);
 						if (reading.ap != null) {
 							Coordinate coords = reading.ap.getCoordinate();
-							Point pos = new Point((int)coords.getX(), (int)coords.getY());
+							Point pos = new Point((int) coords.getX(), (int) coords.getY());
 							pins.add(new Pin2(pos, -reading.signal, Color.BLUE, reading.mac));
 						}
 					}
@@ -400,6 +392,214 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			}
 			scanner.showReadings(readings);
 		}
+	}
+
+	/**
+	 * From implementing OnCheckedChangeListener
+	 * 
+	 * Listens to changes of radio buttons
+	 */
+	public void onCheckedChanged(RadioGroup group, int checkedID) {
+		View v = (View) group.getParent().getParent();
+		switch (checkedID) {
+		case R.id.rbt_eth_center:
+			try {
+				List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
+				updateBuildingsList(v, buildings);
+			} catch (Exception e) {
+				U.postException(handler, TAG, e);
+			}
+			break;
+		case R.id.rbt_eth_hoengg:
+			try {
+				List<Building> buildings = Building.getBuildings(Campus.HOENGG);
+				updateBuildingsList(v, buildings);
+			} catch (Exception e) {
+				U.postException(handler, TAG, e);
+			}
+			break;
+		case R.id.rbt_eth_all:
+			try {
+				List<Building> buildings = Building.getAllBuildings();
+				updateBuildingsList(v, buildings);
+			} catch (Exception e) {
+				U.postException(handler, TAG, e);
+			}
+			break;
+		}
+	}
+
+	/**
+	 * From implementing OnItemSelectedListener
+	 * 
+	 * Manages clicks on buildings/floors/rooms in the rooms dialog
+	 */
+	@SuppressWarnings("unchecked")
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		View v = (View) parent.getParent().getParent();
+		ArrayAdapter<String> sa;
+		Building b;
+		Floor f;
+		switch (parent.getId()) {
+		case R.id.spn_building:
+			Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+			sa = (ArrayAdapter<String>) spn_building.getAdapter();
+			selectedBuilding = sa.getItem(position);
+			selectedFloor = "";
+			selectedRoom = "";
+
+			b = Building.getBuilding(selectedBuilding);
+			try {
+				b.load(); // only loads if needed
+				updateFloorsList(v, b.getFloors());
+			} catch (Exception e) {
+				U.postException(handler, TAG, e);
+			}
+			break;
+		case R.id.spn_floor:
+			Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+			sa = (ArrayAdapter<String>) spn_floor.getAdapter();
+			selectedFloor = sa.getItem(position);
+			selectedRoom = "";
+
+			b = Building.getBuilding(selectedBuilding); // building is already loaded
+			f = Floor.getFloor(b, selectedFloor);
+			try {
+				f.load(); // only loads if needed
+				List<Room> rooms = f.getRooms();
+				updateRoomsList(v, rooms);
+			} catch (Exception e) {
+				U.postException(handler, TAG, e);
+			}
+			break;
+		case R.id.spn_room:
+			Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+			sa = (ArrayAdapter<String>) spn_room.getAdapter();
+			selectedRoom = sa.getItem(position);
+			break;
+		}
+	}
+
+	/**
+	 * From implementing OnItemSelectedListener
+	 * 
+	 * Manages clicks on buildings/floors/rooms in the rooms dialog
+	 */
+	public void onNothingSelected(AdapterView<?> parent) {
+		switch (parent.getId()) {
+		case R.id.spn_building:
+			selectedBuilding = "";
+			break;
+		case R.id.spn_floor:
+			selectedFloor = "";
+			break;
+		case R.id.spn_room:
+			selectedRoom = "";
+			break;
+		}
+	}
+
+	/**
+	 * Updates the list of the building spinner in the rooms dialog
+	 * 
+	 * @param v
+	 *            View where to find the spinners
+	 * @param buildings
+	 *            List of buildings to put into the dropdown list of the spinner
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateBuildingsList(View v, List<Building> buildings) {
+		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+
+		// update building spinner
+		ArrayAdapter<String> sa = (ArrayAdapter<String>) spn_building.getAdapter();
+		sa.clear();
+		for (Building b : buildings) {
+			sa.add(b.getName());
+		}
+		sa.notifyDataSetChanged();
+		spn_building.setClickable(true);
+
+		// update floor spinner
+		sa = (ArrayAdapter<String>) spn_floor.getAdapter();
+		sa.clear();
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(false);
+
+		// update room spinner
+		sa = (ArrayAdapter<String>) spn_room.getAdapter();
+		sa.clear();
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(false);
+	}
+
+	/**
+	 * Updates the list of the floor spinner in the rooms dialog
+	 * 
+	 * @param v
+	 *            View where to find the spinners
+	 * @param floors
+	 *            List of floors to put into the dropdown list of the spinner
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateFloorsList(View v, List<Floor> floors) {
+		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+
+		ArrayAdapter<String> sa;
+
+		// update building spinner
+		spn_building.setClickable(true);
+
+		// update floor spinner
+		sa = (ArrayAdapter<String>) spn_floor.getAdapter();
+		sa.clear();
+		for (Floor f : floors) {
+			sa.add(f.getName());
+		}
+		sa.notifyDataSetChanged();
+		spn_floor.setClickable(true);
+
+		// update room spinner
+		sa = (ArrayAdapter<String>) spn_room.getAdapter();
+		sa.clear();
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(false);
+	}
+
+	/**
+	 * Updates the list of the room spinner in the rooms dialog
+	 * 
+	 * @param v
+	 *            View where to find the spinners
+	 * @param rooms
+	 *            List of rooms to put into the dropdown list of the spinner
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateRoomsList(View v, List<Room> rooms) {
+		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+
+		ArrayAdapter<String> sa;
+
+		// update building spinner
+		spn_building.setClickable(true);
+
+		// update floor spinner
+		spn_floor.setClickable(true);
+
+		// update room spinner
+		sa = (ArrayAdapter<String>) spn_room.getAdapter();
+		sa.clear();
+		for (Room r : rooms) {
+			sa.add(r.getName());
+		}
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(true);
 	}
 
 }

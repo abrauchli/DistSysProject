@@ -60,7 +60,7 @@ public class Building extends LazyObject {
 	 * @throws ConnectionException
 	 * @throws ServerException
 	 */
-	private static List<Building> getBuildings() throws ServerException, ConnectionException,
+	public static List<Building> getAllBuildings() throws ServerException, ConnectionException,
 			UnrecognizedResponseException {
 		if (allBuildings == null) {
 			RequestHandler req = RequestHandler.getInstance();
@@ -100,13 +100,16 @@ public class Building extends LazyObject {
 		if (buildingGroups == null) {
 			// initialization of the list (individual lists are set to null)
 			buildingGroups = new ArrayList<List<Building>>(Address.Campus.values().length);
+			for (Address.Campus c : Address.Campus.values()) {
+				buildingGroups.add(null);
+			}
 		}
 		if (campus != null) {
 			List<Building> filteredBuildings = buildingGroups.get(campus.ordinal);
 			if (filteredBuildings == null) {
 				if (allBuildings == null) {
 					// get the list of all buildings
-					getBuildings();
+					getAllBuildings();
 				}
 				// filter the list by campus
 				filteredBuildings = new LinkedList<Building>();
@@ -120,7 +123,7 @@ public class Building extends LazyObject {
 			}
 			return filteredBuildings;
 		} else {
-			return getBuildings();
+			return getAllBuildings();
 		}
 	}
 

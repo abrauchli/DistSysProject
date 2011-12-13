@@ -26,6 +26,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
                 android:text="@string/eth_hoengg" />
+
+            <RadioButton
+                android:id="@+id/rbt_eth_all"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:text="@string/eth_all" />
+
         </RadioGroup>
     </LinearLayout>
 
