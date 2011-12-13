@@ -27,9 +27,9 @@ public class Address {
 	private Campus campus;
 
 	public Address(JSONObject addr) throws JSONException {
-		this.street = addr.getString("address"); // TODO: change back to street, once server is fixed
+		this.street = addr.getString("street");
 		this.city = addr.getString("city");
-		String c = addr.getString("location"); // TODO: maybe change protocol to reflect different name
+		String c = addr.getString("campus");
 		if (c.equals(Campus.HOENGG.name)) {
 			this.campus = Campus.HOENGG;
 		} else if (c.equals(Campus.ZENTRUM.name)) {

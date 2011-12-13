@@ -8,5 +8,6 @@
     <string name="room_dialog_title">Choose a Room</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
+    <string name="eth_all">all</string>
 
 </resources>
