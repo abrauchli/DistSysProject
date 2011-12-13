@@ -188,12 +188,14 @@ def get_campus_all():
     resultOkay(Controller.get_campus_all())
 #    return resultOkay({u"Höngg", u"Zentrum", u"Other"})
 
+"""   
 @app.route("/c/<campus>")
 def get_campus_buildings(campus):
     try:
         return Controller.get_campus(campus)
     except CampusNotFoundException as e
         return resultError(e.getError())
+"""
 
 @app.route("/json",methods=['GET', 'POST'])
 def jsonRequest():
