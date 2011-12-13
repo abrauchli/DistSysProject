@@ -77,4 +77,5 @@ def get_campus_all():
     r = {}
     for campus, blgs in ETHBuilding.CAMPUS:
         r[campus] = blgs
+    return r
 
