@@ -48,9 +48,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
@@ -70,7 +73,7 @@ import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
-public class SurvivalGuideActivity extends Activity implements OnClickListener {
+public class SurvivalGuideActivity extends Activity implements OnClickListener, OnCheckedChangeListener {
 	private static final String TAG = "SurvivalGuideActivity";
 	private static final int ROOMS_DIALOG = 1;
 
@@ -104,6 +107,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.main);
 
 		U.initContext(this);
+		
+		
+		
 
 		if (getLastNonConfigurationInstance() != null)
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
@@ -115,11 +121,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 			Button btn_location = (Button) findViewById(R.id.btn_location);
 			txt_room = (TextView) findViewById(R.id.txt_room);
 			txt_ap = (TextView) findViewById(R.id.txt_ap);
+			ToggleButton tgl_map = (ToggleButton) findViewById(R.id.tgl_map);
 			lst_networks = (ListView) findViewById(R.id.lst_networks);
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
+			tgl_map.setOnCheckedChangeListener(this);
 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
@@ -399,6 +407,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener {
 				readings.add(new WifiReading(result));
 			}
 			scanner.showReadings(readings);
+		}
+	}
+
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		switch (buttonView.getId()) {
+		case R.id.tgl_map:
+			lst_networks.setVisibility(isChecked ? View.GONE : View.VISIBLE);
+			tiv_map.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+			break;
 		}
 	}
 
