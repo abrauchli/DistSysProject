@@ -64,19 +64,19 @@ public class Room extends LazyObject {
 		return r;
 	}
 
-	protected static Room parseRoom(JSONObject desc) throws JSONException {
-		Building building = Building.getBuilding(desc.getString("building"));
-		Floor floor = Floor.getFloor(building, desc.getString("floor"));
-		Room room = getRoom(floor, desc.getString("room"));
+	protected static Room parseRoom(JSONObject result) throws JSONException {
+		Building building = Building.getBuilding(result.getString("building"));
+		Floor floor = Floor.getFloor(building, result.getString("floor"));
+		Room room = getRoom(floor, result.getString("room"));
 
 		if (!room.isLoaded()) {
 			// parse map URL
-			room.mapUrl = desc.optString("map", null);
+			room.mapUrl = result.optString("map", null);
 
 			// parse room
-			room.description = desc.getString("desc");
-			if (desc.has("location")) {
-				room.roomCenter = new Coordinate(desc.getJSONObject("location"));
+			room.description = result.getString("desc");
+			if (result.has("coords")) {
+				room.roomCenter = new Coordinate(result.getJSONObject("coords"));
 			} else {
 				room.roomCenter = null;
 			}
@@ -98,7 +98,11 @@ public class Room extends LazyObject {
 
 			// parse room
 			description = r.getString("desc");
-			roomCenter = new Coordinate(r.getJSONObject("location"));
+			if (r.has("coords")) {
+				roomCenter = new Coordinate(r.getJSONObject("coords"));
+			} else {
+				roomCenter = null;
+			}
 
 			setLoaded(true);
 		} catch (Exception e) {
