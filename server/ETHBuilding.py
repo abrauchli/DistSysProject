@@ -86,3 +86,9 @@ class Building(object):
       "address" : self.getAddress(),
       "floors" : self.getFloors()
      }
+
+  def getAllRooms(self):
+    r = []
+    for k,v in self.floors.iteritems():
+      r.extend(v.getAllRooms())
+    return r

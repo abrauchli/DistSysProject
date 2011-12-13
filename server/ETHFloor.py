@@ -81,3 +81,10 @@ class Floor(Cacheable.Cacheable):
       "rooms"    : self.getRooms()
 
       }
+
+  def getAllRooms(self):
+    r = []
+    for k,v in self.rooms.iteritems():
+      r.append(v)
+
+    return r

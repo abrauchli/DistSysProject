@@ -19,14 +19,55 @@ import urllib
 import re
 import time
 import datetime
+from ETHRoom import Room
+from numpy import arange
 URL = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude=CHN&geschoss=D&raumNr=44&rektoratInListe=true&raumInRaumgruppe=true&tag=20&monat=Nov&jahr=2011&checkUsage=anzeigen"
 
+DT = 0.25
 HEADER_REGEX = "" 
 
 FREE_ROOM_COLOR = '#99cc99'
 USED_ROOM_COLOR = '#006799'
 CLOSED_ROOM_COLOR = '#cccccc'
 SUNDAY_ROOM_COLOR = '#eeeeee'
+
+
+ROOM_CLOSED = 2
+ROOM_USED = 1
+ROOM_OPEN = 0
+
+
+availableRooms = []
+"""
+  </td> <td>  <select name="monat"><option value="Jan">Jan</option>
+  <option value="Feb">Feb</option>
+  <option value="Mär">Mär</option>
+  <option value="Apr">Apr</option>
+  <option value="Mai">Mai</option>
+
+  <option value="Jun">Jun</option>
+  <option value="Jul">Jul</option>
+  <option value="Aug">Aug</option>
+  <option value="Sep">Sep</option>
+  <option value="Okt">Okt</option>
+  <option value="Nov" selected="selected">Nov</option>
+  <option value="Dez">Dez</option></select>
+  """
+
+monthMap = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mär",
+    4: "Apr",
+    5: "Mai",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sep",
+    10:"Okt",
+    11:"Nov",
+    12:"Dez"}
+
 def findRowspan(td):
   attrs = td.attrs
   for a in attrs:
@@ -43,16 +84,16 @@ def findColor(td):
 def getRoomState(td):
   color = findColor(td)
   if color == FREE_ROOM_COLOR:
-    return "free"
+    return ROOM_OPEN
   if color == USED_ROOM_COLOR:
-    return "used"
+    return ROOM_USED
   if color == CLOSED_ROOM_COLOR:
-    return "closed"
+    return ROOM_CLOSED
   if color == SUNDAY_ROOM_COLOR:
-    return "closed"
+    return ROOM_CLOSED
   return "unknown"
 
-def parseRaumInfoWebsite(url):
+def parseRaumInfoURL(url):
   f = urllib.urlopen(url)
   html = f.read()
 
@@ -85,27 +126,12 @@ def parseRaumInfoWebsite(url):
       time = float(m.group(1))
       timetable.append(time)
     else:
-      time += 0.25
+      time += DT
       timetable.append(time)
 
   # Create the roomtable
   roomtable = [[None]*7 for x in xrange(len(timetable))]
 
-<<<<<<< HEAD
-rowid = 0
-for tr in rows[1:]:
-  cols = tr.findAll('td')
-  columnid = 0
-  for td in cols:
-    state = getRoomState(td)
-    rowspan = findRowspan(td)
-    sr = 0
-    for i in range(rowid,rowid+rowspan):
-        for c in range(0,6):
-          if roomtable[i][c] == None:
-            roomtable[i][c] = state
-            sr = c
-=======
   rowid = 0
   for tr in rows[1:]:
     cols = tr.findAll('td')
@@ -118,7 +144,6 @@ for tr in rows[1:]:
         for c in range(0,7):
           if roomtable[rowid][c] == None:
             startcolum = c
->>>>>>> 4fa68d05272996022cc17eef71a2a318e1a26f1e
             break
         for i in range(rowid,rowid+rowspan):
           roomtable[i][startcolum] = state
@@ -127,5 +152,60 @@ for tr in rows[1:]:
 #
 #  for row in roomtable:
 #    print row
-  return {"header":rowHeaders, "time": timetable, "timetable": roomtable }
+#  return {"header":rowHeaders, "time": timetable, "timetable": roomtable, "dt": DT }
+  return {"header": rowHeaders, 
+      "stime":timetable[0],
+      "etime":(timetable[-1]+DT),
+      "timetable": roomtable, "dt": DT,
+      "mapping": {
+        "open": ROOM_OPEN,
+        "closed": ROOM_CLOSED,
+        "used": ROOM_USED
+        }
+      }
+
+
+def parseRaumInfoWebsite(building,floor,room,date):
+  s = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude={building}&geschoss={floor}&raumNr={room}&rektoratInListe=true&raumInRaumgruppe=true&tag={day}&monat={month}&jahr={year}&checkUsage=anzeigen".format(
+      building=building,
+      floor=floor,
+      room=room,
+      year=date.year,
+      month=monthMap[date.month],
+      day=date.day)
+  return parseRaumInfoURL(s)
+
+def getRoomAllocation(room,date=datetime.date.today()):
+  if type(room) != Room:
+    raise Exception("Input has wrong type")
+  building=room.building.name
+  floor=room.floor.floor
+  room=room.number
+  return parseRaumInfoWebsite(building,floor,room,date)
+
+def isRoomFree(room,stime=7.0,etime=22.0,date=datetime.date.today()):
+  if etime < stime:
+    raise Exception("Endtime is smaller than starttime")
+  if stime%DT != 0 and etime%DT != 0:
+    print "Stime {s} or Etime {e} mod {dt} != 0".format(s=stime,e=etime,dt=DT)
+    raise
+  rdata = getRoomAllocation(room,date)
+  rtime = arange(rdata["stime"],rdata["etime"],DT)
+  table = rdata["timetable"]
+  datestring = "{day}.{month}".format(day=date.day,month=date.month)
+  column = rdata["header"].index(datestring)
+  for i in range(0,len(rtime)):
+    if stime >= rtime[i]:
+      rowstart = i
+      break
+  
+  for i in range(0,len(rtime)):
+    if etime <= rtime[i]:
+      rowend = i
+      break
+  for r in range(rowstart,rowend):
+    if table[r][column] != ROOM_OPEN:
+      return False
+
+  return True
 

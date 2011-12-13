@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ### Config file for the distsysproject
 
 # Server DNS Name
@@ -13,6 +14,8 @@ MONGODB_DATABASE = "DistSysProjekt"
 LOCAL_CACHE_DIR = "static/cache/"
 # You might want to change this if you want to change from gif to png or so..
 CACHED_IMAGE_TYPE = "gif"
+
+ROOMTYPE_LEARNING = [u"Seminare / Kurse", u"Computerraum", u"Hörsaal"]
 
 ##################### Runtime variables
 from pymongo import Connection

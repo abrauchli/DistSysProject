@@ -25,7 +25,7 @@ import Model
 import Controller
 import config
 import AccessPoints
-
+import ETHReadRoomAllocation
 app = Flask(__name__)
 
 def resultOkay(obj):
@@ -410,8 +410,7 @@ Result:
        ”00:0f:61:be:63:13"_
             { ... }
 
-</pre>
-"""
+</pre>"""
 #  {ok = true, result = {BLOB}
 
 @app.route("/r/")
@@ -438,6 +437,16 @@ def getRoom(building,room,floor):
   r = Model.getRoom(building,room,floor)
   if r!= None:
     return resultOkay(r)
+  else:
+    return resultError("Could not find room, floor or building")
+
+
+@app.route("/r/<building>/<room>/<floor>/allocation")
+def getRoomAllocation(building,room,floor):
+  r = Model.findRoom(building,room,floor)
+  if r!= None:
+    timetable = ETHReadRoomAllocation.getRoomAllocation(r)
+    return resultOkay(timetable)
   else:
     return resultError("Could not find room, floor or building")
 
