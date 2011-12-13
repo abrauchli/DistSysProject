@@ -75,7 +75,11 @@ public class Room extends LazyObject {
 
 			// parse room
 			room.description = desc.getString("desc");
-			room.roomCenter = new Coordinate(desc.getJSONObject("location"));
+			if (desc.has("location")) {
+				room.roomCenter = new Coordinate(desc.getJSONObject("location"));
+			} else {
+				room.roomCenter = null;
+			}
 		}
 		return room;
 	}
@@ -87,7 +91,7 @@ public class Room extends LazyObject {
 		try {
 			JSONObject r = (JSONObject) o;
 
-			// TODO: decide if parsing identifier tags is a good idea
+			// TODO: parsing identifier tags and throw exception if they don't match input
 
 			// parse map URL
 			mapUrl = r.optString("map", null);

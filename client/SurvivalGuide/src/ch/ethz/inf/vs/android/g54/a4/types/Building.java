@@ -154,9 +154,7 @@ public class Building extends LazyObject {
 			try {
 				JSONObject b = (JSONObject) o;
 
-				// TODO: decide if this would make sense or not
-				// parse name of the building (though already set by constructor)
-				// name = b.getString("name");
+				// TODO: parsing identifier tags and throw exception if they don't match input
 
 				// parse address
 				JSONObject addr = b.getJSONObject("address");
