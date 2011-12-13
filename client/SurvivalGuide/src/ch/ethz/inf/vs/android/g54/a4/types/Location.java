@@ -33,6 +33,7 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 
 public class Location {
+	private static String TAG = "SG Location";
 
 	private Room room = null;
 	private Floor floor = null;
@@ -128,7 +129,7 @@ public class Location {
 				Coordinate location = null;
 				if (loc.has("coords")) {
 					// FIXME: need to remove that statement...
-					Log.d(loc.get("coords").toString());
+					Log.d(TAG, loc.get("coords").toString());
 					if (loc.get("coords") != null) {
 						location = new Coordinate(loc.getJSONObject("coords"));
 					}
