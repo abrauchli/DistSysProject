@@ -380,39 +380,6 @@ Result:
       ]
   }
 
-/json
-  Input from client:
-    {
-      request=”location”
-      aps = {   
-        "00:03:52:2b:e9:01" : "75",
-        ”00:0f:61:be:63:13" : "81"
-      }
-    }
-  Output:
-    {
-      ok = true,
-      result = {
-        location : {
-        type = “room” / “floor”        
-        result = { information from either room/floor/building }
-        coords = { // Left out, when no coordinate information
-          x =
-          y =
-        aps = {
-        "00:03:52:2b:e9:01":
-            {
-              coords = {
-                x =
-                y =
-              location = {
-                building = “CAB”
-                floor = “E”
-                room = “18.1”
-              }
-       ”00:0f:61:be:63:13"_
-            { ... }
-
 </pre>
 """
 #  {ok = true, result = {BLOB}
