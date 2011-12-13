@@ -44,8 +44,8 @@ public class TouchImageView extends ImageView {
     Bitmap bm, mbm;
     Paint paint = new Paint();
     List<Pin2> pins;
-    int displayWidth;
-    int displayHeight;
+    int viewWidth;
+    int viewHeight;
 
     // We can be in one of these 3 states
     static final int NONE = 0;
@@ -59,6 +59,8 @@ public class TouchImageView extends ImageView {
     float oldDist = 1f;
 
     Context context;
+    
+    OnSizeChangeListener listener;
 
     public TouchImageView(Context context) {
     	this(context, null);
@@ -133,15 +135,16 @@ public class TouchImageView extends ImageView {
     }
 
 	public void setImage(Bitmap bm) { 
+		Log.d("VIEW", "setImage");
         super.setImageBitmap(bm);
         this.bm = bm;
 
         //Fit to screen.
         float scale;
-        if ((displayHeight / bm.getHeight()) >= (displayWidth / bm.getWidth())){
-            scale =  (float)displayWidth / (float)bm.getWidth();
+        if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())){
+            scale =  (float)viewWidth / (float)bm.getWidth();
         } else {
-            scale = (float)displayHeight / (float)bm.getHeight();
+            scale = (float)viewHeight / (float)bm.getHeight();
         }
 
         savedMatrix.set(matrix);
@@ -150,8 +153,8 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
 
         // Center the image
-        float redundantYSpace = (float)displayHeight - (scale * (float)bm.getHeight()) ;
-        float redundantXSpace = (float)displayWidth - (scale * (float)bm.getWidth());
+        float redundantYSpace = (float)viewHeight - (scale * (float)bm.getHeight()) ;
+        float redundantXSpace = (float)viewWidth - (scale * (float)bm.getWidth());
 
         redundantYSpace /= (float)2;
         redundantXSpace /= (float)2;
@@ -167,6 +170,7 @@ public class TouchImageView extends ImageView {
     }
     
     public void centerImage() {
+    	Log.d("VIEW", "centerImage");
     	matrix = new Matrix();
     	savedMatrix = new Matrix();
     	
@@ -175,10 +179,10 @@ public class TouchImageView extends ImageView {
     	
     	//Fit to screen.
         float scale;
-        if ((displayHeight / bm.getHeight()) >= (displayWidth / bm.getWidth())){
-            scale =  (float)displayWidth / (float)bm.getWidth();
+        if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())){
+            scale =  (float)viewWidth / (float)bm.getWidth();
         } else {
-            scale = (float)displayHeight / (float)bm.getHeight();
+            scale = (float)viewHeight / (float)bm.getHeight();
         }
 
         savedMatrix.set(matrix);
@@ -187,8 +191,8 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
 
         // Center the image
-        float redundantYSpace = (float)displayHeight - (scale * (float)bm.getHeight()) ;
-        float redundantXSpace = (float)displayWidth - (scale * (float)bm.getWidth());
+        float redundantYSpace = (float)viewHeight - (scale * (float)bm.getHeight()) ;
+        float redundantXSpace = (float)viewWidth - (scale * (float)bm.getWidth());
 
         redundantYSpace /= (float)2;
         redundantXSpace /= (float)2;
@@ -200,6 +204,7 @@ public class TouchImageView extends ImageView {
     }
     
     public void centerZoomImage() {
+    	Log.d("VIEW", "centerZoomImage");
     	matrix = new Matrix();
     	savedMatrix = new Matrix();
     	
@@ -213,8 +218,8 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
 
         // Center the image
-        float redundantYSpace = (float)displayHeight - ((float)bm.getHeight()) ;
-        float redundantXSpace = (float)displayWidth - ((float)bm.getWidth());
+        float redundantYSpace = (float)viewHeight - ((float)bm.getHeight()) ;
+        float redundantXSpace = (float)viewWidth - ((float)bm.getWidth());
 
         redundantYSpace /= (float)2;
         redundantXSpace /= (float)2;
@@ -226,6 +231,7 @@ public class TouchImageView extends ImageView {
     }
     
     public void centerPoint(int x, int y) {
+    	Log.d("VIEW", "centerPoint");
     	matrix = new Matrix();
     	savedMatrix = new Matrix();
     	
@@ -234,10 +240,10 @@ public class TouchImageView extends ImageView {
     	
     	//Fit to screen.
         float scale;
-        if ((displayHeight / bm.getHeight()) >= (displayWidth / bm.getWidth())){
-            scale =  (float)displayWidth / (float)bm.getWidth();
+        if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())){
+            scale =  (float)viewWidth / (float)bm.getWidth();
         } else {
-            scale = (float)displayHeight / (float)bm.getHeight();
+            scale = (float)viewHeight / (float)bm.getHeight();
         }
 
         savedMatrix.set(matrix);
@@ -246,8 +252,8 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
 
         // Center the image
-        float redundantYSpace = (float)displayHeight - (scale * ((float)2*(float)y)) ;
-        float redundantXSpace = (float)displayWidth - (scale * ((float)2*(float)x));
+        float redundantYSpace = (float)viewHeight - (scale * ((float)2*(float)y)) ;
+        float redundantXSpace = (float)viewWidth - (scale * ((float)2*(float)x));
 
         redundantYSpace /= (float)2;
         redundantXSpace /= (float)2;
@@ -259,6 +265,7 @@ public class TouchImageView extends ImageView {
     }
     
     public void centerZoomPoint(int x, int y) {
+    	Log.d("VIEW", "centerZoomPoint");
     	matrix = new Matrix();
     	savedMatrix = new Matrix();
     	
@@ -272,8 +279,8 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
 
         // Center the image
-        float redundantYSpace = (float)displayHeight - (float)2*(float)y;
-        float redundantXSpace = (float)displayWidth - (float)2*(float)x;
+        float redundantYSpace = (float)viewHeight - (float)2*(float)y;
+        float redundantXSpace = (float)viewWidth - (float)2*(float)x;
 
         redundantYSpace /= (float)2;
         redundantXSpace /= (float)2;
@@ -366,10 +373,37 @@ public class TouchImageView extends ImageView {
     
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    	displayWidth = w;
-    	displayHeight = h;
+    	Log.d("VIEW", "onSizeChanged" + " " + w + " " + h);
+    	viewWidth = w;
+    	viewHeight = h;
+    	if (listener != null) {
+    		listener.onSizeChanged(viewWidth, viewHeight);
+    	}
     	super.onSizeChanged(w, h, oldw, oldh);
     }
+    
+    public void setListener(OnSizeChangeListener listener) {
+    	this.listener = listener;
+    }
+    
+//    @Override
+//    protected void onDraw(Canvas canvas) {
+//    	Log.d("VIEW", "onDraw" + " " + displayWidth + " " + displayHeight);
+//    	// TODO Auto-generated method stub
+//    	displayWidth = getWidth();
+//    	displayHeight = getHeight();
+//    	super.onDraw(canvas);
+//    }
+    
+//    @Override
+//    protected void onLayout(boolean changed, int left, int top, int right,
+//    		int bottom) {
+//    	Log.d("VIEW", "onLayout" + " " + displayWidth + " " + displayHeight);
+//    	// TODO Auto-generated method stub
+//    	super.onLayout(changed, left, top, right, bottom);
+//    	displayWidth = getWidth();
+//    	displayHeight = getHeight();
+//    }
     
     /** Determine the space between the first two fingers */
     private float spacing(WrapMotionEvent event) {
@@ -385,5 +419,9 @@ public class TouchImageView extends ImageView {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
         point.set(x / 2, y / 2);
+    }
+    
+    public interface OnSizeChangeListener {
+    	void onSizeChanged(int viewWidth, int viewHeight);
     }
 }
