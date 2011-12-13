@@ -280,7 +280,20 @@ Tests für die JSON Requests
 AP Location Query
 -----------------
 
+Curl Request:
 curl -v -H "Content-Type:application/json" -X POST -d '{"request":"location","aps":{"00:03:52:2b:e9:01":75, "00:0f:61:be:63:13":12}}' http://deserver.moeeeep.com:32123/json
+
+
+Request:
+  {
+    "request": "location" ,
+    "aps" :
+      {
+        "00:03:52:2b:e9:01" : 75, 
+        "00:0f:61:be:63:13" : 12
+      }
+  }
+
 
 Result:
   {
@@ -369,6 +382,15 @@ Free Room Search
 ----------------
 
 curl -v -H "Content-Type:application/json" -X POST -d '{"request":"freeroom","building":"HG","floor":"E","starttime":12.0,"endtime":18.0}' http://deserver.moeeeep.com:32123/json
+
+Request:
+  {
+    "request" : "freeroom",
+    "building" : "HG" ,
+    "floor" : "E",        # Optional
+    "starttime" : 12.0,   # Optional
+    "endtime" : 18.0      # Optional
+  }
 
 Result:
   {
