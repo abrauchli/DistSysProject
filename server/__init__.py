@@ -49,12 +49,23 @@ def resultError(message):
 @app.route("/")
 def currentRoutes():
   return """<pre>
+Distributed Systems Project API Documentation
+=============================================
+=============================================
+
 Encapsulation in:
     {ok = true, result = {BLOB}
 
 In case of Error:
     Send status 500
     {ok = false, message = {see below}
+
+
+Room Search
+===========
+
+Lookup Buildings
+----------------
 
 r/
   {
@@ -130,11 +141,10 @@ r/HG
       }
   }
 
-Error Message: 
-  {
-    "msg": "Error Message", 
-    "ok": false
-  }
+
+Lookup Floor
+------------
+
 
 r/HG/E
   {
@@ -218,6 +228,9 @@ r/HG/E
       }
   }
 
+Lookup Room
+-----------
+
 r/HG/E/1.1
   {
     "ok": true, 
@@ -234,6 +247,30 @@ r/HG/E/1.1
             "boundingbox": [531, 1162, 772, 1353]
           }, 
         "desc": "Hörsaal"
+      }
+  }
+
+
+Campus Search
+-------------
+
+c/
+  {
+    "ok": true, 
+    "result": 
+      {
+        "Zentrum": 
+          [
+            "IFW", "RZ", "NO", "NW", "ML", "CLA", "CHN", "CAB", 
+            "CNB", "LFW", "ETF", "ETZ", "ETA", "ETL", "HG", "MM", "GEP"
+          ], 
+        "Höngg": 
+          [
+            "HEZ", "HDB", "HKK", "HIT", "HIF", "HIL", "HIK", "HIR",
+            "HIQ", "HIP", "HPF", "HPM", "HPK", "HPL", "HPW", "HPT", 
+            "HPI", "HPZ", "HPR", "HPH", "HPV", "HPP", "HPS", "HXE", 
+            "HXD", "HCI", "HXA", "HXC"
+          ]
       }
   }
 
@@ -379,6 +416,7 @@ Result:
         }
       ]
   }
+
 
 </pre>
 """
