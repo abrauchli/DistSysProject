@@ -21,12 +21,14 @@ import ETHFloor
 import ETHRoom 
 from exception import *
 
-ZENTRUM = ['IFW','RZ','NO','NW','ML','CLA','CHN','CAB','CNB','LFW',
-        'ETF','ETZ','ETA','ETL',
-        'HG','MM','GEP']
-HOENGG = ['HEZ','HDB','HKK','HIT','HIF','HIL','HIK','HIR','HIQ','HIP',
-       'HPF','HPM','HPK','HPL','HPW','HPT','HPI','HPZ','HPR','HPH',
-       'HPV','HPP','HPS','HXE','HXD','HCI','HXA','HXC']
+CAMPUS = [(u"Zentrum", 
+            ['IFW','RZ','NO','NW','ML','CLA','CHN','CAB','CNB','LFW',
+             'ETF','ETZ','ETA','ETL', 'HG','MM','GEP']),
+         (u"Höngg", 
+            ['HEZ','HDB','HKK','HIT','HIF','HIL','HIK','HIR','HIQ','HIP',
+               'HPF','HPM','HPK','HPL','HPW','HPT','HPI','HPZ','HPR','HPH',
+               'HPV','HPP','HPS','HXE','HXD','HCI','HXA','HXC'])]
+OTHER_CAMPUS_NAME = u"Other"
 class Building(object):  
   def __init__(self,name,city=u"Zürich",street=""):
     if street =="noname":
@@ -38,12 +40,23 @@ class Building(object):
     self.street = street
     self.city = city
     self.floors = {}
+    found_campus = False
+    for campus, bldgs in CAMPUS:
+        if name.upper() in bldgs:
+            self.campus = campus
+            found_campus = True
+            break
+
+    if found_campus == False:
+        self.campus = OTHER_CAMPUS_NAME
+"""
     if name.upper() in ZENTRUM:
       self.campus=u"Zentrum"
     elif name.upper() in HOENGG:
       self.campus=u"Höngg"
     else:
       self.campus=u"Other"
+"""
   def __str__(self):
     return self.name
   
