@@ -288,8 +288,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				Room r = locRes.getRoom();
 				Map<String, AccessPoint> aps = locRes.getAps();
 				if (r != null) {
-					tiv_map.setImage(RequestHandler.getInstance().getBitmap(r.getMapUrl()));
-					tiv_map.centerZoomPoint((int) r.getRoomCenter().getX(), (int) r.getRoomCenter().getY());
+					tiv_map.setImage(RequestHandler.getBitmap(r.getMapUrl()));
+					Coordinate center = r.getRoomCenter();
+					if (center != null)
+						tiv_map.centerZoomPoint((int) center.getX(), (int) center.getY());
 					String roomID = r.toString();
 					txt_room.setText(roomID);
 					final Building b = r.getFloor().getBuilding();
@@ -338,7 +340,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		}
 	}
 
-	private void loadDummyData(boolean allowNonexistant) {
+	private void loadDummyData(boolean allowNonexistent) {
 		int mincount = 3, maxcount = 8;
 		String[] macs = {
 				//
@@ -357,19 +359,19 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				"00:03:52:1c:31:c", // air-cab-g20-1-a
 				"00:03:52:5c:34:f", // air-hg-g5-b
 				"00:03:52:d8:2d:a", // air-hg-f3-a
-				"ff:ff:ff:ff:ff:a", // NON-EXISTANT
-				"ff:ff:ff:ff:ff:b", // NON-EXISTANT
-				"ff:ff:ff:ff:ff:c", // NON-EXISTANT
-				"ff:ff:ff:ff:ff:d", // NON-EXISTANT
-				"ff:ff:ff:ff:ff:e", // NON-EXISTANT
-				"ff:ff:ff:ff:ff:f", // NON-EXISTANT
+				"ff:ff:ff:ff:ff:a", // NON-EXISTENT
+				"ff:ff:ff:ff:ff:b", // NON-EXISTENT
+				"ff:ff:ff:ff:ff:c", // NON-EXISTENT
+				"ff:ff:ff:ff:ff:d", // NON-EXISTENT
+				"ff:ff:ff:ff:ff:e", // NON-EXISTENT
+				"ff:ff:ff:ff:ff:f", // NON-EXISTENT
 		};
 		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
 		Random rand = new Random();
 		int count = rand.nextInt(maxcount - mincount) + mincount;
 		visibleNetworks.clear();
 		for (int i = 0; i < count; i++) {
-			int macidx = rand.nextInt(allowNonexistant ? macs.length : macs.length - 6);
+			int macidx = rand.nextInt(allowNonexistent ? macs.length : macs.length - 6);
 			int mactype = rand.nextInt(4);
 			int signal = rand.nextInt(70) - 90; // -21 to -90
 			visibleNetworks.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
