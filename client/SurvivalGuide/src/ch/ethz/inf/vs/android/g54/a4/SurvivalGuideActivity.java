@@ -280,11 +280,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				locRes = Location.getFromReadings(visibleNetworks);
 				Room r = locRes.getRoom();
 				Map<String, AccessPoint> aps = locRes.getAps();
+				markers.clear();
 				if (r != null) {
 					tiv_map.setImage(RequestHandler.getBitmap(r.getMapUrl()));
-					Coordinate center = r.getRoomCenter();
-					if (center != null)
-						tiv_map.centerZoomPoint((int) center.getX(), (int) center.getY());
 					String roomID = r.toString();
 					txt_room.setText(roomID);
 					final Building b = r.getFloor().getBuilding();
@@ -306,22 +304,34 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 					U.showToast("no position found");
 				}
 				if (aps != null) {
-					markers.clear();
 					for (WifiReading reading : visibleNetworks) {
 						reading.ap = aps.get(reading.mac);
 						if (reading.ap != null) {
 							Coordinate coords = reading.ap.getCoordinate();
 							Point pos = new Point((int) coords.getX(), (int) coords.getY());
-							markers.add(new LocationMarker(pos, -reading.signal, Color.BLUE, reading.mac));
+							//float saturation = (float) (Math.log(reading.signal + 90) / Math.log(100));
+							int s = reading.signal;
+							float saturation;
+							if (s < -60)
+								saturation = (s+100)*0.02f; 
+							else
+								saturation = (s+60)*0.005f + 0.8f;
+							markers.add(new LocationMarker(pos, 100, Color.HSVToColor(new float[] {240, saturation, 1}), reading.mac));
 						}
 					}
 					readingAdapter.notifyDataSetChanged();
 
-					tiv_map.setMarkers(markers);
-					tiv_map.updateMarkers();
 				} else {
 					U.showToast("no info about aps");
 				}
+				if (r != null) {
+					Coordinate center = r.getRoomCenter();
+					if (center != null) {
+						markers.add(new LocationMarker(new Point((int) center.getX(), (int) center.getY()), 20, Color.RED, "Your approximate location"));
+						tiv_map.centerZoomPoint((int) center.getX(), (int) center.getY());
+					}
+				}
+				tiv_map.updateMarkers();
 			} catch (ServerException e) {
 				U.showException(TAG, e);
 			} catch (ConnectionException e) {
