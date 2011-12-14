@@ -7,9 +7,10 @@
 
 % customized item command for the description environment
 \newcommand{\cDescItem}[2]{\vspace{-0.5em}\item[\code{#1}]\ifthenelse{\equal{#2}{}}{}{\hfill\\#2}}
+\newcommand{\jsonField}[3]{\vspace{-0.5em}\item[\code{#1 (#2)}]\ifthenelse{\equal{#3}{}}{}{\hfill\\#3}}
 
 % code
-\newcommand{\code}[1]{{\ttfamily{#1}}}
+\newcommand{\code}[1]{\texttt{#1}}
 
 % addition to ubicomp2011 to put a linebreak between 3rd and 4th author
 \newcommand{\brk}
