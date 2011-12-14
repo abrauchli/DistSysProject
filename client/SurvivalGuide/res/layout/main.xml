@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/LinearLayout"
+        android:id="@+id/lin_overview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -30,7 +30,7 @@
         </RadioGroup>
 
         <ImageButton
-            android:id="@+id/btn_scn"
+            android:id="@+id/tgl_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,7 +39,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/LinearLayout"
+        android:id="@+id/lin_building"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -51,10 +51,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView1"
-            android:layout_weight="1"
+            android:id="@+id/scrl_floors"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
 
             <LinearLayout
                 android:id="@+id/LinearLayout"

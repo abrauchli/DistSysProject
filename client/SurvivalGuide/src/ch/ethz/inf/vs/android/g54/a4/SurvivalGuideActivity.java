@@ -32,8 +32,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.wifi.ScanResult;
@@ -51,7 +49,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,7 +60,6 @@ import android.widget.ToggleButton;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
-import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
@@ -69,8 +69,8 @@ import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
-import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
 import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker;
+import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
@@ -81,6 +81,19 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 	private static final String TAG = "SurvivalGuideActivity";
 	private static final int ROOMS_DIALOG = 1;
+
+	private enum Mode {
+		OVERVIEW,
+		FREEROOMS,
+		LOCATION
+	}
+
+	private Mode mode;
+	private Campus currentCampus;
+	private Building currentBuilding;
+	private Floor currentFloor;
+	private Location currentLocation;
+	private boolean locationScanning;
 
 	Handler handler;
 
@@ -100,6 +113,95 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 	// TODO find a better way to save spinner selection
 	String selectedBuilding, selectedFloor, selectedRoom;
 
+	/**
+	 * When changing the mode, always use this method, as it updates the layout as well
+	 */
+	private void setMode(Mode mode) {
+		this.mode = mode;
+		LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
+		switch (this.mode) {
+		case OVERVIEW:
+			lin_building.setVisibility(View.GONE);
+			// TODO: switch to correct image
+			break;
+		case LOCATION:
+			lin_building.setVisibility(View.VISIBLE);
+			// TODO: switch to correct image
+			break;
+		case FREEROOMS:
+			lin_building.setVisibility(View.VISIBLE);
+			// TODO: switch to correct image
+			break;
+		}
+	}
+
+	/**
+	 * When toggling the location scanning, always use this method, as it changes the image of the button as well
+	 */
+	private void toggleLocationScanning() {
+		locationScanning = !locationScanning;
+		ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
+		if (locationScanning) {
+			tgl_scan.setImageResource(R.drawable.target_on);
+			// TODO: start thread/service scanning locations
+		} else {
+			tgl_scan.setImageResource(R.drawable.target);
+			// TODO: stop thread/service scanning locations
+		}
+	}
+
+	/**
+	 * When changing campus, always use this method, since TODO: explanation
+	 */
+	private void setCampus(Campus campus) {
+		this.currentCampus = campus;
+		RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
+		switch (grp_campus.getCheckedRadioButtonId()) {
+		case R.id.rbt_eth_center:
+			if (currentCampus.equals(Campus.HOENGG)) {
+				RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
+				rbt_eth_center.setChecked(true);
+			}
+			break;
+		case R.id.rbt_eth_hoengg:
+			if (currentCampus.equals(Campus.ZENTRUM)) {
+				RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
+				rbt_eth_hoengg.setChecked(true);
+			}
+		}
+	}
+
+	/**
+	 * Initialize the campus and set the radio buttons accordingly
+	 */
+	private void initCampus(Campus campus) {
+		this.currentCampus = campus;
+		switch (campus) {
+		case ZENTRUM:
+			RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
+			rbt_eth_center.setChecked(true);
+			break;
+		case HOENGG:
+			RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
+			rbt_eth_hoengg.setChecked(true);
+		}
+	}
+	
+	private void setLocation(Location location) {
+		this.currentLocation = location;
+		// TODO: finish this method
+	}
+	
+	private void setBuilding(Building building) {
+		this.currentBuilding = building;
+		// TODO: finish this method
+	}
+	
+	private void setFloor(Floor floor) {
+		this.currentFloor = floor;
+		// TODO: finish this method
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -112,6 +214,11 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
 
 		handler = new Handler();
+		
+		// TODO: probably needs to be made consistent, e.g. when turning phone...
+		locationScanning = false;
+		initCampus(Campus.ZENTRUM);
+		setMode(Mode.OVERVIEW);
 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
@@ -121,10 +228,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			ToggleButton tgl_map = (ToggleButton) findViewById(R.id.tgl_map);
 			lst_networks = (ListView) findViewById(R.id.lst_networks);
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
+			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
 			tgl_map.setOnCheckedChangeListener(this);
+			tgl_scan.setOnClickListener(this);
 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
@@ -355,6 +464,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			} catch (UnrecognizedResponseException e) {
 				U.showException(TAG, e);
 			}
+			break;
+		case R.id.tgl_scan:
+			toggleLocationScanning();
 			break;
 		}
 	}
