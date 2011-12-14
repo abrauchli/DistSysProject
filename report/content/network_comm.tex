@@ -42,7 +42,7 @@ Every \code{JSONObject} belonging to a building has the following fields:
 \paragraph{Building detail}
 The resource located at \code{<host>/r/<building>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
 \begin{description}
-	\jsonField{name}{String}{name of this building (equal to <building> in the request)}
+	\jsonField{name}{String}{name of this building (equal to \code{<building>} in the request)}
 	\jsonField{address}{JSONObject}{see \todo{reference}}
 	\jsonField{floors}{JSONObject}{key-value list of the floors in this building, see below}
 \end{description}
@@ -53,8 +53,3 @@ Each floor identifier has a JSONObject attached to it, which has the following p
 
 \paragraph{Floor detail}
 The resource located at \code{<host>/r/<building>/<floor>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
-\begin{description}
-	\jsonField{name}{String}{name of this building (equal to <building> in the request)}
-	\jsonField{address}{JSONObject}{see \todo{reference}}
-	\jsonField{floors}{JSONObject}{key-value list of the floors in this building, see below}
-\end{description}
