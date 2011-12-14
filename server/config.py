@@ -5,7 +5,7 @@
 
 
 SERVER_NAME = "eth.rsp.li"
-SERVER_URL = "http://{SERVER_NAME}".format(PORT=SERVER_PORT)
+SERVER_URL = "http://{SERVER_NAME}".format(SERVER_NAME=SERVER_NAME)
 CACHE_URL= SERVER_URL+"/static/cache/"
 
 MONGODB_DATABASE = "DistSysProjekt"
