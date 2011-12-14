@@ -79,5 +79,5 @@ class Room(Cacheable.Cacheable):
     if self.mapAvailable:
         r["map"] = self.getURL()
     if self.location != None:
-        r["coords"] = self.location
+        r["location"] = self.location
     return r
