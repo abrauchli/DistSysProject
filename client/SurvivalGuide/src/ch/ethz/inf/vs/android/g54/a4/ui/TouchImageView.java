@@ -37,391 +37,381 @@ import android.widget.Toast;
 
 public class TouchImageView extends ImageView {
 
-    private static final String TAG = "Touch";
-    // These matrices will be used to move and zoom image
-    Matrix matrix = new Matrix();
-    Matrix savedMatrix = new Matrix();
-    Bitmap bm, mbm;
-    Paint paint = new Paint();
-    List<LocationMarker> markers;
-    int viewWidth;
-    int viewHeight;
+	private static final String TAG = "Touch";
+	// These matrices will be used to move and zoom image
+	Matrix matrix = new Matrix();
+	Matrix savedMatrix = new Matrix();
+	Bitmap bm, mbm;
+	Paint paint = new Paint();
+	List<LocationMarker> markers;
+	int viewWidth;
+	int viewHeight;
 
-    // We can be in one of these 3 states
-    static final int NONE = 0;
-    static final int DRAG = 1;
-    static final int ZOOM = 2;
-    int mode = NONE;
-    
-    // Remember some things for zooming
-    PointF start = new PointF();
-    PointF mid = new PointF();
-    float oldDist = 1f;
+	// We can be in one of these 3 states
+	static final int NONE = 0;
+	static final int DRAG = 1;
+	static final int ZOOM = 2;
+	int mode = NONE;
 
-    Context context;
-    
-    OnSizeChangedListener listener;
+	// Remember some things for zooming
+	PointF start = new PointF();
+	PointF mid = new PointF();
+	float oldDist = 1f;
 
-    public TouchImageView(Context context) {
-    	this(context, null);
-    }
+	Context context;
 
-    public TouchImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        super.setClickable(true);
-        this.context = context;
-        
-        paint.setAntiAlias(true);
-        
-        matrix.setTranslate(1f, 1f);
-        setImageMatrix(matrix);
-        setScaleType(ScaleType.MATRIX);
+	OnSizeChangedListener listener;
 
-        setOnTouchListener(new OnTouchListener() {
+	public TouchImageView(Context context) {
+		this(context, null);
+	}
 
-            public boolean onTouch(View v, MotionEvent rawEvent) {
-                WrapMotionEvent event = WrapMotionEvent.wrap(rawEvent);
+	public TouchImageView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		super.setClickable(true);
+		this.context = context;
 
-            	dumpEvent(event);
+		paint.setAntiAlias(true);
 
-                // Handle touch events here...
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_DOWN:
-                    savedMatrix.set(matrix);
-                    start.set(event.getX(), event.getY());
-                    Log.d(TAG, "mode=DRAG");
-                    mode = DRAG;
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    oldDist = spacing(event);
-                    Log.d(TAG, "oldDist=" + oldDist);
-                    if (oldDist > 10f) {
-                        savedMatrix.set(matrix);
-                        midPoint(mid, event);
-                        mode = ZOOM;
-                        Log.d(TAG, "mode=ZOOM");
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    int xDiff = (int) Math.abs(event.getX() - start.x);
-                    int yDiff = (int) Math.abs(event.getY() - start.y);
-                    if (xDiff < 8 && yDiff < 8){
-                        performClick(event.getX(), event.getY());
-                    }
-                case MotionEvent.ACTION_POINTER_UP:
-                    mode = NONE;
-                    Log.d(TAG, "mode=NONE");
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if (mode == DRAG) {
-                        // ...
-                        matrix.set(savedMatrix);
-                        matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
-                    } else if (mode == ZOOM) {
-                        float newDist = spacing(event);
-                        Log.d(TAG, "newDist=" + newDist);
-                        if (newDist > 10f) {
-                            matrix.set(savedMatrix);
-                            float scale = newDist / oldDist;
-                            matrix.postScale(scale, scale, mid.x, mid.y);
-                        }
-                    }
-                    break;
-                }
-                setImageMatrix(matrix);
-                return true; // indicate event was handled
-            }
-        });
-    }
+		matrix.setTranslate(1f, 1f);
+		setImageMatrix(matrix);
+		setScaleType(ScaleType.MATRIX);
 
-	public void setImage(Bitmap bm) { 
+		setOnTouchListener(new OnTouchListener() {
+
+			public boolean onTouch(View v, MotionEvent rawEvent) {
+				WrapMotionEvent event = WrapMotionEvent.wrap(rawEvent);
+
+				dumpEvent(event);
+
+				// Handle touch events here...
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
+				case MotionEvent.ACTION_DOWN:
+					savedMatrix.set(matrix);
+					start.set(event.getX(), event.getY());
+					Log.d(TAG, "mode=DRAG");
+					mode = DRAG;
+					break;
+				case MotionEvent.ACTION_POINTER_DOWN:
+					oldDist = spacing(event);
+					Log.d(TAG, "oldDist=" + oldDist);
+					if (oldDist > 10f) {
+						savedMatrix.set(matrix);
+						midPoint(mid, event);
+						mode = ZOOM;
+						Log.d(TAG, "mode=ZOOM");
+					}
+					break;
+				case MotionEvent.ACTION_UP:
+					int xDiff = (int) Math.abs(event.getX() - start.x);
+					int yDiff = (int) Math.abs(event.getY() - start.y);
+					if (xDiff < 8 && yDiff < 8) {
+						performClick(event.getX(), event.getY());
+					}
+				case MotionEvent.ACTION_POINTER_UP:
+					mode = NONE;
+					Log.d(TAG, "mode=NONE");
+					break;
+				case MotionEvent.ACTION_MOVE:
+					if (mode == DRAG) {
+						// ...
+						matrix.set(savedMatrix);
+						matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
+					} else if (mode == ZOOM) {
+						float newDist = spacing(event);
+						Log.d(TAG, "newDist=" + newDist);
+						if (newDist > 10f) {
+							matrix.set(savedMatrix);
+							float scale = newDist / oldDist;
+							matrix.postScale(scale, scale, mid.x, mid.y);
+						}
+					}
+					break;
+				}
+				setImageMatrix(matrix);
+				return true; // indicate event was handled
+			}
+		});
+	}
+
+	public void setImage(Bitmap bm) {
 		Log.d("VIEW", "setImage");
-        super.setImageBitmap(bm);
-        this.bm = bm;
+		super.setImageBitmap(bm);
+		this.bm = bm;
 
-        //Fit to screen.
-        float scale;
-        if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())){
-            scale =  (float)viewWidth / (float)bm.getWidth();
-        } else {
-            scale = (float)viewHeight / (float)bm.getHeight();
-        }
+		// Fit to screen.
+		float scale;
+		if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())) {
+			scale = (float) viewWidth / (float) bm.getWidth();
+		} else {
+			scale = (float) viewHeight / (float) bm.getHeight();
+		}
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postScale(scale, scale, mid.x, mid.y);
-        setImageMatrix(matrix);
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postScale(scale, scale, mid.x, mid.y);
+		setImageMatrix(matrix);
 
-        // Center the image
-        float redundantYSpace = (float)viewHeight - (scale * (float)bm.getHeight()) ;
-        float redundantXSpace = (float)viewWidth - (scale * (float)bm.getWidth());
+		// Center the image
+		float redundantYSpace = (float) viewHeight - (scale * (float) bm.getHeight());
+		float redundantXSpace = (float) viewWidth - (scale * (float) bm.getWidth());
 
-        redundantYSpace /= (float)2;
-        redundantXSpace /= (float)2;
+		redundantYSpace /= (float) 2;
+		redundantXSpace /= (float) 2;
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postTranslate(redundantXSpace, redundantYSpace);
-        setImageMatrix(matrix);
-    }
-    
-    public void setMarkers(List<LocationMarker> markers) {
-    	this.markers = markers;
-    }
-    
-    public void centerImage() {
-    	Log.d("VIEW", "centerImage");
-    	matrix = new Matrix();
-    	savedMatrix = new Matrix();
-    	
-    	matrix.setTranslate(1f, 1f);
-        setImageMatrix(matrix);
-    	
-    	//Fit to screen.
-        float scale;
-        if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())){
-            scale =  (float)viewWidth / (float)bm.getWidth();
-        } else {
-            scale = (float)viewHeight / (float)bm.getHeight();
-        }
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postTranslate(redundantXSpace, redundantYSpace);
+		setImageMatrix(matrix);
+	}
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postScale(scale, scale, 0, 0);
-        setImageMatrix(matrix);
+	public void setMarkers(List<LocationMarker> markers) {
+		this.markers = markers;
+	}
 
-        // Center the image
-        float redundantYSpace = (float)viewHeight - (scale * (float)bm.getHeight()) ;
-        float redundantXSpace = (float)viewWidth - (scale * (float)bm.getWidth());
+	public void centerImage() {
+		Log.d("VIEW", "centerImage");
+		matrix = new Matrix();
+		savedMatrix = new Matrix();
 
-        redundantYSpace /= (float)2;
-        redundantXSpace /= (float)2;
+		matrix.setTranslate(1f, 1f);
+		setImageMatrix(matrix);
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postTranslate(redundantXSpace, redundantYSpace);
-        setImageMatrix(matrix);
-    }
-    
-    public void centerZoomImage() {
-    	Log.d("VIEW", "centerZoomImage");
-    	matrix = new Matrix();
-    	savedMatrix = new Matrix();
-    	
-    	matrix.setTranslate(1f, 1f);
-        setImageMatrix(matrix);
-    	
-    	//Fit to screen.
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postScale(1, 1, 0, 0);
-        setImageMatrix(matrix);
+		// Fit to screen.
+		float scale;
+		if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())) {
+			scale = (float) viewWidth / (float) bm.getWidth();
+		} else {
+			scale = (float) viewHeight / (float) bm.getHeight();
+		}
 
-        // Center the image
-        float redundantYSpace = (float)viewHeight - ((float)bm.getHeight()) ;
-        float redundantXSpace = (float)viewWidth - ((float)bm.getWidth());
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postScale(scale, scale, 0, 0);
+		setImageMatrix(matrix);
 
-        redundantYSpace /= (float)2;
-        redundantXSpace /= (float)2;
+		// Center the image
+		float redundantYSpace = (float) viewHeight - (scale * (float) bm.getHeight());
+		float redundantXSpace = (float) viewWidth - (scale * (float) bm.getWidth());
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postTranslate(redundantXSpace, redundantYSpace);
-        setImageMatrix(matrix);
-    }
-    
-    public void centerPoint(int x, int y) {
-    	Log.d("VIEW", "centerPoint");
-    	matrix = new Matrix();
-    	savedMatrix = new Matrix();
-    	
-    	matrix.setTranslate(1f, 1f);
-        setImageMatrix(matrix);
-    	
-    	//Fit to screen.
-        float scale;
-        if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())){
-            scale =  (float)viewWidth / (float)bm.getWidth();
-        } else {
-            scale = (float)viewHeight / (float)bm.getHeight();
-        }
+		redundantYSpace /= (float) 2;
+		redundantXSpace /= (float) 2;
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postScale(scale, scale, 0, 0);
-        setImageMatrix(matrix);
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postTranslate(redundantXSpace, redundantYSpace);
+		setImageMatrix(matrix);
+	}
 
-        // Center the image
-        float redundantYSpace = (float)viewHeight - (scale * ((float)2*(float)y)) ;
-        float redundantXSpace = (float)viewWidth - (scale * ((float)2*(float)x));
+	public void centerZoomImage() {
+		Log.d("VIEW", "centerZoomImage");
+		matrix = new Matrix();
+		savedMatrix = new Matrix();
 
-        redundantYSpace /= (float)2;
-        redundantXSpace /= (float)2;
+		matrix.setTranslate(1f, 1f);
+		setImageMatrix(matrix);
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postTranslate(redundantXSpace, redundantYSpace);
-        setImageMatrix(matrix);
-    }
-    
-    public void centerZoomPoint(int x, int y) {
-    	Log.d("VIEW", "centerZoomPoint");
-    	matrix = new Matrix();
-    	savedMatrix = new Matrix();
-    	
-    	matrix.setTranslate(1f, 1f);
-        setImageMatrix(matrix);
-    	
-    	//Fit to screen.
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postScale(1, 1, 0, 0);
-        setImageMatrix(matrix);
+		// Fit to screen.
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postScale(1, 1, 0, 0);
+		setImageMatrix(matrix);
 
-        // Center the image
-        float redundantYSpace = (float)viewHeight - (float)2*(float)y;
-        float redundantXSpace = (float)viewWidth - (float)2*(float)x;
+		// Center the image
+		float redundantYSpace = (float) viewHeight - ((float) bm.getHeight());
+		float redundantXSpace = (float) viewWidth - ((float) bm.getWidth());
 
-        redundantYSpace /= (float)2;
-        redundantXSpace /= (float)2;
+		redundantYSpace /= (float) 2;
+		redundantXSpace /= (float) 2;
 
-        savedMatrix.set(matrix);
-        matrix.set(savedMatrix);
-        matrix.postTranslate(redundantXSpace, redundantYSpace);
-        setImageMatrix(matrix);
-    }
-    
-    public void updateMarkers() {
-    	mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), Config.RGB_565);
-    	Canvas canvas = new Canvas(mbm);
-    	super.setImageBitmap(mbm);
-    	canvas.drawBitmap(bm, 0, 0, paint);
-    	for (int i = 0; i < markers.size(); i++) {
-    		LocationMarker marker = markers.get(i);
-    		drawMarker(canvas, marker.getPosition().x, marker.getPosition().y, marker.getRadius(), marker.getColor());
-    	}
-    }
-    
-    public void drawMarker(Canvas canvas, int x, int y, int radius, int color) {
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postTranslate(redundantXSpace, redundantYSpace);
+		setImageMatrix(matrix);
+	}
+
+	public void centerPoint(int x, int y) {
+		Log.d("VIEW", "centerPoint");
+		matrix = new Matrix();
+		savedMatrix = new Matrix();
+
+		matrix.setTranslate(1f, 1f);
+		setImageMatrix(matrix);
+
+		// Fit to screen.
+		float scale;
+		if ((viewHeight / bm.getHeight()) >= (viewWidth / bm.getWidth())) {
+			scale = (float) viewWidth / (float) bm.getWidth();
+		} else {
+			scale = (float) viewHeight / (float) bm.getHeight();
+		}
+
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postScale(scale, scale, 0, 0);
+		setImageMatrix(matrix);
+
+		// Center the image
+		float redundantYSpace = (float) viewHeight - (scale * ((float) 2 * (float) y));
+		float redundantXSpace = (float) viewWidth - (scale * ((float) 2 * (float) x));
+
+		redundantYSpace /= (float) 2;
+		redundantXSpace /= (float) 2;
+
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postTranslate(redundantXSpace, redundantYSpace);
+		setImageMatrix(matrix);
+	}
+
+	public void centerZoomPoint(int x, int y) {
+		Log.d("VIEW", "centerZoomPoint");
+		matrix = new Matrix();
+		savedMatrix = new Matrix();
+
+		matrix.setTranslate(1f, 1f);
+		setImageMatrix(matrix);
+
+		// Fit to screen.
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postScale(1, 1, 0, 0);
+		setImageMatrix(matrix);
+
+		// Center the image
+		float redundantYSpace = (float) viewHeight - (float) 2 * (float) y;
+		float redundantXSpace = (float) viewWidth - (float) 2 * (float) x;
+
+		redundantYSpace /= (float) 2;
+		redundantXSpace /= (float) 2;
+
+		savedMatrix.set(matrix);
+		matrix.set(savedMatrix);
+		matrix.postTranslate(redundantXSpace, redundantYSpace);
+		setImageMatrix(matrix);
+	}
+
+	public void updateMarkers() {
+		mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), Config.RGB_565);
+		Canvas canvas = new Canvas(mbm);
+		super.setImageBitmap(mbm);
+		canvas.drawBitmap(bm, 0, 0, paint);
+		for (int i = 0; i < markers.size(); i++) {
+			LocationMarker marker = markers.get(i);
+			drawMarker(canvas, marker.getPosition().x, marker.getPosition().y, marker.getRadius(), marker.getColor());
+		}
+	}
+
+	public void drawMarker(Canvas canvas, int x, int y, int radius, int color) {
 		paint.setColor(color);
-		
-		//Draw location of access point
+
+		// Draw location of access point
 		paint.setStyle(Style.FILL);
 		canvas.drawCircle(x, y, 5, paint);
-		
-		//Draw signal strength
+
+		// Draw signal strength
 		paint.setStyle(Style.STROKE);
 		canvas.drawCircle(x, y, radius, paint);
 	}
 
-    public boolean performClick(float x, float y) {
+	public boolean performClick(float x, float y) {
 		Matrix inverse = new Matrix();
 		getImageMatrix().invert(inverse);
-		float[] touchPoint = new float[] {x, y};
+		float[] touchPoint = new float[] { x, y };
 		inverse.mapPoints(touchPoint);
 		double distance = 10000;
 		int closestMarker = -1;
 		for (int i = 0; i < markers.size(); i++) {
-			float xDist = (float)markers.get(i).getPosition().x - touchPoint[0];
-			float yDist = (float)markers.get(i).getPosition().y - touchPoint[1];
-			double distClickPoint = Math.sqrt(xDist*xDist + yDist*yDist);
+			float xDist = (float) markers.get(i).getPosition().x - touchPoint[0];
+			float yDist = (float) markers.get(i).getPosition().y - touchPoint[1];
+			double distClickPoint = Math.sqrt(xDist * xDist + yDist * yDist);
 			if (distance > distClickPoint && distClickPoint < 100) {
 				distance = distClickPoint;
 				closestMarker = i;
 			}
 		}
-		
+
 		if (closestMarker != -1) {
-			Toast toast = Toast.makeText(getContext(), "Marker " + closestMarker + ", Name: " + markers.get(closestMarker).getName(), Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getContext(),
+					"Marker " + closestMarker + ", Name: " + markers.get(closestMarker).getName(), Toast.LENGTH_SHORT);
 			toast.show();
 		}
-    	return true;
-    }
-    
-    /** Show an event in the LogCat view, for debugging */
-    private void dumpEvent(WrapMotionEvent event) {
-        // ...
-        String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
-            "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
-        StringBuilder sb = new StringBuilder();
-        int action = event.getAction();
-        int actionCode = action & MotionEvent.ACTION_MASK;
-        sb.append("event ACTION_").append(names[actionCode]);
-        if (actionCode == MotionEvent.ACTION_POINTER_DOWN
-                || actionCode == MotionEvent.ACTION_POINTER_UP) {
-            sb.append("(pid ").append(
-                    action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
-            sb.append(")");
-        }
-        sb.append("[");
-        for (int i = 0; i < event.getPointerCount(); i++) {
-            sb.append("#").append(i);
-            sb.append("(pid ").append(event.getPointerId(i));
-            sb.append(")=").append((int) event.getX(i));
-            sb.append(",").append((int) event.getY(i));
-            if (i + 1 < event.getPointerCount())
-            sb.append(";");
-        }
-        sb.append("]");
-        Log.d(TAG, sb.toString());
-    }
+		return true;
+	}
 
-    public void recycleBitmaps() {
-    	bm.recycle();
-    	mbm.recycle();
-    }
-    
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    	Log.d("VIEW", "onSizeChanged" + " " + w + " " + h);
-    	viewWidth = w;
-    	viewHeight = h;
-    	if (listener != null) {
-    		listener.onSizeChanged(viewWidth, viewHeight);
-    	}
-    	super.onSizeChanged(w, h, oldw, oldh);
-    }
-    
-    public void setOnSizeChangedListener(OnSizeChangedListener listener) {
-    	this.listener = listener;
-    }
-    
-//    @Override
-//    protected void onDraw(Canvas canvas) {
-//    	Log.d("VIEW", "onDraw" + " " + displayWidth + " " + displayHeight);
-//    	// TODO Auto-generated method stub
-//    	displayWidth = getWidth();
-//    	displayHeight = getHeight();
-//    	super.onDraw(canvas);
-//    }
-    
-//    @Override
-//    protected void onLayout(boolean changed, int left, int top, int right,
-//    		int bottom) {
-//    	Log.d("VIEW", "onLayout" + " " + displayWidth + " " + displayHeight);
-//    	// TODO Auto-generated method stub
-//    	super.onLayout(changed, left, top, right, bottom);
-//    	displayWidth = getWidth();
-//    	displayHeight = getHeight();
-//    }
-    
-    /** Determine the space between the first two fingers */
-    private float spacing(WrapMotionEvent event) {
-        // ...
-        float x = event.getX(0) - event.getX(1);
-        float y = event.getY(0) - event.getY(1);
-        return FloatMath.sqrt(x * x + y * y);
-    }
+	/** Show an event in the LogCat view, for debugging */
+	private void dumpEvent(WrapMotionEvent event) {
+		// ...
+		String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
+				"POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
+		StringBuilder sb = new StringBuilder();
+		int action = event.getAction();
+		int actionCode = action & MotionEvent.ACTION_MASK;
+		sb.append("event ACTION_").append(names[actionCode]);
+		if (actionCode == MotionEvent.ACTION_POINTER_DOWN
+				|| actionCode == MotionEvent.ACTION_POINTER_UP) {
+			sb.append("(pid ").append(
+					action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
+			sb.append(")");
+		}
+		sb.append("[");
+		for (int i = 0; i < event.getPointerCount(); i++) {
+			sb.append("#").append(i);
+			sb.append("(pid ").append(event.getPointerId(i));
+			sb.append(")=").append((int) event.getX(i));
+			sb.append(",").append((int) event.getY(i));
+			if (i + 1 < event.getPointerCount())
+				sb.append(";");
+		}
+		sb.append("]");
+		Log.d(TAG, sb.toString());
+	}
 
-    /** Calculate the mid point of the first two fingers */
-    private void midPoint(PointF point, WrapMotionEvent event) {
-        // ...
-        float x = event.getX(0) + event.getX(1);
-        float y = event.getY(0) + event.getY(1);
-        point.set(x / 2, y / 2);
-    }
-    
-    public interface OnSizeChangedListener {
-    	void onSizeChanged(int viewWidth, int viewHeight);
-    }
+	public void recycleBitmaps() {
+		// calling this before loading/setting an image should prevent OutOfMemoryExceptions
+		if (bm != null) {
+			bm.recycle();
+			bm = null;
+		}
+		if (mbm != null) {
+			mbm.recycle();
+			mbm = null;
+		}
+		System.gc(); // try to run the garbage collector to free more memory
+	}
+
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		Log.d("VIEW", "onSizeChanged" + " " + w + " " + h);
+		viewWidth = w;
+		viewHeight = h;
+		if (listener != null) {
+			listener.onSizeChanged(viewWidth, viewHeight);
+		}
+		super.onSizeChanged(w, h, oldw, oldh);
+	}
+
+	public void setOnSizeChangedListener(OnSizeChangedListener listener) {
+		this.listener = listener;
+	}
+
+	/** Determine the space between the first two fingers */
+	private float spacing(WrapMotionEvent event) {
+		// ...
+		float x = event.getX(0) - event.getX(1);
+		float y = event.getY(0) - event.getY(1);
+		return FloatMath.sqrt(x * x + y * y);
+	}
+
+	/** Calculate the mid point of the first two fingers */
+	private void midPoint(PointF point, WrapMotionEvent event) {
+		// ...
+		float x = event.getX(0) + event.getX(1);
+		float y = event.getY(0) + event.getY(1);
+		point.set(x / 2, y / 2);
+	}
+
+	public interface OnSizeChangedListener {
+		void onSizeChanged(int viewWidth, int viewHeight);
+	}
 }

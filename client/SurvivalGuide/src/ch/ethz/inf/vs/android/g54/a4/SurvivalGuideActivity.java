@@ -32,6 +32,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.wifi.ScanResult;
@@ -65,6 +67,7 @@ import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
+import ch.ethz.inf.vs.android.g54.a4.types.MapCache;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
@@ -227,13 +230,16 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			spn_room.setClickable(false);
 
 			// TODO: what does this thing?
-			return new AlertDialog.Builder(SurvivalGuideActivity.this).setTitle(R.string.room_dialog_title)
-					.setView(room_dialog).setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+			return new AlertDialog.Builder(SurvivalGuideActivity.this)
+					.setTitle(R.string.room_dialog_title)
+					.setView(room_dialog)
+					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							U.showToast(String.format("yay, we're going to %s %s %s", selectedBuilding, selectedFloor,
 									selectedRoom));
 						}
-					}).create();
+					})
+					.create();
 		}
 		return null;
 	}
@@ -282,7 +288,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				Map<String, AccessPoint> aps = locRes.getAps();
 				markers.clear();
 				if (r != null) {
-					tiv_map.setImage(RequestHandler.getBitmap(r.getMapUrl()));
+					tiv_map.recycleBitmaps();
+					tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
 					String roomID = r.toString();
 					txt_room.setText(roomID);
 					final Building b = r.getFloor().getBuilding();
@@ -304,19 +311,27 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 					U.showToast("no position found");
 				}
 				if (aps != null) {
+					float blueHue = 240;
+					float greenHue = 120;
+					float orangeHue = 30;
 					for (WifiReading reading : visibleNetworks) {
 						reading.ap = aps.get(reading.mac);
 						if (reading.ap != null) {
 							Coordinate coords = reading.ap.getCoordinate();
 							Point pos = new Point((int) coords.getX(), (int) coords.getY());
-							//float saturation = (float) (Math.log(reading.signal + 90) / Math.log(100));
 							int s = reading.signal;
 							float saturation;
 							if (s < -60)
-								saturation = (s+100)*0.02f; 
+								saturation = (s + 100) * 0.02f;
 							else
-								saturation = (s+60)*0.005f + 0.8f;
-							markers.add(new LocationMarker(pos, 100, Color.HSVToColor(new float[] {240, saturation, 1}), reading.mac));
+								saturation = (s + 60) * 0.005f + 0.8f;
+							// FIXME
+							markers.add(new LocationMarker(pos, 100, Color
+									.HSVToColor(new float[] { blueHue, saturation, 1 }), reading.mac));
+							markers.add(new LocationMarker(pos, 120, Color
+									.HSVToColor(new float[] { orangeHue, saturation, 1 }), reading.mac));
+							markers.add(new LocationMarker(pos, 80, Color
+									.HSVToColor(new float[] { greenHue, saturation, 1 }), reading.mac));
 						}
 					}
 					readingAdapter.notifyDataSetChanged();
@@ -327,7 +342,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				if (r != null) {
 					Coordinate center = r.getRoomCenter();
 					if (center != null) {
-						markers.add(new LocationMarker(new Point((int) center.getX(), (int) center.getY()), 20, Color.RED, "Your approximate location"));
+						markers.add(new LocationMarker(new Point((int) center.getX(), (int) center.getY()), 20,
+								Color.RED, "Your approximate location"));
 						tiv_map.centerZoomPoint((int) center.getX(), (int) center.getY());
 					}
 				}
