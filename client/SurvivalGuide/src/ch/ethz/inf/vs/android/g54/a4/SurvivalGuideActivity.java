@@ -67,7 +67,6 @@ import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
-import ch.ethz.inf.vs.android.g54.a4.types.MapCache;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
@@ -75,6 +74,7 @@ import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
+import ch.ethz.inf.vs.android.g54.a4.util.MapCache;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener, CompoundButton.OnCheckedChangeListener,

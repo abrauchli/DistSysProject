@@ -1,4 +1,4 @@
-package ch.ethz.inf.vs.android.g54.a4.types;
+package ch.ethz.inf.vs.android.g54.a4.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
+import ch.ethz.inf.vs.android.g54.a4.types.Floor;
 
 /**
  * Gets maps from the network if needed and manages caching them on the SD card
