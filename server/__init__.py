@@ -240,7 +240,7 @@ r/HG/E/1.1
         "map": "http://eth.rsp.li/static/cache/HG_E_1.1.gif", 
         "room": "1.1", 
         "floor": "E", 
-        "location": 
+        "coords": 
           {
             "y": 1257, 
             "x": 651, 
