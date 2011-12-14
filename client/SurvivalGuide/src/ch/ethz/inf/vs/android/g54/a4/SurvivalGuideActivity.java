@@ -19,6 +19,7 @@ package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -74,8 +75,9 @@ import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
+
 public class SurvivalGuideActivity extends Activity implements OnClickListener, CompoundButton.OnCheckedChangeListener,
-RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
+		RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 	private static final String TAG = "SurvivalGuideActivity";
 	private static final int ROOMS_DIALOG = 1;
 
@@ -122,22 +124,22 @@ RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
 			tgl_map.setOnCheckedChangeListener(this);
-			
+
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
 
 			pins = new ArrayList<Pin2>();
-			//Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
-			
+			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
+
 			OnSizeChangedListener hideOnce = new OnSizeChangedListener() {
 				public void onSizeChanged(int viewWidth, int viewHeight) {
 					tiv_map.setVisibility(View.GONE);
 					tiv_map.setOnSizeChangedListener(null);
 				}
 			};
-			
+
 			tiv_map.setOnSizeChangedListener(hideOnce);
-			//tiv_map.setImage(bm);
+			// tiv_map.setImage(bm);
 			tiv_map.setPins(pins);
 			// tiv_map.updatePins();
 			// tiv_map.centerZoomPoint(200, 200);
@@ -411,7 +413,7 @@ RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 			break;
 		}
 	}
-	
+
 	/**
 	 * From implementing OnCheckedChangeListener
 	 * 
@@ -537,6 +539,7 @@ RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 		for (Building b : buildings) {
 			sa.add(b.getName());
 		}
+		sa.sort(new StrComp());
 		sa.notifyDataSetChanged();
 		spn_building.setClickable(true);
 
@@ -578,6 +581,7 @@ RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 		for (Floor f : floors) {
 			sa.add(f.getName());
 		}
+		sa.sort(new StrComp());
 		sa.notifyDataSetChanged();
 		spn_floor.setClickable(true);
 
@@ -616,8 +620,15 @@ RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 		for (Room r : rooms) {
 			sa.add(r.getName());
 		}
+		sa.sort(new StrComp());
 		sa.notifyDataSetChanged();
 		spn_room.setClickable(true);
+	}
+
+	private class StrComp implements Comparator<String> {
+		public int compare(String lhs, String rhs) {
+			return lhs.compareTo(rhs);
+		}
 	}
 
 }
