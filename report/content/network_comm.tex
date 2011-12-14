@@ -1,64 +1,60 @@
 \section{Network Communication}
-\todo{TODO: who?}
-For the communication between server and client, we use REST with JSON. In this section we describe the request mechanisms that we defined for our system.
+\todo{TODO: Andrea}
+For the communication between server and client, we use REST with JSON. In this section we describe the API, that we defined for our system.
 
-\todo{update and finish this (can also thow away and start fresh)}
+\subsection{Encapsulation}
+We decided to encapsulate all the answers from the server in the same manner, such that we can easily handle error messages.\\
+Every message has a field \code{ok} of type \code{boolean}, which indicates if the request succeeded.
 
-\subsection{Getting Information about Rooms and Buildings}
-The room information is generally located at \code{<host>/r/}.
+\paragraph{Request Succeeded}
+In this case the status is always \code{ok:true}. In addition to this field we have the following field:
 \begin{description}
-	\cDescItem{<host>/r/}{Returns a list of all the buildings.}
-	\cDescItem{<host>/r/<building>}{Returns a list of all the floors in this building.}
-	\cDescItem{<host>/r/<building>/<floor>}{Returns a list of all the rooms on this floor.}
-	\cDescItem{<host>/r/<building>/<floor>/<room>}{Returns only the specified room.}
+	\jsonField{result}{JSONObject}{result is specific to the kind of request that was sent to the server}
 \end{description}
 
-\paragraph{Room Object}
-The JSON room object has the following fields:
+\paragraph{Request Failed}
+In this case the status is always \code{ok:false}. In addition to this field we have the following field:
 \begin{description}
-	\cDescItem{building (String)}{name of the building}
-	\cDescItem{floor (String)}{}
-	\cDescItem{number (String)}{}
-	\cDescItem{type (String)}{e.g. ``Sitzung/Konferenz'', ``Büro'', ``Feuerlöschposten''}
-	\cDescItem{map (String)}{URL for downloading the floor map, with the requested room marked in cyan}
-	\cDescItem{cached (boolean)}{indicates if the map needs to be downloaded from the ETH server, or is cached on our server (need to download the map from \code{<host><map>})}
-	\cDescItem{center (int[2])}{indicates the center of this room in pixel coordinates of the specified map}
+	\jsonField{msg}{String}{message describing what kind of error ocurred}
 \end{description}
 
-\paragraph{Floor Object}
-The JSON floor object has the following fields:
+\subsection{Campus Information}
+The resource located at \code{<host>/c/} returns in it's \code{result} object an array of strings describing buildings for each Höngg and Zentrum.
 \begin{description}
-	\cDescItem{building (String)}{name of the building}
-	\cDescItem{floor (String)}{}
-	\cDescItem{rooms (List<Room>)}{the rooms don't have the fields \code{building} and \code{floor} (this would be redundant)}
-	\cDescItem{map (String)}{URL for downloading the floor map, without any room marked specially}
-	\cDescItem{cached (boolean)}{indicates if the map needs to be downloaded from the ETH server, or is cached on our server (need to download the map from \code{<host><map>})}
+	\jsonField{Höngg}{JSONArray}{array of strings containing important buildings on campus Höngg}
+	\jsonField{Zentrum}{JSONArray}{array of strings containing important buildings on campus Zentrum}
 \end{description}
 
-\paragraph{Building Object}
-The JSON building object has the following fields:
+\subsection{Rooms and Buildings}
+
+\paragraph{List of all Buildings}
+The resource located at \code{<host>/r/} returns in it's \code{result} object a key-value list of all buildings belonging to ETH.
 \begin{description}
-	\cDescItem{name (String)}{name of the building}
-	\cDescItem{street (String)}{address of the building (\code{<street> <number>})}
-	\cDescItem{city (String)}{address of the building (\code{<zip code> <city>})}
-	\cDescItem{floors (List<Floor>)}{the floors don't have the field \code{building} (this would be redundant)}
+	\jsonField{<building>}{JSONObject}{}
+\end{description}
+Every \code{JSONObject} belonging to a building has the following fields:
+\begin{description}
+	\jsonField{campus}{String}{can be ``Höngg'', ``Zentrum'' or ``other'' \todo{redundant}}
+	\jsonField{name}{String}{name of this building (equal to the key)}
+	\jsonField{address}{JSONObject}{see \todo{reference}}
 \end{description}
 
-\subsection{Getting the Current Position}
-To get the current location in the form of a room, send a POST request to \code{<host>/getNearestLocation/}. The body consists of a list of JSON WiFi readings.
-
-\paragraph{WiFi Reading Object}
-The JSON WiFi reading object has the following fields:
+\paragraph{Building detail}
+The resource located at \code{<host>/r/<building>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
 \begin{description}
-	\cDescItem{mac (String)}{MAC address in the form \code{00:03:52:2b:e9:01}}
-	\cDescItem{strength (String)}{\todo{in what format?}}
+	\jsonField{name}{String}{name of this building (equal to <building> in the request)}
+	\jsonField{address}{JSONObject}{see \todo{reference}}
+	\jsonField{floors}{JSONObject}{key-value list of the floors in this building, see below}
+\end{description}
+Each floor identifier has a JSONObject attached to it, which has the following potential field:
+\begin{description}
+	\jsonField{map}{String}{URL to a map of this floor without any rooms marked, field omitted if there is no map available}
 \end{description}
 
-\paragraph{Answer}
-\todo{find a better name for this}
-The answer to the request sends for each sent MAC address the containing room, as well as a location in form of a room, where the client probably is.\\
-The answer has the following fields:
+\paragraph{Floor detail}
+The resource located at \code{<host>/r/<building>/<floor>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
 \begin{description}
-	\cDescItem{<mac> (Room)}{\code{<mac>} is a MAC address of the form \code{00:03:52:2b:e9:01}}
-	\cDescItem{position (Room)}{The room has the additional fields \code{x (int)} and \code{y (int)}, defining a more accurate position on the map}
+	\jsonField{name}{String}{name of this building (equal to <building> in the request)}
+	\jsonField{address}{JSONObject}{see \todo{reference}}
+	\jsonField{floors}{JSONObject}{key-value list of the floors in this building, see below}
 \end{description}
