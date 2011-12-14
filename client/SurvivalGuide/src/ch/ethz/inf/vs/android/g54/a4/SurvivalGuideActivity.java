@@ -539,7 +539,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		for (Building b : buildings) {
 			sa.add(b.getName());
 		}
-		sa.sort(new StrComp());
+		sa.sort(new StringComparator());
 		sa.notifyDataSetChanged();
 		spn_building.setClickable(true);
 
@@ -581,7 +581,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		for (Floor f : floors) {
 			sa.add(f.getName());
 		}
-		sa.sort(new StrComp());
+		sa.sort(new StringComparator());
 		sa.notifyDataSetChanged();
 		spn_floor.setClickable(true);
 
@@ -620,12 +620,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		for (Room r : rooms) {
 			sa.add(r.getName());
 		}
-		sa.sort(new StrComp());
+		sa.sort(new StringComparator());
 		sa.notifyDataSetChanged();
 		spn_room.setClickable(true);
 	}
 
-	private class StrComp implements Comparator<String> {
+	private class StringComparator implements Comparator<String> {
 		public int compare(String lhs, String rhs) {
 			return lhs.compareTo(rhs);
 		}
