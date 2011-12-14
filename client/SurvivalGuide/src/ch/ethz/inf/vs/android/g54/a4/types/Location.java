@@ -64,6 +64,7 @@ public class Location {
 
 	/**
 	 * Gets the coordinates associated with this location
+	 * 
 	 * @return a Coordinate object
 	 */
 	public Coordinate getLocation() {
@@ -72,6 +73,7 @@ public class Location {
 
 	/**
 	 * Gets the floor associated with this location
+	 * 
 	 * @return The associated floor or null if none
 	 */
 	public Floor getFloor() {
@@ -80,6 +82,7 @@ public class Location {
 
 	/**
 	 * Gets the room associated with this location
+	 * 
 	 * @return The associated room or null if none
 	 */
 	public Room getRoom() {
@@ -100,8 +103,8 @@ public class Location {
 	 * @throws ConnectionException
 	 * @throws ServerException
 	 */
-	public static Location getFromReadings(List<WifiReading> readings) throws ServerException,
-			ConnectionException, UnrecognizedResponseException {
+	public static Location getFromReadings(List<WifiReading> readings) throws ServerException, ConnectionException,
+			UnrecognizedResponseException {
 		RequestHandler rh = RequestHandler.getInstance();
 		Object o = rh.post("/json", readingsToJSON(readings).toString());
 		if (o instanceof JSONObject) {
@@ -115,7 +118,7 @@ public class Location {
 				Map<String, AccessPoint> aps = new HashMap<String, AccessPoint>();
 				JSONObject japs = res.getJSONObject("aps"); // politically wrong, i know..
 				@SuppressWarnings("unchecked")
-				Iterator<String> k = japs.keys(); 			// ..but we're not in politics here
+				Iterator<String> k = japs.keys(); // ..but we're not in politics here
 				while (k.hasNext()) {
 					try {
 						String bssid = k.next();
@@ -128,11 +131,7 @@ public class Location {
 				// parse coordinates
 				Coordinate location = null;
 				if (loc.has("coords")) {
-					// FIXME: need to remove that statement...
-					Log.d(TAG, loc.get("coords").toString());
-					if (loc.get("coords") != null) {
-						location = new Coordinate(loc.getJSONObject("coords"));
-					}
+					location = new Coordinate(loc.getJSONObject("coords"));
 				}
 
 				// parse location type
