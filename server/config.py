@@ -3,7 +3,7 @@
 
 # Server DNS Name
 
-
+SERVER_PORT = 32123
 SERVER_NAME = "eth.rsp.li"
 SERVER_URL = "http://{SERVER_NAME}".format(SERVER_NAME=SERVER_NAME)
 CACHE_URL= SERVER_URL+"/static/cache/"
