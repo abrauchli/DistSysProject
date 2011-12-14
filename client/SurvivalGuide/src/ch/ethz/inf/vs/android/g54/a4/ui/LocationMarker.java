@@ -19,17 +19,17 @@ package ch.ethz.inf.vs.android.g54.a4.ui;
 
 import android.graphics.Point;
 
-public class Pin2 {
+public class LocationMarker {
 	
 	private Point position;
 	private int radius;
-	private int colour;
+	private int color;
 	private String name;
 
-	public Pin2(Point position, int radius, int colour, String name) {
+	public LocationMarker(Point position, int radius, int color, String name) {
 		this.setPosition(position);
 		this.setRadius(radius);
-		this.setColour(colour);
+		this.setColor(color);
 		this.setName(name);
 	}
 
@@ -49,12 +49,12 @@ public class Pin2 {
 		this.radius = radius;
 	}
 
-	public int getColour() {
-		return colour;
+	public int getColor() {
+		return color;
 	}
 
-	public void setColour(int colour) {
-		this.colour = colour;
+	public void setColor(int color) {
+		this.color = color;
 	}
 
 	public String getName() {

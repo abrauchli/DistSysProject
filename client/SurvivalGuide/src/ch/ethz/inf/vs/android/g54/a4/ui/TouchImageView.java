@@ -43,7 +43,7 @@ public class TouchImageView extends ImageView {
     Matrix savedMatrix = new Matrix();
     Bitmap bm, mbm;
     Paint paint = new Paint();
-    List<Pin2> pins;
+    List<LocationMarker> markers;
     int viewWidth;
     int viewHeight;
 
@@ -165,8 +165,8 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
     }
     
-    public void setPins(List<Pin2> pins) {
-    	this.pins = pins;
+    public void setMarkers(List<LocationMarker> markers) {
+    	this.markers = markers;
     }
     
     public void centerImage() {
@@ -291,19 +291,19 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
     }
     
-    public void updatePins() {
+    public void updateMarkers() {
     	mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), Config.RGB_565);
     	Canvas canvas = new Canvas(mbm);
     	super.setImageBitmap(mbm);
     	canvas.drawBitmap(bm, 0, 0, paint);
-    	for (int i = 0; i < pins.size(); i++) {
-    		Pin2 pin = pins.get(i);
-    		drawPin(canvas, pin.getPosition().x, pin.getPosition().y, pin.getRadius(), pin.getColour());
+    	for (int i = 0; i < markers.size(); i++) {
+    		LocationMarker marker = markers.get(i);
+    		drawMarker(canvas, marker.getPosition().x, marker.getPosition().y, marker.getRadius(), marker.getColor());
     	}
     }
     
-    public void drawPin(Canvas canvas, int x, int y, int radius, int colour) {
-		paint.setColor(colour);
+    public void drawMarker(Canvas canvas, int x, int y, int radius, int color) {
+		paint.setColor(color);
 		
 		//Draw location of access point
 		paint.setStyle(Style.FILL);
@@ -320,19 +320,19 @@ public class TouchImageView extends ImageView {
 		float[] touchPoint = new float[] {x, y};
 		inverse.mapPoints(touchPoint);
 		double distance = 10000;
-		int closestPin = -1;
-		for (int i = 0; i < pins.size(); i++) {
-			float xDist = (float)pins.get(i).getPosition().x - touchPoint[0];
-			float yDist = (float)pins.get(i).getPosition().y - touchPoint[1];
+		int closestMarker = -1;
+		for (int i = 0; i < markers.size(); i++) {
+			float xDist = (float)markers.get(i).getPosition().x - touchPoint[0];
+			float yDist = (float)markers.get(i).getPosition().y - touchPoint[1];
 			double distClickPoint = Math.sqrt(xDist*xDist + yDist*yDist);
 			if (distance > distClickPoint && distClickPoint < 100) {
 				distance = distClickPoint;
-				closestPin = i;
+				closestMarker = i;
 			}
 		}
 		
-		if (closestPin != -1) {
-			Toast toast = Toast.makeText(getContext(), "Pin " + closestPin + ", Name: " + pins.get(closestPin).getName(), Toast.LENGTH_SHORT);
+		if (closestMarker != -1) {
+			Toast toast = Toast.makeText(getContext(), "Marker " + closestMarker + ", Name: " + markers.get(closestMarker).getName(), Toast.LENGTH_SHORT);
 			toast.show();
 		}
     	return true;

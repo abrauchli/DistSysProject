@@ -63,14 +63,12 @@ import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
-import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
 import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
-import ch.ethz.inf.vs.android.g54.a4.ui.MapActivity;
 import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
-import ch.ethz.inf.vs.android.g54.a4.ui.Pin2;
+import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
@@ -91,7 +89,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 	ListView lst_networks;
 	TouchImageView tiv_map;
 
-	List<Pin2> pins;
+	List<LocationMarker> markers;
 
 	// List<WifiConfiguration> configuredNetworks;
 	List<WifiReading> visibleNetworks;
@@ -128,7 +126,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
 
-			pins = new ArrayList<Pin2>();
+			markers = new ArrayList<LocationMarker>();
 			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 
 			OnSizeChangedListener hideOnce = new OnSizeChangedListener() {
@@ -140,8 +138,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 
 			tiv_map.setOnSizeChangedListener(hideOnce);
 			// tiv_map.setImage(bm);
-			tiv_map.setPins(pins);
-			// tiv_map.updatePins();
+			tiv_map.setMarkers(markers);
+			// tiv_map.updateMarkers();
 			// tiv_map.centerZoomPoint(200, 200);
 
 			if (visibleNetworks == null)
@@ -155,12 +153,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 						if (ap == null) {
 							U.showToast("no further AP info available");
 						} else {
-							Room r = (Room) LazyObject.get(ap.getQualifiedRoom(), Room.class);
-							r.load(); // TODO remove once map url is there automatically
-							startActivity(new Intent(SurvivalGuideActivity.this, MapActivity.class)
-									.putExtra(getPackageName() + ".ImageUrl", r.getMapUrl())
-									.putExtra(getPackageName() + ".PosX", (int) ap.getCoordinate().getX())
-									.putExtra(getPackageName() + ".PosY", (int) ap.getCoordinate().getY()));
+							U.showToast("temporarily disabled"); // TODO
 						}
 
 					} catch (Exception e) {
@@ -313,19 +306,19 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 					U.showToast("no position found");
 				}
 				if (aps != null) {
-					pins.clear();
+					markers.clear();
 					for (WifiReading reading : visibleNetworks) {
 						reading.ap = aps.get(reading.mac);
 						if (reading.ap != null) {
 							Coordinate coords = reading.ap.getCoordinate();
 							Point pos = new Point((int) coords.getX(), (int) coords.getY());
-							pins.add(new Pin2(pos, -reading.signal, Color.BLUE, reading.mac));
+							markers.add(new LocationMarker(pos, -reading.signal, Color.BLUE, reading.mac));
 						}
 					}
 					readingAdapter.notifyDataSetChanged();
 
-					tiv_map.setPins(pins);
-					tiv_map.updatePins();
+					tiv_map.setMarkers(markers);
+					tiv_map.updateMarkers();
 				} else {
 					U.showToast("no info about aps");
 				}
