@@ -43,7 +43,7 @@ public class MapCache {
 			File[] matchedFiles = root.listFiles(new FilenameFilter() {
 
 				public boolean accept(File dir, String filename) {
-					if (filename.equals(consturctFileName(floor))) {
+					if (filename.equals(constructFileName(floor))) {
 						return true;
 					} else {
 						return false;
@@ -74,10 +74,10 @@ public class MapCache {
 		String state = Environment.getExternalStorageState();
 
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
-			// We can at read and write the external storage
+			// We can read and write the external storage
 			try {
 				File root = c.getExternalCacheDir();
-				File imageFile = new File(root, consturctFileName(floor));
+				File imageFile = new File(root, constructFileName(floor));
 				FileOutputStream out;
 				out = new FileOutputStream(imageFile);
 				bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
@@ -109,7 +109,7 @@ public class MapCache {
 		}
 	}
 
-	private static String consturctFileName(Floor floor) {
+	private static String constructFileName(Floor floor) {
 		String buildingName = floor.getBuilding().getName();
 		String floorName = floor.getName();
 		return String.format("%s_%s.%s", buildingName, floorName, FILE_EXTENSION);
