@@ -53,7 +53,9 @@ public class MapCache {
 			if (matchedFiles.length > 0) {
 				try {
 					FileInputStream in = new FileInputStream(matchedFiles[0]);
-					return BitmapFactory.decodeStream(in);
+					Bitmap bitmap = BitmapFactory.decodeStream(in);
+					Log.i(TAG, "Successfully read image from SDCard");
+					return bitmap;
 				} catch (FileNotFoundException e) {
 					Log.e(TAG, "Could not read from file.", e);
 					return null;
@@ -79,6 +81,7 @@ public class MapCache {
 				FileOutputStream out;
 				out = new FileOutputStream(imageFile);
 				bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+				Log.i(TAG, "Successfully stored image to SDCard");
 			} catch (FileNotFoundException e) {
 				Log.e(TAG, "Could save the image on the SDCard.", e);
 			}
