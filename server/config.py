@@ -4,9 +4,8 @@
 # Server DNS Name
 
 
-SERVER_PORT = 32123
-SERVER_NAME = "deserver.moeeeep.com"
-SERVER_URL = "http://{SERVER_NAME}:{PORT}".format(PORT=SERVER_PORT,SERVER_NAME=SERVER_NAME)
+SERVER_NAME = "eth.rsp.li"
+SERVER_URL = "http://{SERVER_NAME}".format(PORT=SERVER_PORT)
 CACHE_URL= SERVER_URL+"/static/cache/"
 
 MONGODB_DATABASE = "DistSysProjekt"

@@ -110,33 +110,33 @@ r/HG
         "floors": 
           {
             "DO": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_DO.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_DO.gif" }, 
             "C": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_C.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_C.gif" }, 
             "B": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_B.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_B.gif" }, 
             "E": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_E.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_E.gif" }, 
             "D": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_D.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_D.gif" }, 
             "G": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_G.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_G.gif" }, 
             "F": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_F.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_F.gif" }, 
             "H": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_H.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_H.gif" }, 
             "K": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_K.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_K.gif" }, 
             "J": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_J.gif" },
+              { "map": "http://eth.rsp.li/static/cache/HG_J.gif" },
             "0": 
               {}, 
             "JO": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_JO.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_JO.gif" }, 
             "GO": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_GO.gif" }, 
+              { "map": "http://eth.rsp.li/static/cache/HG_GO.gif" }, 
             "FO": 
-              { "map": "http://deserver.moeeeep.com:32123/static/cache/HG_FO.gif" }
+              { "map": "http://eth.rsp.li/static/cache/HG_FO.gif" }
           } 
       }
   }
@@ -163,7 +163,7 @@ r/HG/E
                 "campus": "Zentrum"
               }
           }, 
-        "map": "http://deserver.moeeeep.com:32123/static/cache/HG_E.gif", 
+        "map": "http://eth.rsp.li/static/cache/HG_E.gif", 
         "rooms": 
           {
             "33.5": {"desc": "Studentenraum"}, 
@@ -237,7 +237,7 @@ r/HG/E/1.1
     "result": 
       {
         "building": "HG", 
-        "map": "http://deserver.moeeeep.com:32123/static/cache/HG_E_1.1.gif", 
+        "map": "http://eth.rsp.li/static/cache/HG_E_1.1.gif", 
         "room": "1.1", 
         "floor": "E", 
         "location": 
@@ -281,7 +281,7 @@ AP Location Query
 -----------------
 
 Curl Request:
-curl -v -H "Content-Type:application/json" -X POST -d '{"request":"location","aps":{"00:03:52:2b:e9:01":75, "00:0f:61:be:63:13":12}}' http://deserver.moeeeep.com:32123/json
+curl -v -H "Content-Type:application/json" -X POST -d '{"request":"location","aps":{"00:03:52:2b:e9:01":75, "00:0f:61:be:63:13":12}}' http://eth.rsp.li/json
 
 
 Request:
@@ -312,7 +312,7 @@ Result:
             "result": 
               {
                 "building": "HG", 
-                "map": "http://deserver.moeeeep.com:32123/static/cache/HG_F_5.gif", 
+                "map": "http://eth.rsp.li/static/cache/HG_F_5.gif", 
                 "room": "5", 
                 "floor": "F", 
                 "location": 
@@ -339,7 +339,7 @@ Result:
                 "location": 
                   {
                     "building": "HG", 
-                    "map": "http://deserver.moeeeep.com:32123/static/cache/HG_F_5.gif", 
+                    "map": "http://eth.rsp.li/static/cache/HG_F_5.gif", 
                     "room": "5", 
                     "floor": "F", 
                     "location": 
@@ -361,7 +361,7 @@ Result:
                 "location": 
                   {
                     "building": "ETF", 
-                    "map": "http://deserver.moeeeep.com:32123/static/cache/ETF_E_1.gif", 
+                    "map": "http://eth.rsp.li/static/cache/ETF_E_1.gif", 
                     "room": "1", 
                     "floor": "E", 
                     "location": 
@@ -381,7 +381,7 @@ Result:
 Free Room Search
 ----------------
 
-curl -v -H "Content-Type:application/json" -X POST -d '{"request":"freeroom","building":"HG","floor":"E","starttime":12.0,"endtime":18.0}' http://deserver.moeeeep.com:32123/json
+curl -v -H "Content-Type:application/json" -X POST -d '{"request":"freeroom","building":"HG","floor":"E","starttime":12.0,"endtime":18.0}' http://eth.rsp.li/json
 
 Request:
   {
@@ -399,7 +399,7 @@ Result:
       [
         {
           "building": "HG", 
-          "map": "http://deserver.moeeeep.com:32123/static/cache/HG_E_24.gif", 
+          "map": "http://eth.rsp.li/static/cache/HG_E_24.gif", 
           "room": "24", 
           "floor": "E", 
           "location": 
@@ -412,7 +412,7 @@ Result:
         }, 
         {
           "building": "HG", 
-          "map": "http://deserver.moeeeep.com:32123/static/cache/HG_E_27.gif", 
+          "map": "http://eth.rsp.li/static/cache/HG_E_27.gif", 
           "room": "27", 
           "floor": "E", 
           "location": 
@@ -425,7 +425,7 @@ Result:
         }, 
         {
           "building": "HG", 
-          "map": "http://deserver.moeeeep.com:32123/static/cache/HG_E_26.3.gif", 
+          "map": "http://eth.rsp.li/static/cache/HG_E_26.3.gif", 
           "room": "26.3", 
           "floor": "E", 
           "location": 
