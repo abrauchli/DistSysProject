@@ -29,49 +29,41 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 public class SampleActivity extends Activity {
-	
+
 	TouchImageView im;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		im = new TouchImageView(this);
-		
+
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
-		
-		ArrayList<Pin2> pins = new ArrayList<Pin2>();
-		Pin2 pin = new Pin2(new Point(0,0), 25, Color.RED, "Pin (0,0)");
-		pins.add(pin);
-		pin = new Pin2(new Point(0,bm.getHeight()), 25, Color.RED, "Pin (0," + bm.getHeight() + ")");
-		pins.add(pin);
-		pin = new Pin2(new Point(bm.getWidth(),0), 25, Color.RED, "Pin (" + bm.getWidth() + ",0)");
-		pins.add(pin);
-		pin = new Pin2(new Point(bm.getWidth(),bm.getHeight()), 25, Color.RED, "Pin (" + bm.getWidth() + "," + bm.getHeight() + ")");
-		pins.add(pin);
-		pin = new Pin2(new Point(bm.getWidth()/2,bm.getHeight()/2), 25, Color.RED, "Pin (" + (int)(bm.getWidth()/2) + "," + (int)(bm.getHeight()/2) + ")");
-		pins.add(pin);
-		pin = new Pin2(new Point(175,175), 25, Color.RED, "Pin (175,175)");
-		pins.add(pin);
-		pin = new Pin2(new Point(175,375), 25, Color.RED, "Pin (175,375)");
-		pins.add(pin);
-		pin = new Pin2(new Point(200,375), 25, Color.RED, "Pin (200,375)");
-		pins.add(pin);
-		pin = new Pin2(new Point(175,400), 25, Color.RED, "Pin (175,400)");
-		pins.add(pin);
-		pin = new Pin2(new Point(200,400), 25, Color.RED, "Pin (200,400)");
-		pins.add(pin);
-		
+
+		ArrayList<LocationMarker> markers = new ArrayList<LocationMarker>();
+		markers.add(new LocationMarker(new Point(0, 0), 25, Color.RED, "Marker (0,0)"));
+		markers.add(new LocationMarker(new Point(0, bm.getHeight()), 25, Color.RED, "Marker (0," + bm.getHeight() + ")"));
+		markers.add(new LocationMarker(new Point(bm.getWidth(), 0), 25, Color.RED, "Marker (" + bm.getWidth() + ",0)"));
+		markers.add(new LocationMarker(new Point(bm.getWidth(), bm.getHeight()), 25, Color.RED,
+				"Marker (" + bm.getWidth() + "," + bm.getHeight() + ")"));
+		markers.add(new LocationMarker(new Point(bm.getWidth() / 2, bm.getHeight() / 2), 25, Color.RED,
+				"Marker (" + (int) (bm.getWidth() / 2) + "," + (int) (bm.getHeight() / 2) + ")"));
+		markers.add(new LocationMarker(new Point(175, 175), 25, Color.RED, "Marker (175,175)"));
+		markers.add(new LocationMarker(new Point(175, 375), 25, Color.RED, "Marker (175,375)"));
+		markers.add(new LocationMarker(new Point(200, 375), 25, Color.RED, "Marker (200,375)"));
+		markers.add(new LocationMarker(new Point(175, 400), 25, Color.RED, "Marker (175,400)"));
+		markers.add(new LocationMarker(new Point(200, 400), 25, Color.RED, "Marker (200,400)"));
+
 		im.setImage(bm);
-		im.setPins(pins);
-		im.updatePins();
-		//im.centerImage();
-		//im.centerZoomImage();
-		//im.centerPoint(bm.getWidth(), bm.getHeight());
+		im.setMarkers(markers);
+		im.updateMarkers();
+		// im.centerImage();
+		// im.centerZoomImage();
+		// im.centerPoint(bm.getWidth(), bm.getHeight());
 		im.centerZoomPoint(175, 175);
 		setContentView(im);
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		im.recycleBitmaps();
