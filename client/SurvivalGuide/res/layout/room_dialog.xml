@@ -11,7 +11,7 @@
         android:layout_margin="5dip" >
 
         <RadioGroup
-            android:id="@+id/grp_campus"
+            android:id="@+id/grp_rm_campus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
