@@ -1,5 +1,5 @@
 \section{Android Application}
-Our Android application is devided into different packages, each dedicated to a specific purpose.
+Our Android application is divided into different packages, each dedicated to a specific purpose. The separation follows the MVC model and provides a good base for the software's different parts to evolve more or less independantly from each other.
 
 \todo{Andrea: update this}
 \begin{description}
@@ -10,6 +10,7 @@ Our Android application is devided into different packages, each dedicated to a 
 
 \subsection{Network library and Lazy Objects}
 \todo{TODO: Andy, Andrea}
+The network library serves as abstraction of the server's functions. All communications happen transparently to the clients (View / Controller) through asynchronous calls, allowing non-blocking loading. The model classes describe the logical structuring of the server's information in the form of lazy objects. Thus a Building object holds a reference to a possibly not yet loaded Floor object. The state of an object can be queried through the isLoaded() method and should it be necessary load its contents through the loadAsync(handler) method. The android handler will be served a message when the object is ready. All these lazy objects inherit from the LazyObject class and share the loading and caching mechanisms.
 
 \subsection{User Interface}
 \todo{TODO: Steven}
