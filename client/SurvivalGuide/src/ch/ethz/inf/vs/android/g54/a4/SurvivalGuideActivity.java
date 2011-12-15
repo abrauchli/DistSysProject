@@ -61,6 +61,7 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
+import ch.ethz.inf.vs.android.g54.a4.types.Address;
 import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
@@ -190,7 +191,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		switch (mode) {
 		case OVERVIEW:
 			tiv_map.recycleBitmaps();
-			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM ? R.drawable.zentrum : R.drawable.hoengg);
+			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM ? R.drawable.zentrum
+					: R.drawable.hoengg);
 			tiv_map.setImage(bm);
 			tiv_map.centerImage();
 			// TODO add building markers
@@ -207,76 +209,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 	private void setLocation(Location location) {
 		this.currentLocation = location;
-/*
+
 		Map<String, AccessPoint> aps = location.getAps();
 		for (WifiReading reading : visibleNetworks) {
 			reading.ap = aps.get(reading.mac);
 		}
-*/		
-		// TODO: cleanup
-		Room r = location.getRoom();
-		markers.clear();
-		if (r != null) {
-			tiv_map.recycleBitmaps();
-			tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
-			String roomID = r.toString();
-			// TODO: txt_room.setText(roomID);
-			final Building b = r.getFloor().getBuilding();
-			b.loadAsync(new Handler() {
-				public void handleMessage(Message msg) {
-					if (msg.what == MessageStatus.SUCCESS.ordinal()) {
-						// post success
-						// TODO: txt_ap.setText(b.getAddress().getCampus().name);
-					} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
-						// post failure
-						// txt_ap.setText(msg.getData().getString("message"));
-					} else {
-						// post failure
-						// txt_ap.setText("something weird happened");
-					}
-				}
-			});
-		} else {
-			U.showToast("no position found");
-		}
-		if (aps != null) {
-			float blueHue = 240;
-			float greenHue = 120;
-			float orangeHue = 30;
-			for (WifiReading reading : visibleNetworks) {
-				reading.ap = aps.get(reading.mac);
-				if (reading.ap != null) {
-					Coordinate coords = reading.ap.getCoordinate();
-					int s = reading.signal;
-					float saturation;
-					if (s < -60)
-						saturation = (s + 100) * 0.02f;
-					else
-						saturation = (s + 60) * 0.005f + 0.8f;
-					// FIXME
-					int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
-					int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
-					int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
-					markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
-					markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
-					markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
-				}
-			}
-			readingAdapter.notifyDataSetChanged();
-
-		} else {
-			U.showToast("no info about aps");
-		}
-		if (r != null) {
-			Coordinate center = r.getRoomCenter();
-			if (center != null) {
-				markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
-				tiv_map.centerZoomPoint(center.toPoint());
-			} else {
-				tiv_map.centerImage();
-			}
-		}
-		tiv_map.updateMarkers();
+		readingAdapter.notifyDataSetChanged();
 	}
 
 	private void setBuilding(Building building) {
@@ -287,6 +225,56 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	private void setFloor(Floor floor) {
 		this.currentFloor = floor;
 		// TODO: finish this method
+	}
+
+	/**
+	 * Updates the markers for the access points as well as the marker for the location
+	 */
+	private void updateAPMarkers() {
+		Room r = currentLocation.getRoom();
+		markers.clear();
+		
+		// TODO: factor out
+		if (r != null) {
+			tiv_map.recycleBitmaps();
+			tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
+		} else {
+			U.showToast("no position found");
+		}
+		
+		float blueHue = 240;
+		float greenHue = 120;
+		float orangeHue = 30;
+		for (WifiReading reading : visibleNetworks) {
+			if (reading.ap != null) {
+				Coordinate coords = reading.ap.getCoordinate();
+				int s = reading.signal;
+				float saturation;
+				if (s < -60)
+					saturation = (s + 100) * 0.02f;
+				else
+					saturation = (s + 60) * 0.005f + 0.8f;
+				// FIXME
+				int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
+				int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
+				int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
+				markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
+				markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
+				markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
+			}
+		}
+
+		if (r != null) {
+			Coordinate center = r.getRoomCenter();
+			if (center != null) {
+				markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
+				tiv_map.centerZoomPoint(center.toPoint());
+			} else {
+				tiv_map.centerImage();
+			}
+		}
+		
+		tiv_map.updateMarkers();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -428,8 +416,21 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
 			lst_aps.setAdapter(readingAdapter);
-
-			// TODO: set an adapter for the location text
+			
+			// TODO: subscribe to location changes, such that this may change in the dialog
+			TextView txt_current_location = (TextView) dialog.findViewById(R.id.txt_current_location);
+			if ((currentLocation != null) && (currentLocation.getRoom() != null)) {
+				Room room = currentLocation.getRoom();
+				String roomDescription = room.toString();
+				Address address = room.getFloor().getBuilding().getAddress();
+				if ((address != null) && (address.getCampus() != Campus.OTHER)) {
+					roomDescription = String.format("%s (%s)", roomDescription, address.getCampus().name);
+				} else {
+				}
+				txt_current_location.setText(roomDescription);
+			} else {
+				txt_current_location.setText(R.string.unknown_location);
+			}
 			return dialog;
 		}
 		return null;

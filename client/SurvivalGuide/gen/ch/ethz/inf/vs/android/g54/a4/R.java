@@ -19,14 +19,14 @@ public final class R {
         public static final int zentrum=0x7f020005;
     }
     public static final class id {
-        public static final int LinearLayout=0x7f06000c;
-        public static final int btn_location=0x7f06000e;
-        public static final int btn_scan=0x7f06000d;
+        public static final int LinearLayout=0x7f060001;
+        public static final int btn_location=0x7f06000d;
+        public static final int btn_scan=0x7f06000c;
         public static final int grp_campus=0x7f060005;
         public static final int grp_rm_campus=0x7f060011;
         public static final int lin_building=0x7f060009;
         public static final int lin_overview=0x7f060004;
-        public static final int linearLayout1=0x7f060001;
+        public static final int linearLayout1=0x7f060010;
         public static final int linearLayout2=0x7f060015;
         public static final int lst_aps=0x7f060000;
         public static final int mni_aps=0x7f060020;
@@ -43,7 +43,7 @@ public final class R {
         public static final int spn_floor=0x7f060017;
         public static final int spn_room=0x7f060018;
         public static final int tgl_scan=0x7f060008;
-        public static final int tiv_map=0x7f06000f;
+        public static final int tiv_map=0x7f06000e;
         public static final int txt_bssid=0x7f06001a;
         public static final int txt_building=0x7f06000a;
         public static final int txt_current_location=0x7f060003;
@@ -51,7 +51,7 @@ public final class R {
         public static final int txt_level=0x7f06001b;
         public static final int txt_room=0x7f06001c;
         public static final int txt_ssid=0x7f060019;
-        public static final int web_maptest=0x7f060010;
+        public static final int web_maptest=0x7f06000f;
     }
     public static final class layout {
         public static final int aps_dialog=0x7f030000;
@@ -76,5 +76,6 @@ public final class R {
         public static final int room_dialog_title=0x7f040005;
         public static final int rooms=0x7f040000;
         public static final int show_aps=0x7f040009;
+        public static final int unknown_location=0x7f04000c;
     }
 }
