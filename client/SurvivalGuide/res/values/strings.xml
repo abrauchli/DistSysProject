@@ -9,5 +9,7 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="eth_all">all</string>
+    <string name="show_aps">show APs</string>
+    <string name="aps_dialog_title">Visible Access Points</string>
 
 </resources>

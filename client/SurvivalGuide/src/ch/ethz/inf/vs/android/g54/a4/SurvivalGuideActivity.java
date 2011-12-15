@@ -32,6 +32,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.wifi.ScanResult;
@@ -80,7 +82,6 @@ import ch.ethz.inf.vs.android.g54.a4.util.U;
 public class SurvivalGuideActivity extends Activity implements OnClickListener, CompoundButton.OnCheckedChangeListener,
 		RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
 	private static final String TAG = "SurvivalGuideActivity";
-	private static final int ROOMS_DIALOG = 1;
 
 	private enum Mode {
 		OVERVIEW,
@@ -133,6 +134,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			// TODO: switch to correct image
 			break;
 		}
+		updateMap();
 	}
 
 	/**
@@ -169,6 +171,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				rbt_eth_hoengg.setChecked(true);
 			}
 		}
+		updateMap();
 	}
 
 	/**
@@ -186,17 +189,46 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			rbt_eth_hoengg.setChecked(true);
 		}
 	}
-	
+
+	private void updateMap() {
+		Bitmap bm;
+		switch (mode) {
+		case OVERVIEW:
+			switch (currentCampus) {
+			case ZENTRUM:
+				tiv_map.recycleBitmaps();
+				// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.zentrum);
+				bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+				tiv_map.setImage(bm);
+				tiv_map.updateMarkers();
+				break;
+			case HOENGG:
+				tiv_map.recycleBitmaps();
+				bm = BitmapFactory.decodeResource(getResources(), R.drawable.hoengg);
+				tiv_map.setImage(bm);
+				tiv_map.updateMarkers();
+				break;
+			}
+			break;
+		case LOCATION:
+			// TODO
+			break;
+		case FREEROOMS:
+			// TODO
+			break;
+		}
+	}
+
 	private void setLocation(Location location) {
 		this.currentLocation = location;
 		// TODO: finish this method
 	}
-	
+
 	private void setBuilding(Building building) {
 		this.currentBuilding = building;
 		// TODO: finish this method
 	}
-	
+
 	private void setFloor(Floor floor) {
 		this.currentFloor = floor;
 		// TODO: finish this method
@@ -214,11 +246,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			visibleNetworks = (List<WifiReading>) getLastNonConfigurationInstance();
 
 		handler = new Handler();
-		
+
 		// TODO: probably needs to be made consistent, e.g. when turning phone...
 		locationScanning = false;
 		initCampus(Campus.ZENTRUM);
-		setMode(Mode.OVERVIEW);
 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
@@ -229,11 +260,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			lst_networks = (ListView) findViewById(R.id.lst_networks);
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
+			RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
 			tgl_map.setOnCheckedChangeListener(this);
 			tgl_scan.setOnClickListener(this);
+			grp_campus.setOnCheckedChangeListener(this);
 
 			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
 			// configuredNetworks = wifi.getConfiguredNetworks();
@@ -243,7 +276,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 
 			OnSizeChangedListener hideOnce = new OnSizeChangedListener() {
 				public void onSizeChanged(int viewWidth, int viewHeight) {
-					tiv_map.setVisibility(View.GONE);
+					// tiv_map.setVisibility(View.GONE);
+					updateMap();
 					tiv_map.setOnSizeChangedListener(null);
 				}
 			};
@@ -274,6 +308,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				}
 			});
 			scanReceiver = new WifiScanReceiver(this);
+
+			mode = Mode.OVERVIEW;
+			LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
+			lin_building.setVisibility(View.GONE);
 		} catch (Exception e) {
 			U.showException(TAG, e);
 		}
@@ -299,12 +337,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
-		case ROOMS_DIALOG:
+		case R.layout.room_dialog:
 			View room_dialog = getLayoutInflater().inflate(R.layout.room_dialog, null);
 
 			// initialize radio buttons
-			RadioGroup grp_campus = (RadioGroup) room_dialog.findViewById(R.id.grp_campus);
-			grp_campus.setOnCheckedChangeListener(this);
+			RadioGroup grp_rm_campus = (RadioGroup) room_dialog.findViewById(R.id.grp_rm_campus);
+			grp_rm_campus.setOnCheckedChangeListener(this);
 
 			// initialize spinners
 			List<String> buildings = new ArrayList<String>();
@@ -338,7 +376,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			spn_room.setOnItemSelectedListener(this);
 			spn_room.setClickable(false);
 
-			// TODO: what does this thing?
 			return new AlertDialog.Builder(SurvivalGuideActivity.this)
 					.setTitle(R.string.room_dialog_title)
 					.setView(room_dialog)
@@ -349,6 +386,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 						}
 					})
 					.create();
+		case R.layout.aps_dialog:
+			Dialog dialog = new Dialog(this);
+
+			dialog.setContentView(R.layout.aps_dialog);
+			dialog.setTitle(R.string.aps_dialog_title);
+
+			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
+			lst_aps.setAdapter(readingAdapter);
+			return dialog;
 		}
 		return null;
 	}
@@ -363,7 +409,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.mni_rooms:
-			showDialog(ROOMS_DIALOG);
+			showDialog(R.layout.room_dialog);
 			break;
 		case R.id.mni_dummy_data:
 			loadDummyData(false);
@@ -372,6 +418,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			Intent foo = new Intent(this, MapTest.class);
 			foo.putExtra(getPackageName() + ".ImageUrl", "http://deserver.moeeeep.com:32123/static/cache/CAB_G_11.gif");
 			startActivity(foo);
+			break;
+		case R.id.mni_aps:
+			showDialog(R.layout.aps_dialog);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -557,9 +606,11 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		switch (checkedID) {
 		case R.id.rbt_eth_center:
 			// from main.xml
+			setCampus(Campus.ZENTRUM);
 			break;
 		case R.id.rbt_eth_hoengg:
 			// from main.xml
+			setCampus(Campus.HOENGG);
 			break;
 		case R.id.rbt_rm_eth_center:
 			// from room_dialog.xml
