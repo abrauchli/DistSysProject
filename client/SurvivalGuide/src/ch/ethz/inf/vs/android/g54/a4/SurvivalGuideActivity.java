@@ -394,6 +394,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 
 			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
 			lst_aps.setAdapter(readingAdapter);
+			
+			// TODO: set an adapter for the location text
 			return dialog;
 		}
 		return null;

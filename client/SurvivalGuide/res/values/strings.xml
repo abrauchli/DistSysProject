@@ -11,5 +11,6 @@
     <string name="eth_all">all</string>
     <string name="show_aps">show APs</string>
     <string name="aps_dialog_title">Visible Access Points</string>
+    <string name="guessed_location_title">Your Location:</string>
 
 </resources>
