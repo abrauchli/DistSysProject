@@ -189,20 +189,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		Bitmap bm;
 		switch (mode) {
 		case OVERVIEW:
-			switch (currentCampus) {
-			case ZENTRUM:
-				tiv_map.recycleBitmaps();
-				bm = BitmapFactory.decodeResource(getResources(), R.drawable.zentrum);
-				tiv_map.setImage(bm);
-				tiv_map.updateMarkers();
-				break;
-			case HOENGG:
-				tiv_map.recycleBitmaps();
-				bm = BitmapFactory.decodeResource(getResources(), R.drawable.hoengg);
-				tiv_map.setImage(bm);
-				tiv_map.updateMarkers();
-				break;
-			}
+			tiv_map.recycleBitmaps();
+			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM ? R.drawable.zentrum : R.drawable.hoengg);
+			tiv_map.setImage(bm);
+			tiv_map.centerImage();
+			// TODO add building markers
+			// tiv_map.updateMarkers();
 			break;
 		case LOCATION:
 			// TODO
