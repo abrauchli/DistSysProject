@@ -41,6 +41,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +56,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
@@ -119,15 +121,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		switch (this.mode) {
 		case OVERVIEW:
 			lin_building.setVisibility(View.GONE);
-			// TODO: switch to correct image
 			break;
 		case LOCATION:
-			lin_building.setVisibility(View.VISIBLE);
-			// TODO: switch to correct image
-			break;
+			// fall through
 		case FREEROOMS:
 			lin_building.setVisibility(View.VISIBLE);
-			// TODO: switch to correct image
+			resetFloorButtons();
 			break;
 		}
 		updateMap();
@@ -199,7 +198,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			// tiv_map.updateMarkers();
 			break;
 		case LOCATION:
-			// TODO
+			tiv_map.recycleBitmaps();
+			tiv_map.setImage(MapCache.getMap(currentFloor, this));
+			updateAPMarkers();
 			break;
 		case FREEROOMS:
 			// TODO
@@ -233,15 +234,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	private void updateAPMarkers() {
 		Room r = currentLocation.getRoom();
 		markers.clear();
-		
-		// TODO: factor out
-		if (r != null) {
-			tiv_map.recycleBitmaps();
-			tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
-		} else {
-			U.showToast("no position found");
-		}
-		
+
 		float blueHue = 240;
 		float greenHue = 120;
 		float orangeHue = 30;
@@ -273,8 +266,40 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 				tiv_map.centerImage();
 			}
 		}
-		
+
 		tiv_map.updateMarkers();
+	}
+	
+	/**
+	 * Deletes all the floor buttons and recreates them with the current building
+	 */
+	private void resetFloorButtons() {
+		ScrollView scrl_floors = (ScrollView) findViewById(R.id.scrl_floors);
+		// TODO: unregister all buttons from listener
+		scrl_floors.removeAllViews();
+		scrl_floors.getChildCount();
+		try {
+			currentBuilding.load();
+		} catch (Exception e) {
+			Log.e(TAG, String.format("Loading building %s failed.", currentBuilding.getName()), e);
+		}
+		if (currentBuilding.getFloors() != null) {
+			List<String> floorNames = new ArrayList<String>();
+			for (Floor f : currentBuilding.getFloors()) {
+				floorNames.add(f.getName());
+			}
+			Collections.sort(floorNames);
+			Button btn_floor;
+			for (String name : floorNames) {
+				btn_floor = new Button(this);
+				btn_floor.setText(name);
+				// TODO: add listener to button
+				scrl_floors.addView(btn_floor);
+			}
+		} else {
+			U.postToast(handler,
+					String.format("Could not find floor information about building %s.", currentBuilding.getName()));
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -416,7 +441,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
 			lst_aps.setAdapter(readingAdapter);
-			
+
 			// TODO: subscribe to location changes, such that this may change in the dialog
 			TextView txt_current_location = (TextView) dialog.findViewById(R.id.txt_current_location);
 			if ((currentLocation != null) && (currentLocation.getRoom() != null)) {
