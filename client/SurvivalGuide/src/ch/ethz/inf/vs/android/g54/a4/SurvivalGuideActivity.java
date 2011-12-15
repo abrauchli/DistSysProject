@@ -46,19 +46,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
@@ -72,15 +70,14 @@ import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker;
-import ch.ethz.inf.vs.android.g54.a4.ui.MapTest;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.MapCache;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
-public class SurvivalGuideActivity extends Activity implements OnClickListener, CompoundButton.OnCheckedChangeListener,
-		RadioGroup.OnCheckedChangeListener, OnItemSelectedListener {
+public class SurvivalGuideActivity extends Activity implements OnClickListener,
+		OnCheckedChangeListener, OnItemSelectedListener {
 	private static final String TAG = "SurvivalGuideActivity";
 
 	private enum Mode {
@@ -102,8 +99,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 	WifiScanReceiver scanReceiver;
 
 	ArrayAdapter<WifiReading> readingAdapter;
-	TextView txt_room, txt_ap;
-	ListView lst_networks;
 	TouchImageView tiv_map;
 
 	List<LocationMarker> markers;
@@ -197,8 +192,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			switch (currentCampus) {
 			case ZENTRUM:
 				tiv_map.recycleBitmaps();
-				// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.zentrum);
-				bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+				bm = BitmapFactory.decodeResource(getResources(), R.drawable.zentrum);
 				tiv_map.setImage(bm);
 				tiv_map.updateMarkers();
 				break;
@@ -254,17 +248,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		try {
 			Button btn_scan = (Button) findViewById(R.id.btn_scan);
 			Button btn_location = (Button) findViewById(R.id.btn_location);
-			txt_room = (TextView) findViewById(R.id.txt_room);
-			txt_ap = (TextView) findViewById(R.id.txt_ap);
-			ToggleButton tgl_map = (ToggleButton) findViewById(R.id.tgl_map);
-			lst_networks = (ListView) findViewById(R.id.lst_networks);
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 			RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 
 			btn_scan.setOnClickListener(this);
 			btn_location.setOnClickListener(this);
-			tgl_map.setOnCheckedChangeListener(this);
 			tgl_scan.setOnClickListener(this);
 			grp_campus.setOnCheckedChangeListener(this);
 
@@ -291,22 +280,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
 			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
-			lst_networks.setAdapter(readingAdapter);
-			lst_networks.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					try {
-						AccessPoint ap = visibleNetworks.get(position).ap;
-						if (ap == null) {
-							U.showToast("no further AP info available");
-						} else {
-							U.showToast("temporarily disabled"); // TODO
-						}
-
-					} catch (Exception e) {
-						U.showException(TAG, e);
-					}
-				}
-			});
 			scanReceiver = new WifiScanReceiver(this);
 
 			mode = Mode.OVERVIEW;
@@ -394,7 +367,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 
 			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
 			lst_aps.setAdapter(readingAdapter);
-			
+
 			// TODO: set an adapter for the location text
 			return dialog;
 		}
@@ -458,13 +431,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 					tiv_map.recycleBitmaps();
 					tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
 					String roomID = r.toString();
-					txt_room.setText(roomID);
+					// TODO: txt_room.setText(roomID);
 					final Building b = r.getFloor().getBuilding();
 					b.loadAsync(new Handler() {
 						public void handleMessage(Message msg) {
 							if (msg.what == MessageStatus.SUCCESS.ordinal()) {
 								// post success
-								txt_ap.setText(b.getAddress().getCampus().name);
+								// TODO: txt_ap.setText(b.getAddress().getCampus().name);
 							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
 								// post failure
 								// txt_ap.setText(msg.getData().getString("message"));
@@ -593,15 +566,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				readings.add(new WifiReading(result));
 			}
 			scanner.showReadings(readings);
-		}
-	}
-
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		switch (buttonView.getId()) {
-		case R.id.tgl_map:
-			lst_networks.setVisibility(isChecked ? View.GONE : View.VISIBLE);
-			tiv_map.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-			break;
 		}
 	}
 
