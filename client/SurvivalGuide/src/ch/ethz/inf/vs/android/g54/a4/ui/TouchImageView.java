@@ -34,7 +34,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class TouchImageView extends ImageView {
 
@@ -321,21 +320,23 @@ public class TouchImageView extends ImageView {
 		float[] touchPoint = new float[] { x, y };
 		inverse.mapPoints(touchPoint);
 		double distance = 10000;
-		int closestMarker = -1;
+		LocationMarker closestMarker = null;
 		for (int i = 0; i < markers.size(); i++) {
-			float xDist = (float) markers.get(i).getPosition().x - touchPoint[0];
-			float yDist = (float) markers.get(i).getPosition().y - touchPoint[1];
+			LocationMarker m = markers.get(i);
+			float xDist = (float) m.getPosition().x - touchPoint[0];
+			float yDist = (float) m.getPosition().y - touchPoint[1];
 			double distClickPoint = Math.sqrt(xDist * xDist + yDist * yDist);
 			if (distance > distClickPoint && distClickPoint < 100) {
 				distance = distClickPoint;
-				closestMarker = i;
+				closestMarker = m;
 			}
 		}
 
-		if (closestMarker != -1) {
-			Toast toast = Toast.makeText(getContext(),
-					"Marker " + closestMarker + ", Name: " + markers.get(closestMarker).getName(), Toast.LENGTH_SHORT);
-			toast.show();
+		if (closestMarker != null) {
+			ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener onClickListener = closestMarker.getOnClickListener();
+			if (onClickListener != null) {
+				onClickListener.onClick(closestMarker);
+			}
 		}
 		return true;
 	}
@@ -415,13 +416,13 @@ public class TouchImageView extends ImageView {
 	public interface OnSizeChangedListener {
 		void onSizeChanged(int viewWidth, int viewHeight);
 	}
-	
+
 	private class EclairMotionEvent extends WrapMotionEvent {
 
 		protected EclairMotionEvent(MotionEvent event) {
 			super(event);
 		}
-		
+
 		public float getX(int pointerIndex) {
 			return event.getX(pointerIndex);
 		}
@@ -429,24 +430,24 @@ public class TouchImageView extends ImageView {
 		public float getY(int pointerIndex) {
 			return event.getY(pointerIndex);
 		}
-		
+
 		public int getPointerCount() {
 			return event.getPointerCount();
 		}
-		
+
 		public int getPointerId(int pointerIndex) {
 			return event.getPointerId(pointerIndex);
 		}
 	}
-	
-    private WrapMotionEvent wrap(MotionEvent event) {
-    	try {
-            return new EclairMotionEvent(event);
-        } catch (VerifyError e) {
-            return new WrapMotionEvent(event);
-        }
-    }
-	
+
+	private WrapMotionEvent wrap(MotionEvent event) {
+		try {
+			return new EclairMotionEvent(event);
+		} catch (VerifyError e) {
+			return new WrapMotionEvent(event);
+		}
+	}
+
 	private class WrapMotionEvent {
 		protected MotionEvent event;
 
@@ -454,43 +455,43 @@ public class TouchImageView extends ImageView {
 			this.event = event;
 		}
 
-	    public int getAction() {
-	        return event.getAction();
-	    }
+		public int getAction() {
+			return event.getAction();
+		}
 
-	    public float getX() {
-	        return event.getX();
-	    }
+		public float getX() {
+			return event.getX();
+		}
 
-	    public float getX(int pointerIndex) {
-	        verifyPointerIndex(pointerIndex);
-	        return getX();
-	    }
+		public float getX(int pointerIndex) {
+			verifyPointerIndex(pointerIndex);
+			return getX();
+		}
 
-	    public float getY() {
-	        return event.getY();
-	    }
+		public float getY() {
+			return event.getY();
+		}
 
-	    public float getY(int pointerIndex) {
-	        verifyPointerIndex(pointerIndex);
-	        return getY();
-	    }
+		public float getY(int pointerIndex) {
+			verifyPointerIndex(pointerIndex);
+			return getY();
+		}
 
-	    public int getPointerCount() {
-	        return 1;
-	    }
+		public int getPointerCount() {
+			return 1;
+		}
 
-	    public int getPointerId(int pointerIndex) {
-	        verifyPointerIndex(pointerIndex);
-	        return 0;
-	    }
+		public int getPointerId(int pointerIndex) {
+			verifyPointerIndex(pointerIndex);
+			return 0;
+		}
 
-	    private void verifyPointerIndex(int pointerIndex) {
-	        if (pointerIndex > 0) {
-	            throw new IllegalArgumentException(
-	                "Invalid pointer index for Donut/Cupcake");
-	        }
-	    }
+		private void verifyPointerIndex(int pointerIndex) {
+			if (pointerIndex > 0) {
+				throw new IllegalArgumentException(
+						"Invalid pointer index for Donut/Cupcake");
+			}
+		}
 
 	}
 }

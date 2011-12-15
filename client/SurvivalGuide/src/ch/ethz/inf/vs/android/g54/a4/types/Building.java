@@ -104,7 +104,7 @@ public class Building extends LazyObject {
 		if (buildingGroups == null) {
 			// initialization of the list (individual lists are set to null)
 			buildingGroups = new ArrayList<List<Building>>(Address.Campus.values().length);
-			for (Address.Campus c : Address.Campus.values()) {
+			for (int i = 0; i < Address.Campus.values().length; i++) {
 				buildingGroups.add(null);
 			}
 		}
