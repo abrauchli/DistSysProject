@@ -218,7 +218,7 @@ public class Building extends LazyObject {
 	}
 
 	@SuppressWarnings("serial")
-	public static Map<String, Point> buildingLocations = new HashMap<String, Point>() {{
+	public static Map<String, Point> buildingLocationsCenter = new HashMap<String, Point>() {{
 		// some buildings to get started
 		put("HG", new Point(476, 1015));
 		put("CAB", new Point(627, 694));
@@ -233,5 +233,38 @@ public class Building extends LazyObject {
 		put("ETA", new Point(1027, 774));
 		put("CNB", new Point(690, 725));
 		put("LFW", new Point(631, 837));
+	}};
+
+	@SuppressWarnings("serial")
+	public static Map<String, Point> buildingLocationsHoengg = new HashMap<String, Point>() {{
+		put("HPH", new Point(892, 878));
+		put("HIL", new Point(418, 770));
+		put("HIT", new Point(470, 390));
+		put("HCI", new Point(679, 1005));
+		put("HIF", new Point(270, 645));
+		put("HIR", new Point(427, 573));
+		put("HIQ", new Point(486, 539));
+		put("HIP", new Point(536, 537));
+		put("HPI", new Point(658, 797));
+		put("HPT", new Point(651, 653));
+		put("HPF", new Point(702, 456));
+		put("HPM", new Point(860, 402));
+		put("HPK", new Point(977, 441));
+		put("HPZ", new Point(962, 673));
+		put("HPR", new Point(933, 769));
+		put("HPV", new Point(1042, 870));
+		put("HPP", new Point(1116, 728));
+		put("HPS", new Point(1268, 894));
+		put("HDB", new Point(472, 240));
+		put("HKK", new Point(642, 228));
+		put("HPW", new Point(1067, 554));
+		put("HXA", new Point(489, 1218));
+		put("HXB", new Point(526, 1366));
+		put("HXC", new Point(339, 1297));
+		put("HXD", new Point(371, 1188));
+		put("HXE", new Point(491, 1127));
+		put("HIG", new Point(233, 891));
+		put("HPG", new Point(817, 652));
+		put("HEZ", new Point(901, 83));
 	}};
 }

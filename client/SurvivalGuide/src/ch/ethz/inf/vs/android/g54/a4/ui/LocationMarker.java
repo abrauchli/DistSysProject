@@ -20,18 +20,23 @@ package ch.ethz.inf.vs.android.g54.a4.ui;
 import android.graphics.Point;
 
 public class LocationMarker {
-	
+
 	private Point position;
 	private int radius;
 	private int color;
 	private String name;
 	private OnClickListener onClickListener;
 
-	public LocationMarker(Point position, int radius, int color, String name) {
+	public LocationMarker(Point position, int radius, int color, String name, OnClickListener listener) {
 		this.setPosition(position);
 		this.setRadius(radius);
 		this.setColor(color);
 		this.setName(name);
+		this.setOnClickListener(listener);
+	}
+
+	public LocationMarker(Point position, int radius, int color, String name) {
+		this(position, radius, color, name, null);
 	}
 
 	public Point getPosition() {
@@ -73,9 +78,9 @@ public class LocationMarker {
 	public void setOnClickListener(OnClickListener onClickListener) {
 		this.onClickListener = onClickListener;
 	}
-	
+
 	public interface OnClickListener {
 		public void onClick(LocationMarker marker);
 	}
-	
+
 }

@@ -194,8 +194,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					: R.drawable.hoengg);
 			tiv_map.setImage(bm);
 			tiv_map.centerImage();
-			// TODO add building markers
-			// tiv_map.updateMarkers();
+			Map<String, Point> buildingsLocations = currentCampus == Campus.ZENTRUM
+					? Building.buildingLocationsCenter
+					: Building.buildingLocationsHoengg;
+			markers.clear();
+			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
+				markers.add(new LocationMarker(bLoc.getValue(), 100, Color.TRANSPARENT, bLoc.getKey(), markerClickListener));
+			}
+			tiv_map.updateMarkers();
+			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
 			break;
 		case LOCATION:
 			tiv_map.recycleBitmaps();
@@ -475,18 +482,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.mni_dummy_data:
 			loadDummyData(false);
-			break;
-		case R.id.mni_map:
-			// Intent foo = new Intent(this, MapTest.class);
-			// foo.putExtra(getPackageName() + ".ImageUrl",
-			// "http://deserver.moeeeep.com:32123/static/cache/CAB_G_11.gif");
-			// startActivity(foo);
-			tiv_map.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.zentrum));
-			for (Map.Entry<String, Point> bLoc : Building.buildingLocations.entrySet()) {
-				markers.add(new LocationMarker(bLoc.getValue(), 100, Color.TRANSPARENT, bLoc.getKey()));
-			}
-			tiv_map.updateMarkers();
-			tiv_map.centerZoomPoint(Building.buildingLocations.get("HG"));
 			break;
 		case R.id.mni_aps:
 			showDialog(R.layout.aps_dialog);
@@ -814,6 +809,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		sa.notifyDataSetChanged();
 		spn_room.setClickable(true);
 	}
+
+	private static ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener markerClickListener =
+			new ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener() {
+				public void onClick(LocationMarker marker) {
+					U.showToast(marker.getName());
+				}
+			};
 
 	private class StringComparator implements Comparator<String> {
 		public int compare(String lhs, String rhs) {
