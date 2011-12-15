@@ -81,7 +81,7 @@ public class TouchImageView extends ImageView {
 		setOnTouchListener(new OnTouchListener() {
 
 			public boolean onTouch(View v, MotionEvent rawEvent) {
-				WrapMotionEvent event = WrapMotionEvent.wrap(rawEvent);
+				WrapMotionEvent event = wrap(rawEvent);
 
 				dumpEvent(event);
 
@@ -414,5 +414,83 @@ public class TouchImageView extends ImageView {
 
 	public interface OnSizeChangedListener {
 		void onSizeChanged(int viewWidth, int viewHeight);
+	}
+	
+	private class EclairMotionEvent extends WrapMotionEvent {
+
+		protected EclairMotionEvent(MotionEvent event) {
+			super(event);
+		}
+		
+		public float getX(int pointerIndex) {
+			return event.getX(pointerIndex);
+		}
+
+		public float getY(int pointerIndex) {
+			return event.getY(pointerIndex);
+		}
+		
+		public int getPointerCount() {
+			return event.getPointerCount();
+		}
+		
+		public int getPointerId(int pointerIndex) {
+			return event.getPointerId(pointerIndex);
+		}
+	}
+	
+    private WrapMotionEvent wrap(MotionEvent event) {
+    	try {
+            return new EclairMotionEvent(event);
+        } catch (VerifyError e) {
+            return new WrapMotionEvent(event);
+        }
+    }
+	
+	private class WrapMotionEvent {
+		protected MotionEvent event;
+
+		protected WrapMotionEvent(MotionEvent event) {
+			this.event = event;
+		}
+
+	    public int getAction() {
+	        return event.getAction();
+	    }
+
+	    public float getX() {
+	        return event.getX();
+	    }
+
+	    public float getX(int pointerIndex) {
+	        verifyPointerIndex(pointerIndex);
+	        return getX();
+	    }
+
+	    public float getY() {
+	        return event.getY();
+	    }
+
+	    public float getY(int pointerIndex) {
+	        verifyPointerIndex(pointerIndex);
+	        return getY();
+	    }
+
+	    public int getPointerCount() {
+	        return 1;
+	    }
+
+	    public int getPointerId(int pointerIndex) {
+	        verifyPointerIndex(pointerIndex);
+	        return 0;
+	    }
+
+	    private void verifyPointerIndex(int pointerIndex) {
+	        if (pointerIndex > 0) {
+	            throw new IllegalArgumentException(
+	                "Invalid pointer index for Donut/Cupcake");
+	        }
+	    }
+
 	}
 }
