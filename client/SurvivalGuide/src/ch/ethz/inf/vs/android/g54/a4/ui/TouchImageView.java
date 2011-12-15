@@ -25,6 +25,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
@@ -37,7 +38,7 @@ import android.widget.Toast;
 
 public class TouchImageView extends ImageView {
 
-	private static final String TAG = "Touch";
+	private static final String TAG = "TouchImageView";
 	// These matrices will be used to move and zoom image
 	Matrix matrix = new Matrix();
 	Matrix savedMatrix = new Matrix();
@@ -89,17 +90,17 @@ public class TouchImageView extends ImageView {
 				case MotionEvent.ACTION_DOWN:
 					savedMatrix.set(matrix);
 					start.set(event.getX(), event.getY());
-					Log.d(TAG, "mode=DRAG");
+					Log.v(TAG, "mode=DRAG");
 					mode = DRAG;
 					break;
 				case MotionEvent.ACTION_POINTER_DOWN:
 					oldDist = spacing(event);
-					Log.d(TAG, "oldDist=" + oldDist);
+					Log.v(TAG, "oldDist=" + oldDist);
 					if (oldDist > 10f) {
 						savedMatrix.set(matrix);
 						midPoint(mid, event);
 						mode = ZOOM;
-						Log.d(TAG, "mode=ZOOM");
+						Log.v(TAG, "mode=ZOOM");
 					}
 					break;
 				case MotionEvent.ACTION_UP:
@@ -110,7 +111,7 @@ public class TouchImageView extends ImageView {
 					}
 				case MotionEvent.ACTION_POINTER_UP:
 					mode = NONE;
-					Log.d(TAG, "mode=NONE");
+					Log.v(TAG, "mode=NONE");
 					break;
 				case MotionEvent.ACTION_MOVE:
 					if (mode == DRAG) {
@@ -119,7 +120,7 @@ public class TouchImageView extends ImageView {
 						matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
 					} else if (mode == ZOOM) {
 						float newDist = spacing(event);
-						Log.d(TAG, "newDist=" + newDist);
+						Log.v(TAG, "newDist=" + newDist);
 						if (newDist > 10f) {
 							matrix.set(savedMatrix);
 							float scale = newDist / oldDist;
@@ -135,7 +136,7 @@ public class TouchImageView extends ImageView {
 	}
 
 	public void setImage(Bitmap bm) {
-		Log.d("VIEW", "setImage");
+		Log.d(TAG, String.format("setImage with dimensions %dx%d", bm.getWidth(), bm.getHeight()));
 		super.setImageBitmap(bm);
 		this.bm = bm;
 
@@ -170,7 +171,7 @@ public class TouchImageView extends ImageView {
 	}
 
 	public void centerImage() {
-		Log.d("VIEW", "centerImage");
+		Log.d(TAG, "centerImage");
 		matrix = new Matrix();
 		savedMatrix = new Matrix();
 
@@ -204,7 +205,7 @@ public class TouchImageView extends ImageView {
 	}
 
 	public void centerZoomImage() {
-		Log.d("VIEW", "centerZoomImage");
+		Log.d(TAG, "centerZoomImage");
 		matrix = new Matrix();
 		savedMatrix = new Matrix();
 
@@ -230,8 +231,8 @@ public class TouchImageView extends ImageView {
 		setImageMatrix(matrix);
 	}
 
-	public void centerPoint(int x, int y) {
-		Log.d("VIEW", "centerPoint");
+	public void centerPoint(Point p) {
+		Log.d(TAG, String.format("centerPoint on %s", p.toString()));
 		matrix = new Matrix();
 		savedMatrix = new Matrix();
 
@@ -252,8 +253,8 @@ public class TouchImageView extends ImageView {
 		setImageMatrix(matrix);
 
 		// Center the image
-		float redundantYSpace = (float) viewHeight - (scale * ((float) 2 * (float) y));
-		float redundantXSpace = (float) viewWidth - (scale * ((float) 2 * (float) x));
+		float redundantYSpace = (float) viewHeight - (scale * ((float) 2 * (float) p.y));
+		float redundantXSpace = (float) viewWidth - (scale * ((float) 2 * (float) p.x));
 
 		redundantYSpace /= (float) 2;
 		redundantXSpace /= (float) 2;
@@ -264,8 +265,8 @@ public class TouchImageView extends ImageView {
 		setImageMatrix(matrix);
 	}
 
-	public void centerZoomPoint(int x, int y) {
-		Log.d("VIEW", "centerZoomPoint");
+	public void centerZoomPoint(Point p) {
+		Log.d(TAG, String.format("centerZoomPoint on %s", p.toString()));
 		matrix = new Matrix();
 		savedMatrix = new Matrix();
 
@@ -279,8 +280,8 @@ public class TouchImageView extends ImageView {
 		setImageMatrix(matrix);
 
 		// Center the image
-		float redundantYSpace = (float) viewHeight - (float) 2 * (float) y;
-		float redundantXSpace = (float) viewWidth - (float) 2 * (float) x;
+		float redundantYSpace = (float) viewHeight - (float) 2 * (float) p.y;
+		float redundantXSpace = (float) viewWidth - (float) 2 * (float) p.x;
 
 		redundantYSpace /= (float) 2;
 		redundantXSpace /= (float) 2;
@@ -364,7 +365,7 @@ public class TouchImageView extends ImageView {
 				sb.append(";");
 		}
 		sb.append("]");
-		Log.d(TAG, sb.toString());
+		Log.v(TAG, sb.toString());
 	}
 
 	public void recycleBitmaps() {
@@ -382,7 +383,7 @@ public class TouchImageView extends ImageView {
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		Log.d("VIEW", "onSizeChanged" + " " + w + " " + h);
+		Log.d(TAG, String.format("onSizeChanged to %dx%d", w, h));
 		viewWidth = w;
 		viewHeight = h;
 		if (listener != null) {

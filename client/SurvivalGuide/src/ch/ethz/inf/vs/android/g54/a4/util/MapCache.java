@@ -84,7 +84,7 @@ public class MapCache {
 				bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
 				Log.i(TAG, "Successfully stored image to SDCard");
 			} catch (FileNotFoundException e) {
-				Log.e(TAG, "Could save the image on the SDCard.", e);
+				Log.e(TAG, "Could not save the image on the SDCard.", e);
 			}
 		}
 	}

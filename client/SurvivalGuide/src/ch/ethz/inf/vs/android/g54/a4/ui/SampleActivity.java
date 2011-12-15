@@ -60,7 +60,7 @@ public class SampleActivity extends Activity {
 		// im.centerImage();
 		// im.centerZoomImage();
 		// im.centerPoint(bm.getWidth(), bm.getHeight());
-		im.centerZoomPoint(175, 175);
+		im.centerZoomPoint(new Point(175, 175));
 		setContentView(im);
 	}
 

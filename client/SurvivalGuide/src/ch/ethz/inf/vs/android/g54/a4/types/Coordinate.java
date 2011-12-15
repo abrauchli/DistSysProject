@@ -20,22 +20,19 @@ package ch.ethz.inf.vs.android.g54.a4.types;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Point;
+
 /**
- * Class now directly represents pixel coordinates, but later could be adapted to geographical coordinates
+ * Directly represents pixel coordinates (we dropped geographical coordinates for now)
  */
 public class Coordinate {
-	private float x, y;
+	public final Point p;
 
 	public Coordinate (JSONObject coord) throws JSONException {
-		this.x = (float) coord.getDouble("x");
-		this.y = (float) coord.getDouble("y");
+		this.p = new Point(coord.getInt("x"), coord.getInt("y"));
 	}
 
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
+	public Point toPoint() {
+		return p;
 	}
 }

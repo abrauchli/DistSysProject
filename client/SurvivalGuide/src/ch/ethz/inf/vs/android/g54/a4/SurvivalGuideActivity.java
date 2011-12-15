@@ -415,9 +415,16 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 			loadDummyData(false);
 			break;
 		case R.id.mni_map:
-			Intent foo = new Intent(this, MapTest.class);
-			foo.putExtra(getPackageName() + ".ImageUrl", "http://deserver.moeeeep.com:32123/static/cache/CAB_G_11.gif");
-			startActivity(foo);
+			// Intent foo = new Intent(this, MapTest.class);
+			// foo.putExtra(getPackageName() + ".ImageUrl",
+			// "http://deserver.moeeeep.com:32123/static/cache/CAB_G_11.gif");
+			// startActivity(foo);
+			tiv_map.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.zentrum));
+			for (Map.Entry<String, Point> bLoc : Building.buildingLocations.entrySet()) {
+				markers.add(new LocationMarker(bLoc.getValue(), 100, Color.TRANSPARENT, bLoc.getKey()));
+			}
+			tiv_map.updateMarkers();
+			tiv_map.centerZoomPoint(Building.buildingLocations.get("HG"));
 			break;
 		case R.id.mni_aps:
 			showDialog(R.layout.aps_dialog);
@@ -476,7 +483,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 						reading.ap = aps.get(reading.mac);
 						if (reading.ap != null) {
 							Coordinate coords = reading.ap.getCoordinate();
-							Point pos = new Point((int) coords.getX(), (int) coords.getY());
 							int s = reading.signal;
 							float saturation;
 							if (s < -60)
@@ -484,12 +490,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 							else
 								saturation = (s + 60) * 0.005f + 0.8f;
 							// FIXME
-							markers.add(new LocationMarker(pos, 100, Color
-									.HSVToColor(new float[] { blueHue, saturation, 1 }), reading.mac));
-							markers.add(new LocationMarker(pos, 120, Color
-									.HSVToColor(new float[] { orangeHue, saturation, 1 }), reading.mac));
-							markers.add(new LocationMarker(pos, 80, Color
-									.HSVToColor(new float[] { greenHue, saturation, 1 }), reading.mac));
+							int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
+							int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
+							int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
+							markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
+							markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
+							markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
 						}
 					}
 					readingAdapter.notifyDataSetChanged();
@@ -500,9 +506,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				if (r != null) {
 					Coordinate center = r.getRoomCenter();
 					if (center != null) {
-						markers.add(new LocationMarker(new Point((int) center.getX(), (int) center.getY()), 20,
-								Color.RED, "Your approximate location"));
-						tiv_map.centerZoomPoint((int) center.getX(), (int) center.getY());
+						markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
+						tiv_map.centerZoomPoint(center.toPoint());
+					} else {
+						tiv_map.centerImage();
 					}
 				}
 				tiv_map.updateMarkers();

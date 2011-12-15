@@ -18,12 +18,16 @@
 package ch.ethz.inf.vs.android.g54.a4.types;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.graphics.Point;
 
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
@@ -212,4 +216,22 @@ public class Building extends LazyObject {
 	public String getName() {
 		return this.name;
 	}
+
+	@SuppressWarnings("serial")
+	public static Map<String, Point> buildingLocations = new HashMap<String, Point>() {{
+		// some buildings to get started
+		put("HG", new Point(476, 1015));
+		put("CAB", new Point(627, 694));
+		put("CHN", new Point(586, 586));
+		put("IFW", new Point(184, 449));
+		put("RZ", new Point(229, 432));
+		put("NO", new Point(449, 713));
+		put("ML", new Point(480, 833));
+		put("CLA", new Point(410, 805));
+		put("ETZ", new Point(994, 813));
+		put("ETF", new Point(960, 845));
+		put("ETA", new Point(1027, 774));
+		put("CNB", new Point(690, 725));
+		put("LFW", new Point(631, 837));
+	}};
 }
