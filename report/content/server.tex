@@ -1,2 +1,6 @@
 \section{Server}
 \todo{TODO: Pascal}
+
+\subsection{Floor plans}
+	ETH provides highlighted floor plans for room queries. Unfortunately it does not provide pixel locations on where a room is situated on a map. We do however require these as the highlighted plans only highlight a single room - we would however like to display a finer possibly interpolated location or display multiple locations on a map.
+	To extract this location, a script was written as part of the server to extract the highlighted area from a floorplan and report the given bounding box and center point. The server can thus now report the pixel position of a room on a floorplan.
