@@ -207,7 +207,76 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 	private void setLocation(Location location) {
 		this.currentLocation = location;
-		// TODO: finish this method
+/*
+		Map<String, AccessPoint> aps = location.getAps();
+		for (WifiReading reading : visibleNetworks) {
+			reading.ap = aps.get(reading.mac);
+		}
+*/		
+		// TODO: cleanup
+		Room r = location.getRoom();
+		markers.clear();
+		if (r != null) {
+			tiv_map.recycleBitmaps();
+			tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
+			String roomID = r.toString();
+			// TODO: txt_room.setText(roomID);
+			final Building b = r.getFloor().getBuilding();
+			b.loadAsync(new Handler() {
+				public void handleMessage(Message msg) {
+					if (msg.what == MessageStatus.SUCCESS.ordinal()) {
+						// post success
+						// TODO: txt_ap.setText(b.getAddress().getCampus().name);
+					} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
+						// post failure
+						// txt_ap.setText(msg.getData().getString("message"));
+					} else {
+						// post failure
+						// txt_ap.setText("something weird happened");
+					}
+				}
+			});
+		} else {
+			U.showToast("no position found");
+		}
+		if (aps != null) {
+			float blueHue = 240;
+			float greenHue = 120;
+			float orangeHue = 30;
+			for (WifiReading reading : visibleNetworks) {
+				reading.ap = aps.get(reading.mac);
+				if (reading.ap != null) {
+					Coordinate coords = reading.ap.getCoordinate();
+					int s = reading.signal;
+					float saturation;
+					if (s < -60)
+						saturation = (s + 100) * 0.02f;
+					else
+						saturation = (s + 60) * 0.005f + 0.8f;
+					// FIXME
+					int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
+					int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
+					int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
+					markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
+					markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
+					markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
+				}
+			}
+			readingAdapter.notifyDataSetChanged();
+
+		} else {
+			U.showToast("no info about aps");
+		}
+		if (r != null) {
+			Coordinate center = r.getRoomCenter();
+			if (center != null) {
+				markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
+				tiv_map.centerZoomPoint(center.toPoint());
+			} else {
+				tiv_map.centerImage();
+			}
+		}
+		tiv_map.updateMarkers();
 	}
 
 	private void setBuilding(Building building) {
@@ -416,70 +485,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			Location locRes;
 			try {
 				locRes = Location.getFromReadings(visibleNetworks);
-				Room r = locRes.getRoom();
-				Map<String, AccessPoint> aps = locRes.getAps();
-				markers.clear();
-				if (r != null) {
-					tiv_map.recycleBitmaps();
-					tiv_map.setImage(MapCache.getMap(r.getFloor(), this));
-					String roomID = r.toString();
-					// TODO: txt_room.setText(roomID);
-					final Building b = r.getFloor().getBuilding();
-					b.loadAsync(new Handler() {
-						public void handleMessage(Message msg) {
-							if (msg.what == MessageStatus.SUCCESS.ordinal()) {
-								// post success
-								// TODO: txt_ap.setText(b.getAddress().getCampus().name);
-							} else if (msg.what == MessageStatus.FAILURE.ordinal()) {
-								// post failure
-								// txt_ap.setText(msg.getData().getString("message"));
-							} else {
-								// post failure
-								// txt_ap.setText("something weird happened");
-							}
-						}
-					});
-				} else {
-					U.showToast("no position found");
-				}
-				if (aps != null) {
-					float blueHue = 240;
-					float greenHue = 120;
-					float orangeHue = 30;
-					for (WifiReading reading : visibleNetworks) {
-						reading.ap = aps.get(reading.mac);
-						if (reading.ap != null) {
-							Coordinate coords = reading.ap.getCoordinate();
-							int s = reading.signal;
-							float saturation;
-							if (s < -60)
-								saturation = (s + 100) * 0.02f;
-							else
-								saturation = (s + 60) * 0.005f + 0.8f;
-							// FIXME
-							int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
-							int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
-							int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
-							markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
-							markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
-							markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
-						}
-					}
-					readingAdapter.notifyDataSetChanged();
-
-				} else {
-					U.showToast("no info about aps");
-				}
-				if (r != null) {
-					Coordinate center = r.getRoomCenter();
-					if (center != null) {
-						markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
-						tiv_map.centerZoomPoint(center.toPoint());
-					} else {
-						tiv_map.centerImage();
-					}
-				}
-				tiv_map.updateMarkers();
+				setLocation(locRes);
 			} catch (ServerException e) {
 				U.showException(TAG, e);
 			} catch (ConnectionException e) {
