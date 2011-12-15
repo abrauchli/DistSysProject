@@ -17,18 +17,18 @@
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/rbt_eth_center"
+                android:id="@+id/rbt_rm_eth_center"
                 android:layout_height="wrap_content"
                 android:text="@string/eth_center" />
 
             <RadioButton
-                android:id="@+id/rbt_eth_hoengg"
+                android:id="@+id/rbt_rm_eth_hoengg"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
                 android:text="@string/eth_hoengg" />
 
             <RadioButton
-                android:id="@+id/rbt_eth_all"
+                android:id="@+id/rbt_rm_eth_all"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
                 android:text="@string/eth_all" />

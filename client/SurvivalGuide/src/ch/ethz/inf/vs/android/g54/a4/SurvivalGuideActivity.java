@@ -556,6 +556,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 		View v = (View) group.getParent().getParent();
 		switch (checkedID) {
 		case R.id.rbt_eth_center:
+			// from main.xml
+			break;
+		case R.id.rbt_eth_hoengg:
+			// from main.xml
+			break;
+		case R.id.rbt_rm_eth_center:
+			// from room_dialog.xml
 			try {
 				List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
 				updateBuildingsList(v, buildings);
@@ -563,7 +570,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				U.postException(handler, TAG, e);
 			}
 			break;
-		case R.id.rbt_eth_hoengg:
+		case R.id.rbt_rm_eth_hoengg:
+			// from room_dialog.xml
 			try {
 				List<Building> buildings = Building.getBuildings(Campus.HOENGG);
 				updateBuildingsList(v, buildings);
@@ -571,7 +579,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener, 
 				U.postException(handler, TAG, e);
 			}
 			break;
-		case R.id.rbt_eth_all:
+		case R.id.rbt_rm_eth_all:
+			// from room_dialog.xml
 			try {
 				List<Building> buildings = Building.getAllBuildings();
 				updateBuildingsList(v, buildings);
