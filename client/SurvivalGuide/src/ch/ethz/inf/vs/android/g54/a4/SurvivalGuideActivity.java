@@ -227,16 +227,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		readingAdapter.notifyDataSetChanged();
 	}
 
-	private void setBuilding(Building building) {
-		this.currentBuilding = building;
-		// TODO: finish this method
-	}
-
-	private void setFloor(Floor floor) {
-		this.currentFloor = floor;
-		// TODO: finish this method
-	}
-
 	/**
 	 * Updates the markers for the access points as well as the marker for the location
 	 */
