@@ -29,11 +29,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Point;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 
 /**
  * Lazily loaded class representing buildings.
@@ -195,16 +199,9 @@ public class Building extends LazyObject {
 	}
 
 	/**
-	 * Get free rooms based on floor and time constraints
-	 * @param f Floor constraint
-	 * @param start time constraint in quarter hours
-	 * @param end time constraint in quarter hours
-	 * @return A list of free rooms
-	 * @throws ServerException
-	 * @throws ConnectionException
-	 * @throws UnrecognizedResponseException
+	 * Synchronously get free rooms
 	 */
-	public List<Room> getFreeRooms(Floor f, Float start, Float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
+	private List<Room> getFreeRoom(Floor f, Float start, Float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
 		RequestHandler req = RequestHandler.getInstance();
 		JSONObject data = new JSONObject();
 		try {
@@ -235,27 +232,53 @@ public class Building extends LazyObject {
 	}
 
 	/**
-	 * Gets a list of free rooms in this building
-	 * @return A list of free rooms
-	 * @throws ServerException
-	 * @throws ConnectionException
-	 * @throws UnrecognizedResponseException
+	 * Asynchronously get free rooms based on floor and time constraints
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
+	 * @param f Floor constraint
+	 * @param start time constraint in quarter hours
+	 * @param end time constraint in quarter hours
+	 * @param handler Handler that will get the success/failure message with this object
 	 */
-	public List<Room> getFreeRooms() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		return getFreeRooms(null, null, null);
+	public void getFreeRoomsAsync(final Floor f, final Float start, final Float end, final Handler handler) {
+		new Thread(new Runnable() {
+			public void run() {
+				Message m = handler.obtainMessage();
+				try {
+					m.obj = getFreeRoom(f, start, end);
+					m.what = MessageStatus.SUCCESS.ordinal();
+				} catch (Exception e) {
+					m.what = MessageStatus.FAILURE.ordinal();
+					Bundle b = new Bundle();
+					b.putString("message", e.getMessage());
+					m.setData(b);
+				} finally {
+					handler.sendMessage(m);
+				}
+			}
+		}).run();
+	}
+
+	/**
+	 * Gets a list of free rooms in this building
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
+	 * @param handler Handler that will get the success/failure message with this object
+	 */
+	public void getFreeRooms(Handler h) {
+		getFreeRoomsAsync(null, null, null, h);
 	}
 
 	/**
 	 * Gets a list of free rooms in this building in a given time constraint
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
 	 * @param start start time constraint in quarter hours
 	 * @param end end time constraint in quarter hours
-	 * @return A list of free rooms
-	 * @throws ServerException
-	 * @throws ConnectionException
-	 * @throws UnrecognizedResponseException
+	 * @param handler Handler that will get the success/failure message with this object
 	 */
-	public List<Room> getFreeRooms(float start, float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
-		return getFreeRooms(null, start, end);
+	public void getFreeRooms(float start, float end, Handler h) {
+		getFreeRoomsAsync(null, start, end, h);
 	}
 
 	/**

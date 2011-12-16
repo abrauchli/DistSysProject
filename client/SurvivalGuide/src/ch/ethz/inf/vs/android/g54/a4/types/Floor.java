@@ -24,6 +24,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Handler;
+
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
@@ -106,26 +108,24 @@ public class Floor extends LazyObject {
 
 	/**
 	 * Gets a list of free rooms on this floor
-	 * @return A list of free rooms
-	 * @throws ServerException
-	 * @throws ConnectionException
-	 * @throws UnrecognizedResponseException
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
+	 * @param handler Handler that will get the success/failure message with this object
 	 */
-	public List<Room> getFreeRooms() throws ServerException, ConnectionException, UnrecognizedResponseException {
-		return getBuilding().getFreeRooms(this, null, null);
+	public void getFreeRooms(Handler h) {
+		getBuilding().getFreeRoomsAsync(this, null, null, h);
 	}
 
 	/**
 	 * Gets a list of free rooms on this floor in a given time constraint
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
 	 * @param start start time constraint in quarter hours
 	 * @param end end time constraint in quarter hours
-	 * @return A list of free rooms
-	 * @throws ServerException
-	 * @throws ConnectionException
-	 * @throws UnrecognizedResponseException
+	 * @param handler Handler that will get the success/failure message with this object
 	 */
-	public List<Room> getFreeRooms(float start, float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
-		return getBuilding().getFreeRooms(this, start, end);
+	public void getFreeRooms(float start, float end, Handler h) {
+		getBuilding().getFreeRoomsAsync(this, start, end, h);
 	}
 
 
