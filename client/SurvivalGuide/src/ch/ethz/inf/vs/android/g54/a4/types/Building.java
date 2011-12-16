@@ -307,6 +307,7 @@ public class Building extends LazyObject {
 		put("HIT", new Point(470, 390));
 		put("HCI", new Point(679, 1005));
 		put("HIF", new Point(270, 645));
+		put("HIK", new Point(313, 510));
 		put("HIR", new Point(427, 573));
 		put("HIQ", new Point(486, 539));
 		put("HIP", new Point(536, 537));

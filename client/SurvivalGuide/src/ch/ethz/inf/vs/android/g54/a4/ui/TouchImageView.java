@@ -295,7 +295,7 @@ public class TouchImageView extends ImageView {
 		mbm = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(), Config.RGB_565);
 		Canvas canvas = new Canvas(mbm);
 		super.setImageBitmap(mbm);
-		canvas.drawBitmap(bm, 0, 0, paint);
+		canvas.drawBitmap(bm, 0, 0, null);
 		for (int i = 0; i < markers.size(); i++) {
 			LocationMarker marker = markers.get(i);
 			drawMarker(canvas, marker.getPosition().x, marker.getPosition().y, marker.getRadius(), marker.getColor());
