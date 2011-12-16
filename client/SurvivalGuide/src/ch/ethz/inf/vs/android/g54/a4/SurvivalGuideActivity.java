@@ -276,34 +276,37 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * Deletes all the floor buttons and recreates them with the current building
+	 * Renames and enables/disables floor buttons according to current building and floor
 	 */
-	private void resetFloorButtons() {
-		ScrollView scrl_floors = (ScrollView) findViewById(R.id.scrl_floors);
-		// TODO: unregister all buttons from listener
-		scrl_floors.removeAllViews();
-		scrl_floors.getChildCount();
-		try {
-			currentBuilding.load();
-		} catch (Exception e) {
-			Log.e(TAG, String.format("Loading building %s failed.", currentBuilding.getName()), e);
+	private void updateFloorButtons() {
+		List<Floor> floors = currentBuilding.getFloors();
+		
+		Collections.sort(floors, Floor.byName);
+		
+		int currentFloorIndex = floors.indexOf(currentFloor);
+		
+		// update button of current floor
+		Button btn_curr_floor = (Button) findViewById(R.id.btn_curr_floor);
+		btn_curr_floor.setText(floors.get(currentFloorIndex).toString());
+		
+		// update button of previous floor
+		Button btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
+		if (currentFloorIndex > 0) {
+			btn_prev_floor.setText(floors.get(currentFloorIndex-1).toString());
+			btn_prev_floor.setEnabled(true);
+		}else {
+			btn_prev_floor.setText("");
+			btn_prev_floor.setEnabled(false);			
 		}
-		if (currentBuilding.getFloors() != null) {
-			List<String> floorNames = new ArrayList<String>();
-			for (Floor f : currentBuilding.getFloors()) {
-				floorNames.add(f.getName());
-			}
-			Collections.sort(floorNames);
-			Button btn_floor;
-			for (String name : floorNames) {
-				btn_floor = new Button(this);
-				btn_floor.setText(name);
-				// TODO: add listener to button
-				scrl_floors.addView(btn_floor);
-			}
-		} else {
-			U.postToast(handler,
-					String.format("Could not find floor information about building %s.", currentBuilding.getName()));
+		
+		// update button of next floor
+		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
+		if (currentFloorIndex < floors.size()) {
+			btn_next_floor.setText(floors.get(currentFloorIndex+1).toString());
+			btn_next_floor.setEnabled(true);
+		}else {
+			btn_next_floor.setText("");
+			btn_next_floor.setEnabled(false);			
 		}
 	}
 

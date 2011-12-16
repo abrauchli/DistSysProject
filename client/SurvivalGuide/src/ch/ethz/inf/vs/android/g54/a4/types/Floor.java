@@ -17,6 +17,7 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -151,4 +152,10 @@ public class Floor extends LazyObject {
 	public String getMapUrl() {
 		return mapUrl;
 	}
+	
+	public static Comparator<Floor> byName = new Comparator<Floor>() {
+		public int compare(Floor lhs, Floor rhs) {
+			return lhs.name.compareTo(rhs.name);
+		}
+	};
 }

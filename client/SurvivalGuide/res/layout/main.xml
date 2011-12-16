@@ -47,22 +47,27 @@
 			android:id="@+id/txt_building"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Large Text"
+			android:layout_weight="1"
+			android:text=""
 			android:textAppearance="?android:attr/textAppearanceLarge" />
 
-		<HorizontalScrollView
-			android:id="@+id/scrl_floors"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1">
+		<Button
+		    android:id="@+id/btn_prev_floor"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="" />
 
-			<LinearLayout
-				android:id="@+id/LinearLayout"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:orientation="horizontal" />
+		<Button
+		    android:id="@+id/btn_curr_floor"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="" />
 
-		</HorizontalScrollView>
+		<Button
+		    android:id="@+id/btn_next_floor"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="" />
 
 	</LinearLayout>
 
