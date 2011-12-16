@@ -13,5 +13,6 @@
     <string name="aps_dialog_title">Visible Access Points</string>
     <string name="guessed_location_title">Your Location:</string>
     <string name="unknown_location">unknown</string>
+    <string name="snapshot_name">Set Snapshot Name</string>
 
 </resources>

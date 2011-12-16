@@ -50,6 +50,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -89,6 +90,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		FREEROOMS,
 		LOCATION
 	}
+	
+	private String snapshotName = "snapshot";
 
 	private Mode mode;
 	private Campus currentCampus;
@@ -459,6 +462,20 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 				txt_current_location.setText(R.string.unknown_location);
 			}
 			return dialog;
+		case R.layout.snapshot_dialog:
+			View snapshot_dialog = getLayoutInflater().inflate(R.layout.snapshot_dialog, null);
+			final EditText edt_snapshot = (EditText) snapshot_dialog.findViewById(R.id.edt_snapshot);
+			edt_snapshot.setText(snapshotName);
+			return new AlertDialog.Builder(SurvivalGuideActivity.this)
+			.setTitle(R.string.snapshot_name)
+			.setView(snapshot_dialog)
+			.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					snapshotName = edt_snapshot.getText().toString();
+				}
+			})
+			.create();
+			
 		}
 		return null;
 	}
@@ -480,6 +497,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.mni_aps:
 			showDialog(R.layout.aps_dialog);
+			break;
+		case R.id.mni_snapshot_name:
+			showDialog(R.layout.snapshot_dialog);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -583,7 +603,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 				readings.add(new WifiReading(result));
 			}
 			scanner.showReadings(readings);
-			SnapshotCache.storeSnapshot(readings, "foo", scanner);
+			SnapshotCache.storeSnapshot(readings, snapshotName, scanner);
 		}
 	}
 

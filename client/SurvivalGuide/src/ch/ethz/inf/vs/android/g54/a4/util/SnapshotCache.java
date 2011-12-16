@@ -54,6 +54,7 @@ public class SnapshotCache {
 				out = new FileOutputStream(jsonFile);
 				out.write(json.toString().getBytes());
 				out.close();
+				U.showToast(constructFileName(fileName));
 				Log.d(TAG, "Successfully stored snapshot to SDCard");
 			} catch (Exception e) {
 				U.showToast("Could not save the snapshot on the SDCard.");
