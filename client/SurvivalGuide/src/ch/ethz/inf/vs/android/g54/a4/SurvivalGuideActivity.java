@@ -20,6 +20,7 @@ package ch.ethz.inf.vs.android.g54.a4;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -40,8 +41,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +56,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
@@ -69,7 +67,6 @@ import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
-import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -83,6 +80,9 @@ import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener, OnItemSelectedListener {
+
+	private static final int BUILDING_MARKER_RADIUS = 100;
+	private static final int LOCATION_MARKER_RADIUS = 20;
 	private static final String TAG = "SurvivalGuideActivity";
 
 	private enum Mode {
@@ -90,7 +90,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		FREEROOMS,
 		LOCATION
 	}
-	
+
 	private String snapshotName = "snapshot";
 
 	private Mode mode;
@@ -98,19 +98,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	private Building currentBuilding;
 	private Floor currentFloor;
 	private Location currentLocation;
+	private LocationThread locationThread;
 	private boolean locationScanning;
 
 	Handler handler;
 
-	WifiManager wifi;
-	WifiScanReceiver scanReceiver;
-
-	ArrayAdapter<WifiReading> readingAdapter;
+	ArrayAdapter<WifiReading> wifiAdapter;
 	TouchImageView tiv_map;
 
 	List<LocationMarker> markers;
-
-	// List<WifiConfiguration> configuredNetworks;
 	List<WifiReading> visibleNetworks;
 
 	// TODO find a better way to save spinner selection
@@ -130,7 +126,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			// fall through
 		case FREEROOMS:
 			lin_building.setVisibility(View.VISIBLE);
-			// resetFloorButtons();
+			TextView txt_building = (TextView) findViewById(R.id.txt_building);
+			txt_building.setText(currentBuilding.getName());
+			updateFloorButtons();
 			break;
 		}
 		updateMap();
@@ -144,10 +142,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 		if (locationScanning) {
 			tgl_scan.setImageResource(R.drawable.target_on);
-			// TODO: start thread/service scanning locations
+			locationThread.start();
 		} else {
 			tgl_scan.setImageResource(R.drawable.target);
-			// TODO: stop thread/service scanning locations
+			locationThread.interrupt();
 		}
 	}
 
@@ -204,10 +202,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					: Building.buildingLocationsHoengg;
 			markers.clear();
 			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
-				int BUILDING_MARKER_RADIUS = 100;
 				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT, bLoc
 						.getKey(),
-						markerClickListener));
+						buildingClickListener));
 			}
 			tiv_map.updateMarkers();
 			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
@@ -215,6 +212,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		case LOCATION:
 			tiv_map.recycleBitmaps();
 			tiv_map.setImage(MapCache.getMap(currentFloor, this));
+			tiv_map.centerImage();
 			updateAPMarkers();
 			break;
 		case FREEROOMS:
@@ -223,21 +221,23 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	private void setLocation(Location location) {
+	void setLocation(Location location) {
 		this.currentLocation = location;
+		this.currentFloor = currentLocation.getRoom().getFloor();
+		this.currentBuilding = currentFloor.getBuilding();
+		setMode(Mode.LOCATION);
 
 		Map<String, AccessPoint> aps = location.getAps();
 		for (WifiReading reading : visibleNetworks) {
 			reading.ap = aps.get(reading.mac);
 		}
-		readingAdapter.notifyDataSetChanged();
+		wifiAdapter.notifyDataSetChanged();
 	}
 
 	/**
 	 * Updates the markers for the access points as well as the marker for the location
 	 */
 	private void updateAPMarkers() {
-		Room r = currentLocation.getRoom();
 		markers.clear();
 
 		float blueHue = 240;
@@ -262,48 +262,55 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			}
 		}
 
-		if (r != null) {
-			Coordinate center = r.getRoomCenter();
-			if (center != null) {
-				markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
-				tiv_map.centerZoomPoint(center.toPoint());
-			} else {
-				tiv_map.centerImage();
-			}
+		if (currentLocation != null) {
+			Room r = currentLocation.getRoom();
+			if (r != null) {
+				Coordinate center = r.getRoomCenter();
+				if (center != null) {
+					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED, "Your approximate location"));
+					tiv_map.centerZoomPoint(center.toPoint());
+				} else {
+					tiv_map.centerImage();
+				}
+			} 
+			
 		}
 
 		tiv_map.updateMarkers();
 	}
 
 	/**
-	 * Deletes all the floor buttons and recreates them with the current building
+	 * Renames and enables/disables floor buttons according to current building and floor
 	 */
-	private void resetFloorButtons() {
-		ScrollView scrl_floors = (ScrollView) findViewById(R.id.scrl_floors);
-		// TODO: unregister all buttons from listener
-		scrl_floors.removeAllViews();
-		scrl_floors.getChildCount();
-		try {
-			currentBuilding.load();
-		} catch (Exception e) {
-			Log.e(TAG, String.format("Loading building %s failed.", currentBuilding.getName()), e);
-		}
-		if (currentBuilding.getFloors() != null) {
-			List<String> floorNames = new ArrayList<String>();
-			for (Floor f : currentBuilding.getFloors()) {
-				floorNames.add(f.getName());
-			}
-			Collections.sort(floorNames);
-			Button btn_floor;
-			for (String name : floorNames) {
-				btn_floor = new Button(this);
-				btn_floor.setText(name);
-				// TODO: add listener to button
-				scrl_floors.addView(btn_floor);
-			}
+	private void updateFloorButtons() {
+		List<Floor> floors = currentBuilding.getFloors();
+
+		Collections.sort(floors, Floor.byName);
+
+		int currentFloorIndex = floors.indexOf(currentFloor);
+
+		// update button of current floor
+		Button btn_curr_floor = (Button) findViewById(R.id.btn_curr_floor);
+		btn_curr_floor.setText(floors.get(currentFloorIndex).getName());
+
+		// update button of previous floor
+		Button btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
+		if (currentFloorIndex > 0) {
+			btn_prev_floor.setText(floors.get(currentFloorIndex - 1).getName());
+			btn_prev_floor.setEnabled(true);
 		} else {
-			U.postToast(handler,
-					String.format("Could not find floor information about building %s.", currentBuilding.getName()));
+			btn_prev_floor.setText("");
+			btn_prev_floor.setEnabled(false);
+		}
+
+		// update button of next floor
+		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
+		if (currentFloorIndex < floors.size()) {
+			btn_next_floor.setText(floors.get(currentFloorIndex + 1).getName());
+			btn_next_floor.setEnabled(true);
+		} else {
+			btn_next_floor.setText("");
+			btn_next_floor.setEnabled(false);
 		}
 	}
 
@@ -322,22 +329,16 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 		// TODO: probably needs to be made consistent, e.g. when turning phone...
 		locationScanning = false;
+		locationThread = new LocationThread(this);
 		initCampus(Campus.ZENTRUM);
 
 		try {
-			Button btn_scan = (Button) findViewById(R.id.btn_scan);
-			Button btn_location = (Button) findViewById(R.id.btn_location);
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 			RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 
-			btn_scan.setOnClickListener(this);
-			btn_location.setOnClickListener(this);
 			tgl_scan.setOnClickListener(this);
 			grp_campus.setOnCheckedChangeListener(this);
-
-			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
-			// configuredNetworks = wifi.getConfiguredNetworks();
 
 			markers = new ArrayList<LocationMarker>();
 			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
@@ -358,8 +359,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
-			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
-			scanReceiver = new WifiScanReceiver(this);
+			wifiAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
 
 			mode = Mode.OVERVIEW;
 			LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
@@ -372,13 +372,14 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
-		registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+		if (locationScanning)
+			locationThread.start();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		unregisterReceiver(scanReceiver);
+		locationThread.interrupt();
 	}
 
 	/**
@@ -445,7 +446,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			dialog.setTitle(R.string.aps_dialog_title);
 
 			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
-			lst_aps.setAdapter(readingAdapter);
+			lst_aps.setAdapter(wifiAdapter);
 
 			// TODO: subscribe to location changes, such that this may change in the dialog
 			TextView txt_current_location = (TextView) dialog.findViewById(R.id.txt_current_location);
@@ -467,15 +468,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			final EditText edt_snapshot = (EditText) snapshot_dialog.findViewById(R.id.edt_snapshot);
 			edt_snapshot.setText(snapshotName);
 			return new AlertDialog.Builder(SurvivalGuideActivity.this)
-			.setTitle(R.string.snapshot_name)
-			.setView(snapshot_dialog)
-			.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					snapshotName = edt_snapshot.getText().toString();
-				}
-			})
-			.create();
-			
+					.setTitle(R.string.snapshot_name)
+					.setView(snapshot_dialog)
+					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							snapshotName = edt_snapshot.getText().toString();
+						}
+					})
+					.create();
+
 		}
 		return null;
 	}
@@ -514,25 +515,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_scan:
-			wifi.startScan();
-			break;
-		case R.id.btn_location:
-			Location locRes;
-			try {
-				locRes = Location.getFromReadings(visibleNetworks);
-				setLocation(locRes);
-				currentFloor = currentLocation.getRoom().getFloor();
-				currentBuilding = currentFloor.getBuilding();
-				setMode(Mode.LOCATION);
-			} catch (ServerException e) {
-				U.showException(TAG, e);
-			} catch (ConnectionException e) {
-				U.showException(TAG, e);
-			} catch (UnrecognizedResponseException e) {
-				U.showException(TAG, e);
-			}
-			break;
 		case R.id.tgl_scan:
 			toggleLocationScanning();
 			break;
@@ -568,43 +550,34 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
 		Random rand = new Random();
 		int count = rand.nextInt(maxcount - mincount) + mincount;
-		visibleNetworks.clear();
+		List<WifiReading> lst = new LinkedList<WifiReading>();
 		for (int i = 0; i < count; i++) {
 			int macidx = rand.nextInt(allowNonexistent ? macs.length : macs.length - 6);
 			int mactype = rand.nextInt(4);
 			int signal = rand.nextInt(70) - 90; // -21 to -90
-			visibleNetworks.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
+			lst.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
 		}
-		showReadings(visibleNetworks);
+		showReadings(lst);
+
+		// Old location button functionality
+		Location locRes;
+		try {
+			locRes = Location.getFromReadings(lst);
+			setLocation(locRes);
+		} catch (ServerException e) {
+			U.showException(TAG, e);
+		} catch (ConnectionException e) {
+			U.showException(TAG, e);
+		} catch (UnrecognizedResponseException e) {
+			U.showException(TAG, e);
+		}
 	}
 
-	private void showReadings(final List<WifiReading> readings) {
-		if (readings != visibleNetworks) {
-			visibleNetworks.clear();
-			visibleNetworks.addAll(readings);
-		}
+	void showReadings(final List<WifiReading> readings) {
+		visibleNetworks.clear();
+		visibleNetworks.addAll(readings);
 		Collections.sort(visibleNetworks, WifiReading.bySignal);
-		readingAdapter.notifyDataSetChanged();
-	}
-
-	private class WifiScanReceiver extends BroadcastReceiver {
-		SurvivalGuideActivity scanner;
-
-		public WifiScanReceiver(SurvivalGuideActivity scanner) {
-			super();
-			this.scanner = scanner;
-		}
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			List<ScanResult> results = scanner.wifi.getScanResults();
-			List<WifiReading> readings = new ArrayList<WifiReading>();
-			for (ScanResult result : results) {
-				readings.add(new WifiReading(result));
-			}
-			scanner.showReadings(readings);
-			SnapshotCache.storeSnapshot(readings, snapshotName, scanner);
-		}
+		wifiAdapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -829,10 +802,37 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		spn_room.setClickable(true);
 	}
 
-	private static ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener markerClickListener =
+	/**
+	 * Every marker that uses this handler needs to have a building identifier as name, otherwise the effects of this
+	 * method are not defined
+	 */
+	private ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener buildingClickListener =
 			new ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener() {
 				public void onClick(LocationMarker marker) {
-					U.showToast(marker.getName());
+					try {
+						String buildingID = marker.getName();
+						Building b = Building.getBuilding(buildingID);
+						b.load();
+						List<Floor> floors = b.getFloors();
+						if (!floors.isEmpty()) {
+							Floor eFloor = null;
+							for (Floor floor : floors) {
+								if (floor.getName().equals("E")) {
+									eFloor = floor;
+								}
+							}
+							if (eFloor == null) {
+								eFloor = floors.get(0);
+							}
+							currentBuilding = b;
+							currentFloor = eFloor;
+							setMode(Mode.LOCATION);
+						} else {
+							U.showToast("There are no floors in this building.");
+						}
+					} catch (Exception e) {
+						U.showException(TAG, e);
+					}
 				}
 			};
 

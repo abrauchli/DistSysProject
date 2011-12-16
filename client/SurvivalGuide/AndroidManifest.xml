@@ -29,8 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MapTest"></activity>
-        <activity android:name=".ui.MapActivity"></activity>
     </application>
 
 </manifest>
