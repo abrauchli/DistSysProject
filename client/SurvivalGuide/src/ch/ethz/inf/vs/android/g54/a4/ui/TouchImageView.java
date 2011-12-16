@@ -37,6 +37,7 @@ import android.widget.ImageView;
 
 public class TouchImageView extends ImageView {
 
+	private static final int CLICK_THRESHOLD_RADIUS = 100;
 	private static final String TAG = "TouchImageView";
 	// These matrices will be used to move and zoom image
 	Matrix matrix = new Matrix();
@@ -319,21 +320,22 @@ public class TouchImageView extends ImageView {
 		getImageMatrix().invert(inverse);
 		float[] touchPoint = new float[] { x, y };
 		inverse.mapPoints(touchPoint);
-		double distance = 10000;
+		double distance = Integer.MAX_VALUE;
 		LocationMarker closestMarker = null;
 		for (int i = 0; i < markers.size(); i++) {
 			LocationMarker m = markers.get(i);
 			float xDist = (float) m.getPosition().x - touchPoint[0];
 			float yDist = (float) m.getPosition().y - touchPoint[1];
 			double distClickPoint = Math.sqrt(xDist * xDist + yDist * yDist);
-			if (distance > distClickPoint && distClickPoint < 100) {
+			if (distance > distClickPoint && distClickPoint < CLICK_THRESHOLD_RADIUS) {
 				distance = distClickPoint;
 				closestMarker = m;
 			}
 		}
 
 		if (closestMarker != null) {
-			ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener onClickListener = closestMarker.getOnClickListener();
+			ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener onClickListener = closestMarker
+					.getOnClickListener();
 			if (onClickListener != null) {
 				onClickListener.onClick(closestMarker);
 			}

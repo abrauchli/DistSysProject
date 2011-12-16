@@ -127,7 +127,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			// fall through
 		case FREEROOMS:
 			lin_building.setVisibility(View.VISIBLE);
-			resetFloorButtons();
+			// resetFloorButtons();
 			break;
 		}
 		updateMap();
@@ -191,7 +191,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		switch (mode) {
 		case OVERVIEW:
 			tiv_map.recycleBitmaps();
-			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM ? R.drawable.zentrum
+			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM
+					? R.drawable.zentrum
 					: R.drawable.hoengg);
 			tiv_map.setImage(bm);
 			tiv_map.centerImage();
@@ -200,7 +201,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					: Building.buildingLocationsHoengg;
 			markers.clear();
 			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
-				markers.add(new LocationMarker(bLoc.getValue(), 100, Color.TRANSPARENT, bLoc.getKey(),
+				int BUILDING_MARKER_RADIUS = 100;
+				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT, bLoc
+						.getKey(),
 						markerClickListener));
 			}
 			tiv_map.updateMarkers();
@@ -251,8 +254,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 				int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
 				int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
 				markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
-				markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
-				markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
+				// markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
+				// markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
 			}
 		}
 
@@ -499,6 +502,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			try {
 				locRes = Location.getFromReadings(visibleNetworks);
 				setLocation(locRes);
+				currentFloor = currentLocation.getRoom().getFloor();
+				currentBuilding = currentFloor.getBuilding();
+				setMode(Mode.LOCATION);
 			} catch (ServerException e) {
 				U.showException(TAG, e);
 			} catch (ConnectionException e) {
