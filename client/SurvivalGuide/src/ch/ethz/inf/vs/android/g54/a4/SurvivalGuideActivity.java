@@ -561,9 +561,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		try {
 			locRes = Location.getFromReadings(lst);
 			setLocation(locRes);
-			currentFloor = currentLocation.getRoom().getFloor();
-			currentBuilding = currentFloor.getBuilding();
-			setMode(Mode.LOCATION);
 		} catch (ServerException e) {
 			U.showException(TAG, e);
 		} catch (ConnectionException e) {
