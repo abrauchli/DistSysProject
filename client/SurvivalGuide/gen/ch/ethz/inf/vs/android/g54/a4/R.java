@@ -22,6 +22,7 @@ public final class R {
         public static final int LinearLayout=0x7f060001;
         public static final int btn_location=0x7f06000d;
         public static final int btn_scan=0x7f06000c;
+        public static final int edt_snapshot=0x7f06001d;
         public static final int grp_campus=0x7f060005;
         public static final int grp_rm_campus=0x7f060011;
         public static final int lin_building=0x7f060009;
@@ -29,10 +30,11 @@ public final class R {
         public static final int linearLayout1=0x7f060010;
         public static final int linearLayout2=0x7f060015;
         public static final int lst_aps=0x7f060000;
-        public static final int mni_aps=0x7f060020;
-        public static final int mni_dummy_data=0x7f06001e;
-        public static final int mni_map=0x7f06001f;
-        public static final int mni_rooms=0x7f06001d;
+        public static final int mni_aps=0x7f060021;
+        public static final int mni_dummy_data=0x7f06001f;
+        public static final int mni_map=0x7f060020;
+        public static final int mni_rooms=0x7f06001e;
+        public static final int mni_snapshot_name=0x7f060022;
         public static final int rbt_eth_center=0x7f060006;
         public static final int rbt_eth_hoengg=0x7f060007;
         public static final int rbt_rm_eth_all=0x7f060014;
@@ -59,6 +61,7 @@ public final class R {
         public static final int map_test=0x7f030002;
         public static final int room_dialog=0x7f030003;
         public static final int scan_result_list_item=0x7f030004;
+        public static final int snapshot_dialog=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f050000;
@@ -76,6 +79,7 @@ public final class R {
         public static final int room_dialog_title=0x7f040005;
         public static final int rooms=0x7f040000;
         public static final int show_aps=0x7f040009;
+        public static final int snapshot_name=0x7f04000d;
         public static final int unknown_location=0x7f04000c;
     }
 }
