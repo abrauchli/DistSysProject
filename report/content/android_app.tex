@@ -12,8 +12,13 @@ Our Android application is divided into different packages, each dedicated to a 
 \todo{TODO: Andy, Andrea}
 The network library serves as abstraction of the server's functions. All communications happen transparently to the clients (View / Controller) through asynchronous calls, allowing non-blocking loading. The model classes describe the logical structuring of the server's information in the form of lazy objects. Thus a Building object holds a reference to a possibly not yet loaded Floor object. The state of an object can be queried through the isLoaded() method and should it be necessary load its contents through the loadAsync(handler) method. The android handler will be served a message when the object is ready. All these lazy objects inherit from the LazyObject class and share the loading and caching mechanisms.
 
+Additionally to the location objects Building, Floor and Room are methods on the Building and Floor classes to query for free rooms constrained by building, floor and/or time. The request is sent to the server and results in a JSON Array of available rooms.
+
 \subsection{User Interface}
 \todo{TODO: Steven}
+
+\subsection{Wireless scanner}
+When the checkbox is set, a separate thread is spawned that calls the android framework for a scan of nearby access points. This list, along with the associated signal strenghts are then sent to the server via a JSON request. The server then sends back a JSON Object of the location stating building, floor and possibly the room along with a map and pixel coordinates on where to place the position marker. Since the scanner thread is different from the UI thread, the request is not done asynchronously - unlike the other requests. The scanner thread then calls for the UI thread to update the position.
 
 \subsubsection{MapView}
 \todo{TODO: Marc}
