@@ -553,6 +553,22 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			lst.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
 		}
 		showReadings(lst);
+
+		// Old location button functionality
+		Location locRes;
+		try {
+			locRes = Location.getFromReadings(lst);
+			setLocation(locRes);
+			currentFloor = currentLocation.getRoom().getFloor();
+			currentBuilding = currentFloor.getBuilding();
+			setMode(Mode.LOCATION);
+		} catch (ServerException e) {
+			U.showException(TAG, e);
+		} catch (ConnectionException e) {
+			U.showException(TAG, e);
+		} catch (UnrecognizedResponseException e) {
+			U.showException(TAG, e);
+		}
 	}
 
 	void showReadings(final List<WifiReading> readings) {
