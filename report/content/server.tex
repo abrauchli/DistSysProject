@@ -2,7 +2,7 @@
 The server we implemented specifically for the purpose of this project. The server implements two REST-like interfaces (only get was implemented) and a JSON interface to make direct queries to the server. 
 The server was written in Python\footnote{\url{http://python.org/}} using Flask\footnote{\url{http://flask.pocoo.org/}}. For performance reasons, everything is stored directly in the memory. Since the server recalculates the data once it is restarted. We cache some of the data using MongoDB\footnote{\url{http://www.mongodb.org/}}. 
 
-For testing and demonstration purposes we're running the server on the following webpage: \url{http://eth.rsp.li/}. Furthermore we have created a special page that shows the request types and the responses. 
+For testing and demonstration purposes we're running the server on the following webpage: \url{http://eth.rsp.li/}. Furthermore we have created a special page that shows the request types and the responses. The server runs on a small virtual machine in Germany owned by one of the authors. 
 \subsection{WiFi Access Points}
 To provide more or less reliable room location information, we asked the ETH Informatikdienste\footnote{\url{http://www.id.ethz.ch}} if they could provide us with access point data. They were able to give us the MAC adresses of all the access points with the location encoded in the access point name. This allowed us to correlate access points with ETH rooms. 
 \subsection{ETH Room Data}
