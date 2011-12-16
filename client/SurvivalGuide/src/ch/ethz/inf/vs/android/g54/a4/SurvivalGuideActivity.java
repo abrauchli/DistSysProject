@@ -20,6 +20,7 @@ package ch.ethz.inf.vs.android.g54.a4;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -98,15 +99,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 	Handler handler;
 
-	WifiManager wifi;
-	WifiScanReceiver scanReceiver;
-
-	ArrayAdapter<WifiReading> readingAdapter;
+	ArrayAdapter<WifiReading> wifiAdapter;
 	TouchImageView tiv_map;
 
 	List<LocationMarker> markers;
-
-	// List<WifiConfiguration> configuredNetworks;
 	List<WifiReading> visibleNetworks;
 
 	// TODO find a better way to save spinner selection
@@ -219,14 +215,17 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	private void setLocation(Location location) {
+	void setLocation(Location location) {
 		this.currentLocation = location;
+		this.currentFloor = currentLocation.getRoom().getFloor();
+		this.currentBuilding = currentFloor.getBuilding();
+		setMode(Mode.LOCATION);
 
 		Map<String, AccessPoint> aps = location.getAps();
 		for (WifiReading reading : visibleNetworks) {
 			reading.ap = aps.get(reading.mac);
 		}
-		readingAdapter.notifyDataSetChanged();
+		wifiAdapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -327,19 +326,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		initCampus(Campus.ZENTRUM);
 
 		try {
-			Button btn_scan = (Button) findViewById(R.id.btn_scan);
-			Button btn_location = (Button) findViewById(R.id.btn_location);
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 			RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 
-			btn_scan.setOnClickListener(this);
-			btn_location.setOnClickListener(this);
 			tgl_scan.setOnClickListener(this);
 			grp_campus.setOnCheckedChangeListener(this);
-
-			wifi = (WifiManager) getSystemService(WIFI_SERVICE);
-			// configuredNetworks = wifi.getConfiguredNetworks();
 
 			markers = new ArrayList<LocationMarker>();
 			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
@@ -360,8 +352,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
-			readingAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
-			scanReceiver = new WifiScanReceiver(this);
+			wifiAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
 
 			mode = Mode.OVERVIEW;
 			LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
@@ -374,13 +365,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
-		registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+		// TODO: resume LocationService
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		unregisterReceiver(scanReceiver);
+		// TODO: pause LocationService
 	}
 
 	/**
@@ -447,7 +438,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			dialog.setTitle(R.string.aps_dialog_title);
 
 			ListView lst_aps = (ListView) dialog.findViewById(R.id.lst_aps);
-			lst_aps.setAdapter(readingAdapter);
+			lst_aps.setAdapter(wifiAdapter);
 
 			// TODO: subscribe to location changes, such that this may change in the dialog
 			TextView txt_current_location = (TextView) dialog.findViewById(R.id.txt_current_location);
@@ -516,25 +507,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_scan:
-			wifi.startScan();
-			break;
-		case R.id.btn_location:
-			Location locRes;
-			try {
-				locRes = Location.getFromReadings(visibleNetworks);
-				setLocation(locRes);
-				currentFloor = currentLocation.getRoom().getFloor();
-				currentBuilding = currentFloor.getBuilding();
-				setMode(Mode.LOCATION);
-			} catch (ServerException e) {
-				U.showException(TAG, e);
-			} catch (ConnectionException e) {
-				U.showException(TAG, e);
-			} catch (UnrecognizedResponseException e) {
-				U.showException(TAG, e);
-			}
-			break;
 		case R.id.tgl_scan:
 			toggleLocationScanning();
 			break;
@@ -570,43 +542,21 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
 		Random rand = new Random();
 		int count = rand.nextInt(maxcount - mincount) + mincount;
-		visibleNetworks.clear();
+		List<WifiReading> lst = new LinkedList<WifiReading>();
 		for (int i = 0; i < count; i++) {
 			int macidx = rand.nextInt(allowNonexistent ? macs.length : macs.length - 6);
 			int mactype = rand.nextInt(4);
 			int signal = rand.nextInt(70) - 90; // -21 to -90
-			visibleNetworks.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
+			lst.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
 		}
-		showReadings(visibleNetworks);
+		showReadings(lst);
 	}
 
-	private void showReadings(final List<WifiReading> readings) {
-		if (readings != visibleNetworks) {
-			visibleNetworks.clear();
-			visibleNetworks.addAll(readings);
-		}
+	void showReadings(final List<WifiReading> readings) {
+		visibleNetworks.clear();
+		visibleNetworks.addAll(readings);
 		Collections.sort(visibleNetworks, WifiReading.bySignal);
-		readingAdapter.notifyDataSetChanged();
-	}
-
-	private class WifiScanReceiver extends BroadcastReceiver {
-		SurvivalGuideActivity scanner;
-
-		public WifiScanReceiver(SurvivalGuideActivity scanner) {
-			super();
-			this.scanner = scanner;
-		}
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			List<ScanResult> results = scanner.wifi.getScanResults();
-			List<WifiReading> readings = new ArrayList<WifiReading>();
-			for (ScanResult result : results) {
-				readings.add(new WifiReading(result));
-			}
-			scanner.showReadings(readings);
-			SnapshotCache.storeSnapshot(readings, snapshotName, scanner);
-		}
+		wifiAdapter.notifyDataSetChanged();
 	}
 
 	/**

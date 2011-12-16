@@ -71,25 +71,6 @@
 
 	</LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<Button
-			android:id="@+id/btn_scan"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Scan" />
-
-		<Button
-			android:id="@+id/btn_location"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Location?" />
-	</LinearLayout>
-
 	<ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView
 		android:id="@+id/tiv_map"
 		android:layout_width="match_parent"
