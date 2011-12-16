@@ -105,6 +105,31 @@ public class Floor extends LazyObject {
 	}
 
 	/**
+	 * Gets a list of free rooms on this floor
+	 * @return A list of free rooms
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
+	 */
+	public List<Room> getFreeRooms() throws ServerException, ConnectionException, UnrecognizedResponseException {
+		return getBuilding().getFreeRooms(this, null, null);
+	}
+
+	/**
+	 * Gets a list of free rooms on this floor in a given time constraint
+	 * @param start start time constraint in quarter hours
+	 * @param end end time constraint in quarter hours
+	 * @return A list of free rooms
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
+	 */
+	public List<Room> getFreeRooms(float start, float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
+		return getBuilding().getFreeRooms(this, start, end);
+	}
+
+
+	/**
 	 * Gets a list of all rooms on this floor Make sure the object is loaded with isLoaded() before calling
 	 */
 	public List<Room> getRooms() {

@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -191,6 +192,70 @@ public class Building extends LazyObject {
 					"Result part of the servers response doesn't have the expected type. Request was \"/r/%s\".", name);
 			throw new UnrecognizedResponseException(info);
 		}
+	}
+
+	/**
+	 * Get free rooms based on floor and time constraints
+	 * @param f Floor constraint
+	 * @param start time constraint in quarter hours
+	 * @param end time constraint in quarter hours
+	 * @return A list of free rooms
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
+	 */
+	public List<Room> getFreeRooms(Floor f, Float start, Float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
+		RequestHandler req = RequestHandler.getInstance();
+		JSONObject data = new JSONObject();
+		try {
+			data.put("request", "freeroom");
+			data.put("building", getName());
+			if (f != null)
+				data.put("floor", f.getName());
+			if (start != null)
+				data.put("starttime", start);
+			if (end != null)
+				data.put("endtime", start);
+		} catch (JSONException e1) {}
+		Object o = req.post("/json", data.toString());
+		try {
+			JSONArray a = (JSONArray) o;
+
+			LinkedList<Room> rooms = new LinkedList<Room>();
+			for(int i = 0; i < a.length(); ++i) {
+				JSONObject ro = a.getJSONObject(i);
+				rooms.add(Room.parseRoom(ro));
+			}
+			return rooms;
+
+		} catch (Exception e) {
+			String info = String.format("Invalid freeroom request");
+			throw new UnrecognizedResponseException(info, e);
+		}
+	}
+
+	/**
+	 * Gets a list of free rooms in this building
+	 * @return A list of free rooms
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
+	 */
+	public List<Room> getFreeRooms() throws ServerException, ConnectionException, UnrecognizedResponseException {
+		return getFreeRooms(null, null, null);
+	}
+
+	/**
+	 * Gets a list of free rooms in this building in a given time constraint
+	 * @param start start time constraint in quarter hours
+	 * @param end end time constraint in quarter hours
+	 * @return A list of free rooms
+	 * @throws ServerException
+	 * @throws ConnectionException
+	 * @throws UnrecognizedResponseException
+	 */
+	public List<Room> getFreeRooms(float start, float end) throws ServerException, ConnectionException, UnrecognizedResponseException {
+		return getFreeRooms(null, start, end);
 	}
 
 	/**
