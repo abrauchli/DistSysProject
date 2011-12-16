@@ -88,7 +88,7 @@ public class SnapshotCache {
 
 	private static String constructFileName(String name) {
 		Date d = new Date();
-		return String.format("%d-%d-%d_%d-%d-%d_%s.%s", d.getYear(), d.getMonth(), d.getDay(), d.getHours(),
+		return String.format("%d-%d-%d_%d-%d-%d_%s.%s", d.getYear() + 1900, d.getMonth(), d.getDay(), d.getHours(),
 				d.getMinutes(), d.getSeconds(), name, FILE_EXTENSION);
 	}
 }
