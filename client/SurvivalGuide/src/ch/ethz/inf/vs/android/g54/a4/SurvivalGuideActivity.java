@@ -95,6 +95,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	private Building currentBuilding;
 	private Floor currentFloor;
 	private Location currentLocation;
+	private LocationThread locationThread;
 	private boolean locationScanning;
 
 	Handler handler;
@@ -136,10 +137,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 		if (locationScanning) {
 			tgl_scan.setImageResource(R.drawable.target_on);
-			// TODO: start thread/service scanning locations
+			locationThread.start();
 		} else {
 			tgl_scan.setImageResource(R.drawable.target);
-			// TODO: stop thread/service scanning locations
+			locationThread.interrupt();
 		}
 	}
 
@@ -323,6 +324,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 		// TODO: probably needs to be made consistent, e.g. when turning phone...
 		locationScanning = false;
+		locationThread = new LocationThread(this);
 		initCampus(Campus.ZENTRUM);
 
 		try {
@@ -365,13 +367,14 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
-		// TODO: resume LocationService
+		if (locationScanning)
+			locationThread.start();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		// TODO: pause LocationService
+		locationThread.interrupt();
 	}
 
 	/**

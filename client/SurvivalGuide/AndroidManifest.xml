@@ -31,7 +31,6 @@
         </activity>
         <activity android:name=".ui.MapTest"></activity>
         <activity android:name=".ui.MapActivity"></activity>
-        <service android:name="LocationService"></service>
     </application>
 
 </manifest>
