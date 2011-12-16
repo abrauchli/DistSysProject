@@ -41,13 +41,13 @@ public class SnapshotCache {
 	private static final String FILE_EXTENSION = "json";
 
 	public static void storeSnapshot(List<WifiReading> readings, String fileName, Context c) {
-		JSONArray json = readingsToJson(readings);
 
 		String state = Environment.getExternalStorageState();
 
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			// We can read and write the external storage
 			try {
+				JSONArray json = readingsToJson(readings);
 				File root = c.getExternalCacheDir();
 				File jsonFile = new File(root, constructFileName(fileName));
 				FileOutputStream out;
@@ -69,17 +69,14 @@ public class SnapshotCache {
 		return null;
 	}
 
-	private static JSONArray readingsToJson(List<WifiReading> readings) {
+	private static JSONArray readingsToJson(List<WifiReading> readings) throws JSONException {
 		JSONArray rs = new JSONArray();
 		for (WifiReading reading : readings) {
-			try {
-				JSONObject ap = new JSONObject();
-				ap.put("mac", reading.mac);
-				ap.put("ssid", reading.ssid);
-				ap.put("signal", reading.signal);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+			JSONObject ap = new JSONObject();
+			ap.put("mac", reading.mac);
+			ap.put("ssid", reading.ssid);
+			ap.put("signal", reading.signal);
+			rs.put(ap);
 		}
 		return rs;
 	}
