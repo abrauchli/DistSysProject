@@ -80,6 +80,9 @@ import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener, OnItemSelectedListener {
+
+	private static final int BUILDING_MARKER_RADIUS = 100;
+	private static final int LOCATION_MARKER_RADIUS = 20;
 	private static final String TAG = "SurvivalGuideActivity";
 
 	private enum Mode {
@@ -197,7 +200,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					: Building.buildingLocationsHoengg;
 			markers.clear();
 			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
-				int BUILDING_MARKER_RADIUS = 100;
 				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT, bLoc
 						.getKey(),
 						buildingClickListener));
@@ -262,12 +264,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			if (r != null) {
 				Coordinate center = r.getRoomCenter();
 				if (center != null) {
-					markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
+					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED, "Your approximate location"));
 					tiv_map.centerZoomPoint(center.toPoint());
 				} else {
 					tiv_map.centerImage();
 				}
-			}
+			} 
 			
 		}
 
