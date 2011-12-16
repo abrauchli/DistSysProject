@@ -126,7 +126,9 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			// fall through
 		case FREEROOMS:
 			lin_building.setVisibility(View.VISIBLE);
-			// resetFloorButtons();
+			TextView txt_building = (TextView) findViewById(R.id.txt_building);
+			txt_building.setText(currentBuilding.getName());
+			updateFloorButtons();
 			break;
 		}
 		updateMap();
@@ -210,6 +212,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		case LOCATION:
 			tiv_map.recycleBitmaps();
 			tiv_map.setImage(MapCache.getMap(currentFloor, this));
+			tiv_map.centerImage();
 			updateAPMarkers();
 			break;
 		case FREEROOMS:
@@ -288,12 +291,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 		// update button of current floor
 		Button btn_curr_floor = (Button) findViewById(R.id.btn_curr_floor);
-		btn_curr_floor.setText(floors.get(currentFloorIndex).toString());
+		btn_curr_floor.setText(floors.get(currentFloorIndex).getName());
 
 		// update button of previous floor
 		Button btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
 		if (currentFloorIndex > 0) {
-			btn_prev_floor.setText(floors.get(currentFloorIndex - 1).toString());
+			btn_prev_floor.setText(floors.get(currentFloorIndex - 1).getName());
 			btn_prev_floor.setEnabled(true);
 		} else {
 			btn_prev_floor.setText("");
@@ -303,7 +306,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		// update button of next floor
 		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
 		if (currentFloorIndex < floors.size()) {
-			btn_next_floor.setText(floors.get(currentFloorIndex + 1).toString());
+			btn_next_floor.setText(floors.get(currentFloorIndex + 1).getName());
 			btn_next_floor.setEnabled(true);
 		} else {
 			btn_next_floor.setText("");
