@@ -52,4 +52,25 @@ Each floor identifier has a JSONObject attached to it, which has the following p
 \end{description}
 
 \paragraph{Floor detail}
-The resource located at \code{<host>/r/<building>/<floor>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
+The resource located at \code{<host>/r/<building>/<floor>} returns in it's \code{result} object a detailed description of this floor. It has the following fields:
+\begin{description}
+	\jsonField{campus}{String}{can be ``Höngg'', ``Zentrum'' or ``other'' \todo{redundant}}
+	\jsonField{building}{JSONObject}{see \todo{reference to building structure of \code{<host>/r/}}}
+	\jsonField{map}{String}{URL to a map of this floor without any rooms marked, field omitted if there is no map available}
+	\jsonField{rooms}{JSONObject}{key-value list of the rooms on this floor, see below}
+\end{description}
+Each room identifier has a JSONObject attached to it, which has the following field:
+\begin{description}
+	\jsonField{desc}{String}{description of the room (e.g. ``Hörsaal'', ``Büro'', ``Computerraum'')}
+\end{description}
+
+\paragraph{Room detail}
+The resource located at \code{<host>/r/<building>/<floor>/<room>} returns in it's \code{result} object a detailed description of this room. It has the following fields:
+\begin{description}
+	\jsonField{building}{String}{name of the building where the room is located in (e.g. ``HG'')}
+	\jsonField{floor}{String}{name of the floor where the room is located in (e.g. ``E'')}
+	\jsonField{room}{String}{name of the room (e.g. ``3'')}
+	\jsonField{desc}{String}{description of the room (e.g. ``Hörsaal'', ``Büro'', ``Computerraum'')}
+	\jsonField{coords}{JSONObject}{see \todo{reference}}
+\end{description}
+
