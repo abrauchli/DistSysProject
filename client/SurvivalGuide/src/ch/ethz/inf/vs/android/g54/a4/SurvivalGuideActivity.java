@@ -40,8 +40,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +55,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
@@ -69,7 +66,6 @@ import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
-import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -90,7 +86,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		FREEROOMS,
 		LOCATION
 	}
-	
+
 	private String snapshotName = "snapshot";
 
 	private Mode mode;
@@ -207,7 +203,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 				int BUILDING_MARKER_RADIUS = 100;
 				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT, bLoc
 						.getKey(),
-						markerClickListener));
+						buildingClickListener));
 			}
 			tiv_map.updateMarkers();
 			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
@@ -237,7 +233,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	 * Updates the markers for the access points as well as the marker for the location
 	 */
 	private void updateAPMarkers() {
-		Room r = currentLocation.getRoom();
 		markers.clear();
 
 		float blueHue = 240;
@@ -262,14 +257,18 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			}
 		}
 
-		if (r != null) {
-			Coordinate center = r.getRoomCenter();
-			if (center != null) {
-				markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
-				tiv_map.centerZoomPoint(center.toPoint());
-			} else {
-				tiv_map.centerImage();
+		if (currentLocation != null) {
+			Room r = currentLocation.getRoom();
+			if (r != null) {
+				Coordinate center = r.getRoomCenter();
+				if (center != null) {
+					markers.add(new LocationMarker(center.toPoint(), 20, Color.RED, "Your approximate location"));
+					tiv_map.centerZoomPoint(center.toPoint());
+				} else {
+					tiv_map.centerImage();
+				}
 			}
+			
 		}
 
 		tiv_map.updateMarkers();
@@ -280,33 +279,33 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	 */
 	private void updateFloorButtons() {
 		List<Floor> floors = currentBuilding.getFloors();
-		
+
 		Collections.sort(floors, Floor.byName);
-		
+
 		int currentFloorIndex = floors.indexOf(currentFloor);
-		
+
 		// update button of current floor
 		Button btn_curr_floor = (Button) findViewById(R.id.btn_curr_floor);
 		btn_curr_floor.setText(floors.get(currentFloorIndex).toString());
-		
+
 		// update button of previous floor
 		Button btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
 		if (currentFloorIndex > 0) {
-			btn_prev_floor.setText(floors.get(currentFloorIndex-1).toString());
+			btn_prev_floor.setText(floors.get(currentFloorIndex - 1).toString());
 			btn_prev_floor.setEnabled(true);
-		}else {
+		} else {
 			btn_prev_floor.setText("");
-			btn_prev_floor.setEnabled(false);			
+			btn_prev_floor.setEnabled(false);
 		}
-		
+
 		// update button of next floor
 		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
 		if (currentFloorIndex < floors.size()) {
-			btn_next_floor.setText(floors.get(currentFloorIndex+1).toString());
+			btn_next_floor.setText(floors.get(currentFloorIndex + 1).toString());
 			btn_next_floor.setEnabled(true);
-		}else {
+		} else {
 			btn_next_floor.setText("");
-			btn_next_floor.setEnabled(false);			
+			btn_next_floor.setEnabled(false);
 		}
 	}
 
@@ -470,15 +469,15 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			final EditText edt_snapshot = (EditText) snapshot_dialog.findViewById(R.id.edt_snapshot);
 			edt_snapshot.setText(snapshotName);
 			return new AlertDialog.Builder(SurvivalGuideActivity.this)
-			.setTitle(R.string.snapshot_name)
-			.setView(snapshot_dialog)
-			.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					snapshotName = edt_snapshot.getText().toString();
-				}
-			})
-			.create();
-			
+					.setTitle(R.string.snapshot_name)
+					.setView(snapshot_dialog)
+					.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							snapshotName = edt_snapshot.getText().toString();
+						}
+					})
+					.create();
+
 		}
 		return null;
 	}
@@ -832,10 +831,37 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		spn_room.setClickable(true);
 	}
 
-	private static ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener markerClickListener =
+	/**
+	 * Every marker that uses this handler needs to have a building identifier as name, otherwise the effects of this
+	 * method are not defined
+	 */
+	private ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener buildingClickListener =
 			new ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener() {
 				public void onClick(LocationMarker marker) {
-					U.showToast(marker.getName());
+					try {
+						String buildingID = marker.getName();
+						Building b = Building.getBuilding(buildingID);
+						b.load();
+						List<Floor> floors = b.getFloors();
+						if (!floors.isEmpty()) {
+							Floor eFloor = null;
+							for (Floor floor : floors) {
+								if (floor.getName().equals("E")) {
+									eFloor = floor;
+								}
+							}
+							if (eFloor == null) {
+								eFloor = floors.get(0);
+							}
+							currentBuilding = b;
+							currentFloor = eFloor;
+							setMode(Mode.LOCATION);
+						} else {
+							U.showToast("There are no floors in this building.");
+						}
+					} catch (Exception e) {
+						U.showException(TAG, e);
+					}
 				}
 			};
 
