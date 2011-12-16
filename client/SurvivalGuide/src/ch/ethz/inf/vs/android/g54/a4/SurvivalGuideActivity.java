@@ -77,6 +77,7 @@ import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.MapCache;
+import ch.ethz.inf.vs.android.g54.a4.util.SnapshotCache;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
@@ -199,7 +200,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					: Building.buildingLocationsHoengg;
 			markers.clear();
 			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
-				markers.add(new LocationMarker(bLoc.getValue(), 100, Color.TRANSPARENT, bLoc.getKey(), markerClickListener));
+				markers.add(new LocationMarker(bLoc.getValue(), 100, Color.TRANSPARENT, bLoc.getKey(),
+						markerClickListener));
 			}
 			tiv_map.updateMarkers();
 			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
@@ -276,7 +278,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 		tiv_map.updateMarkers();
 	}
-	
+
 	/**
 	 * Deletes all the floor buttons and recreates them with the current building
 	 */
@@ -585,6 +587,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 				readings.add(new WifiReading(result));
 			}
 			scanner.showReadings(readings);
+			SnapshotCache.storeSnapshot(readings, "foo", scanner);
 		}
 	}
 
