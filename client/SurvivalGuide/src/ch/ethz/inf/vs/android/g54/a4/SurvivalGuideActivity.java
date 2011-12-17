@@ -498,7 +498,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			showDialog(R.layout.room_dialog);
 			break;
 		case R.id.mni_dummy_data:
-			loadDummyData(false);
+			loadTestData(false);
 			break;
 		case R.id.mni_aps:
 			showDialog(R.layout.aps_dialog);
@@ -525,55 +525,21 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	private void loadDummyData(boolean allowNonexistent) {
-		int mincount = 3, maxcount = 8;
-		String[] macs = {
-				//
-				"00:0f:61:1a:0c:5", // air-cab-e10-4-a
-				"00:03:52:1c:14:b", // air-cab-e11-a
-				"00:03:52:1c:14:d", // air-cab-e12-a
-				"00:03:52:1c:34:5", // air-cab-e16-a
-				"00:0f:61:1a:20:8", // air-cab-e22-2-a
-				"00:0f:61:5d:dd:5", // air-cab-e27-1-a
-				"00:0f:61:1a:18:4", // air-cab-e32-a
-				"00:03:52:29:ae:4", // air-cab-e45-a
-				"00:03:52:1c:11:b", // air-cab-f42-1-a
-				"00:03:52:1c:32:9", // air-cab-f63-1-a
-				"00:03:52:1b:f6:5", // air-cab-g11-a
-				"00:03:52:1b:f4:f", // air-cab-g11-b
-				"00:03:52:1c:31:c", // air-cab-g20-1-a
-				"00:03:52:5c:34:f", // air-hg-g5-b
-				"00:03:52:d8:2d:a", // air-hg-f3-a
-				"ff:ff:ff:ff:ff:a", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:b", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:c", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:d", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:e", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:f", // NON-EXISTENT
-		};
-		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
-		Random rand = new Random();
-		int count = rand.nextInt(maxcount - mincount) + mincount;
-		List<WifiReading> lst = new LinkedList<WifiReading>();
-		for (int i = 0; i < count; i++) {
-			int macidx = rand.nextInt(allowNonexistent ? macs.length : macs.length - 6);
-			int mactype = rand.nextInt(4);
-			int signal = rand.nextInt(70) - 90; // -21 to -90
-			lst.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
-		}
-		showReadings(lst);
+	private void loadTestData(boolean allowNonexistent) {
+		List<WifiReading> readings = SnapshotCache.getRandomSnapshot(this);
+		if (readings != null) {
+			showReadings(readings);
 
-		// Old location button functionality
-		Location locRes;
-		try {
-			locRes = Location.getFromReadings(lst);
-			setLocation(locRes);
-		} catch (ServerException e) {
-			U.showException(TAG, e);
-		} catch (ConnectionException e) {
-			U.showException(TAG, e);
-		} catch (UnrecognizedResponseException e) {
-			U.showException(TAG, e);
+			// Old location button functionality
+			Location locRes;
+			try {
+				locRes = Location.getFromReadings(readings);
+				setLocation(locRes);
+			} catch (Exception e) {
+				U.showException(TAG, e);
+			}
+		} else {
+			U.showToast("Could not load test data.");
 		}
 	}
 
