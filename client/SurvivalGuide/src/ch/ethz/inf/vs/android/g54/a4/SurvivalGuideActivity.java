@@ -20,10 +20,8 @@ package ch.ethz.inf.vs.android.g54.a4;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,9 +50,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
-import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
-import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
-import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Address;
 import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
@@ -74,17 +69,19 @@ import ch.ethz.inf.vs.android.g54.a4.util.U;
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener, OnItemSelectedListener {
 
+	// collect wifi snapshots to enable testing when not at ETH
+	protected static final boolean COLLECT_SNAPSHOTS = false;
+
 	private static final int BUILDING_MARKER_RADIUS = 100;
 	private static final int LOCATION_MARKER_RADIUS = 20;
 	private static final String TAG = "SurvivalGuideActivity";
 
 	private enum Mode {
 		OVERVIEW,
-		FREEROOMS,
-		LOCATION
+		DETAILED
 	}
 
-	private String snapshotName = "snapshot";
+	protected String snapshotName = "snapshot";
 
 	private Mode mode;
 	private Campus currentCampus;
@@ -115,9 +112,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		case OVERVIEW:
 			lin_building.setVisibility(View.GONE);
 			break;
-		case LOCATION:
-			// fall through
-		case FREEROOMS:
+		case DETAILED:
 			lin_building.setVisibility(View.VISIBLE);
 			TextView txt_building = (TextView) findViewById(R.id.txt_building);
 			txt_building.setText(currentBuilding.getName());
@@ -128,7 +123,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * When toggling the location scanning, always use this method, as it changes the image of the button as well
+	 * When toggling the location scanning, always use this method, as it changes the image of the button and
+	 * starts/stops the scanning service
 	 */
 	private void toggleLocationScanning() {
 		locationScanning = !locationScanning;
@@ -143,7 +139,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * When changing campus, always use this method, since TODO: explanation
+	 * When changing campus, always use this method, since it updates the radio buttons and the map
 	 */
 	private void setCampus(Campus campus) {
 		this.currentCampus = campus;
@@ -202,23 +198,23 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			tiv_map.updateMarkers();
 			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
 			break;
-		case LOCATION:
+		case DETAILED:
 			tiv_map.recycleBitmaps();
 			tiv_map.setImage(MapCache.getMap(currentFloor, this));
 			tiv_map.centerImage();
 			updateAPMarkers();
 			break;
-		case FREEROOMS:
-			// TODO
-			break;
 		}
 	}
 
-	void setLocation(Location location) {
-		this.currentLocation = location;
-		this.currentFloor = currentLocation.getRoom().getFloor();
-		this.currentBuilding = currentFloor.getBuilding();
-		setMode(Mode.LOCATION);
+	/**
+	 * updates the location according to the wifi data
+	 */
+	void updateLocation(Location location) {
+		// this.currentLocation = location;
+		// this.currentFloor = currentLocation.getRoom().getFloor();
+		// this.currentBuilding = currentFloor.getBuilding();
+		// setMode(Mode.LOCATION);
 
 		Map<String, AccessPoint> aps = location.getAps();
 		for (WifiReading reading : visibleNetworks) {
@@ -492,7 +488,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			showDialog(R.layout.room_dialog);
 			break;
 		case R.id.mni_dummy_data:
-			loadDummyData(false);
+			loadTestData();
 			break;
 		case R.id.mni_aps:
 			showDialog(R.layout.aps_dialog);
@@ -523,55 +519,21 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	private void loadDummyData(boolean allowNonexistent) {
-		int mincount = 3, maxcount = 8;
-		String[] macs = {
-				//
-				"00:0f:61:1a:0c:5", // air-cab-e10-4-a
-				"00:03:52:1c:14:b", // air-cab-e11-a
-				"00:03:52:1c:14:d", // air-cab-e12-a
-				"00:03:52:1c:34:5", // air-cab-e16-a
-				"00:0f:61:1a:20:8", // air-cab-e22-2-a
-				"00:0f:61:5d:dd:5", // air-cab-e27-1-a
-				"00:0f:61:1a:18:4", // air-cab-e32-a
-				"00:03:52:29:ae:4", // air-cab-e45-a
-				"00:03:52:1c:11:b", // air-cab-f42-1-a
-				"00:03:52:1c:32:9", // air-cab-f63-1-a
-				"00:03:52:1b:f6:5", // air-cab-g11-a
-				"00:03:52:1b:f4:f", // air-cab-g11-b
-				"00:03:52:1c:31:c", // air-cab-g20-1-a
-				"00:03:52:5c:34:f", // air-hg-g5-b
-				"00:03:52:d8:2d:a", // air-hg-f3-a
-				"ff:ff:ff:ff:ff:a", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:b", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:c", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:d", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:e", // NON-EXISTENT
-				"ff:ff:ff:ff:ff:f", // NON-EXISTENT
-		};
-		String[] mactypes = { "eth", "public", "MOBILE-EAPSIM", "eduroam" };
-		Random rand = new Random();
-		int count = rand.nextInt(maxcount - mincount) + mincount;
-		List<WifiReading> lst = new LinkedList<WifiReading>();
-		for (int i = 0; i < count; i++) {
-			int macidx = rand.nextInt(allowNonexistent ? macs.length : macs.length - 6);
-			int mactype = rand.nextInt(4);
-			int signal = rand.nextInt(70) - 90; // -21 to -90
-			lst.add(new WifiReading(macs[macidx] + mactype, mactypes[mactype], signal));
-		}
-		showReadings(lst);
+	private void loadTestData() {
+		List<WifiReading> readings = SnapshotCache.getRandomSnapshot(this);
+		if (readings != null) {
+			showReadings(readings);
 
-		// Old location button functionality
-		Location locRes;
-		try {
-			locRes = Location.getFromReadings(lst);
-			setLocation(locRes);
-		} catch (ServerException e) {
-			U.showException(TAG, e);
-		} catch (ConnectionException e) {
-			U.showException(TAG, e);
-		} catch (UnrecognizedResponseException e) {
-			U.showException(TAG, e);
+			// Old location button functionality
+			Location locRes;
+			try {
+				locRes = Location.getFromReadings(readings);
+				updateLocation(locRes);
+			} catch (Exception e) {
+				U.showException(TAG, e);
+			}
+		} else {
+			U.showToast("Could not load test data.");
 		}
 	}
 
@@ -828,7 +790,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 							}
 							currentBuilding = b;
 							currentFloor = eFloor;
-							setMode(Mode.LOCATION);
+							setMode(Mode.DETAILED);
 						} else {
 							U.showToast("There are no floors in this building.");
 						}
