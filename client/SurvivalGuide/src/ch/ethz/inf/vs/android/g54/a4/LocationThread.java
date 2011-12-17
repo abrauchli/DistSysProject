@@ -41,11 +41,13 @@ public class LocationThread extends Thread {
 			try {
 				Location locRes = Location.getFromReadings(readings);
 				ui.setLocation(locRes);
-			} catch(Exception e) {
+			} catch (Exception e) {
 				// TODO: Toast to indicate server error
 				e.printStackTrace();
 			}
-			SnapshotCache.storeSnapshot(readings, "foo", ui);
+			if (SurvivalGuideActivity.COLLECT_SNAPSHOTS) {
+				SnapshotCache.storeSnapshot(readings, ui.snapshotName, ui);
+			}
 		}
 	}
 
@@ -71,15 +73,15 @@ public class LocationThread extends Thread {
 	private void startPeriodicScan() {
 		context.registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		periodicScanTimer.schedule(
-		        new TimerTask() {
-			        @Override
-			        public void run() {
-				        periodicScan();
-			        }
-		        },
-		        0, // start right now
-		        1 * 60 * 1000 // every minute
-		        );
+				new TimerTask() {
+					@Override
+					public void run() {
+						periodicScan();
+					}
+				},
+				0, // start right now
+				1 * 60 * 1000 // every minute
+				);
 	}
 
 	private void stopPeriodicScan() {

@@ -81,6 +81,9 @@ import ch.ethz.inf.vs.android.g54.a4.util.U;
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener, OnItemSelectedListener {
 
+	// collect wifi snapshots to enable testing when not at ETH
+	protected static final boolean COLLECT_SNAPSHOTS = false;
+
 	private static final int BUILDING_MARKER_RADIUS = 100;
 	private static final int LOCATION_MARKER_RADIUS = 20;
 	private static final String TAG = "SurvivalGuideActivity";
@@ -91,7 +94,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		LOCATION
 	}
 
-	private String snapshotName = "snapshot";
+	protected String snapshotName = "snapshot";
 
 	private Mode mode;
 	private Campus currentCampus;
@@ -267,13 +270,14 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			if (r != null) {
 				Coordinate center = r.getRoomCenter();
 				if (center != null) {
-					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED, "Your approximate location"));
+					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED,
+							"Your approximate location"));
 					tiv_map.centerZoomPoint(center.toPoint());
 				} else {
 					tiv_map.centerImage();
 				}
-			} 
-			
+			}
+
 		}
 
 		tiv_map.updateMarkers();
