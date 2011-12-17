@@ -40,7 +40,7 @@ public class LocationThread extends Thread {
 			ui.showReadings(readings);
 			try {
 				Location locRes = Location.getFromReadings(readings);
-				ui.setLocation(locRes);
+				ui.updateLocation(locRes);
 			} catch (Exception e) {
 				// TODO: Toast to indicate server error
 				e.printStackTrace();
