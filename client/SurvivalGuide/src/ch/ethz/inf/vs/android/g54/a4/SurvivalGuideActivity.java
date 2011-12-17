@@ -82,13 +82,13 @@ public class SurvivalGuideActivity extends Activity {
 
 	protected String snapshotName = "snapshot";
 
-	private Mode mode;
+	private UIMode uiMode;
+	private ScanningMode scanningMode;
 	private Campus currentCampus;
 	private Building currentBuilding;
 	private Floor currentFloor;
 	private Location currentLocation;
 	private LocationThread locationThread;
-	private boolean locationScanning;
 	Handler handler;
 
 	ArrayAdapter<WifiReading> wifiAdapter;
@@ -124,7 +124,7 @@ public class SurvivalGuideActivity extends Activity {
 							}
 							currentBuilding = b;
 							currentFloor = eFloor;
-							setMode(Mode.DETAILED);
+							setUIMode(UIMode.DETAILED);
 						} else {
 							U.showToast("There are no floors in this building.");
 						}
@@ -148,7 +148,7 @@ public class SurvivalGuideActivity extends Activity {
 		handler = new Handler();
 
 		// TODO: probably needs to be made consistent, e.g. when turning phone...
-		locationScanning = false;
+		scanningMode = ScanningMode.OFF;
 		locationThread = new LocationThread(this);
 		initCampus(Campus.ZENTRUM);
 
@@ -185,7 +185,7 @@ public class SurvivalGuideActivity extends Activity {
 				visibleNetworks = new ArrayList<WifiReading>();
 			wifiAdapter = new WifiReadingArrayAdapter(this, R.layout.scan_result_list_item, visibleNetworks);
 
-			mode = Mode.OVERVIEW;
+			uiMode = UIMode.OVERVIEW;
 			LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
 			lin_building.setVisibility(View.GONE);
 		} catch (Exception e) {
@@ -227,7 +227,7 @@ public class SurvivalGuideActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (locationScanning)
+		if (scanningMode != ScanningMode.OFF)
 			locationThread.start();
 	}
 
@@ -296,12 +296,12 @@ public class SurvivalGuideActivity extends Activity {
 	}
 
 	/**
-	 * When changing the mode, always use this method, as it updates the layout as well
+	 * When changing the uiMode, always use this method, as it updates the layout as well
 	 */
-	private void setMode(Mode mode) {
-		this.mode = mode;
+	private void setUIMode(UIMode uiMode) {
+		this.uiMode = uiMode;
 		LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
-		switch (this.mode) {
+		switch (this.uiMode) {
 		case OVERVIEW:
 			lin_building.setVisibility(View.GONE);
 			break;
@@ -316,18 +316,26 @@ public class SurvivalGuideActivity extends Activity {
 	}
 
 	/**
-	 * When toggling the location scanning, always use this method, as it changes the image of the button and
+	 * When switching the location scanning mode, always use this method, as it changes the image of the button and
 	 * starts/stops the scanning service
 	 */
-	private void toggleLocationScanning() {
-		locationScanning = !locationScanning;
+	private void cycleLocationScanning() {
 		ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
-		if (locationScanning) {
+		switch (scanningMode) {
+		case OFF:
+			scanningMode = ScanningMode.BACKGROUND;
 			tgl_scan.setImageResource(R.drawable.target_on);
 			locationThread.start();
-		} else {
-			tgl_scan.setImageResource(R.drawable.target);
+			break;
+		case BACKGROUND:
+			scanningMode = ScanningMode.AUTOMATIC;
+			tgl_scan.setImageResource(R.drawable.target_lock);
+			break;
+		case AUTOMATIC:
+			scanningMode = ScanningMode.OFF;
+			tgl_scan.setImageResource(R.drawable.target_off);
 			locationThread.interrupt();
+			break;
 		}
 	}
 
@@ -486,7 +494,7 @@ public class SurvivalGuideActivity extends Activity {
 
 	private void updateMap() {
 		Bitmap bm;
-		switch (mode) {
+		switch (uiMode) {
 		case OVERVIEW:
 			tiv_map.recycleBitmaps();
 			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM
@@ -694,19 +702,25 @@ public class SurvivalGuideActivity extends Activity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.tgl_scan:
-				toggleLocationScanning();
+				cycleLocationScanning();
 				break;
 			case R.id.rbt_eth_center:
 			case R.id.rbt_eth_hoengg:
-				setMode(Mode.OVERVIEW);
+				setUIMode(UIMode.OVERVIEW);
 				break;
 			}
 		}
 	}
 
-	private enum Mode {
+	private enum UIMode {
 		OVERVIEW,
 		DETAILED
+	}
+
+	private enum ScanningMode {
+		OFF,
+		BACKGROUND,
+		AUTOMATIC
 	}
 
 	private class RoomDialogListener implements OnCheckedChangeListener, OnItemSelectedListener {

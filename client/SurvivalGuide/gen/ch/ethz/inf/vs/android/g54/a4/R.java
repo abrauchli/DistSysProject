@@ -14,9 +14,10 @@ public final class R {
         public static final int hg_e=0x7f020000;
         public static final int hoengg=0x7f020001;
         public static final int ic_launcher=0x7f020002;
-        public static final int target=0x7f020003;
-        public static final int target_on=0x7f020004;
-        public static final int zentrum=0x7f020005;
+        public static final int target_lock=0x7f020003;
+        public static final int target_off=0x7f020004;
+        public static final int target_on=0x7f020005;
+        public static final int zentrum=0x7f020006;
     }
     public static final class id {
         public static final int LinearLayout=0x7f060000;
