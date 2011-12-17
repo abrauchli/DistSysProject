@@ -382,7 +382,7 @@ public class SurvivalGuideActivity extends Activity {
 							"Your approximate location"));
 					tiv_map.centerZoomPoint(center.toPoint());
 				} else {
-					tiv_map.centerImage();
+					tiv_map.centerBitmap();
 				}
 			}
 		}
@@ -507,7 +507,7 @@ public class SurvivalGuideActivity extends Activity {
 					? R.drawable.zentrum
 					: R.drawable.hoengg);
 			tiv_map.setImage(bm);
-			tiv_map.centerImage();
+			tiv_map.centerBitmap();
 			Map<String, Point> buildingsLocations = currentCampus == Campus.ZENTRUM
 					? Building.buildingLocationsCenter
 					: Building.buildingLocationsHoengg;
@@ -522,7 +522,7 @@ public class SurvivalGuideActivity extends Activity {
 		case DETAILED:
 			tiv_map.recycleBitmaps();
 			tiv_map.setImage(MapCache.getMap(currentFloor, this));
-			tiv_map.centerImage();
+			tiv_map.centerBitmap();
 			updateAPMarkers();
 			break;
 		}
