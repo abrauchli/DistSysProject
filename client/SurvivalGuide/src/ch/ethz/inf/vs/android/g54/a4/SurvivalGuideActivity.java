@@ -80,11 +80,6 @@ public class SurvivalGuideActivity extends Activity {
 	private final MainUiListener mainUiListener = new MainUiListener();
 	private final RoomDialogListener roomDialogListener = new RoomDialogListener();
 
-	private enum Mode {
-		OVERVIEW,
-		DETAILED
-	}
-	
 	protected String snapshotName = "snapshot";
 
 	private Mode mode;
@@ -94,218 +89,50 @@ public class SurvivalGuideActivity extends Activity {
 	private Location currentLocation;
 	private LocationThread locationThread;
 	private boolean locationScanning;
-
 	Handler handler;
 
 	ArrayAdapter<WifiReading> wifiAdapter;
+
 	TouchImageView tiv_map;
-
 	List<LocationMarker> markers;
-	List<WifiReading> visibleNetworks;
 
+	List<WifiReading> visibleNetworks;
 	// TODO find a better way to save spinner selection
 	String selectedBuilding, selectedFloor, selectedRoom;
 
 	/**
-	 * When changing the mode, always use this method, as it updates the layout as well
+	 * Every marker that uses this handler needs to have a building identifier as name, otherwise the effects of this
+	 * method are not defined
 	 */
-	private void setMode(Mode mode) {
-		this.mode = mode;
-		LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
-		switch (this.mode) {
-		case OVERVIEW:
-			lin_building.setVisibility(View.GONE);
-			break;
-		case DETAILED:
-			lin_building.setVisibility(View.VISIBLE);
-			TextView txt_building = (TextView) findViewById(R.id.txt_building);
-			txt_building.setText(currentBuilding.getName());
-			updateFloorButtons();
-			break;
-		}
-		updateMap();
-	}
-
-	/**
-	 * When toggling the location scanning, always use this method, as it changes the image of the button and
-	 * starts/stops the scanning service
-	 */
-	private void toggleLocationScanning() {
-		locationScanning = !locationScanning;
-		ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
-		if (locationScanning) {
-			tgl_scan.setImageResource(R.drawable.target_on);
-			locationThread.start();
-		} else {
-			tgl_scan.setImageResource(R.drawable.target);
-			locationThread.interrupt();
-		}
-	}
-
-	/**
-	 * When changing campus, always use this method, since it updates the radio buttons and the map
-	 */
-	private void setCampus(Campus campus) {
-		this.currentCampus = campus;
-		RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
-		switch (grp_campus.getCheckedRadioButtonId()) {
-		case R.id.rbt_eth_center:
-			// TODO helandre: comment
-			if (currentCampus.equals(Campus.HOENGG)) {
-				RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
-				rbt_eth_center.setChecked(true);
-			}
-			break;
-		case R.id.rbt_eth_hoengg:
-			// TODO helandre: comment
-			if (currentCampus.equals(Campus.ZENTRUM)) {
-				RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
-				rbt_eth_hoengg.setChecked(true);
-			}
-		}
-	}
-
-	/**
-	 * Initialize the campus and set the radio buttons accordingly
-	 */
-	private void initCampus(Campus campus) {
-		this.currentCampus = campus;
-		switch (campus) {
-		case ZENTRUM:
-			RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
-			rbt_eth_center.setChecked(true);
-			break;
-		case HOENGG:
-			RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
-			rbt_eth_hoengg.setChecked(true);
-		}
-	}
-
-	private void updateMap() {
-		Bitmap bm;
-		switch (mode) {
-		case OVERVIEW:
-			tiv_map.recycleBitmaps();
-			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM
-					? R.drawable.zentrum
-					: R.drawable.hoengg);
-			tiv_map.setImage(bm);
-			tiv_map.centerImage();
-			Map<String, Point> buildingsLocations = currentCampus == Campus.ZENTRUM
-					? Building.buildingLocationsCenter
-					: Building.buildingLocationsHoengg;
-			markers.clear();
-			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
-				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT,
-						bLoc.getKey(), buildingClickListener));
-			}
-			tiv_map.updateMarkers();
-			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
-			break;
-		case DETAILED:
-			tiv_map.recycleBitmaps();
-			tiv_map.setImage(MapCache.getMap(currentFloor, this));
-			tiv_map.centerImage();
-			updateAPMarkers();
-			break;
-		}
-	}
-
-	/**
-	 * updates the location according to the wifi data
-	 */
-	void updateLocation(Location location) {
-		// this.currentLocation = location;
-		// this.currentFloor = currentLocation.getRoom().getFloor();
-		// this.currentBuilding = currentFloor.getBuilding();
-		// setMode(Mode.LOCATION);
-
-		Map<String, AccessPoint> aps = location.getAps();
-		for (WifiReading reading : visibleNetworks) {
-			reading.ap = aps.get(reading.mac);
-		}
-		wifiAdapter.notifyDataSetChanged();
-	}
-
-	/**
-	 * Updates the markers for the access points as well as the marker for the location
-	 */
-	private void updateAPMarkers() {
-		markers.clear();
-
-		float blueHue = 240;
-		float greenHue = 120;
-		float orangeHue = 30;
-		for (WifiReading reading : visibleNetworks) {
-			if (reading.ap != null) {
-				Coordinate coords = reading.ap.getCoordinate();
-				int s = reading.signal;
-				float saturation;
-				if (s < -60)
-					saturation = (s + 100) * 0.02f;
-				else
-					saturation = (s + 60) * 0.005f + 0.8f;
-				// FIXME
-				int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
-				int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
-				int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
-				markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
-				// markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
-				// markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
-			}
-		}
-
-		if (currentLocation != null) {
-			Room r = currentLocation.getRoom();
-			if (r != null) {
-				Coordinate center = r.getRoomCenter();
-				if (center != null) {
-					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED,
-							"Your approximate location"));
-					tiv_map.centerZoomPoint(center.toPoint());
-				} else {
-					tiv_map.centerImage();
+	private OnMarkerClickListener buildingClickListener =
+			new OnMarkerClickListener() {
+				public void onClick(LocationMarker marker) {
+					try {
+						String buildingID = marker.getName();
+						Building b = Building.getBuilding(buildingID);
+						b.load();
+						List<Floor> floors = b.getFloors();
+						if (!floors.isEmpty()) {
+							Floor eFloor = null;
+							for (Floor floor : floors) {
+								if (floor.getName().equals("E")) {
+									eFloor = floor;
+								}
+							}
+							if (eFloor == null) {
+								eFloor = floors.get(0);
+							}
+							currentBuilding = b;
+							currentFloor = eFloor;
+							setMode(Mode.DETAILED);
+						} else {
+							U.showToast("There are no floors in this building.");
+						}
+					} catch (Exception e) {
+						U.showException(TAG, e);
+					}
 				}
-			}
-		}
-
-		tiv_map.updateMarkers();
-	}
-
-	/**
-	 * Renames and enables/disables floor buttons according to current building and floor
-	 */
-	private void updateFloorButtons() {
-		List<Floor> floors = currentBuilding.getFloors();
-
-		Collections.sort(floors, Floor.byName);
-
-		int currentFloorIndex = floors.indexOf(currentFloor);
-
-		// update button of current floor
-		Button btn_curr_floor = (Button) findViewById(R.id.btn_curr_floor);
-		btn_curr_floor.setText(floors.get(currentFloorIndex).getName());
-
-		// update button of previous floor
-		Button btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
-		if (currentFloorIndex > 0) {
-			btn_prev_floor.setText(floors.get(currentFloorIndex - 1).getName());
-			btn_prev_floor.setEnabled(true);
-		} else {
-			btn_prev_floor.setText("");
-			btn_prev_floor.setEnabled(false);
-		}
-
-		// update button of next floor
-		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
-		if (currentFloorIndex < floors.size()) {
-			btn_next_floor.setText(floors.get(currentFloorIndex + 1).getName());
-			btn_next_floor.setEnabled(true);
-		} else {
-			btn_next_floor.setText("");
-			btn_next_floor.setEnabled(false);
-		}
-	}
+			};
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -367,10 +194,28 @@ public class SurvivalGuideActivity extends Activity {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		if (locationScanning)
-			locationThread.start();
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.mni_rooms:
+			showDialog(R.layout.room_dialog);
+			break;
+		case R.id.mni_dummy_data:
+			loadTestData();
+			break;
+		case R.id.mni_aps:
+			showDialog(R.layout.aps_dialog);
+			break;
+		case R.id.mni_snapshot_name:
+			showDialog(R.layout.snapshot_dialog);
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -379,9 +224,330 @@ public class SurvivalGuideActivity extends Activity {
 		locationThread.interrupt();
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (locationScanning)
+			locationThread.start();
+	}
+
+	@Override
+	public Object onRetainNonConfigurationInstance() {
+		if (visibleNetworks != null)
+			return visibleNetworks;
+		return super.onRetainNonConfigurationInstance();
+	}
+
 	/**
-	 * From extending Activity
+	 * Initialize the campus and set the radio buttons accordingly
+	 */
+	private void initCampus(Campus campus) {
+		this.currentCampus = campus;
+		switch (campus) {
+		case ZENTRUM:
+			RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
+			rbt_eth_center.setChecked(true);
+			break;
+		case HOENGG:
+			RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
+			rbt_eth_hoengg.setChecked(true);
+		}
+	}
+
+	private void loadTestData() {
+		List<WifiReading> readings = SnapshotCache.getRandomSnapshot(this);
+		if (readings != null) {
+			showReadings(readings);
+
+			// Old location button functionality
+			Location locRes;
+			try {
+				locRes = Location.getFromReadings(readings);
+				updateLocation(locRes);
+			} catch (Exception e) {
+				U.showException(TAG, e);
+			}
+		} else {
+			U.showToast("Could not load test data.");
+		}
+	}
+
+	/**
+	 * When changing campus, always use this method, since it updates the radio buttons and the map
+	 */
+	private void setCampus(Campus campus) {
+		this.currentCampus = campus;
+		RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
+		switch (grp_campus.getCheckedRadioButtonId()) {
+		case R.id.rbt_eth_center:
+			// TODO helandre: comment
+			if (currentCampus.equals(Campus.HOENGG)) {
+				RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
+				rbt_eth_center.setChecked(true);
+			}
+			break;
+		case R.id.rbt_eth_hoengg:
+			// TODO helandre: comment
+			if (currentCampus.equals(Campus.ZENTRUM)) {
+				RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
+				rbt_eth_hoengg.setChecked(true);
+			}
+		}
+	}
+
+	/**
+	 * When changing the mode, always use this method, as it updates the layout as well
+	 */
+	private void setMode(Mode mode) {
+		this.mode = mode;
+		LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
+		switch (this.mode) {
+		case OVERVIEW:
+			lin_building.setVisibility(View.GONE);
+			break;
+		case DETAILED:
+			lin_building.setVisibility(View.VISIBLE);
+			TextView txt_building = (TextView) findViewById(R.id.txt_building);
+			txt_building.setText(currentBuilding.getName());
+			updateFloorButtons();
+			break;
+		}
+		updateMap();
+	}
+
+	/**
+	 * When toggling the location scanning, always use this method, as it changes the image of the button and
+	 * starts/stops the scanning service
+	 */
+	private void toggleLocationScanning() {
+		locationScanning = !locationScanning;
+		ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
+		if (locationScanning) {
+			tgl_scan.setImageResource(R.drawable.target_on);
+			locationThread.start();
+		} else {
+			tgl_scan.setImageResource(R.drawable.target);
+			locationThread.interrupt();
+		}
+	}
+
+	/**
+	 * Updates the markers for the access points as well as the marker for the location
+	 */
+	private void updateAPMarkers() {
+		markers.clear();
+
+		float blueHue = 240;
+		float greenHue = 120;
+		float orangeHue = 30;
+		for (WifiReading reading : visibleNetworks) {
+			if (reading.ap != null) {
+				Coordinate coords = reading.ap.getCoordinate();
+				int s = reading.signal;
+				float saturation;
+				if (s < -60)
+					saturation = (s + 100) * 0.02f;
+				else
+					saturation = (s + 60) * 0.005f + 0.8f;
+				// FIXME
+				int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
+				int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
+				int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
+				markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
+				// markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
+				// markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
+			}
+		}
+
+		if (currentLocation != null) {
+			Room r = currentLocation.getRoom();
+			if (r != null) {
+				Coordinate center = r.getRoomCenter();
+				if (center != null) {
+					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED,
+							"Your approximate location"));
+					tiv_map.centerZoomPoint(center.toPoint());
+				} else {
+					tiv_map.centerImage();
+				}
+			}
+		}
+
+		tiv_map.updateMarkers();
+	}
+
+	/**
+	 * Updates the list of the building spinner in the rooms dialog
 	 * 
+	 * @param v
+	 *            View where to find the spinners
+	 * @param buildings
+	 *            List of buildings to put into the dropdown list of the spinner
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateBuildingsList(View v, List<Building> buildings) {
+		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+
+		// update building spinner
+		ArrayAdapter<String> sa = (ArrayAdapter<String>) spn_building.getAdapter();
+		sa.clear();
+		for (Building b : buildings) {
+			sa.add(b.getName());
+		}
+		sa.sort(new StringComparator());
+		sa.notifyDataSetChanged();
+		spn_building.setClickable(true);
+
+		// update floor spinner
+		sa = (ArrayAdapter<String>) spn_floor.getAdapter();
+		sa.clear();
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(false);
+
+		// update room spinner
+		sa = (ArrayAdapter<String>) spn_room.getAdapter();
+		sa.clear();
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(false);
+	}
+
+	/**
+	 * Renames and enables/disables floor buttons according to current building and floor
+	 */
+	private void updateFloorButtons() {
+		List<Floor> floors = currentBuilding.getFloors();
+
+		Collections.sort(floors, Floor.byName);
+
+		int currentFloorIndex = floors.indexOf(currentFloor);
+
+		// update button of current floor
+		Button btn_curr_floor = (Button) findViewById(R.id.btn_curr_floor);
+		btn_curr_floor.setText(floors.get(currentFloorIndex).getName());
+
+		// update button of previous floor
+		Button btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
+		if (currentFloorIndex > 0) {
+			btn_prev_floor.setText(floors.get(currentFloorIndex - 1).getName());
+			btn_prev_floor.setEnabled(true);
+		} else {
+			btn_prev_floor.setText("");
+			btn_prev_floor.setEnabled(false);
+		}
+
+		// update button of next floor
+		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
+		if (currentFloorIndex < floors.size()) {
+			btn_next_floor.setText(floors.get(currentFloorIndex + 1).getName());
+			btn_next_floor.setEnabled(true);
+		} else {
+			btn_next_floor.setText("");
+			btn_next_floor.setEnabled(false);
+		}
+	}
+
+	/**
+	 * Updates the list of the floor spinner in the rooms dialog
+	 * 
+	 * @param v
+	 *            View where to find the spinners
+	 * @param floors
+	 *            List of floors to put into the dropdown list of the spinner
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateFloorsList(View v, List<Floor> floors) {
+		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+
+		ArrayAdapter<String> sa;
+
+		// update building spinner
+		spn_building.setClickable(true);
+
+		// update floor spinner
+		sa = (ArrayAdapter<String>) spn_floor.getAdapter();
+		sa.clear();
+		for (Floor f : floors) {
+			sa.add(f.getName());
+		}
+		sa.sort(new StringComparator());
+		sa.notifyDataSetChanged();
+		spn_floor.setClickable(true);
+
+		// update room spinner
+		sa = (ArrayAdapter<String>) spn_room.getAdapter();
+		sa.clear();
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(false);
+	}
+
+	private void updateMap() {
+		Bitmap bm;
+		switch (mode) {
+		case OVERVIEW:
+			tiv_map.recycleBitmaps();
+			bm = BitmapFactory.decodeResource(getResources(), currentCampus == Campus.ZENTRUM
+					? R.drawable.zentrum
+					: R.drawable.hoengg);
+			tiv_map.setImage(bm);
+			tiv_map.centerImage();
+			Map<String, Point> buildingsLocations = currentCampus == Campus.ZENTRUM
+					? Building.buildingLocationsCenter
+					: Building.buildingLocationsHoengg;
+			markers.clear();
+			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
+				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT,
+						bLoc.getKey(), buildingClickListener));
+			}
+			tiv_map.updateMarkers();
+			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
+			break;
+		case DETAILED:
+			tiv_map.recycleBitmaps();
+			tiv_map.setImage(MapCache.getMap(currentFloor, this));
+			tiv_map.centerImage();
+			updateAPMarkers();
+			break;
+		}
+	}
+
+	/**
+	 * Updates the list of the room spinner in the rooms dialog
+	 * 
+	 * @param v
+	 *            View where to find the spinners
+	 * @param rooms
+	 *            List of rooms to put into the dropdown list of the spinner
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateRoomsList(View v, List<Room> rooms) {
+		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+
+		ArrayAdapter<String> sa;
+
+		// update building spinner
+		spn_building.setClickable(true);
+
+		// update floor spinner
+		spn_floor.setClickable(true);
+
+		// update room spinner
+		sa = (ArrayAdapter<String>) spn_room.getAdapter();
+		sa.clear();
+		for (Room r : rooms) {
+			sa.add(r.getName());
+		}
+		sa.sort(new StringComparator());
+		sa.notifyDataSetChanged();
+		spn_room.setClickable(true);
+	}
+
+	/**
 	 * Creates the rooms dialog
 	 */
 	@Override
@@ -478,56 +644,6 @@ public class SurvivalGuideActivity extends Activity {
 		return null;
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.mni_rooms:
-			showDialog(R.layout.room_dialog);
-			break;
-		case R.id.mni_dummy_data:
-			loadTestData();
-			break;
-		case R.id.mni_aps:
-			showDialog(R.layout.aps_dialog);
-			break;
-		case R.id.mni_snapshot_name:
-			showDialog(R.layout.snapshot_dialog);
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public Object onRetainNonConfigurationInstance() {
-		if (visibleNetworks != null)
-			return visibleNetworks;
-		return super.onRetainNonConfigurationInstance();
-	}
-
-	private void loadTestData() {
-		List<WifiReading> readings = SnapshotCache.getRandomSnapshot(this);
-		if (readings != null) {
-			showReadings(readings);
-
-			// Old location button functionality
-			Location locRes;
-			try {
-				locRes = Location.getFromReadings(readings);
-				updateLocation(locRes);
-			} catch (Exception e) {
-				U.showException(TAG, e);
-			}
-		} else {
-			U.showToast("Could not load test data.");
-		}
-	}
-
 	void showReadings(final List<WifiReading> readings) {
 		visibleNetworks.clear();
 		visibleNetworks.addAll(readings);
@@ -536,158 +652,22 @@ public class SurvivalGuideActivity extends Activity {
 	}
 
 	/**
-	 * Updates the list of the building spinner in the rooms dialog
-	 * 
-	 * @param v
-	 *            View where to find the spinners
-	 * @param buildings
-	 *            List of buildings to put into the dropdown list of the spinner
+	 * updates the location according to the wifi data
 	 */
-	@SuppressWarnings("unchecked")
-	private void updateBuildingsList(View v, List<Building> buildings) {
-		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
-		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
-		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+	void updateLocation(Location location) {
+		// this.currentLocation = location;
+		// this.currentFloor = currentLocation.getRoom().getFloor();
+		// this.currentBuilding = currentFloor.getBuilding();
+		// setMode(Mode.LOCATION);
 
-		// update building spinner
-		ArrayAdapter<String> sa = (ArrayAdapter<String>) spn_building.getAdapter();
-		sa.clear();
-		for (Building b : buildings) {
-			sa.add(b.getName());
+		Map<String, AccessPoint> aps = location.getAps();
+		for (WifiReading reading : visibleNetworks) {
+			reading.ap = aps.get(reading.mac);
 		}
-		sa.sort(new StringComparator());
-		sa.notifyDataSetChanged();
-		spn_building.setClickable(true);
-
-		// update floor spinner
-		sa = (ArrayAdapter<String>) spn_floor.getAdapter();
-		sa.clear();
-		sa.notifyDataSetChanged();
-		spn_room.setClickable(false);
-
-		// update room spinner
-		sa = (ArrayAdapter<String>) spn_room.getAdapter();
-		sa.clear();
-		sa.notifyDataSetChanged();
-		spn_room.setClickable(false);
+		wifiAdapter.notifyDataSetChanged();
 	}
 
-	/**
-	 * Updates the list of the floor spinner in the rooms dialog
-	 * 
-	 * @param v
-	 *            View where to find the spinners
-	 * @param floors
-	 *            List of floors to put into the dropdown list of the spinner
-	 */
-	@SuppressWarnings("unchecked")
-	private void updateFloorsList(View v, List<Floor> floors) {
-		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
-		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
-		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
-
-		ArrayAdapter<String> sa;
-
-		// update building spinner
-		spn_building.setClickable(true);
-
-		// update floor spinner
-		sa = (ArrayAdapter<String>) spn_floor.getAdapter();
-		sa.clear();
-		for (Floor f : floors) {
-			sa.add(f.getName());
-		}
-		sa.sort(new StringComparator());
-		sa.notifyDataSetChanged();
-		spn_floor.setClickable(true);
-
-		// update room spinner
-		sa = (ArrayAdapter<String>) spn_room.getAdapter();
-		sa.clear();
-		sa.notifyDataSetChanged();
-		spn_room.setClickable(false);
-	}
-
-	/**
-	 * Updates the list of the room spinner in the rooms dialog
-	 * 
-	 * @param v
-	 *            View where to find the spinners
-	 * @param rooms
-	 *            List of rooms to put into the dropdown list of the spinner
-	 */
-	@SuppressWarnings("unchecked")
-	private void updateRoomsList(View v, List<Room> rooms) {
-		Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
-		Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
-		Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
-
-		ArrayAdapter<String> sa;
-
-		// update building spinner
-		spn_building.setClickable(true);
-
-		// update floor spinner
-		spn_floor.setClickable(true);
-
-		// update room spinner
-		sa = (ArrayAdapter<String>) spn_room.getAdapter();
-		sa.clear();
-		for (Room r : rooms) {
-			sa.add(r.getName());
-		}
-		sa.sort(new StringComparator());
-		sa.notifyDataSetChanged();
-		spn_room.setClickable(true);
-	}
-
-	/**
-	 * Every marker that uses this handler needs to have a building identifier as name, otherwise the effects of this
-	 * method are not defined
-	 */
-	private OnMarkerClickListener buildingClickListener =
-			new OnMarkerClickListener() {
-				public void onClick(LocationMarker marker) {
-					try {
-						String buildingID = marker.getName();
-						Building b = Building.getBuilding(buildingID);
-						b.load();
-						List<Floor> floors = b.getFloors();
-						if (!floors.isEmpty()) {
-							Floor eFloor = null;
-							for (Floor floor : floors) {
-								if (floor.getName().equals("E")) {
-									eFloor = floor;
-								}
-							}
-							if (eFloor == null) {
-								eFloor = floors.get(0);
-							}
-							currentBuilding = b;
-							currentFloor = eFloor;
-							setMode(Mode.DETAILED);
-						} else {
-							U.showToast("There are no floors in this building.");
-						}
-					} catch (Exception e) {
-						U.showException(TAG, e);
-					}
-				}
-			};
-			
 	private class MainUiListener implements OnClickListener, OnCheckedChangeListener {
-		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.tgl_scan:
-				toggleLocationScanning();
-				break;
-			case R.id.rbt_eth_center:
-			case R.id.rbt_eth_hoengg:
-				setMode(Mode.OVERVIEW);
-				break;
-			}
-		}
-
 		public void onCheckedChanged(RadioGroup group, int checkedID) {
 			View v = (View) group.getParent().getParent();
 			switch (checkedID) {
@@ -710,8 +690,25 @@ public class SurvivalGuideActivity extends Activity {
 				break;
 			}
 		}
+
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.tgl_scan:
+				toggleLocationScanning();
+				break;
+			case R.id.rbt_eth_center:
+			case R.id.rbt_eth_hoengg:
+				setMode(Mode.OVERVIEW);
+				break;
+			}
+		}
 	}
-	
+
+	private enum Mode {
+		OVERVIEW,
+		DETAILED
+	}
+
 	private class RoomDialogListener implements OnCheckedChangeListener, OnItemSelectedListener {
 		public void onCheckedChanged(RadioGroup group, int checkedID) {
 			View v = (View) group.getParent().getParent();
@@ -745,7 +742,7 @@ public class SurvivalGuideActivity extends Activity {
 				break;
 			}
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			View v = (View) parent.getParent().getParent();
@@ -791,7 +788,7 @@ public class SurvivalGuideActivity extends Activity {
 				break;
 			}
 		}
-		
+
 		public void onNothingSelected(AdapterView<?> parent) {
 			switch (parent.getId()) {
 			case R.id.spn_building:
