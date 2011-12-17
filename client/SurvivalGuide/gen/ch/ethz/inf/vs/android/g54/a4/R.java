@@ -32,11 +32,10 @@ public final class R {
         public static final int linearLayout1=0x7f06000f;
         public static final int linearLayout2=0x7f060014;
         public static final int lst_aps=0x7f060003;
-        public static final int mni_aps=0x7f060020;
+        public static final int mni_aps=0x7f06001f;
         public static final int mni_dummy_data=0x7f06001e;
-        public static final int mni_map=0x7f06001f;
         public static final int mni_rooms=0x7f06001d;
-        public static final int mni_snapshot_name=0x7f060021;
+        public static final int mni_snapshot_name=0x7f060020;
         public static final int rbt_eth_center=0x7f060006;
         public static final int rbt_eth_hoengg=0x7f060007;
         public static final int rbt_rm_eth_all=0x7f060013;
