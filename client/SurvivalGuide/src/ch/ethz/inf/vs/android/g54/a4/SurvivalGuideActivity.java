@@ -165,21 +165,17 @@ public class SurvivalGuideActivity extends Activity {
 			}
 
 			markers = new ArrayList<LocationMarker>();
-			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
 
-			OnSizeChangedListener hideOnce = new OnSizeChangedListener() {
+			// the TouchImageView has to have a defined size before updating the map
+			OnSizeChangedListener updateMapOnce = new OnSizeChangedListener() {
 				public void onSizeChanged(int viewWidth, int viewHeight) {
-					// tiv_map.setVisibility(View.GONE);
 					updateMap();
 					tiv_map.setOnSizeChangedListener(null);
 				}
 			};
 
-			tiv_map.setOnSizeChangedListener(hideOnce);
-			// tiv_map.setImage(bm);
+			tiv_map.setOnSizeChangedListener(updateMapOnce);
 			tiv_map.setMarkers(markers);
-			// tiv_map.updateMarkers();
-			// tiv_map.centerZoomPoint(200, 200);
 
 			if (visibleNetworks == null)
 				visibleNetworks = new ArrayList<WifiReading>();
@@ -352,24 +348,25 @@ public class SurvivalGuideActivity extends Activity {
 		markers.clear();
 
 		float blueHue = 240;
-		float greenHue = 120;
 		float orangeHue = 30;
 		for (WifiReading reading : visibleNetworks) {
 			if (reading.ap != null) {
 				Coordinate coords = reading.ap.getCoordinate();
 				int s = reading.signal;
 				float saturation;
+				// since values better than -60 dBm are rare, let them use only a small part of the scale
 				if (s < -60)
-					saturation = (s + 100) * 0.02f;
+					saturation = (s + 100) * 0.03f;
 				else
-					saturation = (s + 60) * 0.005f + 0.8f;
+					saturation = (s + 60) * 0.005f + 0.3f;
 				// FIXME
 				int blueish = Color.HSVToColor(new float[] { blueHue, saturation, 1 });
-				int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation, 1 });
-				int greenish = Color.HSVToColor(new float[] { greenHue, saturation, 1 });
-				markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
-				// markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
-				// markers.add(new LocationMarker(coords.toPoint(), 80, greenish, reading.mac));
+				int orangeish = Color.HSVToColor(new float[] { orangeHue, saturation / 2, 1 });
+				if (reading.ap.getQualifiedFloor().equals(currentFloor.toString())) {
+					markers.add(new LocationMarker(coords.toPoint(), 100, blueish, reading.mac));
+				} else {
+					markers.add(new LocationMarker(coords.toPoint(), 120, orangeish, reading.mac));
+				}
 			}
 		}
 
