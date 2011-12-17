@@ -683,7 +683,6 @@ public class SurvivalGuideActivity extends Activity {
 
 	private class MainUiListener implements OnClickListener, OnCheckedChangeListener {
 		public void onCheckedChanged(RadioGroup group, int checkedID) {
-			View v = (View) group.getParent().getParent();
 			switch (checkedID) {
 			case R.id.rbt_eth_center:
 				// from main.xml
@@ -692,15 +691,6 @@ public class SurvivalGuideActivity extends Activity {
 			case R.id.rbt_eth_hoengg:
 				// from main.xml
 				setCampus(Campus.HOENGG);
-				break;
-			case R.id.rbt_rm_eth_center:
-				// from room_dialog.xml
-				try {
-					List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
-					updateBuildingsList(v, buildings);
-				} catch (Exception e) {
-					U.postException(handler, TAG, e);
-				}
 				break;
 			}
 		}
@@ -731,13 +721,13 @@ public class SurvivalGuideActivity extends Activity {
 
 	private class RoomDialogListener implements OnCheckedChangeListener, OnItemSelectedListener {
 		public void onCheckedChanged(RadioGroup group, int checkedID) {
-			View v = (View) group.getParent().getParent();
+			View roomDialogView = (View) group.getParent().getParent();
 			switch (checkedID) {
 			case R.id.rbt_rm_eth_center:
 				// from room_dialog.xml
 				try {
 					List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
-					updateBuildingsList(v, buildings);
+					updateBuildingsList(roomDialogView, buildings);
 				} catch (Exception e) {
 					U.postException(handler, TAG, e);
 				}
@@ -746,7 +736,7 @@ public class SurvivalGuideActivity extends Activity {
 				// from room_dialog.xml
 				try {
 					List<Building> buildings = Building.getBuildings(Campus.HOENGG);
-					updateBuildingsList(v, buildings);
+					updateBuildingsList(roomDialogView, buildings);
 				} catch (Exception e) {
 					U.postException(handler, TAG, e);
 				}
@@ -755,7 +745,7 @@ public class SurvivalGuideActivity extends Activity {
 				// from room_dialog.xml
 				try {
 					List<Building> buildings = Building.getAllBuildings();
-					updateBuildingsList(v, buildings);
+					updateBuildingsList(roomDialogView, buildings);
 				} catch (Exception e) {
 					U.postException(handler, TAG, e);
 				}
