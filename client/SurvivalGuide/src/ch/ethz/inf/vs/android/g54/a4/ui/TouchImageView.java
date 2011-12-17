@@ -19,6 +19,8 @@ package ch.ethz.inf.vs.android.g54.a4.ui;
 
 import java.util.List;
 
+import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnMarkerClickListener;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -334,8 +336,7 @@ public class TouchImageView extends ImageView {
 		}
 
 		if (closestMarker != null) {
-			ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener onClickListener = closestMarker
-					.getOnClickListener();
+			OnMarkerClickListener onClickListener = closestMarker.getOnClickListener();
 			if (onClickListener != null) {
 				onClickListener.onClick(closestMarker);
 			}

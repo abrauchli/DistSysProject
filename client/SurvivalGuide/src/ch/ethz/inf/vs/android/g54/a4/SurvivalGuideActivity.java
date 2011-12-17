@@ -60,6 +60,7 @@ import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
 import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker;
+import ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnMarkerClickListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
@@ -67,8 +68,7 @@ import ch.ethz.inf.vs.android.g54.a4.util.MapCache;
 import ch.ethz.inf.vs.android.g54.a4.util.SnapshotCache;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
-public class SurvivalGuideActivity extends Activity implements OnClickListener,
-		OnCheckedChangeListener, OnItemSelectedListener {
+public class SurvivalGuideActivity extends Activity {
 
 	// collect wifi snapshots to enable testing when not at ETH
 	protected static final boolean COLLECT_SNAPSHOTS = false;
@@ -77,11 +77,14 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	private static final int LOCATION_MARKER_RADIUS = 20;
 	private static final String TAG = "SurvivalGuideActivity";
 
+	private final MainUiListener mainUiListener = new MainUiListener();
+	private final RoomDialogListener roomDialogListener = new RoomDialogListener();
+
 	private enum Mode {
 		OVERVIEW,
 		DETAILED
 	}
-
+	
 	protected String snapshotName = "snapshot";
 
 	private Mode mode;
@@ -327,13 +330,12 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
 			RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 
-			tgl_scan.setOnClickListener(this);
-			grp_campus.setOnCheckedChangeListener(this);
+			tgl_scan.setOnClickListener(mainUiListener);
+			grp_campus.setOnCheckedChangeListener(mainUiListener);
 			for (int i = 0; i < grp_campus.getChildCount(); i++) {
 				RadioButton rbt = (RadioButton) grp_campus.getChildAt(i);
-				rbt.setOnClickListener(this);
+				rbt.setOnClickListener(mainUiListener);
 			}
-			grp_campus.setOnClickListener(this);
 
 			markers = new ArrayList<LocationMarker>();
 			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
@@ -390,7 +392,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 			// initialize radio buttons
 			RadioGroup grp_rm_campus = (RadioGroup) room_dialog.findViewById(R.id.grp_rm_campus);
-			grp_rm_campus.setOnCheckedChangeListener(this);
+			grp_rm_campus.setOnCheckedChangeListener(roomDialogListener);
 
 			// initialize spinners
 			List<String> buildings = new ArrayList<String>();
@@ -403,7 +405,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					buildings);
 			buildingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spn_building.setAdapter(buildingAdapter);
-			spn_building.setOnItemSelectedListener(this);
+			spn_building.setOnItemSelectedListener(roomDialogListener);
 			spn_building.setClickable(false);
 
 			// initialize floor spinner
@@ -412,7 +414,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					floors);
 			floorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spn_floor.setAdapter(floorAdapter);
-			spn_floor.setOnItemSelectedListener(this);
+			spn_floor.setOnItemSelectedListener(roomDialogListener);
 			spn_floor.setClickable(false);
 
 			// initialize room spinner
@@ -421,7 +423,7 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					rooms);
 			roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spn_room.setAdapter(roomAdapter);
-			spn_room.setOnItemSelectedListener(this);
+			spn_room.setOnItemSelectedListener(roomDialogListener);
 			spn_room.setClickable(false);
 
 			return new AlertDialog.Builder(SurvivalGuideActivity.this)
@@ -508,18 +510,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		return super.onRetainNonConfigurationInstance();
 	}
 
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.tgl_scan:
-			toggleLocationScanning();
-			break;
-		case R.id.rbt_eth_center:
-		case R.id.rbt_eth_hoengg:
-			setMode(Mode.OVERVIEW);
-			break;
-		}
-	}
-
 	private void loadTestData() {
 		List<WifiReading> readings = SnapshotCache.getRandomSnapshot(this);
 		if (readings != null) {
@@ -543,122 +533,6 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		visibleNetworks.addAll(readings);
 		Collections.sort(visibleNetworks, WifiReading.bySignal);
 		wifiAdapter.notifyDataSetChanged();
-	}
-
-	/**
-	 * From implementing OnCheckedChangeListener
-	 * 
-	 * Listens to changes of radio buttons
-	 */
-	public void onCheckedChanged(RadioGroup group, int checkedID) {
-		View v = (View) group.getParent().getParent();
-		switch (checkedID) {
-		case R.id.rbt_eth_center:
-			// from main.xml
-			setCampus(Campus.ZENTRUM);
-			break;
-		case R.id.rbt_eth_hoengg:
-			// from main.xml
-			setCampus(Campus.HOENGG);
-			break;
-		case R.id.rbt_rm_eth_center:
-			// from room_dialog.xml
-			try {
-				List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
-				updateBuildingsList(v, buildings);
-			} catch (Exception e) {
-				U.postException(handler, TAG, e);
-			}
-			break;
-		case R.id.rbt_rm_eth_hoengg:
-			// from room_dialog.xml
-			try {
-				List<Building> buildings = Building.getBuildings(Campus.HOENGG);
-				updateBuildingsList(v, buildings);
-			} catch (Exception e) {
-				U.postException(handler, TAG, e);
-			}
-			break;
-		case R.id.rbt_rm_eth_all:
-			// from room_dialog.xml
-			try {
-				List<Building> buildings = Building.getAllBuildings();
-				updateBuildingsList(v, buildings);
-			} catch (Exception e) {
-				U.postException(handler, TAG, e);
-			}
-			break;
-		}
-	}
-
-	/**
-	 * From implementing OnItemSelectedListener
-	 * 
-	 * Manages clicks on buildings/floors/rooms in the rooms dialog
-	 */
-	@SuppressWarnings("unchecked")
-	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-		View v = (View) parent.getParent().getParent();
-		ArrayAdapter<String> sa;
-		Building b;
-		Floor f;
-		switch (parent.getId()) {
-		case R.id.spn_building:
-			Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
-			sa = (ArrayAdapter<String>) spn_building.getAdapter();
-			selectedBuilding = sa.getItem(position);
-			selectedFloor = "";
-			selectedRoom = "";
-
-			b = Building.getBuilding(selectedBuilding);
-			try {
-				b.load(); // only loads if needed
-				updateFloorsList(v, b.getFloors());
-			} catch (Exception e) {
-				U.postException(handler, TAG, e);
-			}
-			break;
-		case R.id.spn_floor:
-			Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
-			sa = (ArrayAdapter<String>) spn_floor.getAdapter();
-			selectedFloor = sa.getItem(position);
-			selectedRoom = "";
-
-			b = Building.getBuilding(selectedBuilding); // building is already loaded
-			f = Floor.getFloor(b, selectedFloor);
-			try {
-				f.load(); // only loads if needed
-				List<Room> rooms = f.getRooms();
-				updateRoomsList(v, rooms);
-			} catch (Exception e) {
-				U.postException(handler, TAG, e);
-			}
-			break;
-		case R.id.spn_room:
-			Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
-			sa = (ArrayAdapter<String>) spn_room.getAdapter();
-			selectedRoom = sa.getItem(position);
-			break;
-		}
-	}
-
-	/**
-	 * From implementing OnItemSelectedListener
-	 * 
-	 * Manages clicks on buildings/floors/rooms in the rooms dialog
-	 */
-	public void onNothingSelected(AdapterView<?> parent) {
-		switch (parent.getId()) {
-		case R.id.spn_building:
-			selectedBuilding = "";
-			break;
-		case R.id.spn_floor:
-			selectedFloor = "";
-			break;
-		case R.id.spn_room:
-			selectedRoom = "";
-			break;
-		}
 	}
 
 	/**
@@ -771,8 +645,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 	 * Every marker that uses this handler needs to have a building identifier as name, otherwise the effects of this
 	 * method are not defined
 	 */
-	private ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener buildingClickListener =
-			new ch.ethz.inf.vs.android.g54.a4.ui.LocationMarker.OnClickListener() {
+	private OnMarkerClickListener buildingClickListener =
+			new OnMarkerClickListener() {
 				public void onClick(LocationMarker marker) {
 					try {
 						String buildingID = marker.getName();
@@ -800,6 +674,138 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					}
 				}
 			};
+			
+	private class MainUiListener implements OnClickListener, OnCheckedChangeListener {
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.tgl_scan:
+				toggleLocationScanning();
+				break;
+			case R.id.rbt_eth_center:
+			case R.id.rbt_eth_hoengg:
+				setMode(Mode.OVERVIEW);
+				break;
+			}
+		}
+
+		public void onCheckedChanged(RadioGroup group, int checkedID) {
+			View v = (View) group.getParent().getParent();
+			switch (checkedID) {
+			case R.id.rbt_eth_center:
+				// from main.xml
+				setCampus(Campus.ZENTRUM);
+				break;
+			case R.id.rbt_eth_hoengg:
+				// from main.xml
+				setCampus(Campus.HOENGG);
+				break;
+			case R.id.rbt_rm_eth_center:
+				// from room_dialog.xml
+				try {
+					List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
+					updateBuildingsList(v, buildings);
+				} catch (Exception e) {
+					U.postException(handler, TAG, e);
+				}
+				break;
+			}
+		}
+	}
+	
+	private class RoomDialogListener implements OnCheckedChangeListener, OnItemSelectedListener {
+		public void onCheckedChanged(RadioGroup group, int checkedID) {
+			View v = (View) group.getParent().getParent();
+			switch (checkedID) {
+			case R.id.rbt_rm_eth_center:
+				// from room_dialog.xml
+				try {
+					List<Building> buildings = Building.getBuildings(Campus.ZENTRUM);
+					updateBuildingsList(v, buildings);
+				} catch (Exception e) {
+					U.postException(handler, TAG, e);
+				}
+				break;
+			case R.id.rbt_rm_eth_hoengg:
+				// from room_dialog.xml
+				try {
+					List<Building> buildings = Building.getBuildings(Campus.HOENGG);
+					updateBuildingsList(v, buildings);
+				} catch (Exception e) {
+					U.postException(handler, TAG, e);
+				}
+				break;
+			case R.id.rbt_rm_eth_all:
+				// from room_dialog.xml
+				try {
+					List<Building> buildings = Building.getAllBuildings();
+					updateBuildingsList(v, buildings);
+				} catch (Exception e) {
+					U.postException(handler, TAG, e);
+				}
+				break;
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			View v = (View) parent.getParent().getParent();
+			ArrayAdapter<String> sa;
+			Building b;
+			Floor f;
+			switch (parent.getId()) {
+			case R.id.spn_building:
+				Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
+				sa = (ArrayAdapter<String>) spn_building.getAdapter();
+				selectedBuilding = sa.getItem(position);
+				selectedFloor = "";
+				selectedRoom = "";
+
+				b = Building.getBuilding(selectedBuilding);
+				try {
+					b.load(); // only loads if needed
+					updateFloorsList(v, b.getFloors());
+				} catch (Exception e) {
+					U.postException(handler, TAG, e);
+				}
+				break;
+			case R.id.spn_floor:
+				Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
+				sa = (ArrayAdapter<String>) spn_floor.getAdapter();
+				selectedFloor = sa.getItem(position);
+				selectedRoom = "";
+
+				b = Building.getBuilding(selectedBuilding); // building is already loaded
+				f = Floor.getFloor(b, selectedFloor);
+				try {
+					f.load(); // only loads if needed
+					List<Room> rooms = f.getRooms();
+					updateRoomsList(v, rooms);
+				} catch (Exception e) {
+					U.postException(handler, TAG, e);
+				}
+				break;
+			case R.id.spn_room:
+				Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
+				sa = (ArrayAdapter<String>) spn_room.getAdapter();
+				selectedRoom = sa.getItem(position);
+				break;
+			}
+		}
+		
+		public void onNothingSelected(AdapterView<?> parent) {
+			switch (parent.getId()) {
+			case R.id.spn_building:
+				selectedBuilding = "";
+				break;
+			case R.id.spn_floor:
+				selectedFloor = "";
+				break;
+			case R.id.spn_room:
+				selectedRoom = "";
+				break;
+			}
+		}
+	}
 
 	private class StringComparator implements Comparator<String> {
 		public int compare(String lhs, String rhs) {
