@@ -32,6 +32,7 @@ public class LocationThread extends Thread {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			context.unregisterReceiver(scanReceiver);
 			List<ScanResult> results = wifi.getScanResults();
 			List<WifiReading> readings = new ArrayList<WifiReading>();
 			for (ScanResult result : results) {
@@ -67,11 +68,11 @@ public class LocationThread extends Thread {
 		if (isInterrupted()) {
 			stopPeriodicScan();
 		}
+		context.registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		wifi.startScan();
 	}
 
 	private void startPeriodicScan() {
-		context.registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		periodicScanTimer.schedule(
 				new TimerTask() {
 					@Override
@@ -85,7 +86,6 @@ public class LocationThread extends Thread {
 	}
 
 	private void stopPeriodicScan() {
-		context.unregisterReceiver(scanReceiver);
 		periodicScanTimer.cancel();
 	}
 
