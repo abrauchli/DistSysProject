@@ -668,8 +668,12 @@ public class SurvivalGuideActivity extends Activity {
 	void updateLocation(Location location) {
 		this.currentLocation = location;
 		if (scanningMode == ScanningMode.AUTOMATIC) {
-			this.currentFloor = currentLocation.getRoom().getFloor();
-			this.currentBuilding = currentFloor.getBuilding();
+			if (currentLocation.getRoom() != null) {
+				this.currentFloor = currentLocation.getRoom().getFloor();
+				this.currentBuilding = currentFloor.getBuilding();
+				setCampus(currentBuilding.getAddress().getCampus());
+				updateMap();
+			}
 		}
 
 		Map<String, AccessPoint> aps = location.getAps();
