@@ -669,10 +669,11 @@ public class SurvivalGuideActivity extends Activity {
 	 * updates the location according to the wifi data
 	 */
 	void updateLocation(Location location) {
-		// this.currentLocation = location;
-		// this.currentFloor = currentLocation.getRoom().getFloor();
-		// this.currentBuilding = currentFloor.getBuilding();
-		// setMode(Mode.LOCATION);
+		this.currentLocation = location;
+		if (scanningMode == ScanningMode.AUTOMATIC) {
+			this.currentFloor = currentLocation.getRoom().getFloor();
+			this.currentBuilding = currentFloor.getBuilding();
+		}
 
 		Map<String, AccessPoint> aps = location.getAps();
 		for (WifiReading reading : visibleNetworks) {
