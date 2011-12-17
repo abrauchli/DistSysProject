@@ -280,14 +280,20 @@ public class SurvivalGuideActivity extends Activity {
 		RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 		switch (grp_campus.getCheckedRadioButtonId()) {
 		case R.id.rbt_eth_center:
-			// TODO helandre: comment
+			// if the current campus is hoengg, but the checked radio button is center
+			// (happens if we set the campus not with the buttons, e.g. when location changes)
+			// we now need to check center, or else the current campus and the checked
+			// button would be inconsistent
 			if (currentCampus.equals(Campus.HOENGG)) {
 				RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
 				rbt_eth_center.setChecked(true);
 			}
 			break;
 		case R.id.rbt_eth_hoengg:
-			// TODO helandre: comment
+			// if the current campus is center, but the checked radio button is hoengg
+			// (happens if we set the campus not with the buttons, e.g. when location changes)
+			// we now need to check center, or else the current campus and the checked
+			// button would be inconsistent
 			if (currentCampus.equals(Campus.ZENTRUM)) {
 				RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
 				rbt_eth_hoengg.setChecked(true);
