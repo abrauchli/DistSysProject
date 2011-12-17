@@ -64,6 +64,7 @@ import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.MapCache;
+import ch.ethz.inf.vs.android.g54.a4.util.SnapshotCache;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
