@@ -28,17 +28,11 @@ import java.util.Random;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -75,7 +69,6 @@ import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView;
 import ch.ethz.inf.vs.android.g54.a4.ui.TouchImageView.OnSizeChangedListener;
 import ch.ethz.inf.vs.android.g54.a4.ui.WifiReadingArrayAdapter;
 import ch.ethz.inf.vs.android.g54.a4.util.MapCache;
-import ch.ethz.inf.vs.android.g54.a4.util.SnapshotCache;
 import ch.ethz.inf.vs.android.g54.a4.util.U;
 
 public class SurvivalGuideActivity extends Activity implements OnClickListener,
@@ -157,18 +150,19 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 		switch (grp_campus.getCheckedRadioButtonId()) {
 		case R.id.rbt_eth_center:
+			// TODO helandre: comment
 			if (currentCampus.equals(Campus.HOENGG)) {
 				RadioButton rbt_eth_center = (RadioButton) findViewById(R.id.rbt_eth_center);
 				rbt_eth_center.setChecked(true);
 			}
 			break;
 		case R.id.rbt_eth_hoengg:
+			// TODO helandre: comment
 			if (currentCampus.equals(Campus.ZENTRUM)) {
 				RadioButton rbt_eth_hoengg = (RadioButton) findViewById(R.id.rbt_eth_hoengg);
 				rbt_eth_hoengg.setChecked(true);
 			}
 		}
-		updateMap();
 	}
 
 	/**
@@ -202,9 +196,8 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 					: Building.buildingLocationsHoengg;
 			markers.clear();
 			for (Map.Entry<String, Point> bLoc : buildingsLocations.entrySet()) {
-				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT, bLoc
-						.getKey(),
-						buildingClickListener));
+				markers.add(new LocationMarker(bLoc.getValue(), BUILDING_MARKER_RADIUS, Color.TRANSPARENT,
+						bLoc.getKey(), buildingClickListener));
 			}
 			tiv_map.updateMarkers();
 			tiv_map.centerZoomPoint(buildingsLocations.get(currentCampus == Campus.ZENTRUM ? "HG" : "HPH"));
@@ -267,13 +260,13 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 			if (r != null) {
 				Coordinate center = r.getRoomCenter();
 				if (center != null) {
-					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED, "Your approximate location"));
+					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED,
+							"Your approximate location"));
 					tiv_map.centerZoomPoint(center.toPoint());
 				} else {
 					tiv_map.centerImage();
 				}
-			} 
-			
+			}
 		}
 
 		tiv_map.updateMarkers();
@@ -339,6 +332,11 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 
 			tgl_scan.setOnClickListener(this);
 			grp_campus.setOnCheckedChangeListener(this);
+			for (int i = 0; i < grp_campus.getChildCount(); i++) {
+				RadioButton rbt = (RadioButton) grp_campus.getChildAt(i);
+				rbt.setOnClickListener(this);
+			}
+			grp_campus.setOnClickListener(this);
 
 			markers = new ArrayList<LocationMarker>();
 			// Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hg_e);
@@ -517,6 +515,10 @@ public class SurvivalGuideActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.tgl_scan:
 			toggleLocationScanning();
+			break;
+		case R.id.rbt_eth_center:
+		case R.id.rbt_eth_hoengg:
+			setMode(Mode.OVERVIEW);
 			break;
 		}
 	}
