@@ -12,9 +12,54 @@ Our Android application is divided into different packages, each dedicated to a 
 \todo{TODO: Andy, Andrea}
 The network library serves as abstraction of the server's functions. All communications happen transparently to the clients (View / Controller) through asynchronous calls, allowing non-blocking loading. The model classes describe the logical structuring of the server's information in the form of lazy objects. Thus a Building object holds a reference to a possibly not yet loaded Floor object. The state of an object can be queried through the isLoaded() method and should it be necessary load its contents through the loadAsync(handler) method. The android handler will be served a message when the object is ready. All these lazy objects inherit from the LazyObject class and share the loading and caching mechanisms.
 
+Additionally to the location objects Building, Floor and Room are methods on the Building and Floor classes to query for free rooms constrained by building, floor and/or time. The request is sent to the server and results in a JSON Array of available rooms.
+
 \subsection{User Interface}
 \todo{TODO: Steven}
 
-\subsubsection{MapView}
+\subsection{Wireless scanner}
+When the checkbox is set, a separate thread is spawned that calls the android framework for a scan of nearby access points. This list, along with the associated signal strenghts are then sent to the server via a JSON request. The server then sends back a JSON Object of the location stating building, floor and possibly the room along with a map and pixel coordinates on where to place the position marker. Since the scanner thread is different from the UI thread, the request is not done asynchronously - unlike the other requests. The scanner thread then calls for the UI thread to update the position.
+
+\subsubsection{TouchImageView}
 \todo{TODO: Marc}
-The MapView displays floor maps of ETH buildings and location markers. Latter are used to display the current position of the app client and the positon of WiFi access points. We considered many different implementations, but in the end rejected most of them. Our first try was to extend a WebView, because it natively can be scrolled and zoomed. The location markers would have been shown through web technologies such as HTML and JavaScript. The problem of this approach is to get positions of a click. That's why we have rejected it. Second try was a custom view with low-level touch events which worked reasonably. The location markers were directly drawn on the canvas and were clickable. But we didn't manage to get zooming working. The third and luckily last try was a total success. On stackoverflow.com\footnote{http://stackoverflow.com/a/2632722} we found a nice view displaying a picture which can be scrolled and zoomed. Aforementioned view is a extended ImageView which uses low-level touch events as well and matrices for the scrolling and zooming. Our MapView can display location markers which dynamically can be changed, updated and clicked. Furthermore the MapView can be centered in various ways including fitting in the view and centering on a specific map position. A nasty problem was hard to get rid of: OutOfMemoryExceptions due to the possibly large size of the used floor maps (e.g. 2505 * 1740 pixels for HG E) which are converted into bitmaps.
+
+\lstset{ %
+language=Java,                % the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                % will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                % also try caption instead of title
+escapeinside={\%*}{*)},         % if you want to add a comment within your code
+morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
+The TouchImageView displays maps. To these belong floor maps of ETH buildings as well as general maps of ETH buildings. Location markers, for example representing WiFi access points or the phone's current position, can be dynamically drawn on the displayed map.
+
+The requirements specification of the TouchImageView remained the same throughout the project. The TouchImageView should be able to display a map, multiple location markers and should be scrollable and zoomable. During the past few weeks we considered many different solutions but in the end rejected most of them.
+
+Our first try was to use a WebView because it natively supports scrolling and zooming. That's why the WebView in the Android developer community is often called the better ImageView. The location markers would have been shown through web technologies such as HTML and JavaScript. It is easy to get the data from the app logic to the WebView but the other way round is not so easy to achieve. For this reason we rejected it. 
+
+Second try was an extension of a custom view with low-level touch events\footnote{\url{http://bit.ly/uTiYJ1}} which worked reasonably. The location markers were dynamically added to the view as Button objects. But we didn't manage to get zooming working which is an essential item of the requirements specification. Unsurprisingly this approach was rejected.
+
+The third and luckily last try was a total success. In the internet\footnote{\url{http://stackoverflow.com/a/2632722}} we found a nice custom view displaying a picture which can be scrolled and zoomed. Aforementioned view is a extended ImageView which uses low-level touch events as well and matrices for the scrolling and zooming. Our TouchImageView is able to display location markers which dynamically can be changed, updated and clicked. Furthermore the TouchImageView can be centered in various ways including fitting the displayed map in the view and centering on a specific map position.
+
+A nasty problem was hard to get rid of: OutOfMemoryExceptions due to the possibly large size of the used floor maps (e.g. 2505 $*$ 1740 pixels for the HG E floor) which are converted into Bitmap objects. Our initial implementation copied the original Bitmap into a second mutable Bitmap which then was passed to a Canvas on which we draw the location markers. Copying one Bitmap into another seems to be a very expensive operation which often led into the aforementioned exception. Our current implementation (Listing \ref{bitmap}) creates a empty Bitmap with the same dimensions as the Bitmap to be copied. The empty Bitmap is passed to a Canvas in which the original Bitmap is drawn. Then the location markers are drawn to the Canvas.
+
+\lstinputlisting[language=Java,caption={Touch\-Image\-View\-.update\-Markers(): Im\-ple\-men\-ta\-tion of the resource-friendly Bitmap copying},label=bitmap]{bitmaps.java}
+
+Another rather difficult problem were the calculations of the click locations. The TouchImageView uses a matrix to store the position of the displayed map instead of using $x$ and $y$ coordinates. Therefore a coordinate transformation (Listing \ref{coordinate}) must be applied to the click position to get the location in the map coordinate system.
+
+\lstinputlisting[language=Java,caption={Touch\-Image\-View\-.perform\-Click(float x, float y): Im\-ple\-men\-ta\-tion of the coordinate transformation},label=coordinate]{click_coords.java}

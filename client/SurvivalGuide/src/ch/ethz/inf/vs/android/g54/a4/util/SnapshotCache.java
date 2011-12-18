@@ -42,6 +42,8 @@ public class SnapshotCache {
 	private static final String TAG = "SG SnapshotCache";
 
 	private static final String FILE_EXTENSION = "json";
+	
+	private static int counter = 0;
 
 	public static void storeSnapshot(List<WifiReading> readings, String fileName, Context c) {
 
@@ -69,6 +71,17 @@ public class SnapshotCache {
 	}
 
 	public static List<WifiReading> getRandomSnapshot(Context c) {
+		return getSnapshot(-1, c);
+	}
+
+	public static List<WifiReading> getNextSnapshot(Context c) {
+		return getSnapshot(counter++, c);
+	}
+
+	/**
+	 * Returns snapshot at index modulo the length of the list, if index is < 0, it returns a random snapshot
+	 */
+	private static List<WifiReading> getSnapshot(int index, Context c) {
 		String state = Environment.getExternalStorageState();
 
 		if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
@@ -85,11 +98,16 @@ public class SnapshotCache {
 				}
 			});
 			if (snapshotFiles.length > 0) {
-				Random rand = new Random();
-				int index = rand.nextInt(snapshotFiles.length);
+				if (index < 0) {
+					Random rand = new Random();
+					index = rand.nextInt(snapshotFiles.length);
+				} else {
+					index = index % snapshotFiles.length;
+				}
 				try {
 					// read file into a string
 					FileInputStream fstream = new FileInputStream(snapshotFiles[index]);
+					Log.d(TAG, snapshotFiles[index].getName());
 					DataInputStream in = new DataInputStream(fstream);
 					BufferedReader br = new BufferedReader(new InputStreamReader(in));
 					String fileContents = "";
@@ -97,10 +115,10 @@ public class SnapshotCache {
 					while ((strLine = br.readLine()) != null) {
 						fileContents += strLine;
 					}
-					
+
 					// make a json array out of the string
 					JSONArray json = new JSONArray(fileContents);
-					
+
 					// parse the json array
 					return jsonToReadings(json);
 				} catch (Exception e) {
