@@ -93,6 +93,8 @@ public class SurvivalGuideActivity extends Activity {
 
 	ArrayAdapter<WifiReading> wifiAdapter;
 
+	Button btn_prev_floor;
+	Button btn_next_floor;
 	TouchImageView tiv_map;
 	List<LocationMarker> markers;
 
@@ -155,9 +157,13 @@ public class SurvivalGuideActivity extends Activity {
 		try {
 			tiv_map = (TouchImageView) findViewById(R.id.tiv_map);
 			ImageButton tgl_scan = (ImageButton) findViewById(R.id.tgl_scan);
+			btn_prev_floor = (Button) findViewById(R.id.btn_prev_floor);
+			btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
 			RadioGroup grp_campus = (RadioGroup) findViewById(R.id.grp_campus);
 
 			tgl_scan.setOnClickListener(mainUiListener);
+			btn_prev_floor.setOnClickListener(mainUiListener);
+			btn_next_floor.setOnClickListener(mainUiListener);
 			grp_campus.setOnCheckedChangeListener(mainUiListener);
 			for (int i = 0; i < grp_campus.getChildCount(); i++) {
 				RadioButton rbt = (RadioButton) grp_campus.getChildAt(i);
@@ -295,6 +301,12 @@ public class SurvivalGuideActivity extends Activity {
 				rbt_eth_hoengg.setChecked(true);
 			}
 		}
+	}
+
+	private void setFloor(String floorName) {
+		currentFloor = Floor.getFloor(currentBuilding, floorName);
+		updateFloorButtons();
+		updateMap();
 	}
 
 	/**
@@ -450,7 +462,7 @@ public class SurvivalGuideActivity extends Activity {
 
 		// update button of next floor
 		Button btn_next_floor = (Button) findViewById(R.id.btn_next_floor);
-		if (currentFloorIndex < floors.size()) {
+		if (currentFloorIndex < floors.size() - 1) {
 			btn_next_floor.setText(floors.get(currentFloorIndex + 1).getName());
 			btn_next_floor.setEnabled(true);
 		} else {
@@ -518,6 +530,7 @@ public class SurvivalGuideActivity extends Activity {
 			break;
 		case DETAILED:
 			tiv_map.recycleBitmaps();
+			// FIXME NPE for floor w/o map
 			tiv_map.setImage(MapCache.getMap(currentFloor, this));
 			tiv_map.centerBitmap();
 			updateAPMarkers();
@@ -705,6 +718,12 @@ public class SurvivalGuideActivity extends Activity {
 			case R.id.rbt_eth_center:
 			case R.id.rbt_eth_hoengg:
 				setUIMode(UIMode.OVERVIEW);
+				break;
+			case R.id.btn_prev_floor:
+				setFloor(btn_prev_floor.getText().toString());
+				break;
+			case R.id.btn_next_floor:
+				setFloor(btn_next_floor.getText().toString());
 				break;
 			}
 		}
