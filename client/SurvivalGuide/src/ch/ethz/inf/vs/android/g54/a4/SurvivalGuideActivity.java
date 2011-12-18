@@ -241,6 +241,22 @@ public class SurvivalGuideActivity extends Activity {
 			return visibleNetworks;
 		return super.onRetainNonConfigurationInstance();
 	}
+	
+	private Point approximateLocation(List<AccessPoint> aps, Floor limitToFloor) {
+		int x = 0, y = 0, weight = 0;
+		for (AccessPoint ap : aps) {
+			if (ap.getQualifiedFloor().equals(limitToFloor.toString())) {
+					Point p = ap.getCoordinate().toPoint();
+					x += p.x;
+					y += p.y;
+					weight += 1;
+			}
+		}
+		if (weight == 0)
+			return null;
+		else
+			return new Point(x/weight, y/weight);
+	}
 
 	/**
 	 * Initialize the campus and set the radio buttons accordingly
@@ -360,11 +376,13 @@ public class SurvivalGuideActivity extends Activity {
 	 */
 	private void updateAPMarkers() {
 		markers.clear();
+		List<AccessPoint> aps = new ArrayList<AccessPoint>();
 
 		float blueHue = 240;
 		float orangeHue = 30;
 		for (WifiReading reading : visibleNetworks) {
 			if (reading.ap != null) {
+				aps.add(reading.ap);
 				Coordinate coords = reading.ap.getCoordinate();
 				int s = reading.signal;
 				float saturation;
@@ -384,18 +402,17 @@ public class SurvivalGuideActivity extends Activity {
 			}
 		}
 
-		if (currentLocation != null) {
-			Room r = currentLocation.getRoom();
-			if (r != null) {
-				Coordinate center = r.getRoomCenter();
-				if (center != null) {
-					markers.add(new LocationMarker(center.toPoint(), LOCATION_MARKER_RADIUS, Color.RED,
-							"Your approximate location"));
-					tiv_map.centerZoomPoint(center.toPoint());
-				} else {
-					tiv_map.centerBitmap();
-				}
+		if (currentLocation != null && currentLocation.getRoom().getFloor().equals(currentFloor)) {
+			Point approxLoc = approximateLocation(aps, currentLocation.getRoom().getFloor());
+			if (approxLoc != null) {
+				markers.add(new LocationMarker(approxLoc, LOCATION_MARKER_RADIUS, Color.RED,
+						"Your approximate location"));
+				tiv_map.centerZoomPoint(approxLoc);
+			} else {
+				tiv_map.centerBitmap();
 			}
+		} else {
+			tiv_map.centerBitmap();
 		}
 
 		tiv_map.updateMarkers();
