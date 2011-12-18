@@ -99,7 +99,6 @@ public class SurvivalGuideActivity extends Activity {
 	List<LocationMarker> markers;
 
 	List<WifiReading> visibleNetworks;
-	// TODO find a better way to save spinner selection
 	String selectedBuilding, selectedFloor, selectedRoom;
 
 	/**
@@ -530,9 +529,15 @@ public class SurvivalGuideActivity extends Activity {
 			break;
 		case DETAILED:
 			tiv_map.recycleBitmaps();
-			// FIXME NPE for floor w/o map
-			tiv_map.setImage(MapCache.getMap(currentFloor, this));
-			tiv_map.centerBitmap();
+			bm = MapCache.getMap(currentFloor, this);
+			if (bm != null) {
+				tiv_map.setImage(bm);				
+				tiv_map.centerBitmap();
+			} else {
+				U.showToast("No map available for this floor!");
+				tiv_map.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.no_map));
+				tiv_map.centerZoomBitmap();
+			}
 			updateAPMarkers();
 			break;
 		}
