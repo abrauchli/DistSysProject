@@ -9,7 +9,6 @@ Our Android application is divided into different packages, each dedicated to a 
 \end{description}
 
 \subsection{Network library and Lazy Objects}
-\todo{TODO: Andy, Andrea}
 The network library serves as abstraction of the server's functions. All communications happen transparently to the clients (View / Controller) through asynchronous calls, allowing non-blocking loading. The model classes describe the logical structuring of the server's information in the form of lazy objects. Thus a Building object holds a reference to a possibly not yet loaded Floor object. The state of an object can be queried through the isLoaded() method and should it be necessary load its contents through the loadAsync(handler) method. The android handler will be served a message when the object is ready. All these lazy objects inherit from the LazyObject class and share the loading and caching mechanisms.
 
 Additionally to the location objects Building, Floor and Room are methods on the Building and Floor classes to query for free rooms constrained by building, floor and/or time. The request is sent to the server and results in a JSON Array of available rooms.
