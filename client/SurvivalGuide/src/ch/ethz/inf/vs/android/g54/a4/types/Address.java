@@ -52,13 +52,15 @@ public class Address {
 	}
 	
 	public enum Campus {
-		HOENGG("Höngg"),
-		ZENTRUM("Zentrum"),
-		OTHER("Other");
+		HOENGG("Höngg", 0),
+		ZENTRUM("Zentrum", 1),
+		OTHER("Other", 2);
 		
 	    public final String name;
-	    Campus(String name) {
+	    public final int ordinal;
+	    Campus(String name, int ordinal) {
 	        this.name = name;
+	        this.ordinal = ordinal;
 	    }
 	}
 }

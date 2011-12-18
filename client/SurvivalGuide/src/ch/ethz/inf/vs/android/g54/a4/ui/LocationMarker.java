@@ -25,9 +25,9 @@ public class LocationMarker {
 	private int radius;
 	private int color;
 	private String name;
-	private OnMarkerClickListener onClickListener;
+	private OnClickListener onClickListener;
 
-	public LocationMarker(Point position, int radius, int color, String name, OnMarkerClickListener listener) {
+	public LocationMarker(Point position, int radius, int color, String name, OnClickListener listener) {
 		this.setPosition(position);
 		this.setRadius(radius);
 		this.setColor(color);
@@ -71,15 +71,15 @@ public class LocationMarker {
 		this.name = name;
 	}
 
-	public OnMarkerClickListener getOnClickListener() {
+	public OnClickListener getOnClickListener() {
 		return onClickListener;
 	}
 
-	public void setOnClickListener(OnMarkerClickListener onClickListener) {
+	public void setOnClickListener(OnClickListener onClickListener) {
 		this.onClickListener = onClickListener;
 	}
 
-	public interface OnMarkerClickListener {
+	public interface OnClickListener {
 		public void onClick(LocationMarker marker);
 	}
 

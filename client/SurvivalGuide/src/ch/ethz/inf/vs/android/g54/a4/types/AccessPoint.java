@@ -64,8 +64,4 @@ public class AccessPoint {
 	public String getQualifiedRoom() {
 		return String.format("%s %s %s", building, floor == null ? "" : floor, room == null ? "": room).trim();
 	}
-
-	public String getQualifiedFloor() {
-		return String.format("%s %s", building, floor == null ? "" : floor).trim();
-	}
 }

@@ -114,7 +114,7 @@ public class Building extends LazyObject {
 			}
 		}
 		if (campus != null) {
-			List<Building> filteredBuildings = buildingGroups.get(campus.ordinal());
+			List<Building> filteredBuildings = buildingGroups.get(campus.ordinal);
 			if (filteredBuildings == null) {
 				if (allBuildings == null) {
 					// get the list of all buildings
@@ -128,7 +128,7 @@ public class Building extends LazyObject {
 					}
 				}
 				// cache the list for later use
-				buildingGroups.set(campus.ordinal(), filteredBuildings);
+				buildingGroups.set(campus.ordinal, filteredBuildings);
 			}
 			return filteredBuildings;
 		} else {
