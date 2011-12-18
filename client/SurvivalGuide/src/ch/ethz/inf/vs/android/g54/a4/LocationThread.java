@@ -32,6 +32,7 @@ public class LocationThread extends Thread {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			context.unregisterReceiver(scanReceiver);
 			List<ScanResult> results = wifi.getScanResults();
 			List<WifiReading> readings = new ArrayList<WifiReading>();
 			for (ScanResult result : results) {
@@ -40,12 +41,14 @@ public class LocationThread extends Thread {
 			ui.showReadings(readings);
 			try {
 				Location locRes = Location.getFromReadings(readings);
-				ui.setLocation(locRes);
-			} catch(Exception e) {
+				ui.postUpdateLocation(locRes);
+			} catch (Exception e) {
 				// TODO: Toast to indicate server error
 				e.printStackTrace();
 			}
-			SnapshotCache.storeSnapshot(readings, "foo", ui);
+			if (SurvivalGuideActivity.COLLECT_TEST_DATA) {
+				SnapshotCache.storeSnapshot(readings, ui.snapshotName, ui);
+			}
 		}
 	}
 
@@ -65,25 +68,38 @@ public class LocationThread extends Thread {
 		if (isInterrupted()) {
 			stopPeriodicScan();
 		}
-		wifi.startScan();
+		if (!SurvivalGuideActivity.USE_TEST_DATA) {
+			context.registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+			wifi.startScan();
+		} else {
+			try {
+				List<WifiReading> readings = SnapshotCache.getNextSnapshot(context);
+				if (readings != null) {
+					scanReceiver.ui.showReadings(readings);
+					Location locRes = Location.getFromReadings(readings);
+					scanReceiver.ui.postUpdateLocation(locRes);					
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void startPeriodicScan() {
-		context.registerReceiver(scanReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		periodicScanTimer.schedule(
-		        new TimerTask() {
-			        @Override
-			        public void run() {
-				        periodicScan();
-			        }
-		        },
-		        0, // start right now
-		        1 * 60 * 1000 // every minute
-		        );
+				new TimerTask() {
+					@Override
+					public void run() {
+						periodicScan();
+					}
+				},
+				0, // start right now
+				1 * 60 * 1000 // every minute
+				);
 	}
 
 	private void stopPeriodicScan() {
-		context.unregisterReceiver(scanReceiver);
 		periodicScanTimer.cancel();
 	}
 
