@@ -2,7 +2,7 @@
 <resources>
     <string name="rooms">Rooms</string>
     <string name="app_name">SurvivalGuide</string>
-    <string name="dummy_data">Load Dummy Data</string>
+    <string name="dummy_data">Load Test Data</string>
     <string name="eth_center">Center</string>
     <string name="eth_hoengg">Hönggerberg</string>
     <string name="room_dialog_title">Choose a Room</string>
