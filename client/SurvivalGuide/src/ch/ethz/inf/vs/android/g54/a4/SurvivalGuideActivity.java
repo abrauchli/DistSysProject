@@ -33,6 +33,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,7 @@ import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -114,7 +116,7 @@ public class SurvivalGuideActivity extends Activity {
 					try {
 						String buildingID = marker.getName();
 						Building b = Building.getBuilding(buildingID);
-						b.load();
+						b.load(); // TODO: use loadAsync
 						List<Floor> floors = b.getFloors();
 						if (!floors.isEmpty()) {
 							Floor eFloor = null;
@@ -217,6 +219,34 @@ public class SurvivalGuideActivity extends Activity {
 			break;
 		case R.id.mni_snapshot_name:
 			showDialog(R.layout.snapshot_dialog);
+			break;
+		case R.id.mni_free_room:
+			Handler h = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+				    super.handleMessage(msg);
+				    if (msg.what == LazyObject.MessageStatus.FAILURE.ordinal()
+				    		|| msg.obj == null) {
+						U.showToast("Could not load free room info");
+						return;
+				    }
+				    @SuppressWarnings("unchecked")
+                    List<Room> freerooms = (List<Room>) msg.obj;
+				    if (freerooms.size() == 0) {
+				    	U.showToast("No free rooms found");
+				    } else {
+				    	U.showToast("Found "
+				    			+ freerooms.size()
+				    			+ " free rooms. Try "
+				    			+ freerooms.get(0).getId());
+				    }
+				}
+			};
+			if (this.currentFloor != null) {
+				this.currentFloor.getFreeRooms(h);
+			} else if (this.currentBuilding != null) {
+				this.currentBuilding.getFreeRooms(h);
+			}
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -335,15 +365,18 @@ public class SurvivalGuideActivity extends Activity {
 	private void setUIMode(UIMode uiMode) {
 		this.uiMode = uiMode;
 		LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
+		MenuItem mniFreeRoom = (MenuItem) findViewById(R.id.mni_free_room);
 		switch (this.uiMode) {
 		case OVERVIEW:
 			lin_building.setVisibility(View.GONE);
+			mniFreeRoom.setEnabled(false);
 			break;
 		case DETAILED:
 			lin_building.setVisibility(View.VISIBLE);
 			TextView txt_building = (TextView) findViewById(R.id.txt_building);
 			txt_building.setText(currentBuilding.getName());
 			updateFloorButtons();
+			mniFreeRoom.setEnabled(true);
 			break;
 		}
 		updateMap();
@@ -714,7 +747,7 @@ public class SurvivalGuideActivity extends Activity {
 				this.currentFloor = currentLocation.getRoom().getFloor();
 				this.currentBuilding = currentFloor.getBuilding();
 				try {
-					currentBuilding.load();
+					currentBuilding.load(); // TODO: use loadAsync()
 					setCampus(currentBuilding.getAddress().getCampus());
 				} catch (Exception e) {
 					Log.e(TAG, "Could not load building " + currentBuilding.toString(), e);
@@ -836,7 +869,7 @@ public class SurvivalGuideActivity extends Activity {
 
 				b = Building.getBuilding(selectedBuilding);
 				try {
-					b.load(); // only loads if needed
+					b.load(); // only loads if needed, TODO: use loadAsync()
 					updateFloorsList(v, b.getFloors());
 				} catch (Exception e) {
 					U.postException(handler, TAG, e);
@@ -851,7 +884,7 @@ public class SurvivalGuideActivity extends Activity {
 				b = Building.getBuilding(selectedBuilding); // building is already loaded
 				f = Floor.getFloor(b, selectedFloor);
 				try {
-					f.load(); // only loads if needed
+					f.load(); // only loads if needed, TODO: use loadAsync()
 					List<Room> rooms = f.getRooms();
 					updateRoomsList(v, rooms);
 				} catch (Exception e) {

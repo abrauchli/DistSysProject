@@ -35,6 +35,7 @@ public final class R {
         public static final int lst_aps=0x7f060003;
         public static final int mni_aps=0x7f06001f;
         public static final int mni_dummy_data=0x7f06001e;
+        public static final int mni_free_room=0x7f060021;
         public static final int mni_rooms=0x7f06001d;
         public static final int mni_snapshot_name=0x7f060020;
         public static final int rbt_eth_center=0x7f060006;
@@ -74,6 +75,7 @@ public final class R {
         public static final int eth_all=0x7f040008;
         public static final int eth_center=0x7f040003;
         public static final int eth_hoengg=0x7f040004;
+        public static final int free_rooms=0x7f04000e;
         public static final int guessed_location_title=0x7f04000b;
         public static final int room_dialog_title=0x7f040005;
         public static final int rooms=0x7f040000;
