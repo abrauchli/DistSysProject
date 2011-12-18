@@ -33,6 +33,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,7 +72,9 @@ import ch.ethz.inf.vs.android.g54.a4.util.U;
 public class SurvivalGuideActivity extends Activity {
 
 	// collect wifi snapshots to enable testing when not at ETH
-	protected static final boolean COLLECT_SNAPSHOTS = false;
+	protected static final boolean COLLECT_TEST_DATA = false;
+	// simulate getting ETH wifi data with collected snapshots when not at ETH
+	protected static final boolean USE_TEST_DATA = true;
 
 	private static final int BUILDING_MARKER_RADIUS = 100;
 	private static final int LOCATION_MARKER_RADIUS = 20;
@@ -531,7 +534,7 @@ public class SurvivalGuideActivity extends Activity {
 			tiv_map.recycleBitmaps();
 			bm = MapCache.getMap(currentFloor, this);
 			if (bm != null) {
-				tiv_map.setImage(bm);				
+				tiv_map.setImage(bm);
 				tiv_map.centerBitmap();
 			} else {
 				U.showToast("No map available for this floor!");
@@ -682,14 +685,20 @@ public class SurvivalGuideActivity extends Activity {
 
 	/**
 	 * updates the location according to the wifi data
+	 * cannot be called from another tread, use postUpdateLocation instead
 	 */
-	void updateLocation(Location location) {
+	private void updateLocation(Location location) {
 		this.currentLocation = location;
 		if (scanningMode == ScanningMode.AUTOMATIC) {
 			if (currentLocation.getRoom() != null) {
 				this.currentFloor = currentLocation.getRoom().getFloor();
 				this.currentBuilding = currentFloor.getBuilding();
-				setCampus(currentBuilding.getAddress().getCampus());
+				try {
+					currentBuilding.load();
+					setCampus(currentBuilding.getAddress().getCampus());
+				} catch (Exception e) {
+					Log.e(TAG, "Could not load building " + currentBuilding.toString(), e);
+				}
 				updateMap();
 			}
 		}
@@ -699,6 +708,18 @@ public class SurvivalGuideActivity extends Activity {
 			reading.ap = aps.get(reading.mac);
 		}
 		wifiAdapter.notifyDataSetChanged();
+	}
+
+	/**
+	 * updates the location according to the wifi data
+	 * can be called from another tread
+	 */
+	protected void postUpdateLocation(final Location location) {
+		handler.post(new Runnable() {
+			public void run() {
+				updateLocation(location);
+			}
+		});
 	}
 
 	private class MainUiListener implements OnClickListener, OnCheckedChangeListener {
