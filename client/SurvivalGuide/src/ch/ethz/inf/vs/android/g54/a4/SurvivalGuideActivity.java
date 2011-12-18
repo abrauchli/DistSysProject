@@ -231,8 +231,10 @@ public class SurvivalGuideActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (scanningMode != ScanningMode.OFF)
+		if (scanningMode != ScanningMode.OFF) {
+			locationThread = new LocationThread(this);
 			locationThread.start();
+		}
 	}
 
 	@Override
@@ -357,6 +359,7 @@ public class SurvivalGuideActivity extends Activity {
 		case OFF:
 			scanningMode = ScanningMode.BACKGROUND;
 			tgl_scan.setImageResource(R.drawable.target_on);
+			locationThread = new LocationThread(this);
 			locationThread.start();
 			break;
 		case BACKGROUND:
