@@ -113,30 +113,37 @@ public class SurvivalGuideActivity extends Activity {
 	private OnMarkerClickListener buildingClickListener =
 			new OnMarkerClickListener() {
 				public void onClick(LocationMarker marker) {
-					try {
-						String buildingID = marker.getName();
-						Building b = Building.getBuilding(buildingID);
-						b.load(); // TODO: use loadAsync
-						List<Floor> floors = b.getFloors();
-						if (!floors.isEmpty()) {
-							Floor eFloor = null;
-							for (Floor floor : floors) {
-								if (floor.getName().equals("E")) {
-									eFloor = floor;
+
+					final String buildingID = marker.getName();
+					Building b = Building.getBuilding(buildingID);
+
+					Handler h = new Handler() {
+						public void handleMessage(Message msg) {
+							if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+								Building b = (Building) msg.obj;
+								List<Floor> floors = b.getFloors();
+								if (!floors.isEmpty()) {
+									Floor eFloor = null;
+									for (Floor floor : floors) {
+										if (floor.getName().equals("E")) {
+											eFloor = floor;
+										}
+									}
+									if (eFloor == null) {
+										eFloor = floors.get(0);
+									}
+									currentBuilding = b;
+									currentFloor = eFloor;
+									setUIMode(UIMode.DETAILED);
+								} else {
+									U.showToast("There are no floors in this building.");
 								}
+							} else {
+								Log.e(TAG, "Could not load building " + buildingID);
 							}
-							if (eFloor == null) {
-								eFloor = floors.get(0);
-							}
-							currentBuilding = b;
-							currentFloor = eFloor;
-							setUIMode(UIMode.DETAILED);
-						} else {
-							U.showToast("There are no floors in this building.");
 						}
-					} catch (Exception e) {
-						U.showException(TAG, e);
-					}
+					};
+					b.loadAsync(h);
 				}
 			};
 
@@ -746,13 +753,18 @@ public class SurvivalGuideActivity extends Activity {
 			if (currentLocation.getRoom() != null) {
 				this.currentFloor = currentLocation.getRoom().getFloor();
 				this.currentBuilding = currentFloor.getBuilding();
-				try {
-					currentBuilding.load(); // TODO: use loadAsync()
-					setCampus(currentBuilding.getAddress().getCampus());
-				} catch (Exception e) {
-					Log.e(TAG, "Could not load building " + currentBuilding.toString(), e);
-				}
-				updateMap();
+				Handler h = new Handler() {
+					public void handleMessage(Message msg) {
+						if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+							Building b = (Building) msg.obj;
+							setCampus(b.getAddress().getCampus());
+							updateMap();
+						} else {
+							Log.e(TAG, "Could not load building " + currentBuilding.toString());
+						}
+					}
+				};
+				currentBuilding.loadAsync(h);
 			}
 		}
 
@@ -855,10 +867,10 @@ public class SurvivalGuideActivity extends Activity {
 
 		@SuppressWarnings("unchecked")
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			View v = (View) parent.getParent().getParent();
+			final View v = (View) parent.getParent().getParent();
 			ArrayAdapter<String> sa;
 			Building b;
-			Floor f;
+			Handler h;
 			switch (parent.getId()) {
 			case R.id.spn_building:
 				Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
@@ -868,12 +880,17 @@ public class SurvivalGuideActivity extends Activity {
 				selectedRoom = "";
 
 				b = Building.getBuilding(selectedBuilding);
-				try {
-					b.load(); // only loads if needed, TODO: use loadAsync()
-					updateFloorsList(v, b.getFloors());
-				} catch (Exception e) {
-					U.postException(handler, TAG, e);
-				}
+				h = new Handler() {
+					public void handleMessage(Message msg) {
+						if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+							Building b = (Building) msg.obj;
+							updateFloorsList(v, b.getFloors());
+						} else {
+							Log.e(TAG, "Could not load building " + currentBuilding.toString());
+						}
+					}
+				};
+				b.loadAsync(h); // only loads if needed
 				break;
 			case R.id.spn_floor:
 				Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
@@ -882,14 +899,20 @@ public class SurvivalGuideActivity extends Activity {
 				selectedRoom = "";
 
 				b = Building.getBuilding(selectedBuilding); // building is already loaded
-				f = Floor.getFloor(b, selectedFloor);
-				try {
-					f.load(); // only loads if needed, TODO: use loadAsync()
-					List<Room> rooms = f.getRooms();
-					updateRoomsList(v, rooms);
-				} catch (Exception e) {
-					U.postException(handler, TAG, e);
-				}
+				final Floor f = Floor.getFloor(b, selectedFloor);
+
+				h = new Handler() {
+					public void handleMessage(Message msg) {
+						if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+							Floor f = (Floor) msg.obj;
+							List<Room> rooms = f.getRooms();
+							updateRoomsList(v, rooms);
+						} else {
+							Log.e(TAG, "Could not load floor " + f.toString());
+						}
+					}
+				};
+				f.loadAsync(h); // only loads if needed
 				break;
 			case R.id.spn_room:
 				Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
