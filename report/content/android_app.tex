@@ -20,7 +20,6 @@ Additionally to the location objects Building, Floor and Room are methods on the
 When the checkbox is set, a separate thread is spawned that calls the android framework for a scan of nearby access points. This list, along with the associated signal strenghts are then sent to the server via a JSON request. The server then sends back a JSON Object of the location stating building, floor and possibly the room along with a map and pixel coordinates on where to place the position marker. Since the scanner thread is different from the UI thread, the request is not done asynchronously - unlike the other requests. The scanner thread then calls for the UI thread to update the position.
 
 \subsubsection{TouchImageView}
-\todo{TODO: Marc}
 
 \lstset{ %
 language=Java,                % the language of the code
