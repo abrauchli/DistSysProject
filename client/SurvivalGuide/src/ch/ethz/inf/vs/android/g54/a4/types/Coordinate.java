@@ -26,7 +26,7 @@ import android.graphics.Point;
  * Directly represents pixel coordinates (we dropped geographical coordinates for now)
  */
 public class Coordinate {
-	public final Point p;
+	private final Point p;
 
 	public Coordinate (JSONObject coord) throws JSONException {
 		this.p = new Point(coord.getInt("x"), coord.getInt("y"));
