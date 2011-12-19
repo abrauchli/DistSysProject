@@ -176,19 +176,20 @@ def parseRaumInfoWebsite(building,floor,room,date):
       day=date.day)
   return parseRaumInfoURL(s)
 
-def cacheRaumInfoResult(room, date, res):
-    print "Pushing information to cache"
+def build_id(room, date):
     year = date.year
     weeknumber = date.isocalendar()[1]
-    mid = room.building+"_"+room.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
+    return room.building.name+"_"+room.floor.name+"_"+room.number+"_"+str(year)+"_"+weeknumber
+
+def cacheRaumInfoResult(room, date, res):
+    print "Pushing information to cache"
+    mid = build_id(room, date)
     config.mongodbRoomAllocationCACHE.insert({"_id": mid, "result": res})
             
 
 def getCache(room, date):
     print "Get data from cache"
-    year = date.year
-    weeknumber = date.isocalendar()[1]
-    mid = room.building+"_"+room.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
+    mid = build_id(room, date)
     return config.mongodbRoomAllocationCACHE.find_one({"_id": mid})["result"]
 
 def getRoomAllocation(room,date=datetime.date.today()):
