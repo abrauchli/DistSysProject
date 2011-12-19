@@ -97,7 +97,7 @@ public abstract class LazyObject {
 	 * @param handler Handler that will get the success/failure message with this object
 	 */
 	public void loadAsync(final Handler handler) {
-		new Thread(new Runnable() {
+		new Thread() {
 			public void run() {
 				Message m = handler.obtainMessage();
 				m.obj = LazyObject.this;
@@ -113,6 +113,6 @@ public abstract class LazyObject {
 					handler.sendMessage(m);
 				}
 			}
-		}).run();
+		}.start();
 	}
 }
