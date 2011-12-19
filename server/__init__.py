@@ -500,7 +500,7 @@ def get_campus_buildings(campus):
 @app.route("/json",methods=['GET', 'POST'])
 def jsonRequest():
   if request.method == "POST":
-#    try: 
+    try: 
         if request.json != None:
           print "Received JSON request: ",request.json
           try: 
