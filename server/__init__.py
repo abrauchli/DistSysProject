@@ -500,6 +500,7 @@ def jsonRequest():
   if request.method == "POST":
     try: 
         if request.json != None:
+          print "Received JSON request: ",request.json
           try: 
             req = Controller.parseJSONRequest(request.json)
             return resultOkay(req)

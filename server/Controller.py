@@ -51,6 +51,8 @@ def isAllocateableRoom(room):
     return False
 
 def findFreeRoom(building,floor=None,stime=None,etime=None):
+  print "Got free room request in: ",building, " ", floor, " from: ",stime, " to: ", etime
+
   if stime == None:
     stime = 7.0
   if etime == None:
