@@ -32,7 +32,7 @@ from exception import *
 app = Flask(__name__)
 
 def resultOkay(obj):
-  print "Okay: ",obj
+#  print "Okay: ",obj
   return json.dumps(
       {
         "ok": True,
@@ -40,7 +40,7 @@ def resultOkay(obj):
       }
       )
 def resultError(message):
-  print "Error: ", message
+#  print "Error: ", message
   return json.dumps(
       {
         "ok": False,
