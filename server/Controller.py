@@ -44,9 +44,11 @@ def parseJSONRequest(req):
     except NotFoundException:
       raise
 def isAllocateableRoom(room):
-  if room.desc in config.ROOMTYPE_LEARNING:
-    return True
-  return False
+    #  if room.desc in config.ROOMTYPE_LEARNING:
+    # return True
+    if room.bookable != None:
+        return room.bookable == True:
+    return False
 
 def findFreeRoom(building,floor=None,stime=None,etime=None):
   if stime == None:
