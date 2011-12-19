@@ -181,14 +181,21 @@ def cacheRaumInfoResult(room, date, res):
     year = date.year
     weeknumber = date.isocalendar()[1]
     mid = room.building+"_"+room.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
-    config.mongodbRoomAllocationCACHE.insert({"_id": mid, "result": res})
+    try:
+        config.mongodbRoomAllocationCACHE.insert({"_id": mid, "result": res})
+    except Exception e:
+        print e
+        
 
 def getCache(room, date):
     print "Get data from cache"
     year = date.year
     weeknumber = date.isocalendar()[1]
     mid = room.building+"_"+room.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
-    return config.mongodbRoomAllocationCACHE.find_one({"_id": mid})["result"]
+    try:
+        return config.mongodbRoomAllocationCACHE.find_one({"_id": mid})["result"]
+    except Exception e:
+        print e
 
 def getRoomAllocation(room,date=datetime.date.today()):
   if type(room) != Room:
