@@ -183,13 +183,13 @@ def build_id(room, date):
     return room.building.name+"_"+room.floor.floor+"_"+room.number+"_"+str(year)+"_"+str(weeknumber)
 
 def cacheRaumInfoResult(room, date, res):
-    print "Pushing information to cache"
+#    print "Pushing information to cache"
     mid = build_id(room, date)
     config.mongodbRoomAllocationCACHE.insert({"_id": mid, "result": res})
             
 
 def getCache(room, date):
-    print "Get data from cache"
+#    print "Get data from cache"
     mid = build_id(room, date)
     res = config.mongodbRoomAllocationCACHE.find_one({"_id": mid})
     if res == None:
@@ -201,7 +201,7 @@ def getRoomAllocation(room,date=datetime.date.today()):
     raise Exception("Input has wrong type")
   res = getCache(room, date)
   if res != None:
-    print "Found: ", res
+#    print "Found: ", res
     return res
 
   building = room.building.name
