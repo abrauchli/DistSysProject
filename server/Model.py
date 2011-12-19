@@ -144,9 +144,9 @@ def fillFromRaumino():
             room = str(cols[10].renderContents())+""
             roomtype = str(cols[12].renderContents())+""
             print "bld: ",bld," floor ", floor," room ", room," type ", roomtype
-            addRoom(bld,floor,room,roomtype)
-            r = findRoom(bld,floor,room)
-            r.bookable = True
+            addRoom(bld,floor,rows,roomtype)
+#            r = findRoom(bld,floor,room)
+#            r.bookable = True
 
 
 
