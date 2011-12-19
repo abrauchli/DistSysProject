@@ -177,12 +177,14 @@ def parseRaumInfoWebsite(building,floor,room,date):
   return parseRaumInfoURL(s)
 
 def cacheRaumInfoResult(room, date, res):
+    print "Pushing information to cache"
     year = date.year
     weeknumber = date.isocalendar()[1]
     mid = room.building+"_"+room.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
     config.mongodbRoomAllocationCACHE.insert({"_id": mid, "result": res})
 
 def getCache(room, date):
+    print "Get data from cache"
     year = date.year
     weeknumber = date.isocalendar()[1]
     mid = room.building+"_"+room.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
@@ -193,10 +195,11 @@ def getRoomAllocation(room,date=datetime.date.today()):
     raise Exception("Input has wrong type")
   res = getCache(room, date)
   if m != None:
+    print "Found: ", m
     return res
-  building=room.building.name
-  floor=room.floor.floor
-  roomnumber =room.number
+  building = room.building.name
+  floor = room.floor.floor
+  roomnumber = room.number
   m = parseRaumInfoWebsite(building,floor,roomnumber,date)
   cacheRaumInfoResult(room, date, m)
   return m
