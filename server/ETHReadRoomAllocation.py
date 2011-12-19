@@ -19,6 +19,7 @@ import urllib
 import re
 import time
 import datetime
+import config
 from ETHRoom import Room
 from numpy import arange
 URL = "http://www.rauminfo.ethz.ch/Rauminfo/Rauminfo.do?region=Z&areal=Z&gebaeude=CHN&geschoss=D&raumNr=44&rektoratInListe=true&raumInRaumgruppe=true&tag=20&monat=Nov&jahr=2011&checkUsage=anzeigen"
