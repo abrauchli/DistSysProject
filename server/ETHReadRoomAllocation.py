@@ -191,7 +191,10 @@ def cacheRaumInfoResult(room, date, res):
 def getCache(room, date):
     print "Get data from cache"
     mid = build_id(room, date)
-    return config.mongodbRoomAllocationCACHE.find_one({"_id": mid})["result"]
+    res = config.mongodbRoomAllocationCACHE.find_one({"_id": mid})
+    if res == None:
+        return None
+    return res["result"]
 
 def getRoomAllocation(room,date=datetime.date.today()):
   if type(room) != Room:
