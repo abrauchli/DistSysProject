@@ -134,7 +134,7 @@ def fillFromRaumino():
     soup = BeautifulSoup(''.join(html))
     table = soup.findAll('table')[5]
     rows = table.findAll('tr') 
-    print table
+#    print table
     for tr in rows[2:]:
         cols = tr.findAll('td')
         if len(cols) == 15:
