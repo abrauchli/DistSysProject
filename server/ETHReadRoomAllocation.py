@@ -179,7 +179,7 @@ def parseRaumInfoWebsite(building,floor,room,date):
 def build_id(room, date):
     year = date.year
     weeknumber = date.isocalendar()[1]
-    return room.building.name+"_"+room.floor.floor+"_"+room.number+"_"+str(year)+"_"+weeknumber
+    return room.building.name+"_"+room.floor.floor+"_"+room.number+"_"+str(year)+"_"+str(weeknumber)
 
 def cacheRaumInfoResult(room, date, res):
     print "Pushing information to cache"
