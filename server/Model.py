@@ -138,8 +138,8 @@ def fillFromRauminfo():
         cols = tr.findAll('td')
         if len(cols) == 15:
 #            print cols
-            bld=cols[6].renderContents()
-            floor=cols[8].renderContents()
+            bld=str(cols[6].renderContents())
+            floor=str(cols[8].renderContents())
             room = str(cols[10].renderContents())
             roomtype = cols[12].renderContents()
 #            print "bld: "+ bld.upper()+" floor "+ floor +" room " + room.upper()+ " type "+ roomtype
