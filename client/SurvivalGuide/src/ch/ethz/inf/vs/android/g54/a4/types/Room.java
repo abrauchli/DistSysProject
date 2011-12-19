@@ -56,6 +56,16 @@ public class Room extends LazyObject {
 		return String.format("%s %s", floor.getId(), room);
 	}
 
+	/**
+	 * Parse a room description object to load additional room information
+	 * This will not set the loaded flag on this object as other informations
+	 * will still be missing.
+	 * @param floor The floor this room belongs to
+	 * @param room The room name
+	 * @param desc The description object with the "desc" string set
+	 * @return The modified room object;
+	 * @throws JSONException
+	 */
 	protected static Room parseRoom(Floor floor, String room, JSONObject desc) throws JSONException {
 		Room r = getRoom(floor, room);
 		if (!r.isLoaded()) {
@@ -64,6 +74,12 @@ public class Room extends LazyObject {
 		return r;
 	}
 
+	/**
+	 * Parse a room JSONObject into a loaded room object
+	 * @param result The room JSONObject
+	 * @return The loaded room object
+	 * @throws JSONException
+	 */
 	protected static Room parseRoom(JSONObject result) throws JSONException {
 		Building building = Building.getBuilding(result.getString("building"));
 		Floor floor = Floor.getFloor(building, result.getString("floor"));
@@ -80,6 +96,7 @@ public class Room extends LazyObject {
 			} else {
 				room.roomCenter = null;
 			}
+			room.setLoaded(true);
 		}
 		return room;
 	}
@@ -90,26 +107,8 @@ public class Room extends LazyObject {
 		Object o = req.request(String.format("/r/%s/%s/%s", floor.getBuilding().getName(), floor.getName(), this.name));
 		try {
 			JSONObject r = (JSONObject) o;
-
-			// TODO: parsing identifier tags and throw exception if they don't match input
-
-			// parse map URL
-			mapUrl = r.optString("map", null);
-
-			// parse room
-			description = r.getString("desc");
-			if (r.has("coords")) {
-				roomCenter = new Coordinate(r.getJSONObject("coords"));
-			} else {
-				roomCenter = null;
-			}
-
-			setLoaded(true);
+			Room.parseRoom(r);
 		} catch (Exception e) {
-			// TODO Don't throw away things, that were there before loading.
-			description = null;
-			roomCenter = null;
-			setLoaded(false);
 			String info = String.format(
 					"Result part of the servers response wasn't of the expected form. Request was \"/r/%s/%s/%s\".",
 					floor.getBuilding(), floor, name);

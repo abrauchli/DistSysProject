@@ -17,12 +17,15 @@
  */
 package ch.ethz.inf.vs.android.g54.a4.types;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.os.Handler;
 
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
@@ -105,6 +108,29 @@ public class Floor extends LazyObject {
 	}
 
 	/**
+	 * Gets a list of free rooms on this floor
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
+	 * @param handler Handler that will get the success/failure message with this object
+	 */
+	public void getFreeRooms(Handler h) {
+		getBuilding().getFreeRoomsAsync(this, null, null, h);
+	}
+
+	/**
+	 * Gets a list of free rooms on this floor in a given time constraint
+	 * A message will be dispatched to the handler informing of the status
+	 * In case of failure, the exception string is passed through the message key of the bundle
+	 * @param start start time constraint in quarter hours
+	 * @param end end time constraint in quarter hours
+	 * @param handler Handler that will get the success/failure message with this object
+	 */
+	public void getFreeRooms(float start, float end, Handler h) {
+		getBuilding().getFreeRoomsAsync(this, start, end, h);
+	}
+
+
+	/**
 	 * Gets a list of all rooms on this floor Make sure the object is loaded with isLoaded() before calling
 	 */
 	public List<Room> getRooms() {
@@ -126,4 +152,10 @@ public class Floor extends LazyObject {
 	public String getMapUrl() {
 		return mapUrl;
 	}
+	
+	public static Comparator<Floor> byName = new Comparator<Floor>() {
+		public int compare(Floor lhs, Floor rhs) {
+			return lhs.name.compareTo(rhs.name);
+		}
+	};
 }

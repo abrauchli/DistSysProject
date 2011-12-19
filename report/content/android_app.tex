@@ -1,18 +1,62 @@
 \section{Android Application}
-Our Android application is devided into different packages, each dedicated to a specific purpose.
-
-\todo{Andrea: update this}
+Our Android application is divided into different packages, each dedicated to a specific purpose. The separation follows the MVC model and provides a good base for the software's different parts to evolve more or less independantly from each other.
 \begin{description}
-	\item[\code{ch.ethz.inf.vs.android.g54.a4.frontend}]\hfill\\This part consists of the layout.
-	\item[\code{ch.ethz.inf.vs.android.g54.a4.net}]\hfill\\Here are all the classes concerning the communication with the server, providing an interface to the other packages for requesting information. The retrieved information is then translated into convenient objects, rather than returning just the JSON objects.
-	\item[\code{ch.ethz.inf.vs.android.g54.a4.logic}]\hfill\\In here is all the application logic and controlling, which relies on services of the other packages.
+	\item[\code{ch.ethz.inf.vs.android.g54.a4}]\hfill\\In this package are the main classes like the main activity and the location service.
+	\item[\code{ch.ethz.inf.vs.android.g54.a4.exceptions}]\hfill\\In this package we define exceptions we need to handle within our application.
+	\item[\code{ch.ethz.inf.vs.android.g54.a4.net}]\hfill\\In here we define all the communication classes. Other classes use these classes when accessing network resources.
+	\item[\code{ch.ethz.inf.vs.android.g54.a4.types}]\hfill\\Those classes define the model, with which our application is working.
+	\item[\code{ch.ethz.inf.vs.android.g54.a4.ui}]\hfill\\In this package the \code{TouchImageView} is defined.
+	\item[\code{ch.ethz.inf.vs.android.g54.a4.util}]\hfill\\In this package, some utility classes are defined, e.g. for caching data on the SD card.
 \end{description}
 
 \subsection{Network library and Lazy Objects}
-\todo{TODO: Andy, Andrea}
+The network library serves as abstraction of the server's functions. All communications happen transparently to the clients (View / Controller) through asynchronous calls, allowing non-blocking loading. The model classes describe the logical structuring of the server's information in the form of lazy objects. Thus a Building object holds a reference to a possibly not yet loaded Floor object. The state of an object can be queried through the \code{isLoaded()} method and should it be necessary load its contents through the \code{loadAsync(handler)} method. The android handler will be served a message when the object is ready. All these lazy objects inherit from the \code{LazyObject} class and share the loading and caching mechanisms.
+
+Additionally to the location objects Building, Floor and Room are methods on the Building and Floor classes to query for free rooms constrained by building, floor and/or time. The request is sent to the server and results in a JSON Array of available rooms.
+
+\subsection{Wireless scanner}
+When wireless scanning is turned on, a separate thread is spawned that calls the android framework for a scan of nearby access points. This list, along with the associated signal strenghts are then sent to the server via a JSON request. The server then sends back a JSON Object of the location stating building, floor and possibly the room along with a map and pixel coordinates on where to place the position marker. Since the scanner thread is different from the UI thread, the request is not done asynchronously - unlike the other requests. The scanner thread then calls for the UI thread to update the position.
 
 \subsection{User Interface}
 \todo{TODO: Steven}
 
-\subsubsection{MapView}
-\todo{TODO: Marc}
+\subsubsection{TouchImageView}
+\lstset{ %
+language=Java,                % the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=2,                   % the step between two line-numbers. If it's 1, each line 
+                                % will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                % also try caption instead of title
+escapeinside={\%*}{*)},         % if you want to add a comment within your code
+morekeywords={*,...}            % if you want to add more keywords to the set
+}
+The \code{TouchImageView} displays maps. To these belong floor maps of ETH buildings as well as general maps of ETH buildings. Location markers, for example representing WiFi access points or the phone's current position, can be dynamically drawn on the displayed map.
+
+The requirements specification of the \code{TouchImageView} remained the same throughout the project. The \code{TouchImageView} should be able to display a map, multiple location markers and should be scrollable and zoomable. During the past few weeks we considered many different solutions but in the end rejected most of them.
+
+Our first try was to use a \code{WebView} because it natively supports scrolling and zooming. That's why the \code{WebView} in the Android developer community is often called the better \code{ImageView}. The location markers would have been shown through web technologies such as HTML and JavaScript. It is easy to get the data from the app logic to the \code{WebView} but the other way round is not so easy to achieve. For this reason we rejected it. 
+
+Second try was an extension of a custom view with low-level touch events\footnote{\url{http://bit.ly/uTiYJ1}} which worked reasonably. The location markers were dynamically added to the view as \code{Button} objects. But we didn't manage to get zooming working which is an essential item of the requirements specification. Unsurprisingly this approach was rejected.
+
+The third and luckily last try was a total success. In the internet\footnote{\url{http://stackoverflow.com/a/2632722}} we found a nice custom view displaying a picture which can be scrolled and zoomed. Aforementioned view is a extended \code{ImageView} which uses low-level touch events as well and matrices for the scrolling and zooming. Our \code{TouchImageView} is able to display location markers which dynamically can be changed, updated and clicked. Furthermore the \code{TouchImageView} can be centered in various ways including fitting the displayed map in the view and centering on a specific map position.
+
+A nasty problem was hard to get rid of \code{OutOfMemoryException}s due to the possibly large size of the used floor maps (e.g. $2505 \times 1740$ pixels for the HG E floor) which are converted into \code{Bitmap} objects. Our initial implementation copied the original \code{Bitmap} into a second mutable \code{Bitmap} which then was passed to a \code{Canvas} on which we draw the location markers. Copying one \code{Bitmap} into another seems to be a very expensive operation which often led into the aforementioned exception. Our current implementation (Listing \ref{bitmap}) creates a empty \code{Bitmap} with the same dimensions as the \code{Bitmap} to be copied. The empty \code{Bitmap} is passed to a \code{Canvas} in which the original \code{Bitmap} is drawn. Then the location markers are drawn to the \code{Canvas}.
+
+\lstinputlisting[language=Java,caption={Touch\-Image\-View\-.update\-Markers(): Im\-ple\-men\-ta\-tion of the resource-friendly Bitmap copying},label=bitmap]{bitmaps.java}
+
+Another rather difficult problem were the calculations of the click locations. The \code{TouchImageView} uses a matrix to store the position of the displayed map instead of using $x$ and $y$ coordinates. Therefore a coordinate transformation (Listing \ref{coordinate}) must be applied to the click position to get the location in the map coordinate system.
+
+\lstinputlisting[language=Java,caption={Touch\-Image\-View\-.perform\-Click(float x, float y): Im\-ple\-men\-ta\-tion of the coordinate transformation},label=coordinate]{click_coords.java}

@@ -2,7 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/mni_rooms" android:title="@string/rooms"></item>
     <item android:id="@+id/mni_dummy_data" android:title="@string/dummy_data"></item>
-    <item android:id="@+id/mni_map" android:title="Show Map (Sample)"></item>
+    <item android:id="@+id/mni_aps" android:title="@string/show_aps"></item>
+    <item android:id="@+id/mni_snapshot_name" android:title="@string/snapshot_name"></item>
+    <item android:id="@+id/mni_free_room" android:enabled="false" android:title="@string/free_rooms"></item>
 
     
 

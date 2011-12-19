@@ -1,5 +1,4 @@
 \section{Network Communication}
-\todo{TODO: Andrea}
 For the communication between server and client, we use REST with JSON. In this section we describe the API, that we defined for our system.
 
 \subsection{Encapsulation}
@@ -28,22 +27,23 @@ The resource located at \code{<host>/c/} returns in it's \code{result} object an
 \subsection{Rooms and Buildings}
 
 \paragraph{List of all Buildings}
+\label{net:building:list}
 The resource located at \code{<host>/r/} returns in it's \code{result} object a key-value list of all buildings belonging to ETH.
 \begin{description}
 	\jsonField{<building>}{JSONObject}{}
 \end{description}
 Every \code{JSONObject} belonging to a building has the following fields:
 \begin{description}
-	\jsonField{campus}{String}{can be ``Höngg'', ``Zentrum'' or ``other'' \todo{redundant}}
+	\jsonField{campus}{String}{can be ``Höngg'', ``Zentrum'' or ``other''}
 	\jsonField{name}{String}{name of this building (equal to the key)}
-	\jsonField{address}{JSONObject}{see \todo{reference}}
+	\jsonField{address}{JSONObject}{see \nameref{net:address}}
 \end{description}
 
 \paragraph{Building detail}
 The resource located at \code{<host>/r/<building>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
 \begin{description}
 	\jsonField{name}{String}{name of this building (equal to \code{<building>} in the request)}
-	\jsonField{address}{JSONObject}{see \todo{reference}}
+	\jsonField{address}{JSONObject}{see \nameref{net:address}}
 	\jsonField{floors}{JSONObject}{key-value list of the floors in this building, see below}
 \end{description}
 Each floor identifier has a JSONObject attached to it, which has the following potential field:
@@ -52,4 +52,82 @@ Each floor identifier has a JSONObject attached to it, which has the following p
 \end{description}
 
 \paragraph{Floor detail}
-The resource located at \code{<host>/r/<building>/<floor>} returns in it's \code{result} object a detailed description of this building. It has the following fields:
+\label{net:floor:detail}
+The resource located at \code{<host>/r/<building>/<floor>} returns in it's \code{result} object a detailed description of this floor. It has the following fields:
+\begin{description}
+	\jsonField{campus}{String}{can be ``Höngg'', ``Zentrum'' or ``other''}
+	\jsonField{building}{JSONObject}{see \nameref{net:building:list}}
+	\jsonField{map}{String}{URL to a map of this floor without any rooms marked, field omitted if there is no map available}
+	\jsonField{rooms}{JSONObject}{key-value list of the rooms on this floor, see below}
+\end{description}
+Each room identifier has a JSONObject attached to it, which has the following field:
+\begin{description}
+	\jsonField{desc}{String}{description of the room (e.g. ``Hörsaal'', ``Büro'', ``Computerraum'')}
+\end{description}
+
+\paragraph{Room detail}
+\label{net:room:detail}
+The resource located at\\
+\code{<host>/r/<building>/<floor>/<room>} returns in it's \code{result} object a detailed description of this room. It has the following fields:
+\begin{description}
+	\jsonField{building}{String}{name of the building where the room is located in (e.g. ``HG'')}
+	\jsonField{floor}{String}{name of the floor where the room is located in (e.g. ``E'')}
+	\jsonField{room}{String}{name of the room (e.g. ``3'')}
+	\jsonField{desc}{String}{description of the room (e.g. ``Hörsaal'', ``Büro'', ``Computerraum'')}
+	\jsonField{coords}{JSONObject}{see \nameref{net:coords}}
+\end{description}
+
+\subsection{Location Query}
+To query the server for a location, send a JSON request of the following form to \code{<host>/json}:
+\begin{description}
+	\jsonField{request}{String}{\code{"location"}}
+	\jsonField{aps}{JSONObject}{key-value list, where the keys are the mac-addresses of the access points, and the value is an int representing the strength of the access point}
+\end{description}
+The server returns in it's \code{result} object information about the client's location of the following form:
+\begin{description}
+	\jsonField{location}{JSONObject}{see below}
+	\jsonField{aps}{JSONObject}{see below}
+\end{description}
+The \code{location} object is of the following form:
+\begin{description}
+	\jsonField{coords}{JSONObject}{see \nameref{net:coords}}
+	\jsonField{type}{String}{either \code{"room"} or \code{"floor"}, depending on the accuracy of the result}
+	\jsonField{result}{JSONObject}{a \code{room} or \code{floor} object (see \nameref{net:room:detail}, \nameref{net:floor:detail})}
+\end{description}
+The \code{aps} object consists of a key-value list, where the keys are the mac-addresses which the server knew, and the values are of the following form:
+\begin{description}
+	\jsonField{coords}{JSONObject}{see \nameref{net:coords}}
+	\jsonField{location}{JSONObject}{a \code{room} object (see \nameref{net:room:detail})}
+\end{description}
+
+\subsection{Free Room Query}
+To query the server for free rooms, send a JSON request of the following form to \code{<host>/json}:
+\begin{description}
+	\jsonField{request}{String}{\code{"freeroom"}}
+	\jsonField{building}{String}{building, to which the search will be restricted}
+	\jsonField{floor}{String}{floor, to which the search will be restricted, optional}
+	\jsonField{starttime}{double}{starting time, optional}
+	\jsonField{endtime}{double}{ending time, optional}
+\end{description}
+The server returns in it's \code{result} an array of free rooms (see \nameref{net:room:detail}).
+
+\subsection{Reused Types}
+Here are some JSON object types, which we reused in multiple queries.
+
+\subsubsection{Address}
+\label{net:address}
+This object represents the address of a building. If is of the following form:
+\begin{description}
+	\jsonField{city}{String}{consisting of zip code and town name}
+	\jsonField{street}{String}{consisting of the street name and the number assigned to the house}
+	\jsonField{campus}{String}{can be ``Höngg'', ``Zentrum'' or ``other''}
+\end{description}
+
+\subsubsection{Coordinates}
+\label{net:coords}
+This object represents a location on the map associated with it, in general it is be the center of a room. This object is of the following form:
+\begin{description}
+	\jsonField{x}{int}{x-coordinate of the center pixel}
+	\jsonField{y}{int}{y-coordinate of the center pixel}
+	\jsonField{boundingbox}{JSONArray}{array of integers, representing a bounding box around this room}
+\end{description}

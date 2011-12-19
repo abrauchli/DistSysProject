@@ -1,2 +1,15 @@
 \section{Server}
-\todo{TODO: Pascal}
+The server we implemented specifically for the purpose of this project. The server implements two REST-like interfaces (only get was implemented) and a JSON interface to make direct queries to the server. 
+The server was written in Python\footnote{\url{http://python.org/}} using Flask\footnote{\url{http://flask.pocoo.org/}}. For performance reasons, everything is stored directly in the memory. Since the server recalculates the data once it is restarted, we cache some of the data using MongoDB\footnote{\url{http://www.mongodb.org/}}. 
+
+For testing and demonstration purposes we're running the server on the following webpage: \url{http://eth.rsp.li/}. Furthermore we have created a special page that shows the request types and the responses. The server runs on a small virtual machine in Germany owned by one of the authors. 
+\subsection{WiFi Access Points}
+To provide more or less reliable room location information, we asked the ETH Informatikdienste\footnote{\url{http://www.id.ethz.ch}} if they could provide us with access point data. They were able to give us the MAC adresses of all the access points with the location encoded in the access point name. This allowed us to correlate access points with ETH rooms. 
+\subsection{ETH Room Data}
+Based on the room information on the access points and the the ETH room data from \url{ftp://ftp.ethz.ch} (as of december 2011 not available any more). We then were able to compute the relative location of a room by indexing the ETH room information page \url{http://www.rauminfo.ethz.ch/}. 
+
+Which provides highlighted floor plans for room queries. Unfortunately it does not provide pixel locations on where a room is situated on a map. We do however require these as the highlighted plans only highlight a single room - we would however like to display a finer possibly interpolated location or display multiple locations on a map.\\
+To extract this location, a script was written as part of the server to extract the highlighted area from a floorplan and report the given bounding box and center point. The server can thus now report the pixel position of a room on a floorplan.
+Computing this location took per average 20 seconds per picture. We thus decided precompute and to cache this information in mongoDB, because we don't want to stall the client unnesessarily because we first need to compute the location of $20$ access points on the map. 
+
+For experimental purposes, we have also created a room search which allows for searching free rooms in an ETH building or floor and makes also use of the rauminfo page. 

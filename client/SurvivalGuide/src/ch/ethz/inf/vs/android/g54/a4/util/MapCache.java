@@ -1,4 +1,21 @@
-package ch.ethz.inf.vs.android.g54.a4.types;
+/*
+ * This file is part of SurvivalGuide
+ * Copyleft 2011 The SurvivalGuide Team
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package ch.ethz.inf.vs.android.g54.a4.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +29,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
+import ch.ethz.inf.vs.android.g54.a4.types.Floor;
 
 /**
  * Gets maps from the network if needed and manages caching them on the SD card
@@ -43,7 +61,7 @@ public class MapCache {
 			File[] matchedFiles = root.listFiles(new FilenameFilter() {
 
 				public boolean accept(File dir, String filename) {
-					if (filename.equals(consturctFileName(floor))) {
+					if (filename.equals(constructFileName(floor))) {
 						return true;
 					} else {
 						return false;
@@ -74,16 +92,16 @@ public class MapCache {
 		String state = Environment.getExternalStorageState();
 
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
-			// We can at read and write the external storage
+			// We can read and write the external storage
 			try {
 				File root = c.getExternalCacheDir();
-				File imageFile = new File(root, consturctFileName(floor));
+				File imageFile = new File(root, constructFileName(floor));
 				FileOutputStream out;
 				out = new FileOutputStream(imageFile);
 				bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
 				Log.i(TAG, "Successfully stored image to SDCard");
 			} catch (FileNotFoundException e) {
-				Log.e(TAG, "Could save the image on the SDCard.", e);
+				Log.e(TAG, "Could not save the image on the SDCard.", e);
 			}
 		}
 	}
@@ -109,7 +127,7 @@ public class MapCache {
 		}
 	}
 
-	private static String consturctFileName(Floor floor) {
+	private static String constructFileName(Floor floor) {
 		String buildingName = floor.getBuilding().getName();
 		String floorName = floor.getName();
 		return String.format("%s_%s.%s", buildingName, floorName, FILE_EXTENSION);

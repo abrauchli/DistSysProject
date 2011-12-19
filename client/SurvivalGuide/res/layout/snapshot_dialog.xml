@@ -4,9 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <WebView
-        android:id="@+id/web_maptest"
+    <EditText
+        android:id="@+id/edt_snapshot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" >
+
+        <requestFocus />
+    </EditText>
 
 </LinearLayout>
