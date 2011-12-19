@@ -54,7 +54,7 @@ def findFreeRoom(building,floor=None,stime=None,etime=None):
   if stime == None:
     stime = 7.0
   if etime == None:
-    etime = 22.0
+    etime = 19.0
   if floor == None:
     try:
       b = Model.findBuilding(building)
