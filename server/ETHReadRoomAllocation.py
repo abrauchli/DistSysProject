@@ -212,7 +212,9 @@ def getRoomAllocation(room,date=datetime.date.today()):
   return m
 
 
-def isRoomFree(room,stime=7.0,etime=19.0,date=datetime.date.today()):
+def isRoomFree(room,stime=float(datetime.datetime.now().timetuple()[3]),etime=19.0,date=datetime.date.today()):
+  if stime >= 19.0:
+    etime == 24.0
   if etime < stime:
     raise Exception("Endtime is smaller than starttime")
   if stime%DT != 0 and etime%DT != 0:
