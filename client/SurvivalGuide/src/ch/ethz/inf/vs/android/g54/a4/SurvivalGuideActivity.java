@@ -77,7 +77,7 @@ public class SurvivalGuideActivity extends Activity {
 	// collect wifi snapshots to enable testing when not at ETH
 	protected static final boolean COLLECT_TEST_DATA = false;
 	// simulate getting ETH wifi data with collected snapshots when not at ETH
-	protected static final boolean USE_TEST_DATA = true;
+	protected static final boolean USE_TEST_DATA = false;
 
 	private static final int BUILDING_MARKER_RADIUS = 100;
 	private static final int LOCATION_MARKER_RADIUS = 20;
