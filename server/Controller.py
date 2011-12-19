@@ -47,7 +47,7 @@ def isAllocateableRoom(room):
     #  if room.desc in config.ROOMTYPE_LEARNING:
     # return True
     if room.bookable != None:
-        return room.bookable == True:
+        return room.bookable
     return False
 
 def findFreeRoom(building,floor=None,stime=None,etime=None):
