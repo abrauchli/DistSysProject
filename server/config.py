@@ -23,4 +23,4 @@ mongodbConnection = Connection()
 mongodb = mongodbConnection[MONGODB_DATABASE]
 mongodbMapCACHE = mongodb.mapcache
 mongodbMapPositionCACHE = mongodb.mappositioncache
-
+mongodbRoomAllocationCACHE = mongodb.roomallocationcache

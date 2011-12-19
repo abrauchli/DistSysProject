@@ -94,6 +94,7 @@ def getRoomState(td):
   return "unknown"
 
 def parseRaumInfoURL(url):
+
   f = urllib.urlopen(url)
   html = f.read()
 
@@ -175,13 +176,31 @@ def parseRaumInfoWebsite(building,floor,room,date):
       day=date.day)
   return parseRaumInfoURL(s)
 
+def cacheRaumInfoResult(room, date, res):
+    year = date.year
+    weeknumber = date.isocalendar()[1]
+    mid = room.building+"_"+room.floor+"_"+room.number+"_"str(year)+"_"+weeknumber
+    config.mongodbRoomAllocationCACHE.insert({"_id": mid, "result": res})
+
+def getCache(room, date):
+    year = date.year
+    weeknumber = date.isocalendar()[1]
+    mid = room.building+"_"+room.floor+"_"+room.number+"_"str(year)+"_"+weeknumber
+    return config.mongodbRoomAllocationCACHE.find_one({"_id": mid})["result"]
+
 def getRoomAllocation(room,date=datetime.date.today()):
   if type(room) != Room:
     raise Exception("Input has wrong type")
+  res = getCache(room, date)
+  if m != None:
+    return res
   building=room.building.name
   floor=room.floor.floor
-  room=room.number
-  return parseRaumInfoWebsite(building,floor,room,date)
+  roomnumber =room.number
+  m = parseRaumInfoWebsite(building,floor,roomnumber,date)
+  cacheRaumInfoResult(room, date, m)
+  return m
+
 
 def isRoomFree(room,stime=7.0,etime=19.0,date=datetime.date.today()):
   if etime < stime:
