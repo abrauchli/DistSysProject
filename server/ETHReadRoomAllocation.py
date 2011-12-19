@@ -194,9 +194,10 @@ def getRoomAllocation(room,date=datetime.date.today()):
   if type(room) != Room:
     raise Exception("Input has wrong type")
   res = getCache(room, date)
-  if m != None:
-    print "Found: ", m
+  if res != None:
+    print "Found: ", res
     return res
+
   building = room.building.name
   floor = room.floor.floor
   roomnumber = room.number
