@@ -52,6 +52,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Address;
 import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
@@ -213,6 +214,13 @@ public class SurvivalGuideActivity extends Activity {
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem fr = menu.findItem(R.id.mni_free_room);
+		fr.setEnabled(this.currentBuilding != null); // also applies when current floor is set
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.mni_rooms:
@@ -245,7 +253,7 @@ public class SurvivalGuideActivity extends Activity {
 				    	U.showToast("Found "
 				    			+ freerooms.size()
 				    			+ " free rooms. Try "
-				    			+ freerooms.get(0).getId());
+				    			+ freerooms.get(0).getId(), Toast.LENGTH_LONG);
 				    }
 				}
 			};
@@ -372,18 +380,15 @@ public class SurvivalGuideActivity extends Activity {
 	private void setUIMode(UIMode uiMode) {
 		this.uiMode = uiMode;
 		LinearLayout lin_building = (LinearLayout) findViewById(R.id.lin_building);
-		MenuItem mniFreeRoom = (MenuItem) findViewById(R.id.mni_free_room);
 		switch (this.uiMode) {
 		case OVERVIEW:
 			lin_building.setVisibility(View.GONE);
-			mniFreeRoom.setEnabled(false);
 			break;
 		case DETAILED:
 			lin_building.setVisibility(View.VISIBLE);
 			TextView txt_building = (TextView) findViewById(R.id.txt_building);
 			txt_building.setText(currentBuilding.getName());
 			updateFloorButtons();
-			mniFreeRoom.setEnabled(true);
 			break;
 		}
 		updateMap();
