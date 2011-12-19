@@ -18,9 +18,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from BeautifulSoup import BeautifulSoup
-import urllib
-
 from ETHBuilding import Building 
 from ETHFloor import Floor
 from ETHRoom import Room
@@ -127,33 +124,13 @@ def fillRooms():
       r = m.group(2)
       addRoom(b,f,r,art)
 
-def fillFromRaumino():
-    url = "http://www.rauminfo.ethz.ch/IndexPre.do"
-    f = urllib.urlopen(url)
-    html = f.read()
-    soup = BeautifulSoup(''.join(html))
-    table = soup.findAll('table')[5]
-    rows = table.findAll('tr') 
-    print table
-    for tr in rows[2:]:
-        cols = tr.findAll('td')
-        if len(cols) == 15:
-#            print cols
-            bld=cols[6].renderContents()
-            floor=cols[8].renderContents()
-            room =cols[10].renderContents()
-            roomtype = cols[12].renderContents()
-            print bld, floor, room, roomtype
-            addRoom(bld,floor,rows,roomtype)
-            r = findRoom(bld,floor,room)
-            r.bookable = True
 
-
+ 
 ## Init
 def init():
   fillBuildings()
   fillRooms()
-  fillFromRaumino()
+
 
 
 if __name__== "__main__":
