@@ -1,3 +1,20 @@
+/*
+ * This file is part of SurvivalGuide
+ * Copyleft 2011 The SurvivalGuide Team
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package ch.ethz.inf.vs.android.g54.a4;
 
 import java.util.ArrayList;
@@ -62,6 +79,14 @@ public class LocationThread extends Thread {
 	@Override
 	public void run() {
 		startPeriodicScan();
+		try {
+			// since we scheduled the timer, don't do anything until we get killed
+			while (true) {
+				sleep(60 * 60 * 1000);
+			}
+        } catch (InterruptedException e) {
+        	stopPeriodicScan();
+        }
 	}
 
 	private void periodicScan() {
@@ -88,15 +113,15 @@ public class LocationThread extends Thread {
 
 	private void startPeriodicScan() {
 		periodicScanTimer.schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-						periodicScan();
-					}
-				},
-				0, // start right now
-				1 * 60 * 1000 // every minute
-				);
+			new TimerTask() {
+				@Override
+				public void run() {
+					periodicScan();
+				}
+			},
+			0, // start right now
+			1 * 60 * 1000 // every minute
+		);
 	}
 
 	private void stopPeriodicScan() {

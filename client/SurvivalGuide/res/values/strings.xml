@@ -14,5 +14,6 @@
     <string name="guessed_location_title">Your Location:</string>
     <string name="unknown_location">unknown</string>
     <string name="snapshot_name">Set Snapshot Name</string>
+    <string name="free_rooms">Free rooms</string>
 
 </resources>

@@ -37,7 +37,6 @@ import ch.ethz.inf.vs.android.g54.a4.exceptions.ConnectionException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.ServerException;
 import ch.ethz.inf.vs.android.g54.a4.exceptions.UnrecognizedResponseException;
 import ch.ethz.inf.vs.android.g54.a4.net.RequestHandler;
-import ch.ethz.inf.vs.android.g54.a4.types.LazyObject.MessageStatus;
 
 /**
  * Lazily loaded class representing buildings.
@@ -241,7 +240,7 @@ public class Building extends LazyObject {
 	 * @param handler Handler that will get the success/failure message with this object
 	 */
 	public void getFreeRoomsAsync(final Floor f, final Float start, final Float end, final Handler handler) {
-		new Thread(new Runnable() {
+		new Thread() {
 			public void run() {
 				Message m = handler.obtainMessage();
 				try {
@@ -256,7 +255,7 @@ public class Building extends LazyObject {
 					handler.sendMessage(m);
 				}
 			}
-		}).run();
+		}.start();
 	}
 
 	/**

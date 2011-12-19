@@ -33,6 +33,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,12 +52,14 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.ethz.inf.vs.android.g54.a4.types.AccessPoint;
 import ch.ethz.inf.vs.android.g54.a4.types.Address;
 import ch.ethz.inf.vs.android.g54.a4.types.Address.Campus;
 import ch.ethz.inf.vs.android.g54.a4.types.Building;
 import ch.ethz.inf.vs.android.g54.a4.types.Coordinate;
 import ch.ethz.inf.vs.android.g54.a4.types.Floor;
+import ch.ethz.inf.vs.android.g54.a4.types.LazyObject;
 import ch.ethz.inf.vs.android.g54.a4.types.Location;
 import ch.ethz.inf.vs.android.g54.a4.types.Room;
 import ch.ethz.inf.vs.android.g54.a4.types.WifiReading;
@@ -111,30 +114,37 @@ public class SurvivalGuideActivity extends Activity {
 	private OnMarkerClickListener buildingClickListener =
 			new OnMarkerClickListener() {
 				public void onClick(LocationMarker marker) {
-					try {
-						String buildingID = marker.getName();
-						Building b = Building.getBuilding(buildingID);
-						b.load();
-						List<Floor> floors = b.getFloors();
-						if (!floors.isEmpty()) {
-							Floor eFloor = null;
-							for (Floor floor : floors) {
-								if (floor.getName().equals("E")) {
-									eFloor = floor;
+
+					final String buildingID = marker.getName();
+					Building b = Building.getBuilding(buildingID);
+
+					Handler h = new Handler() {
+						public void handleMessage(Message msg) {
+							if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+								Building b = (Building) msg.obj;
+								List<Floor> floors = b.getFloors();
+								if (!floors.isEmpty()) {
+									Floor eFloor = null;
+									for (Floor floor : floors) {
+										if (floor.getName().equals("E")) {
+											eFloor = floor;
+										}
+									}
+									if (eFloor == null) {
+										eFloor = floors.get(0);
+									}
+									currentBuilding = b;
+									currentFloor = eFloor;
+									setUIMode(UIMode.DETAILED);
+								} else {
+									U.showToast("There are no floors in this building.");
 								}
+							} else {
+								Log.e(TAG, "Could not load building " + buildingID);
 							}
-							if (eFloor == null) {
-								eFloor = floors.get(0);
-							}
-							currentBuilding = b;
-							currentFloor = eFloor;
-							setUIMode(UIMode.DETAILED);
-						} else {
-							U.showToast("There are no floors in this building.");
 						}
-					} catch (Exception e) {
-						U.showException(TAG, e);
-					}
+					};
+					b.loadAsync(h);
 				}
 			};
 
@@ -204,6 +214,13 @@ public class SurvivalGuideActivity extends Activity {
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem fr = menu.findItem(R.id.mni_free_room);
+		fr.setEnabled(this.currentBuilding != null); // also applies when current floor is set
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.mni_rooms:
@@ -217,6 +234,34 @@ public class SurvivalGuideActivity extends Activity {
 			break;
 		case R.id.mni_snapshot_name:
 			showDialog(R.layout.snapshot_dialog);
+			break;
+		case R.id.mni_free_room:
+			Handler h = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+				    super.handleMessage(msg);
+				    if (msg.what == LazyObject.MessageStatus.FAILURE.ordinal()
+				    		|| msg.obj == null) {
+						U.showToast("Could not load free room info");
+						return;
+				    }
+				    @SuppressWarnings("unchecked")
+                    List<Room> freerooms = (List<Room>) msg.obj;
+				    if (freerooms.size() == 0) {
+				    	U.showToast("No free rooms found");
+				    } else {
+				    	U.showToast("Found "
+				    			+ freerooms.size()
+				    			+ " free rooms. Try "
+				    			+ freerooms.get(0).getId(), Toast.LENGTH_LONG);
+				    }
+				}
+			};
+			if (this.currentFloor != null) {
+				this.currentFloor.getFreeRooms(h);
+			} else if (this.currentBuilding != null) {
+				this.currentBuilding.getFreeRooms(h);
+			}
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -713,13 +758,18 @@ public class SurvivalGuideActivity extends Activity {
 			if (currentLocation.getRoom() != null) {
 				this.currentFloor = currentLocation.getRoom().getFloor();
 				this.currentBuilding = currentFloor.getBuilding();
-				try {
-					currentBuilding.load();
-					setCampus(currentBuilding.getAddress().getCampus());
-				} catch (Exception e) {
-					Log.e(TAG, "Could not load building " + currentBuilding.toString(), e);
-				}
-				updateMap();
+				Handler h = new Handler() {
+					public void handleMessage(Message msg) {
+						if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+							Building b = (Building) msg.obj;
+							setCampus(b.getAddress().getCampus());
+							updateMap();
+						} else {
+							Log.e(TAG, "Could not load building " + currentBuilding.toString());
+						}
+					}
+				};
+				currentBuilding.loadAsync(h);
 			}
 		}
 
@@ -822,10 +872,10 @@ public class SurvivalGuideActivity extends Activity {
 
 		@SuppressWarnings("unchecked")
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			View v = (View) parent.getParent().getParent();
+			final View v = (View) parent.getParent().getParent();
 			ArrayAdapter<String> sa;
 			Building b;
-			Floor f;
+			Handler h;
 			switch (parent.getId()) {
 			case R.id.spn_building:
 				Spinner spn_building = (Spinner) v.findViewById(R.id.spn_building);
@@ -835,12 +885,17 @@ public class SurvivalGuideActivity extends Activity {
 				selectedRoom = "";
 
 				b = Building.getBuilding(selectedBuilding);
-				try {
-					b.load(); // only loads if needed
-					updateFloorsList(v, b.getFloors());
-				} catch (Exception e) {
-					U.postException(handler, TAG, e);
-				}
+				h = new Handler() {
+					public void handleMessage(Message msg) {
+						if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+							Building b = (Building) msg.obj;
+							updateFloorsList(v, b.getFloors());
+						} else {
+							Log.e(TAG, "Could not load building " + currentBuilding.toString());
+						}
+					}
+				};
+				b.loadAsync(h); // only loads if needed
 				break;
 			case R.id.spn_floor:
 				Spinner spn_floor = (Spinner) v.findViewById(R.id.spn_floor);
@@ -849,14 +904,20 @@ public class SurvivalGuideActivity extends Activity {
 				selectedRoom = "";
 
 				b = Building.getBuilding(selectedBuilding); // building is already loaded
-				f = Floor.getFloor(b, selectedFloor);
-				try {
-					f.load(); // only loads if needed
-					List<Room> rooms = f.getRooms();
-					updateRoomsList(v, rooms);
-				} catch (Exception e) {
-					U.postException(handler, TAG, e);
-				}
+				final Floor f = Floor.getFloor(b, selectedFloor);
+
+				h = new Handler() {
+					public void handleMessage(Message msg) {
+						if (msg.what == LazyObject.MessageStatus.SUCCESS.ordinal()) {
+							Floor f = (Floor) msg.obj;
+							List<Room> rooms = f.getRooms();
+							updateRoomsList(v, rooms);
+						} else {
+							Log.e(TAG, "Could not load floor " + f.toString());
+						}
+					}
+				};
+				f.loadAsync(h); // only loads if needed
 				break;
 			case R.id.spn_room:
 				Spinner spn_room = (Spinner) v.findViewById(R.id.spn_room);
