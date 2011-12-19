@@ -76,7 +76,7 @@ def findFreeRoom(building,floor=None,stime=None,etime=None):
   rooms = filter(lambda x: isAllocateableRoom(x),r)
   ret = []
   for room in rooms:
-    print "Reading location from", room.building, " ", room.floor, " ", room.number 
+#    print "Reading location from", room.building, " ", room.floor, " ", room.number 
     if ETHReadRoomAllocation.isRoomFree(room,stime,etime):
       ret.append(room.getDetailedInfo())
 

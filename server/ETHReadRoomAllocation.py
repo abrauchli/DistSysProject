@@ -220,7 +220,7 @@ def isRoomFree(room,stime=float(datetime.datetime.now().timetuple()[3]),etime=19
   if stime%DT != 0 and etime%DT != 0:
     print "Stime {s} or Etime {e} mod {dt} != 0".format(s=stime,e=etime,dt=DT)
     raise
-  print "Room allocation for "+build_id(room, date)+" time:",stime, etime
+#  print "Room allocation for "+build_id(room, date)+" time:",stime, etime
   rdata = getRoomAllocation(room,date)
   rtime = arange(rdata["stime"],rdata["etime"],DT)
   table = rdata["timetable"]
