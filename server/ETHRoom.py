@@ -29,6 +29,7 @@ class Room(Cacheable.Cacheable):
     self.desc = desc
     self.number = number
     self.cached = False
+    self.bookable = False
     self.center = None
     if type(building) != ETHBuilding.Building:
       print building.name+" "+building.strasse

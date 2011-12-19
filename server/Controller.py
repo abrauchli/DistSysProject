@@ -46,9 +46,9 @@ def parseJSONRequest(req):
 def isAllocateableRoom(room):
     #  if room.desc in config.ROOMTYPE_LEARNING:
     # return True
-    if room.bookable != None:
-        return room.bookable
-    return False
+#if room.bookable != None:
+    return room.bookable
+#    return False
 
 def findFreeRoom(building,floor=None,stime=None,etime=None):
   print "Got free room request in: ",building, " ", floor, " from: ",stime, " to: ", etime
