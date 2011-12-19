@@ -500,7 +500,7 @@ def get_campus_buildings(campus):
 @app.route("/json",methods=['GET', 'POST'])
 def jsonRequest():
   if request.method == "POST":
-    try: 
+#    try: 
         if request.json != None:
           print "Received JSON request: ",request.json
           try: 
@@ -514,8 +514,8 @@ def jsonRequest():
 #        return resultError("Either Input or output malformed")
         else:
           return resultError("Input malformed: You didn't send the request with application/json")
-    except:
-        return resultError("JSON malformed...")
+#    except:
+#        return resultError("JSON malformed...")
   else: 
     return """<pre>Expecting application/json via HTTP POST</pre>"""
 
