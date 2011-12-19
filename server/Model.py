@@ -76,9 +76,9 @@ def addRoom(bldname,flname,rmname,desc=u"Büro"):
   f = flname.upper()
   r = rmname.upper()
   d = desc  
-  #if b not in buildings:
-  #  buildings[b] = Building(b)
   b = bldname.upper()
+  if b not in buildings:
+    buildings[b] = Building(b)
   buildings[b].addRoom(f,r,d)
 
 ## Operations for the json functions
