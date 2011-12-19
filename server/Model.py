@@ -141,7 +141,7 @@ def fillFromRaumino():
 #            print cols
             bld=cols[6].renderContents()
             floor=cols[8].renderContents()
-            room = str(cols[10].renderContents())
+            room =cols[10].renderContents()
             roomtype = cols[12].renderContents()
             print bld, floor, room, roomtype
             addRoom(bld,floor,rows,roomtype)
