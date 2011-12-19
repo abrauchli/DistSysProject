@@ -17,6 +17,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+from BeautifulSoup import BeautifulSoup
+import urllib
 
 from ETHBuilding import Building 
 from ETHFloor import Floor
@@ -124,13 +126,32 @@ def fillRooms():
       r = m.group(2)
       addRoom(b,f,r,art)
 
-
+def fillFromRauminfo():
+    url = "http://www.rauminfo.ethz.ch/IndexPre.do"
+    f = urllib.urlopen(url)
+    html = f.read()
+    soup = BeautifulSoup(''.join(html))
+    table = soup.findAll('table')[5]
+    rows = table.findAll('tr') 
+#    print table
+    for tr in rows[2:]:
+        cols = tr.findAll('td')
+        if len(cols) == 15:
+#            print cols
+            bld=cols[6].renderContents()
+            floor=cols[8].renderContents()
+            room = str(cols[10].renderContents())
+            roomtype = cols[12].renderContents()
+#            print "bld: "+ bld.upper()+" floor "+ floor +" room " + room.upper()+ " type "+ roomtype
+            addRoom(bld,floor,room,roomtype)
+            r = findRoom(bld, floor, room)
+            r.bookable = True
  
 ## Init
 def init():
   fillBuildings()
   fillRooms()
-
+  fillFromRauminfo()
 
 
 if __name__== "__main__":

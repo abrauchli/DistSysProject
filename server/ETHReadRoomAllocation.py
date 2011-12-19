@@ -183,7 +183,7 @@ def getRoomAllocation(room,date=datetime.date.today()):
   room=room.number
   return parseRaumInfoWebsite(building,floor,room,date)
 
-def isRoomFree(room,stime=7.0,etime=22.0,date=datetime.date.today()):
+def isRoomFree(room,stime=7.0,etime=19.0,date=datetime.date.today()):
   if etime < stime:
     raise Exception("Endtime is smaller than starttime")
   if stime%DT != 0 and etime%DT != 0:
