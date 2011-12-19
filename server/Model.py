@@ -75,7 +75,7 @@ def addRoom(bldname,flname,rmname,desc=u"Büro"):
   #  found = False
   b = bldname.upper()
   f = flname.upper()
-  r = rmname
+  r = rmname.upper()
   d = desc  
   #if b not in buildings:
   #  buildings[b] = Building(b)
