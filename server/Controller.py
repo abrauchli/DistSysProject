@@ -23,6 +23,7 @@ import Model
 import ETHReadRoomAllocation
 import config
 import AccessPoints
+import datetime
 from exception import *
 
 def parseJSONRequest(req):
@@ -53,9 +54,13 @@ def findFreeRoom(building,floor=None,stime=None,etime=None):
   print "Got free room request in: ",building, " ", floor, " from: ",stime, " to: ", etime
 
   if stime == None:
-    stime = 7.0
+    stime = float(datetime.datetime.now().timetuple()[3])
   if etime == None:
     etime = 19.0
+
+  if stime >= 19.0:
+    etime == 24.0
+
   if floor == None:
     try:
       b = Model.findBuilding(building)
