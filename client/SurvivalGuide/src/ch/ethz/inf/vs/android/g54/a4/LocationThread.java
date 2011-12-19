@@ -79,6 +79,14 @@ public class LocationThread extends Thread {
 	@Override
 	public void run() {
 		startPeriodicScan();
+		try {
+			// since we scheduled the timer, don't do anything until we get killed
+			while (true) {
+				sleep(60 * 60 * 1000);
+			}
+        } catch (InterruptedException e) {
+        	stopPeriodicScan();
+        }
 	}
 
 	private void periodicScan() {
@@ -105,15 +113,15 @@ public class LocationThread extends Thread {
 
 	private void startPeriodicScan() {
 		periodicScanTimer.schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-						periodicScan();
-					}
-				},
-				0, // start right now
-				1 * 60 * 1000 // every minute
-				);
+			new TimerTask() {
+				@Override
+				public void run() {
+					periodicScan();
+				}
+			},
+			0, // start right now
+			1 * 60 * 1000 // every minute
+		);
 	}
 
 	private void stopPeriodicScan() {
